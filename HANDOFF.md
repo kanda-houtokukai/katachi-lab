@@ -114,6 +114,12 @@
 
 ## 記録
 
+### 記録 2026-10-09 公開済みの反映・D17・Playwright を自前に（Code）
+- 公開：ユーザーが push と Pages を実行。本番で地図・noindex・robots.txt・service worker・図鑑の総数（4年94・5年610・中1 73）を Chat で確認済み。Code からも robots.txt・noindex・sw.js（200）を取得して一致を確認。
+- [DECISION] D17 読み上げは端末の音声のまま。Gemini TTS（Google Cloud TTS の Gemini TTS を含む）は使わない（`docs/decisions.md`）。
+- Playwright 1.63.0 を devDependencies に（node_modules は .gitignore 済み）。`tools/pw.mjs` はこのリポジトリの node_modules を使うことを確認。npm test 20件・E2E r2 4件 PASS。
+- SHA：b62a178（push 済み）
+
 ### 記録 2026-10-08 N7 仕上げ（Code・夜の自走）
 - 全単元・全タブ・全ボタンの E2E（`tests/e2e/app.test.mjs`）：見えたボタン 515＝押した 515＝変化 515（差 0）。途中で見つけて直したもの：1年の坂の「みる」が地図に戻ったあとも字幕を出し続ける（生存確認の誤り）、「べつの てんかいず」「べつの はこで みる」が偶然同じものを選ぶと変化しない、地図のずかんの合計にランダム展開の 43,380 まで足していた。
 - オフライン（`tests/e2e/offline.test.mjs`）と、単元を足す方法（`tests/e2e/extend.test.mjs`。試しの単元は確かめたあと消した）を追加。
