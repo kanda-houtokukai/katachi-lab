@@ -1,0 +1,2054 @@
+<title>量をはかる</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Zen+Maru+Gothic:wght@500;700;900&display=swap">
+<style>
+/* レイアウト：図形の見本v2と同じ「部屋と紙」の見た目（katachi-lab の tokens.css と同じ値）。上に単元名と小さなボタン、中央に場面、下に操作の棚とタブ。
+   ホームは「入口 → 単元」の2段。単一の明るい見た目に決めているので、暗い配色は持たない。 */
+:root{
+  --room:#e4e8e2; --room-edge:#d3d9d1;
+  --paper:#fbfbf7; --paper-2:#f3f5f0;
+  --ink:#1f2b27; --ink-soft:#5e6b66; --line:#d6dcd5;
+  --mat:#2f6b57; --mat-deep:#1f4f3f; --mat-press:#163b2f;
+  --ok:#d9452f; --yamabuki:#f2b833; --sora:#3f6aa0; --hint:#b8860b;
+  --ok-soft:#e3a79c; --sora-soft:#9fb3c9; --ok-pale:#f3b3a8;
+  --hint-bg:#fffaf0; --hint-line:#e0c36a; --hint-ink:#7a5b00; --pick-bg:#eef6f1;
+  --face-1:#e5654b; --face-2:#f2b833; --face-3:#8cc152; --face-4:#4f9bd9; --face-5:#9a77cf; --face-6:#f19bb5;
+  --water:#7fb8e6; --water-deep:#4f8fc6; --glass:#f7fbff; --wood:#c9a06b; --wood-pale:#f1dfb8;
+  --metal:#c7cdd0; --metal-deep:#8e979b;
+  --scrim:rgba(31,43,39,.42);
+  --font-display:"Klee One","Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic","Noto Sans CJK JP",sans-serif;
+  --font-ui:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic","Noto Sans CJK JP",sans-serif;
+  color-scheme:light;
+}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{margin:0;background:var(--room);color:var(--ink);font-family:var(--font-ui);overscroll-behavior:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+button{font-family:inherit}
+#app{position:relative;height:100%;overflow:hidden;background:radial-gradient(120% 90% at 50% 40%,var(--room) 55%,var(--room-edge) 100%)}
+
+/* ホーム */
+#home{position:absolute;inset:0;overflow:auto;padding-block:20px 32px;padding-inline:max(16px,4vw)}
+.home-in{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+.home-top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.home-top h1{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(26px,5vw,36px);letter-spacing:.08em;line-height:1.3}
+.home-top h1 small{display:block;font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink-soft);letter-spacing:.06em}
+.doors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:640px){.doors{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.door{appearance:none;position:relative;border:2px solid var(--line);background:var(--paper);border-radius:22px;padding:14px 12px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;box-shadow:0 4px 0 var(--line);color:var(--ink);min-width:0}
+.door:active{transform:translateY(4px);box-shadow:none}
+.door:focus-visible{outline:3px solid var(--yamabuki);outline-offset:3px}
+.door svg{width:min(120px,80%);height:auto;aspect-ratio:1/1;max-width:100%}
+.door b{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,3.2vw,24px);letter-spacing:.08em}
+.door .n{font-size:12px;font-weight:700;color:var(--ink-soft)}
+.door .tag{position:absolute;top:10px;right:10px;font-size:11px;font-weight:900;border-radius:7px;padding:3px 7px;background:var(--paper-2);color:var(--ink-soft)}
+.door .tag.go{background:var(--mat-deep);color:var(--paper)}
+
+/* 入口の中（単元の一覧） */
+#areaView{position:absolute;inset:0;overflow:auto;padding-block:16px 32px;padding-inline:max(16px,4vw)}
+.area-in{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.area-head{display:flex;align-items:center;gap:12px}
+.area-head svg.ic{width:56px;height:56px;flex:none}
+.area-head h2{margin:0;font-family:var(--font-display);font-weight:600;font-size:28px;letter-spacing:.08em;flex:1;min-width:0}
+.grade-row{display:grid;grid-template-columns:64px minmax(0,1fr);gap:10px;align-items:start}
+.grade-row .gl{font-weight:900;font-size:13px;letter-spacing:.06em;color:var(--paper);background:var(--mat-deep);border-radius:9px;padding:6px 0;text-align:center;margin-top:8px}
+.grade-row .gl.ahead{background:var(--yamabuki);color:var(--ink)}
+.ulist{display:flex;flex-direction:column;gap:8px;min-width:0}
+.ucard{appearance:none;text-align:left;border:2px solid var(--line);background:var(--paper);border-radius:16px;padding:10px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;color:var(--ink);box-shadow:0 3px 0 var(--line);min-width:0}
+.ucard:active{transform:translateY(3px);box-shadow:none}
+.ucard:focus-visible{outline:3px solid var(--yamabuki);outline-offset:2px}
+.ucard .ut{flex:1;min-width:0;font-family:var(--font-display);font-weight:600;font-size:19px;letter-spacing:.05em;line-height:1.45}
+.ucard .ut small{display:block;font-family:var(--font-ui);font-size:12px;font-weight:700;color:var(--ink-soft);letter-spacing:.03em}
+.ucard .st{flex:none;font-size:12px;font-weight:900;border-radius:8px;padding:4px 8px;background:var(--paper-2);color:var(--ink-soft);white-space:nowrap}
+.ucard.play{border-color:var(--mat);box-shadow:0 3px 0 var(--mat)}
+.ucard.play .st{background:var(--mat-deep);color:var(--paper);display:inline-flex;align-items:center;gap:4px}
+.ucard.play .st svg{width:14px;height:14px}
+.ucard.other .st{background:#fff4d6;color:var(--hint-ink)}
+.ucard.ahead{background:#fdfcf6}
+
+/* 学ぶ画面 */
+#play{position:absolute;inset:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px 6px;z-index:3}
+.unit{display:flex;align-items:center;gap:10px;background:var(--paper);border:1.5px solid var(--line);border-radius:14px;padding:6px 14px 6px 8px;box-shadow:0 2px 0 var(--line);min-width:0}
+.unit h1{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(17px,3.4vw,22px);letter-spacing:.04em;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.grade{font-weight:900;font-size:12px;letter-spacing:.06em;color:var(--paper);background:var(--mat-deep);border-radius:8px;padding:4px 8px;line-height:1;white-space:nowrap;flex:none}
+.tools{display:flex;gap:8px;flex:none}
+.icon-btn{position:relative;width:48px;height:48px;border-radius:14px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);display:grid;place-items:center;box-shadow:0 2px 0 var(--line);cursor:pointer;padding:0}
+.icon-btn svg{width:24px;height:24px}
+.icon-btn:active{transform:translateY(2px);box-shadow:none}
+.icon-btn:focus-visible{outline:3px solid var(--yamabuki);outline-offset:2px}
+.icon-btn[aria-pressed="false"]{color:var(--ink-soft)}
+.icon-btn[aria-pressed="false"] .on-only{display:none}
+.icon-btn[aria-pressed="true"] .off-only{display:none}
+.tip{position:absolute;top:calc(100% + 6px);right:0;white-space:nowrap;font-size:12px;font-weight:700;background:var(--ink);color:var(--paper);border-radius:8px;padding:4px 8px;opacity:0;pointer-events:none;transition:opacity .15s}
+.icon-btn:hover .tip,.icon-btn:focus-visible .tip{opacity:1}
+@media (hover:none){.icon-btn:hover .tip{opacity:0}}
+
+#stageWrap{position:relative;min-height:0;overflow:hidden}
+#stage{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;outline:none}
+#stage text{font-family:var(--font-display);font-weight:600}
+#stage .ui{font-family:var(--font-ui);font-weight:900}
+.hud{position:absolute;left:50%;top:6px;transform:translateX(-50%);width:max-content;max-width:calc(100% - 32px);display:flex;align-items:center;gap:10px;background:var(--paper);border-radius:18px;padding:8px 10px 8px 18px;box-shadow:0 3px 0 var(--line);border:1.5px solid var(--line);transition:opacity .25s,transform .25s;z-index:2;pointer-events:none}
+.hud.off{opacity:0;transform:translate(-50%,-8px)}
+.hud .txt{font-family:var(--font-display);font-weight:600;font-size:clamp(16px,3.6vw,22px);letter-spacing:.06em;line-height:1.5;text-wrap:balance}
+.hud .txt b{color:var(--ok);font-weight:600}
+.hud .txt em{font-style:normal;color:var(--sora)}
+.say{pointer-events:auto;flex:none;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink-soft);display:grid;place-items:center;cursor:pointer;padding:0}
+.say svg{width:18px;height:18px}
+.say:active{transform:scale(.94)}
+
+.dock{background:var(--paper);border-top:1.5px solid var(--line);padding:10px 16px calc(6px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px;z-index:3}
+.panel{display:flex;flex-direction:column;align-items:center;gap:8px;min-height:56px;justify-content:center}
+.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;border-top:1px dashed var(--line);padding-top:6px;max-width:520px;width:100%;margin:0 auto}
+.tab{appearance:none;border:0;background:none;color:var(--ink-soft);font-weight:700;font-size:13px;letter-spacing:.06em;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0;cursor:pointer}
+.tab .ic{width:40px;height:32px;border-radius:12px;display:grid;place-items:center;transition:background .2s,color .2s}
+.tab svg{width:24px;height:24px}
+.tab[aria-selected="true"]{color:var(--mat-deep)}
+.tab[aria-selected="true"] .ic{background:var(--mat-deep);color:var(--paper)}
+.tab:focus-visible{outline:3px solid var(--yamabuki);outline-offset:2px}
+
+.row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;width:100%}
+.btn{appearance:none;font-weight:900;font-size:17px;letter-spacing:.05em;border-radius:16px;padding:0 18px;min-height:52px;border:2px solid var(--mat-press);background:var(--mat-deep);color:var(--paper);box-shadow:0 4px 0 var(--mat-press);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}
+.btn:active{transform:translateY(4px);box-shadow:0 0 0 var(--mat-press)}
+.btn.sub{background:var(--paper);color:var(--ink);border-color:var(--line);box-shadow:0 4px 0 var(--line)}
+.btn.sub:active{box-shadow:0 0 0 var(--line)}
+.btn.small{min-height:44px;font-size:15px;padding:0 13px;border-radius:14px}
+.btn svg{width:22px;height:22px}
+.btn:focus-visible{outline:3px solid var(--yamabuki);outline-offset:3px}
+.btn[aria-pressed="true"].sub{background:var(--pick-bg);border-color:var(--mat-deep);box-shadow:0 4px 0 var(--mat-deep)}
+.btn.ans{min-width:110px;font-family:var(--font-display);font-weight:600;font-size:20px;letter-spacing:.04em;background:var(--paper);color:var(--ink);border-color:var(--line);box-shadow:0 4px 0 var(--line)}
+.btn.ans:active{box-shadow:none}
+.btn.ans.ng{opacity:.45;text-decoration:line-through;pointer-events:none}
+.btn.ans.right{border-color:var(--ok);box-shadow:0 4px 0 var(--ok-soft);color:var(--ok)}
+.btn.ans .sw{width:16px;height:16px;border-radius:5px;display:inline-block}
+.seg{display:inline-flex;background:var(--paper-2);border:1.5px solid var(--line);border-radius:14px;padding:3px;gap:2px;flex-wrap:wrap;justify-content:center}
+.seg button{appearance:none;border:0;background:none;font-weight:900;font-size:14px;color:var(--ink-soft);padding:0 11px;min-height:40px;border-radius:11px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--mat-deep);color:var(--paper)}
+.seg button:focus-visible{outline:3px solid var(--yamabuki);outline-offset:1px}
+.seg button svg{width:18px;height:18px}
+.dots{display:flex;gap:7px;align-items:center}
+.dots i{width:13px;height:13px;border-radius:50%;border:2px solid var(--line);background:var(--paper)}
+.dots i.now{border-color:var(--mat-deep)}
+.dots i.ok{background:var(--ok);border-color:var(--ok)}
+.dots i.okh{background:var(--ok-pale);border-color:var(--ok-pale)}
+.dots i.ng{background:var(--sora-soft);border-color:var(--sora-soft)}
+.hint-btn{appearance:none;border:2px dashed var(--hint-line);background:var(--hint-bg);color:var(--hint-ink);font-weight:900;font-size:14px;border-radius:12px;min-height:40px;padding:0 11px;display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.hint-btn i{width:8px;height:8px;border-radius:50%;background:var(--hint-line);display:inline-block}
+.hint-btn i.used{background:transparent;border:1.5px solid var(--hint-line)}
+.hint-btn:active{transform:scale(.97)}
+.hint-btn svg{width:18px;height:18px}
+.result{display:flex;flex-direction:column;align-items:center;gap:6px}
+.result .score{font-family:var(--font-display);font-weight:600;font-size:22px;letter-spacing:.06em}
+.stars{display:flex;gap:4px}
+.stars svg{width:28px;height:28px}
+.counter{font-family:var(--font-display);font-weight:600;font-size:20px;letter-spacing:.05em;color:var(--mat-deep);font-variant-numeric:tabular-nums}
+input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:44px;background:transparent;margin:0;min-width:0;max-width:420px}
+input[type=range]::-webkit-slider-runnable-track{height:12px;border-radius:999px;background:var(--line)}
+input[type=range]::-moz-range-track{height:12px;border-radius:999px;background:var(--line)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:38px;height:38px;margin-top:-13px;border-radius:50%;background:var(--paper);border:3px solid var(--mat-deep);box-shadow:0 3px 0 var(--mat-press)}
+input[type=range]::-moz-range-thumb{width:34px;height:34px;border-radius:50%;background:var(--paper);border:3px solid var(--mat-deep)}
+input[type=range]:focus-visible{outline:3px solid var(--yamabuki);outline-offset:2px;border-radius:999px}
+
+.sheet{position:absolute;inset:0;background:var(--scrim);display:flex;align-items:center;justify-content:center;z-index:9;padding:16px}
+.sheet-card{background:var(--paper);width:100%;max-width:520px;max-height:calc(100% - 16px);border-radius:24px;padding:18px 18px 20px;display:flex;flex-direction:column;gap:14px;overflow:auto;animation:rise .3s ease-out}
+@keyframes rise{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
+.sheet-head{display:flex;align-items:center;gap:10px}
+.sheet-head h2{margin:0;font-family:var(--font-display);font-weight:600;font-size:23px;letter-spacing:.06em;flex:1;min-width:0;line-height:1.4}
+.sheet p{margin:0;line-height:1.75;font-size:15px}
+.sheet .aim{font-family:var(--font-display);font-weight:600;font-size:18px;letter-spacing:.04em;line-height:1.7}
+.sheet .meta{font-size:13px;color:var(--ink-soft);font-weight:700}
+.calib-box{display:flex;justify-content:center;align-items:center;background:var(--paper-2);border-radius:16px;min-height:160px;overflow:hidden}
+.calib-row{display:flex;align-items:center;gap:10px}
+.calib-row .btn{flex:none}
+.badge-real{font-size:11px;font-weight:900;border-radius:7px;padding:3px 7px;background:var(--paper-2);color:var(--ink-soft);white-space:nowrap}
+.badge-real.on{background:var(--pick-bg);color:var(--mat-deep)}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+
+<div id="app">
+  <section id="home" aria-label="はいりぐち"></section>
+  <section id="areaView" hidden></section>
+  <section id="play" hidden>
+    <header class="top">
+      <div class="unit"><button class="icon-btn" id="backBtn" aria-label="もどる" style="width:40px;height:40px;box-shadow:none;border:0;background:var(--paper-2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><span class="grade" id="gradeTag">2ねん</span><h1 id="unitTitle">とけい</h1></div>
+      <div class="tools">
+        <button class="icon-btn" id="ttsBtn" aria-pressed="true" aria-label="よみあげ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="on-only" d="M16.5 8.5a5 5 0 010 7M19 6a8.5 8.5 0 010 12"/><path class="off-only" d="M17 9l5 6M22 9l-5 6"/></svg><span class="tip">よみあげ</span></button>
+        <button class="icon-btn" id="homeBtn" aria-label="はいりぐちへ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg><span class="tip">はいりぐち</span></button>
+      </div>
+    </header>
+    <div id="stageWrap">
+      <svg id="stage" role="img" aria-label="ばめん"></svg>
+      <div class="hud off" id="hud" role="status" aria-live="polite"><span class="txt" id="hudTxt"></span><button class="say" id="hudSay" aria-label="もういちど きく"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 010 7"/></svg></button></div>
+    </div>
+    <nav class="dock">
+      <div class="panel" id="panel"></div>
+      <div class="tabs" id="tabs" role="tablist"></div>
+    </nav>
+  </section>
+  <div id="sheetHost"></div>
+</div>
+<script>
+'use strict';
+/* ---------- 小さな道具 ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const NS = 'http://www.w3.org/2000/svg';
+function S(tag, a, p) { const e = document.createElementNS(NS, tag); if (a) for (const k in a) { if (a[k] != null) e.setAttribute(k, a[k]); } if (p) p.appendChild(e); return e; }
+function H(tag, a, kids) {
+  const e = document.createElement(tag);
+  if (a) for (const k in a) {
+    const v = a[k]; if (v == null) continue;
+    if (k === 'class') e.className = v; else if (k === 'html') e.innerHTML = v; else if (k === 'text') e.textContent = v;
+    else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v);
+  }
+  if (kids) for (const c of [].concat(kids)) { if (c == null) continue; e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); }
+  return e;
+}
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+const shuffle = arr => { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const E = {
+  io: t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2,
+  out: t => 1 - Math.pow(1 - t, 3),
+  lin: t => t,
+  back: t => { const c = 1.70158, c3 = c + 1; return 1 + c3 * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); }
+};
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const SPEED = RM ? 0.2 : 1;
+const RUN = { id: 0 };
+class Cancel extends Error {}
+function tween(ms, fn, e = E.io) {
+  const id = RUN.id; ms = Math.max(1, ms * SPEED);
+  return new Promise((res, rej) => {
+    const t0 = performance.now();
+    const f = now => {
+      if (id !== RUN.id) { rej(new Cancel()); return; }
+      const p = clamp((now - t0) / ms, 0, 1); fn(e(p), p);
+      if (p < 1) requestAnimationFrame(f); else res();
+    };
+    requestAnimationFrame(f);
+  });
+}
+function wait(ms) { const id = RUN.id; return new Promise((res, rej) => setTimeout(() => id === RUN.id ? res() : rej(new Cancel()), ms * SPEED)); }
+function cancelRuns() { RUN.id++; }
+async function run(fn) { try { await fn(); } catch (e) { if (!(e instanceof Cancel)) console.error(e); } }
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('hakaru-mock.' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem('hakaru-mock.' + k, JSON.stringify(v)); } catch (e) {} }
+};
+function css(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+
+/* ---------- 音 ---------- */
+let userActed = false;
+const SFX = {
+  ctx: null, water: null,
+  init() { if (this.ctx) return; try { this.ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} },
+  tone(f, d = .12, type = 'sine', g = .1, when = 0) {
+    const c = this.ctx; if (!c) return;
+    const t = c.currentTime + when, o = c.createOscillator(), v = c.createGain();
+    o.type = type; o.frequency.setValueAtTime(f, t);
+    v.gain.setValueAtTime(0, t); v.gain.linearRampToValueAtTime(g, t + .01); v.gain.exponentialRampToValueAtTime(.0001, t + d);
+    o.connect(v).connect(c.destination); o.start(t); o.stop(t + d + .03);
+  },
+  _last: 0,
+  tick() { const n = performance.now(); if (n - this._last < 28) return; this._last = n; this.tone(2100, .025, 'square', .025); },
+  pop() { this.tone(660, .08, 'triangle', .09); this.tone(990, .1, 'triangle', .05, .05); },
+  good() { [523, 659, 784, 1046].forEach((f, i) => this.tone(f, .2, 'triangle', .08, i * .08)); },
+  soft() { this.tone(330, .2, 'sine', .07); this.tone(262, .24, 'sine', .05, .1); },
+  clink() { this.tone(2600, .06, 'triangle', .05); this.tone(3400, .05, 'sine', .03, .02); },
+  thud() { this.tone(120, .16, 'sine', .14); },
+  pourStart() {
+    const c = this.ctx; if (!c || this.water) return;
+    const n = c.createBufferSource(), b = c.createBuffer(1, c.sampleRate, c.sampleRate), d = b.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    n.buffer = b; n.loop = true;
+    const f = c.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = 850; f.Q.value = .9;
+    const g = c.createGain(); g.gain.setValueAtTime(0, c.currentTime); g.gain.linearRampToValueAtTime(.05, c.currentTime + .12);
+    n.connect(f).connect(g).connect(c.destination); n.start(); this.water = { n, g };
+  },
+  pourStop() { const w = this.water; if (!w) return; const c = this.ctx; w.g.gain.linearRampToValueAtTime(0, c.currentTime + .15); w.n.stop(c.currentTime + .2); this.water = null; }
+};
+document.addEventListener('pointerdown', () => {
+  userActed = true; SFX.init();
+  if (SFX.ctx && SFX.ctx.state === 'suspended') SFX.ctx.resume();
+}, { capture: true });
+
+/* ---------- 読み上げ ---------- */
+const TTS = {
+  ok: 'speechSynthesis' in window, on: store.get('tts', true), voice: null,
+  pick() {
+    if (!this.ok) return;
+    const vs = speechSynthesis.getVoices().filter(v => /^ja/i.test(v.lang));
+    this.voice = vs.find(v => /Kyoko|O-ren|Otoya|Google/i.test(v.name)) || vs[0] || null;
+    $('#ttsBtn').hidden = !this.voice; $('#hudSay').hidden = !this.voice;
+  },
+  speak(t) {
+    if (!this.ok || !this.on || !this.voice || !userActed || !t) return;
+    try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.voice = this.voice; u.lang = 'ja-JP'; u.rate = .95; u.pitch = 1.05; speechSynthesis.speak(u); } catch (e) {}
+  },
+  stop() { try { if (this.ok) speechSynthesis.cancel(); } catch (e) {} }
+};
+
+/* ---------- 字幕 ---------- */
+const HUD = {
+  last: '', timer: 0,
+  say(html, o = {}) {
+    clearTimeout(this.timer);
+    $('#hudTxt').innerHTML = html; $('#hud').classList.remove('off');
+    const sp = o.speech != null ? o.speech : html.replace(/<rt>.*?<\/rt>/g, '').replace(/<[^>]+>/g, '');
+    this.last = sp; if (o.speak !== false) TTS.speak(sp);
+    if (o.ms) this.timer = setTimeout(() => this.hide(), o.ms);
+  },
+  hide() { $('#hud').classList.add('off'); }
+};
+$('#hudSay').addEventListener('click', () => TTS.speak(HUD.last));
+
+/* ---------- シート ---------- */
+function openSheet(build, o = {}) {
+  closeSheet();
+  const card = H('div', { class: 'sheet-card', role: 'dialog', 'aria-modal': 'true' });
+  const sh = H('div', { class: 'sheet', id: 'sheet', onclick: e => { if (e.target === sh && !o.modal) closeSheet(); } }, card);
+  const close = H('button', { class: 'icon-btn', 'aria-label': 'とじる', onclick: closeSheet, html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>' });
+  build(card, close);
+  $('#sheetHost').appendChild(sh);
+  const f = card.querySelector('button'); if (f) f.focus({ preventScroll: true });
+}
+function closeSheet() { const s = $('#sheet'); if (s) s.remove(); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+
+/* ---------- 絵（アイコン） ---------- */
+const ICON = {
+  eye: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+  hand: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V5.5a1.5 1.5 0 013 0V12"/><path d="M11 11.5v-7a1.5 1.5 0 013 0V12"/><path d="M14 11.5V6a1.5 1.5 0 013 0v8.5"/><path d="M8 12.5L6.6 11a1.6 1.6 0 00-2.4 2.1l3.3 4.6A6 6 0 0012.4 20H13a5 5 0 005-5"/></svg>',
+  try: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg>',
+  play: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
+  replay: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 109-9 9 9 0 00-6.4 2.6L3 8"/><path d="M3 3v5h5"/></svg>',
+  bulb: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 00-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0012 3z"/></svg>',
+  next: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+  star: (on) => `<svg viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.3L12 17.1l-5.7 3.1 1.2-6.3L2.8 9.5l6.4-.8z" fill="${on ? 'var(--yamabuki)' : 'none'}" stroke="${on ? '#d79a12' : 'var(--line)'}" stroke-width="1.6" stroke-linejoin="round"/></svg>`,
+  door: {
+    nagasa: `<svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="#fdf1e2"/><g transform="rotate(-24 60 60)"><rect x="12" y="46" width="96" height="28" rx="4" fill="#f4dc9f" stroke="#c9a06b" stroke-width="2.5"/>${Array.from({ length: 19 }, (_, i) => `<line x1="${18 + i * 4.8}" y1="46" x2="${18 + i * 4.8}" y2="${i % 5 === 0 ? 60 : i % 5 === 0 ? 56 : 53}" stroke="#7a5a2a" stroke-width="2"/>`).join('')}</g><circle cx="88" cy="88" r="13" fill="#d7dce0" stroke="#8e979b" stroke-width="2.5"/><text x="88" y="93" text-anchor="middle" font-size="14" fill="#5e6b66" font-family="Zen Maru Gothic,sans-serif" font-weight="900">1</text></svg>`,
+    kasa: `<svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="#e6f1fa"/><path d="M34 30h52l-5 66a6 6 0 01-6 5H45a6 6 0 01-6-5z" fill="#f7fbff" stroke="#4f8fc6" stroke-width="3"/><path d="M37 58c8-4 16 4 23 0s15-4 23 0l-3 38a6 6 0 01-6 5H46a6 6 0 01-6-5z" fill="#7fb8e6"/><path d="M80 40h-8M81 52h-8M80 64h-8M79 76h-8" stroke="#4f8fc6" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+    omosa: `<svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="#eef3e6"/><ellipse cx="60" cy="31" rx="34" ry="7" fill="#c7cdd0" stroke="#8e979b" stroke-width="2.5"/><rect x="56" y="34" width="8" height="10" fill="#8e979b"/><rect x="24" y="42" width="72" height="62" rx="14" fill="#f2b833" stroke="#c48a10" stroke-width="2.5"/><circle cx="60" cy="74" r="22" fill="#fbfbf7" stroke="#c48a10" stroke-width="2"/>${Array.from({ length: 12 }, (_, i) => { const a = i * 30 * Math.PI / 180; return `<line x1="${60 + 17 * Math.sin(a)}" y1="${74 - 17 * Math.cos(a)}" x2="${60 + 21 * Math.sin(a)}" y2="${74 - 21 * Math.cos(a)}" stroke="#5e6b66" stroke-width="2"/>`; }).join('')}<line x1="60" y1="74" x2="72" y2="62" stroke="#d9452f" stroke-width="3" stroke-linecap="round"/></svg>`,
+    jikan: `<svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="#fff4dc"/><circle cx="60" cy="62" r="38" fill="#fbfbf7" stroke="#1f2b27" stroke-width="4"/>${Array.from({ length: 12 }, (_, i) => { const a = i * 30 * Math.PI / 180; return `<circle cx="${60 + 31 * Math.sin(a)}" cy="${62 - 31 * Math.cos(a)}" r="${i % 3 === 0 ? 3 : 2}" fill="#1f2b27"/>`; }).join('')}<line x1="60" y1="62" x2="60" y2="34" stroke="#3f6aa0" stroke-width="4.5" stroke-linecap="round"/><line x1="60" y1="62" x2="76" y2="70" stroke="#d9452f" stroke-width="6" stroke-linecap="round"/><circle cx="60" cy="62" r="4" fill="#1f2b27"/></svg>`,
+    hirosa: `<svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="#f6eefb"/><g stroke="#cfc6dc" stroke-width="1.5">${Array.from({ length: 7 }, (_, i) => `<line x1="${24 + i * 12}" y1="24" x2="${24 + i * 12}" y2="96"/><line x1="24" y1="${24 + i * 12}" x2="96" y2="${24 + i * 12}"/>`).join('')}</g><rect x="24" y="36" width="48" height="36" fill="#9a77cf" opacity=".85"/><rect x="48" y="60" width="36" height="24" fill="#f2b833" opacity=".9"/></svg>`,
+    katachi: `<svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="#e9f3ee"/><path d="M60 26l30 15v34L60 92 30 75V41z" fill="#8cc152" stroke="#2f6b57" stroke-width="2.5" stroke-linejoin="round"/><path d="M60 26l30 15-30 16-30-16z" fill="#b6dc8a" stroke="#2f6b57" stroke-width="2.5" stroke-linejoin="round"/><path d="M60 57v35" stroke="#2f6b57" stroke-width="2.5"/></svg>`
+  }
+};
+
+/* ---------- 入口と単元（設計書 hakaru-design.md §0-1 と同じ並び） ---------- */
+const AREAS = [
+  { id: 'nagasa', name: 'ながさ' },
+  { id: 'kasa', name: 'かさ・たいせき' },
+  { id: 'omosa', name: 'おもさ' },
+  { id: 'jikan', name: 'じかん' },
+  { id: 'hirosa', name: 'ひろさ' },
+  { id: 'katachi', name: 'かたち' }
+];
+const UNITS = [
+  { id: 'n1', g: 1, areas: ['nagasa'], t: 'ながさくらべ', aim: 'はしを そろえて くらべる。テープに うつして くらべる。えんぴつ なんぼんぶん かで あらわす。' },
+  { id: 'n2', g: 2, areas: ['nagasa'], t: 'ながさの たんい', sub: 'cm・mm', aim: 'だれが はかっても おなじ 1cm と 1mm。ものさしの 0に あわせて はかる。', play: 'ruler' },
+  { id: 'n2m', g: 2, areas: ['nagasa'], t: 'ながい ものの ながさ', sub: 'm', aim: '1m は 100cm。りょうてを ひろげた ながさや きょうしつを はかる。' },
+  { id: 'n3', g: 3, areas: ['nagasa'], t: 'ながい ながさ', sub: 'km・まきじゃく', aim: '1km は 1000m。みちのりと きょり。まきじゃくで まるい ものの まわりを はかる。' },
+  { id: 'u3', g: 3, areas: ['nagasa', 'kasa', 'omosa'], t: 'たんいの しくみ', sub: 'k と m', aim: 'k が つくと 1000ばい、m が つくと 1000ぶんの1。ながさ・かさ・おもさで おなじ しくみ。', play: 'units' },
+  { id: 'e5', g: 5, ahead: true, areas: ['nagasa'], t: 'えんしゅうと えんしゅうりつ', aim: 'えんを ころがして まわりの ながさを まっすぐに のばす。ちょっけいの 3.14ばい。' },
+  { id: 'ej', g: 7, ahead: true, areas: ['nagasa', 'hirosa'], t: 'おうぎがたの こと めんせき', aim: 'ちゅうしんかくを うごかすと、こ の ながさと めんせきが かわる。' },
+  { id: 'k1', g: 1, areas: ['kasa'], t: 'かさくらべ', aim: 'みずを うつしかえて くらべる。おなじ コップ なんばいぶん かで くらべる。', play: 'water' },
+  { id: 'k2', g: 2, areas: ['kasa'], t: 'みずの かさの たんい', sub: 'L・dL・mL', aim: '1dLますで 10ぱい いれると 1L。めもりを よむ。', play: 'water' },
+  { id: 'r5b', g: 5, ahead: true, areas: ['kasa', 'katachi'], owner: 'katachi', t: 'たいせき', sub: 'cm³・m³', aim: '1cm³の つみきで はこを うめる。1L は 1000cm³。' },
+  { id: 'r6', g: 6, ahead: true, areas: ['kasa', 'katachi'], owner: 'katachi', t: 'かくちゅうと えんちゅうの たいせき', aim: 'そこめんを つみかさねる。' },
+  { id: 'o3', g: 3, areas: ['omosa'], t: 'おもさ', sub: 'g・kg・t', aim: 'てんびんと 1えんだまで くらべる。はかりの めもりを よむ。かたちを かえても おもさは おなじ。', play: 'scale' },
+  { id: 't1', g: 1, areas: ['jikan'], t: 'とけい', sub: 'なんじ・なんぷん', aim: 'ながい はりが ひとまわり すると、みじかい はりが つぎの かずへ。', play: 'clock' },
+  { id: 't2', g: 2, areas: ['jikan'], t: 'じこくと じかん', aim: 'じこくは とけいの いち、じかんは あいだの ながさ。1にちは 24じかん。', play: 'clock' },
+  { id: 't3', g: 3, areas: ['jikan'], t: 'じこくと じかんの もとめかた', sub: 'びょう', aim: 'ちょうどの じこくで くぎって かんがえる。1ぷんを めを つぶって あてる。' },
+  { id: 's5', g: 5, ahead: true, areas: ['jikan'], t: 'たんいりょう あたりの おおきさ・はやさ', aim: 'じかんを そろえて くらべる。みちのりを そろえて くらべる。' },
+  { id: 'h1', g: 1, areas: ['hirosa'], t: 'ひろさくらべ', aim: 'かさねて くらべる。おなじ おおきさの マスの いくつぶん。', play: 'area' },
+  { id: 'h4', g: 4, ahead: true, areas: ['hirosa'], t: 'めんせき', sub: 'cm²・m²・a・ha', aim: '1cm²の タイルを しきつめる。まわりの ながさが おなじでも ひろさは かわる。' },
+  { id: 'h5', g: 5, ahead: true, areas: ['hirosa'], t: 'さんかくけいや へいこうしへんけいの めんせき', aim: 'きって うごかして ながしかくに する。' },
+  { id: 'h6', g: 6, ahead: true, areas: ['hirosa'], t: 'えんの めんせき・およその めんせき', aim: 'えんを こまかく きって ならべかえる。' },
+  { id: 'a4', g: 4, ahead: true, areas: ['katachi'], t: 'かくの おおきさ', sub: 'ど・ぶんどき', aim: 'かくを まわる おおきさと して みる。ぶんどきの 0の せんを あわせる。' },
+  { id: 'r1', g: 1, areas: ['katachi'], owner: 'katachi', t: 'かたちあそび', aim: 'はこ・つつ・ボールの かたち。' },
+  { id: 'r2', g: 2, areas: ['katachi'], owner: 'katachi', t: 'はこの かたち', aim: 'めん・へん・ちょうてん。' },
+  { id: 'r4', g: 4, ahead: true, areas: ['katachi'], owner: 'katachi', t: 'ちょくほうたいと りっぽうたい', aim: 'てんかいず 11しゅ・54しゅ。' },
+  { id: 'r5a', g: 5, ahead: true, areas: ['katachi'], owner: 'katachi', t: 'かくちゅうと えんちゅう', aim: 'かくちゅうが そだつ。' },
+  { id: 'rj', g: 7, ahead: true, areas: ['katachi'], owner: 'katachi', t: 'くうかんずけい', aim: 'せいためんたい 5しゅるい。' }
+];
+const gradeLabel = g => g === 7 ? 'ちゅう1' : g + 'ねん';
+
+/* ---------- ホーム ---------- */
+function renderHome() {
+  const home = $('#home'); home.innerHTML = '';
+  const inner = H('div', { class: 'home-in' });
+  inner.appendChild(H('div', { class: 'home-top' }, [H('h1', { html: 'さんすう<small>みほん：はかる（ながさ・かさ・おもさ・じかん・ひろさ）</small>' })]));
+  const doors = H('div', { class: 'doors' });
+  for (const a of AREAS) {
+    const us = UNITS.filter(u => u.areas.includes(a.id));
+    const playable = us.filter(u => u.play).length;
+    const btn = H('button', { class: 'door', onclick: () => openArea(a.id) }, [
+      H('span', { html: ICON.door[a.id] }).firstChild,
+      H('b', { text: a.name }),
+      H('span', { class: 'n', text: us.length + ' たんげん' })
+    ]);
+    if (playable) btn.appendChild(H('span', { class: 'tag go', text: 'うごく ' + playable }));
+    else if (a.id === 'katachi') btn.appendChild(H('span', { class: 'tag', text: 'べつの みほん' }));
+    doors.appendChild(btn);
+  }
+  inner.appendChild(doors);
+  home.appendChild(inner);
+}
+function show(view) {
+  $('#home').hidden = view !== 'home'; $('#areaView').hidden = view !== 'area'; $('#play').hidden = view !== 'play';
+}
+function openArea(id) {
+  const a = AREAS.find(x => x.id === id);
+  const v = $('#areaView'); v.innerHTML = '';
+  const inner = H('div', { class: 'area-in' });
+  const back = H('button', { class: 'icon-btn', 'aria-label': 'もどる', onclick: goHome, html: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>' });
+  const ic = H('span', { html: ICON.door[id] }).firstChild; ic.classList.add('ic');
+  inner.appendChild(H('div', { class: 'area-head' }, [back, ic, H('h2', { text: a.name })]));
+  const us = UNITS.filter(u => u.areas.includes(id)).sort((x, y) => x.g - y.g);
+  const grades = [...new Set(us.map(u => u.g))];
+  for (const g of grades) {
+    const list = H('div', { class: 'ulist' });
+    for (const u of us.filter(x => x.g === g)) {
+      const cls = 'ucard' + (u.play ? ' play' : '') + (u.owner === 'katachi' ? ' other' : '') + (u.ahead ? ' ahead' : '');
+      const st = u.play ? H('span', { class: 'st', html: ICON.play + 'うごく' }) : H('span', { class: 'st', text: u.owner === 'katachi' ? 'かたちの みほん' : 'じゅんびちゅう' });
+      list.appendChild(H('button', { class: cls, onclick: () => openUnit(u) }, [H('span', { class: 'ut', html: u.t + (u.sub ? `<small>${u.sub}</small>` : '') }), st]));
+    }
+    inner.appendChild(H('div', { class: 'grade-row' }, [H('span', { class: 'gl' + (us.find(x => x.g === g).ahead ? ' ahead' : ''), text: gradeLabel(g) }), list]));
+  }
+  v.appendChild(inner); show('area'); v.scrollTop = 0;
+  App.area = id;
+}
+function openUnit(u) {
+  if (u.play) { openScene(u.play, u); return; }
+  openSheet((card, close) => {
+    card.appendChild(H('div', { class: 'sheet-head' }, [H('h2', { text: gradeLabel(u.g) + '　' + u.t }), close]));
+    card.appendChild(H('p', { class: 'aim', text: u.aim }));
+    if (u.owner === 'katachi') card.appendChild(H('p', { class: 'meta', text: 'この たんげんは「かたち」の がわで つくっています。べつの みほん「はこの形と展開図」で うごいています。' }));
+    else card.appendChild(H('p', { class: 'meta', text: 'つぎに つくる たんげんです。せっけいしょ（hakaru-design.md）に なかみが あります。' }));
+    card.appendChild(H('div', { class: 'row' }, [H('button', { class: 'btn', onclick: closeSheet, text: 'わかった' })]));
+  });
+}
+function goHome() { leaveScene(); show('home'); }
+
+/* ---------- 場面の入れもの ---------- */
+const SCENES = {};
+const App = { area: null, scene: null, unit: null, tab: null, W: 0, H: 0 };
+const TABS = [{ id: 'miru', label: 'みる', icon: ICON.eye }, { id: 'sawaru', label: 'さわる', icon: ICON.hand }, { id: 'tamesu', label: 'ためす', icon: ICON.try }];
+function openScene(key, unit) {
+  leaveScene();
+  const sc = SCENES[key]; App.scene = sc; App.unit = unit;
+  $('#unitTitle').textContent = sc.title; $('#gradeTag').textContent = sc.grade;
+  show('play');
+  const tabs = $('#tabs'); tabs.innerHTML = '';
+  for (const t of TABS) tabs.appendChild(H('button', { class: 'tab', role: 'tab', 'aria-selected': 'false', 'data-tab': t.id, onclick: () => setTab(t.id) }, [H('span', { class: 'ic', html: t.icon }), H('span', { text: t.label })]));
+  requestAnimationFrame(() => {
+    measure(); const svg = $('#stage'); svg.innerHTML = '';
+    sc.mount({ svg, W: App.W, H: App.H }, unit);
+    setTab(sc.firstTab ? sc.firstTab(unit) : 'miru');
+  });
+}
+function leaveScene() {
+  cancelRuns(); TTS.stop(); SFX.pourStop(); HUD.hide(); closeSheet();
+  if (App.scene && App.scene.unmount) App.scene.unmount();
+  App.scene = null; $('#stage').innerHTML = ''; $('#panel').innerHTML = '';
+}
+function setTab(id) {
+  cancelRuns(); TTS.stop(); SFX.pourStop(); HUD.hide();
+  App.tab = id;
+  document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === id ? 'true' : 'false'));
+  $('#panel').innerHTML = '';
+  App.scene.setTab(id, $('#panel'));
+}
+function measure() { const r = $('#stageWrap').getBoundingClientRect(); App.W = Math.max(200, Math.round(r.width)); App.H = Math.max(160, Math.round(r.height)); const svg = $('#stage'); svg.setAttribute('viewBox', `0 0 ${App.W} ${App.H}`); }
+let resizeT = 0;
+new ResizeObserver(() => {
+  if (!App.scene) return;
+  clearTimeout(resizeT);
+  resizeT = setTimeout(() => { const pw = App.W, ph = App.H; measure(); if (Math.abs(pw - App.W) > 2 || Math.abs(ph - App.H) > 2) App.scene.layout(App.W, App.H); }, 60);
+}).observe($('#stageWrap'));
+$('#backBtn').addEventListener('click', () => { const a = App.area; leaveScene(); if (a) openArea(a); else goHome(); });
+$('#homeBtn').addEventListener('click', goHome);
+$('#ttsBtn').addEventListener('click', () => { TTS.on = !TTS.on; store.set('tts', TTS.on); $('#ttsBtn').setAttribute('aria-pressed', String(TTS.on)); if (!TTS.on) TTS.stop(); else TTS.speak(HUD.last); });
+$('#ttsBtn').setAttribute('aria-pressed', String(TTS.on));
+
+/* 場面の点の座標（SVGはステージのCSSピクセルと同じ単位） */
+function ptr(e) { const r = $('#stage').getBoundingClientRect(); return { x: (e.clientX - r.left) * App.W / r.width, y: (e.clientY - r.top) * App.H / r.height }; }
+
+/* ---------- 共通の部品 ---------- */
+function seg(items, cur, onPick, o = {}) {
+  const s = H('div', { class: 'seg', role: 'group', 'aria-label': o.label || '' });
+  for (const it of items) {
+    s.appendChild(H('button', { 'aria-pressed': String(it.id === cur), html: it.html || it.label, onclick: () => { s.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', 'false')); s.querySelector(`[data-id="${it.id}"]`).setAttribute('aria-pressed', 'true'); onPick(it.id); }, 'data-id': it.id }));
+  }
+  return s;
+}
+/* いくつでも同時に入る切りかえ（ひとつの棚に並べる） */
+function multiSeg(items) {
+  const s = H('div', { class: 'seg', role: 'group' });
+  for (const it of items) {
+    const b = H('button', { 'aria-pressed': String(!!it.on), text: it.label, onclick: () => { const v = b.getAttribute('aria-pressed') !== 'true'; b.setAttribute('aria-pressed', String(v)); it.f(v); } });
+    s.appendChild(b);
+  }
+  return s;
+}
+function toggleBtn(label, on, onChange) {
+  const b = H('button', { class: 'btn sub small', 'aria-pressed': String(!!on), text: label, onclick: () => { const v = b.getAttribute('aria-pressed') !== 'true'; b.setAttribute('aria-pressed', String(v)); onChange(v); } });
+  return b;
+}
+function hanamaru(svg, x, y, r) {
+  const g = S('g', { 'pointer-events': 'none' }, svg);
+  const pts = []; const turns = 2.6, n = 90;
+  for (let i = 0; i <= n; i++) { const t = i / n, a = t * turns * Math.PI * 2 - Math.PI / 2, rr = r * (0.35 + 0.65 * t); pts.push((x + rr * Math.cos(a)).toFixed(1) + ',' + (y + rr * Math.sin(a) * 0.92).toFixed(1)); }
+  const p = S('polyline', { points: pts.join(' '), fill: 'none', stroke: css('--ok'), 'stroke-width': Math.max(5, r * .09), 'stroke-linecap': 'round', 'stroke-linejoin': 'round', opacity: .9 }, g);
+  let L = 2000; try { L = p.getTotalLength(); } catch (e) {}
+  p.setAttribute('stroke-dasharray', L); p.setAttribute('stroke-dashoffset', L);
+  for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2; S('ellipse', { cx: x + Math.cos(a) * r * 1.08, cy: y + Math.sin(a) * r * 1.0, rx: r * .16, ry: r * .1, transform: `rotate(${a * 180 / Math.PI} ${x + Math.cos(a) * r * 1.08} ${y + Math.sin(a) * r})`, fill: css('--ok'), opacity: 0 }, g); }
+  const id = RUN.id; const t0 = performance.now();
+  const f = now => {
+    if (!g.isConnected) return;
+    const k = clamp((now - t0) / (650 * SPEED), 0, 1);
+    p.setAttribute('stroke-dashoffset', L * (1 - E.out(k)));
+    g.querySelectorAll('ellipse').forEach((el, i) => el.setAttribute('opacity', clamp(k * 3 - 1.6 - i * .1, 0, .85)));
+    if (k < 1) requestAnimationFrame(f); else setTimeout(() => { if (g.isConnected) g.remove(); }, 900);
+  };
+  requestAnimationFrame(f);
+}
+
+/* ---------- ためす（問題の進め方は全場面で共通） ----------
+   gen(level, i) は問題を返す：{ say, speech, show(), choices:[{label, ok}], set:true（合わせる問題）, check(), hint(stage), verify(ok)→Promise, at:{x,y,r} }
+   まちがえたら1回めはヒントを1段すすめてもう一度。2回めは動きで確かめて次へ。 */
+const LEVELS = [{ id: 'easy', label: 'やさしい' }, { id: 'normal', label: 'ふつう' }, { id: 'challenge', label: 'チャレンジ' }];
+function makeQuiz(o) {
+  const Q = { level: store.get('lv.' + o.key, 'normal'), i: 0, res: [], cur: null, hint: 0, miss: 0, busy: false };
+  const n = o.n || 5;
+  function start() { Q.i = 0; Q.res = []; next(); }
+  function next() {
+    if (Q.i >= n) { finish(); return; }
+    Q.hint = 0; Q.miss = 0; Q.busy = false;
+    Q.cur = o.gen(Q.level, Q.i);
+    Q.cur.show && Q.cur.show();
+    draw();
+    HUD.say(Q.cur.say, { speech: Q.cur.speech });
+  }
+  function draw(after) {
+    const p = o.panel(); p.innerHTML = '';
+    const r1 = H('div', { class: 'row' });
+    r1.appendChild(seg(LEVELS, Q.level, id => { Q.level = id; store.set('lv.' + o.key, id); cancelRuns(); start(); }, { label: 'むずかしさ' }));
+    const dots = H('div', { class: 'dots', 'aria-label': `${n}もん中 ${Q.i + 1}もんめ` });
+    for (let k = 0; k < n; k++) dots.appendChild(H('i', { class: Q.res[k] || (k === Q.i ? 'now' : '') }));
+    r1.appendChild(dots);
+    if (!after) {
+      const hb = H('button', { class: 'hint-btn', onclick: () => useHint(true) }, [H('span', { html: ICON.bulb }).firstChild, 'ヒント']);
+      for (let k = 0; k < 3; k++) hb.appendChild(H('i', { class: k < Q.hint ? 'used' : '' }));
+      r1.appendChild(hb);
+    }
+    p.appendChild(r1);
+    const r2 = H('div', { class: 'row' });
+    if (after) {
+      r2.appendChild(H('button', { class: 'btn', onclick: () => { Q.i++; next(); }, html: (Q.i + 1 >= n ? 'けっか' : 'つぎへ') + ICON.next }));
+    } else if (Q.cur.set) {
+      r2.appendChild(H('button', { class: 'btn big', onclick: () => answer(null), text: Q.cur.setLabel || 'できた' }));
+    } else {
+      for (const c of Q.cur.choices) {
+        const b = H('button', { class: 'btn ans' + (c.dead ? ' ng' : ''), html: c.html || c.label, onclick: () => answer(c, b) });
+        c.el = b; r2.appendChild(b);
+      }
+    }
+    p.appendChild(r2);
+  }
+  async function useHint(byUser) {
+    if (Q.busy || Q.hint >= 3) return;
+    Q.hint++; draw();
+    await run(async () => { await (Q.cur.hint && Q.cur.hint(Q.hint)); });
+  }
+  async function answer(c, b) {
+    if (Q.busy) return;
+    const ok = c ? c.ok : Q.cur.check();
+    if (ok) {
+      Q.busy = true;
+      await run(async () => { if (Q.cur.verify) await Q.cur.verify(true); });
+      SFX.good(); const at = Q.cur.at || { x: App.W / 2, y: App.H / 2, r: Math.min(App.W, App.H) * .18 };
+      hanamaru($('#stage'), at.x, at.y, at.r);
+      if (c && c.el) c.el.classList.add('right');
+      Q.res[Q.i] = Q.hint || Q.miss ? 'okh' : 'ok';
+      HUD.say(pick(['せいかい！', 'できたね！', 'ぴったり！']) + (Q.cur.after ? ' ' + Q.cur.after : ''));
+      draw(true);
+    } else {
+      SFX.soft(); Q.miss++;
+      if (c) c.dead = true;
+      if (Q.miss < 2) {
+        HUD.say('もう いちど。ヒントを みてね');
+        if (Q.hint < 3) Q.hint++;
+        draw();
+        await run(async () => { await (Q.cur.hint && Q.cur.hint(Q.hint)); });
+      } else {
+        Q.busy = true;
+        HUD.say('うごかして たしかめよう');
+        await run(async () => { if (Q.cur.verify) await Q.cur.verify(false); });
+        Q.res[Q.i] = 'ng';
+        if (Q.cur.choices) Q.cur.choices.forEach(cc => { if (cc.ok && cc.el) cc.el.classList.add('right'); });
+        draw(true);
+      }
+    }
+  }
+  function finish() {
+    const p = o.panel(); p.innerHTML = '';
+    const good = Q.res.filter(r => r === 'ok' || r === 'okh').length;
+    const stars = good >= n ? 3 : good >= n - 1 ? 2 : good >= Math.ceil(n / 2) ? 1 : 0;
+    const box = H('div', { class: 'result' }, [H('div', { class: 'score', text: `${n}もん中 ${good}もん できた` }), H('div', { class: 'stars', html: [0, 1, 2].map(k => ICON.star(k < stars)).join('') })]);
+    p.appendChild(box);
+    const lvIdx = LEVELS.findIndex(l => l.id === Q.level);
+    const row = H('div', { class: 'row' }, [H('button', { class: 'btn sub', onclick: start, html: ICON.replay + 'もういちど' })]);
+    if (lvIdx < 2) row.appendChild(H('button', { class: 'btn', onclick: () => { Q.level = LEVELS[lvIdx + 1].id; store.set('lv.' + o.key, Q.level); start(); }, html: LEVELS[lvIdx + 1].label + ' へ' + ICON.next }));
+    p.appendChild(row);
+    HUD.say(stars === 3 ? 'ぜんぶ できたね！' : 'よく がんばったね');
+    o.onFinish && o.onFinish();
+  }
+  return { start, Q };
+}
+/* ---------- じかん：とけい（T1・T2） ---------- */
+SCENES.clock = (() => {
+  const st = { t: 7 * 60 + 55, start: null, room: false, roomFor: null, five: false, digital: false, gear: false, ghost: null, minSector: false, drag: null, canDrag: true, flash: null };
+  let svg, Wd, Ht, L = {}, el = {};
+  const MIN = t => ((Math.round(t) % 60) + 60) % 60;
+  const tod = t => ((Math.round(t) % 1440) + 1440) % 1440;
+  function hour12(t) { const h = Math.floor((((Math.round(t)) % 720) + 720) % 720 / 60); return h === 0 ? 12 : h; }
+  const fun = m => [0, 1, 3, 4, 6, 8].includes(m % 10) ? 'ぷん' : 'ふん';
+  function kidTime(t) { const m = MIN(t), h = hour12(t); return m === 0 ? `${h}じ` : m === 30 ? `${h}じはん` : `${h}じ ${m}${fun(m)}`; }
+  function spTime(t) { const m = MIN(t), h = hour12(t); return m === 0 ? `${h}時` : m === 30 ? `${h}時半` : `${h}時${m}分`; }
+  function durKid(d) { d = Math.max(0, Math.round(d)); const h = Math.floor(d / 60), m = d % 60; return (h ? `${h}じかん` : '') + (m ? `${h ? ' ' : ''}${m}${fun(m)}` : (h ? '' : '0ぷん')); }
+  function polar(cx, cy, r, deg) { const a = deg * Math.PI / 180; return [cx + r * Math.sin(a), cy - r * Math.cos(a)]; }
+  function sector(cx, cy, r, a0, a1) {
+    if (a1 - a0 >= 359.99) return `M${cx - r},${cy}a${r},${r} 0 1,0 ${2 * r},0a${r},${r} 0 1,0 ${-2 * r},0Z`;
+    if (a1 - a0 <= 0.01) return '';
+    const [x0, y0] = polar(cx, cy, r, a0), [x1, y1] = polar(cx, cy, r, a1);
+    return `M${cx},${cy}L${x0},${y0}A${r},${r} 0 ${a1 - a0 > 180 ? 1 : 0},1 ${x1},${y1}Z`;
+  }
+  function gearPath(r, n, th) {
+    let d = ''; const da = 2 * Math.PI / n;
+    for (let i = 0; i < n; i++) {
+      const a = i * da, pts = [[a, r - th / 2], [a + da * .2, r + th / 2], [a + da * .45, r + th / 2], [a + da * .65, r - th / 2]];
+      for (const [aa, rr] of pts) d += (d ? 'L' : 'M') + (rr * Math.cos(aa)).toFixed(2) + ',' + (rr * Math.sin(aa)).toFixed(2);
+    }
+    return d + 'Z';
+  }
+  /* 空の色（時刻→上と下の色） */
+  const SKY = [[0, '#16213d', '#2b3a63'], [4.6, '#1c2a4d', '#3a4a78'], [5.6, '#3b4f86', '#e7a37c'], [6.6, '#6fa7da', '#f6d6a8'], [9, '#7fc0ec', '#d6eefc'], [12, '#6db6ea', '#cfeafb'], [15, '#7cbbe6', '#e2f1fb'], [17, '#e8a06e', '#f8d9a6'], [18.2, '#59558e', '#e48f6b'], [19.3, '#22305a', '#46497a'], [24, '#16213d', '#2b3a63']];
+  const hx = s => [1, 3, 5].map(i => parseInt(s.slice(i, i + 2), 16));
+  const mix = (a, b, k) => { const A = hx(a), B = hx(b); return '#' + A.map((v, i) => Math.round(lerp(v, B[i], k)).toString(16).padStart(2, '0')).join(''); };
+  function skyAt(hour) { for (let i = 0; i < SKY.length - 1; i++) { const [h0, t0, b0] = SKY[i], [h1, t1, b1] = SKY[i + 1]; if (hour >= h0 && hour <= h1) { const k = (hour - h0) / (h1 - h0); return [mix(t0, t1, k), mix(b0, b1, k)]; } } return [SKY[0][1], SKY[0][2]]; }
+  const word = h => h >= 5 && h < 10 ? 'あさ' : h >= 10 && h < 15 ? 'ひる' : h >= 15 && h < 18.5 ? 'ゆうがた' : 'よる';
+
+  function layout(w, h) {
+    Wd = w; Ht = h; svg.innerHTML = '';
+    const land = Wd > Ht * 1.1;
+    if (land) {
+      L.R = Math.min(Ht * .36, Wd * .22); L.cx = Math.max(L.R * 1.32 + 12, Wd * .29); L.cy = Ht * .52;
+      L.sx = L.cx + L.R + Math.max(28, Wd * .04); L.sw = Wd - L.sx - 20; L.sy = Math.max(64, Ht * .14); L.sh = Ht * .4;
+      L.bx = L.sx; L.bw = L.sw; L.by = L.sy + L.sh + Ht * .06; L.bh = Math.min(Ht * .32, 130);
+    } else {
+      L.bh = 86; L.by = Ht - L.bh - 4; L.bx = 16; L.bw = Wd - 32;
+      L.sh = Math.min(Ht * .15, 96); L.sy = L.by - L.sh - 10; L.sx = 16; L.sw = Wd - 32;
+      const top = 54, avail = L.sy - 8 - top;
+      L.R = Math.min(Wd * .33, avail / 2.7); L.cx = Wd / 2; L.cy = top + avail / 2;
+    }
+    const R = L.R, cx = L.cx, cy = L.cy;
+    const defs = S('defs', {}, svg);
+    const gr = S('linearGradient', { id: 'skyG', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+    el.s0 = S('stop', { offset: '0' }, gr); el.s1 = S('stop', { offset: '1' }, gr);
+    const cp = S('clipPath', { id: 'skyClip' }, defs); S('rect', { x: L.sx, y: L.sy, width: L.sw, height: L.sh, rx: 18 }, cp);
+    /* 空のまど */
+    const sky = S('g', { 'clip-path': 'url(#skyClip)' }, svg);
+    S('rect', { x: L.sx, y: L.sy, width: L.sw, height: L.sh, fill: 'url(#skyG)' }, sky);
+    el.stars = S('g', {}, sky);
+    for (let i = 0; i < 26; i++) S('circle', { cx: L.sx + Math.random() * L.sw, cy: L.sy + Math.random() * L.sh * .6, r: Math.random() * 1.4 + .6, fill: '#fff' }, el.stars);
+    el.sun = S('g', {}, sky); S('circle', { r: Math.max(12, L.sh * .09), fill: '#ffd25a' }, el.sun); S('circle', { r: Math.max(18, L.sh * .14), fill: '#ffd25a', opacity: .25 }, el.sun);
+    el.moon = S('g', {}, sky); S('circle', { r: Math.max(10, L.sh * .075), fill: '#f4f1df' }, el.moon); S('circle', { cx: Math.max(4, L.sh * .03), cy: -Math.max(3, L.sh * .02), r: Math.max(9, L.sh * .07), fill: 'url(#skyG)' }, el.moon);
+    const gy = L.sy + L.sh * .8;
+    S('path', { d: `M${L.sx},${gy}Q${L.sx + L.sw * .25},${gy - L.sh * .12} ${L.sx + L.sw * .5},${gy - L.sh * .02}T${L.sx + L.sw},${gy - L.sh * .06}V${L.sy + L.sh}H${L.sx}Z`, fill: '#5d8a5a' }, sky);
+    const hxp = L.sx + L.sw * .72, hy = gy - L.sh * .02, hs = L.sh * .16;
+    S('path', { d: `M${hxp - hs},${hy}v${-hs * .8}l${hs},${-hs * .7}l${hs},${hs * .7}v${hs * .8}z`, fill: '#efe3cf' }, sky);
+    el.win = S('rect', { x: hxp - hs * .35, y: hy - hs * .65, width: hs * .7, height: hs * .45, fill: '#7a8a8f' }, sky);
+    S('rect', { x: L.sx + 1, y: L.sy + 1, width: L.sw - 2, height: L.sh - 2, rx: 17, fill: 'none', stroke: css('--line'), 'stroke-width': 3 }, svg);
+    el.word = S('text', { x: L.sx + 16, y: L.sy + 34, 'font-size': Math.max(18, L.sh * .13), fill: '#fff' }, svg);
+    el.dig = S('text', { x: L.sx + L.sw - 16, y: L.sy + 34, 'text-anchor': 'end', 'font-size': Math.max(18, L.sh * .13), fill: '#fff', class: 'ui' }, svg);
+    /* 24じかんの おび */
+    const band = S('g', {}, svg); el.band = band;
+    const rowH = Math.max(22, (L.bh - 50) / 2), lab = Math.min(64, L.bw * .17);
+    L.bx0 = L.bx + lab; L.bx1 = L.bx + L.bw - 8; L.rowY = [L.by + 6, L.by + 6 + rowH + 22]; L.rowH = rowH;
+    ['ごぜん', 'ごご'].forEach((t, i) => {
+      S('text', { x: L.bx, y: L.rowY[i] + rowH * .68, 'font-size': Math.min(17, rowH * .6), fill: css('--ink-soft') }, band).textContent = t;
+      S('rect', { x: L.bx0, y: L.rowY[i], width: L.bx1 - L.bx0, height: rowH, rx: 8, fill: i ? '#e9e6f3' : '#fbf1d9', stroke: css('--line'), 'stroke-width': 1.5 }, band);
+      for (let k = 0; k <= 12; k++) {
+        const x = L.bx0 + (L.bx1 - L.bx0) * k / 12;
+        S('line', { x1: x, y1: L.rowY[i] + rowH, x2: x, y2: L.rowY[i] + rowH + (k % 3 === 0 ? 8 : 4), stroke: css('--ink-soft'), 'stroke-width': 1.5 }, band);
+        if (k % 3 === 0) { const tx = S('text', { x, y: L.rowY[i] + rowH + 20, 'text-anchor': 'middle', 'font-size': 12, fill: css('--ink-soft'), class: 'ui' }, band); tx.textContent = k; }
+      }
+    });
+    el.bandEl = S('g', {}, band);
+    el.mark = S('g', {}, band);
+    S('path', { d: 'M-7,-10L7,-10L0,0Z', fill: css('--ok') }, el.mark); S('line', { x1: 0, y1: 0, x2: 0, y2: rowH, stroke: css('--ok'), 'stroke-width': 3 }, el.mark);
+    el.bandFlash = S('g', {}, band);
+    /* とけい */
+    const ck = S('g', {}, svg); el.clock = ck;
+    S('circle', { cx, cy: cy + 6, r: R * 1.06, fill: css('--line') }, ck);
+    S('circle', { cx, cy, r: R * 1.06, fill: css('--ink') }, ck);
+    el.gears = S('g', {}, ck);
+    const base = R * .075, gy2 = cy + R * .2, x1 = cx - R * .55, x2 = x1 + base + base * 3;
+    const ang = -35 * Math.PI / 180, x3 = x2 + base * 5 * Math.cos(ang), y3 = gy2 + base * 5 * Math.sin(ang);
+    S('circle', { cx, cy, r: R, fill: '#2b3733' }, el.gears);
+    el.g3 = S('path', { d: gearPath(base * 4, 32, base * .5), fill: '#b3463a', transform: `translate(${x3},${y3})` }, el.gears);
+    el.g2 = S('g', { transform: `translate(${x2},${gy2})` }, el.gears);
+    S('path', { d: gearPath(base * 3, 24, base * .5), fill: '#c8a24a' }, el.g2); S('path', { d: gearPath(base, 8, base * .45), fill: '#8d7330' }, el.g2);
+    el.g1 = S('path', { d: gearPath(base, 8, base * .45), fill: '#5c86c4', transform: `translate(${x1},${gy2})` }, el.gears);
+    [[x1, gy2, '#5c86c4'], [x2, gy2, '#8d7330'], [x3, y3, '#b3463a']].forEach(([x, y, c]) => S('circle', { cx: x, cy: y, r: base * .3, fill: '#1f2b27', stroke: c, 'stroke-width': 2 }, el.gears));
+    el.gl1 = S('text', { x: x1, y: gy2 + base * 2.2, 'text-anchor': 'middle', 'font-size': Math.max(11, R * .07), fill: '#cfe0ff' }, el.gears); el.gl1.textContent = 'ながい はり';
+    el.gl3 = S('text', { x: x3 + base * 2.5, y: y3 - base * 4.6, 'text-anchor': 'middle', 'font-size': Math.max(11, R * .07), fill: '#ffd5cf' }, el.gears); el.gl3.textContent = 'みじかい はり';
+    el.face = S('circle', { cx, cy, r: R, fill: css('--paper') }, ck);
+    el.room = S('path', { fill: css('--yamabuki'), opacity: .38 }, ck);
+    el.minSec = S('path', { fill: css('--sora-soft'), opacity: .55 }, ck);
+    el.elapsedFull = S('circle', { cx, cy, r: R * .86, fill: css('--sora-soft'), opacity: .28 }, ck);
+    el.elapsed = S('path', { fill: css('--sora'), opacity: .32 }, ck);
+    el.ticks = S('g', {}, ck);
+    for (let i = 0; i < 60; i++) {
+      const big = i % 5 === 0; const [a1, b1] = polar(cx, cy, R * .95, i * 6), [a2, b2] = polar(cx, cy, R * (big ? .84 : .9), i * 6);
+      S('line', { x1: a1, y1: b1, x2: a2, y2: b2, stroke: css('--ink'), 'stroke-width': big ? Math.max(2.5, R * .022) : Math.max(1.2, R * .009), 'stroke-linecap': 'round' }, el.ticks);
+    }
+    el.nums = S('g', {}, ck);
+    for (let k = 1; k <= 12; k++) { const [x, y] = polar(cx, cy, R * .7, k * 30); const t = S('text', { x, y: y + R * .065, 'text-anchor': 'middle', 'font-size': R * .19, fill: css('--ink') }, el.nums); t.textContent = k; }
+    el.five = S('g', {}, svg);
+    for (let k = 0; k < 12; k++) {
+      const [x, y] = polar(cx, cy, R * 1.2, k * 30);
+      S('circle', { cx: x, cy: y, r: Math.max(14, R * .1), fill: css('--paper'), stroke: css('--sora'), 'stroke-width': 2 }, el.five);
+      const t = S('text', { x, y: y + Math.max(5, R * .035), 'text-anchor': 'middle', 'font-size': Math.max(13, R * .095), fill: css('--sora'), class: 'ui' }, el.five); t.textContent = k * 5;
+    }
+    el.ghost = S('line', { x1: cx, y1: cy, stroke: css('--sora'), 'stroke-width': Math.max(5, R * .045), 'stroke-linecap': 'round', opacity: .35, 'stroke-dasharray': '2 9' }, ck);
+    el.hh = S('line', { x1: cx, y1: cy, x2: cx, y2: cy - R * .5, stroke: css('--ok'), 'stroke-width': Math.max(8, R * .075), 'stroke-linecap': 'round' }, ck);
+    el.mh = S('line', { x1: cx, y1: cy, x2: cx, y2: cy - R * .82, stroke: css('--sora'), 'stroke-width': Math.max(5, R * .045), 'stroke-linecap': 'round' }, ck);
+    S('circle', { cx, cy, r: Math.max(6, R * .05), fill: css('--ink') }, ck);
+    el.elTxt = S('text', { x: cx, y: cy + R * 1.06 + (land ? -R * .2 : 0), 'text-anchor': 'middle', 'font-size': Math.max(16, R * .11), fill: css('--sora') }, svg);
+    if (land) { el.elTxt.setAttribute('x', L.sx + L.sw / 2); el.elTxt.setAttribute('y', Math.min(Ht - 12, L.by + L.bh + 28)); }
+    else { el.elTxt.setAttribute('x', Wd - 16); el.elTxt.setAttribute('text-anchor', 'end'); el.elTxt.setAttribute('y', L.sy - 6); el.elTxt.setAttribute('font-size', 15); }
+    update();
+  }
+  function update() {
+    const t = st.t, R = L.R, cx = L.cx, cy = L.cy;
+    const ma = (t % 60) * 6, ha = (((t % 720) + 720) % 720) * .5;
+    el.mh.setAttribute('transform', `rotate(${ma} ${cx} ${cy})`);
+    el.hh.setAttribute('transform', `rotate(${ha} ${cx} ${cy})`);
+    const rh = st.roomFor != null ? st.roomFor : hour12(t);
+    el.room.setAttribute('d', (st.room || st.roomFor != null) ? sector(cx, cy, R * .62, (rh % 12) * 30, (rh % 12) * 30 + 30) : '');
+    el.minSec.setAttribute('d', st.minSector ? sector(cx, cy, R * .9, 0, ((Math.round(t) % 60) + 60) % 60 * 6) : '');
+    el.five.style.display = st.five ? '' : 'none';
+    el.gears.style.display = st.gear ? '' : 'none';
+    el.face.setAttribute('opacity', st.gear ? .22 : 1);
+    el.nums.setAttribute('opacity', st.gear ? .55 : 1);
+    if (st.gear) {
+      el.g1.setAttribute('transform', el.g1.getAttribute('transform').replace(/ rotate\([^)]*\)/, '') + ` rotate(${t * 6})`);
+      el.g2.setAttribute('transform', el.g2.getAttribute('transform').replace(/ rotate\([^)]*\)/, '') + ` rotate(${-t * 2})`);
+      el.g3.setAttribute('transform', el.g3.getAttribute('transform').replace(/ rotate\([^)]*\)/, '') + ` rotate(${t * .5})`);
+    }
+    if (st.ghost != null) { const [x, y] = polar(cx, cy, R * .82, (st.ghost % 60) * 6); el.ghost.setAttribute('x2', x); el.ghost.setAttribute('y2', y); el.ghost.style.display = ''; } else el.ghost.style.display = 'none';
+    /* たった じかん */
+    if (st.start != null) {
+      const d = Math.max(0, t - st.start), laps = Math.floor(d / 60), a0 = (st.start % 60) * 6;
+      el.elapsedFull.style.display = laps >= 1 ? '' : 'none';
+      el.elapsed.setAttribute('d', sector(cx, cy, R * .86, a0, a0 + (d % 60) * 6));
+      el.elTxt.textContent = durKid(d) + ' たった';
+    } else { el.elapsedFull.style.display = 'none'; el.elapsed.setAttribute('d', ''); el.elTxt.textContent = ''; }
+    /* 空 */
+    const hr = (((t % 1440) + 1440) % 1440) / 60, [top, bot] = skyAt(hr);
+    el.s0.setAttribute('stop-color', top); el.s1.setAttribute('stop-color', bot);
+    const night = hr < 5.4 || hr > 19 ? 1 : hr < 6.4 ? (6.4 - hr) : hr > 18.2 ? (hr - 18.2) / .8 : 0;
+    el.stars.setAttribute('opacity', clamp(night, 0, 1));
+    const gy = L.sy + L.sh * .8, arcH = L.sh * .62;
+    const sp = (hr - 6) / 12; el.sun.style.display = sp > -.05 && sp < 1.05 ? '' : 'none';
+    el.sun.setAttribute('transform', `translate(${L.sx + L.sw * (.08 + .84 * sp)},${gy - Math.sin(Math.PI * clamp(sp, 0, 1)) * arcH + 6})`);
+    const mp = (((hr - 18) + 24) % 24) / 12; el.moon.style.display = mp > -.05 && mp < 1.05 ? '' : 'none';
+    el.moon.setAttribute('transform', `translate(${L.sx + L.sw * (.08 + .84 * mp)},${gy - Math.sin(Math.PI * clamp(mp, 0, 1)) * arcH + 6})`);
+    el.win.setAttribute('fill', night > .5 ? '#ffd56a' : '#7a8a8f');
+    el.word.textContent = word(hr);
+    el.word.setAttribute('fill', night > .5 || hr > 17.5 ? '#fff' : '#1f3b5a');
+    el.dig.setAttribute('fill', el.word.getAttribute('fill'));
+    el.dig.textContent = st.digital ? (hr < 12 ? 'ごぜん ' : 'ごご ') + `${Math.floor(hr % 12)}:${String(MIN(t)).padStart(2, '0')}` : '';
+    /* おびの しるし */
+    const T = tod(t), row = T < 720 ? 0 : 1, x = L.bx0 + (L.bx1 - L.bx0) * (T % 720) / 720;
+    el.mark.setAttribute('transform', `translate(${x},${L.rowY[row]})`);
+    el.bandEl.innerHTML = '';
+    if (st.start != null && t > st.start) {
+      let a = st.start, b = t;
+      while (a < b - .01) {
+        const ta = ((a % 1440) + 1440) % 1440, r = ta < 720 ? 0 : 1, segEnd = Math.min(b, a + (720 - (ta % 720)));
+        const xa = L.bx0 + (L.bx1 - L.bx0) * (ta % 720) / 720, xb = L.bx0 + (L.bx1 - L.bx0) * (((segEnd - a) + (ta % 720)) / 720);
+        S('rect', { x: xa, y: L.rowY[r] + 3, width: Math.max(1, xb - xa), height: L.rowH - 6, rx: 5, fill: css('--sora'), opacity: .45 }, el.bandEl);
+        a = segEnd;
+      }
+    }
+    el.bandFlash.innerHTML = '';
+    if (st.flash != null) [0, 1].forEach(r => { const x = L.bx0 + (L.bx1 - L.bx0) * st.flash / 12; S('circle', { cx: x, cy: L.rowY[r] + L.rowH / 2, r: L.rowH * .42, fill: 'none', stroke: css('--yamabuki'), 'stroke-width': 4 }, el.bandFlash); });
+  }
+  /* 指で長針を回す */
+  function bind() {
+    svg.onpointerdown = e => {
+      if (!st.canDrag) return;
+      const p = ptr(e), d = Math.hypot(p.x - L.cx, p.y - L.cy);
+      if (d > L.R * 1.12) return;
+      svg.setPointerCapture(e.pointerId);
+      st.drag = { last: angMin(p), id: e.pointerId }; HUD.hide();
+    };
+    svg.onpointermove = e => {
+      if (!st.drag || e.pointerId !== st.drag.id) return;
+      const m = angMin(ptr(e)); let d = m - st.drag.last; if (d > 30) d -= 60; if (d < -30) d += 60;
+      const before = Math.floor(st.t); st.t += d; if (st.t < 0) st.t += 1440; if (st.t > 1440 * 4) st.t -= 1440;
+      if (Math.floor(st.t) !== before) SFX.tick();
+      st.drag.last = m; update();
+    };
+    const end = e => {
+      if (!st.drag) return; st.drag = null; st.t = Math.round(st.t); update();
+      if (App.tab === 'sawaru') sayNow();
+    };
+    svg.onpointerup = end; svg.onpointercancel = end;
+  }
+  function angMin(p) { let a = Math.atan2(p.x - L.cx, -(p.y - L.cy)) * 180 / Math.PI; if (a < 0) a += 360; return a / 6; }
+  function sayNow() {
+    let html = kidTime(st.t), sp = spTime(st.t);
+    if (st.digital) { html = (tod(st.t) < 720 ? 'ごぜん ' : 'ごご ') + html; sp = (tod(st.t) < 720 ? '午前' : '午後') + sp; }
+    if (st.start != null) { const d = Math.max(0, st.t - st.start); html += `　<em>${durKid(d)} たった</em>`; }
+    HUD.say(html, { speech: sp });
+  }
+  async function moveTo(target, ms) {
+    const a = st.t; let last = Math.floor(a);
+    await tween(ms, k => { st.t = lerp(a, target, k); if (Math.floor(st.t) !== last) { last = Math.floor(st.t); if (ms < 2500) SFX.tick(); } update(); });
+    st.t = target; update();
+  }
+  function reset() { Object.assign(st, { start: null, room: false, roomFor: null, five: false, digital: false, gear: false, ghost: null, minSector: false, flash: null, canDrag: true }); }
+
+  /* みる */
+  async function miru() {
+    reset(); st.canDrag = false; st.t = 7 * 60; st.gear = true; st.start = 7 * 60; update();
+    HUD.say('ながい はりが ひとまわり すると…'); await wait(1200);
+    await moveTo(8 * 60, 5200);
+    HUD.say('みじかい はりは つぎの かずまで すすむ。<b>1じかん</b> は <b>60ぷん</b>'); await wait(3200);
+    st.gear = false; st.start = null; update();
+    HUD.say('おひるの 12じ。ここから <b>ごご</b>'); await moveTo(12 * 60, 3200); await wait(1800);
+    HUD.say('よるの 7じ。あさの 7じと おなじ とけいの かたち'); await moveTo(19 * 60, 3400);
+    st.flash = 7; update(); await wait(3000); st.flash = null;
+    HUD.say('みじかい はりが 2かい まわると <b>1にち</b>。<b>24じかん</b>'); await moveTo(24 * 60 + 7 * 60, 3800);
+    st.t = 7 * 60; update(); st.canDrag = true;
+  }
+  function miruPanel(p) {
+    p.appendChild(H('div', { class: 'row' }, [H('button', { class: 'btn', onclick: () => { cancelRuns(); run(miru); }, html: ICON.replay + 'もういちど みる' })]));
+  }
+  /* さわる */
+  function sawaruPanel(p) {
+    reset(); update();
+    const step = (d) => { cancelRuns(); run(async () => { await moveTo(Math.max(0, st.t + d), d === 60 ? 900 : 360); sayNow(); }); };
+    const hb = H('button', { class: 'btn sub small', text: 'はかる', 'aria-pressed': 'false', 'aria-label': 'じかんを はかる', onclick: () => { st.start = st.start == null ? st.t : null; hb.setAttribute('aria-pressed', String(st.start != null)); hb.textContent = st.start != null ? 'やめる' : 'はかる'; update(); HUD.say(st.start != null ? 'はりを うごかしてね。うごいた ぶんが <em>じかん</em>' : kidTime(st.t)); } });
+    p.appendChild(H('div', { class: 'row' }, [
+      H('button', { class: 'btn sub small', text: '−5ふん', onclick: () => step(-5) }),
+      H('button', { class: 'btn sub small', text: '+5ふん', onclick: () => step(5) }),
+      H('button', { class: 'btn sub small', text: '+1じかん', onclick: () => step(60) }),
+      hb
+    ]));
+    p.appendChild(H('div', { class: 'row' }, [multiSeg([
+      { label: 'へや', on: st.room, f: v => { st.room = v; update(); if (v) HUD.say('みじかい はりが いる <b>へや</b>。ちいさい ほうの かずを よむ'); } },
+      { label: '5とび', on: st.five, f: v => { st.five = v; update(); } },
+      { label: 'デジタル', on: st.digital, f: v => { st.digital = v; update(); } },
+      { label: 'なかを みる', on: st.gear, f: v => { st.gear = v; update(); if (v) HUD.say('なかの はぐるまが つながって いるから、いっしょに うごく'); } }
+    ])]));
+    HUD.say('ながい はりを ゆびで まわしてね');
+  }
+  /* ためす */
+  function genTime(level) {
+    let h = rnd(1, 12), m;
+    if (level === 'easy') m = pick([0, 30]);
+    else if (level === 'normal') m = Math.random() < .45 ? pick([45, 50, 55]) : rnd(1, 11) * 5;
+    else { m = Math.random() < .4 ? rnd(56, 59) : rnd(1, 59); if (m % 5 === 0) m += 1; if (Math.random() < .25) h = 12; }
+    return h * 60 + m;
+  }
+  function readChoices(T) {
+    const h = hour12(T), m = MIN(T), out = [{ label: kidTime(T), ok: true }];
+    const hp = h === 12 ? 1 : h + 1, hm = h === 1 ? 12 : h - 1;
+    out.push({ label: kidTime((m >= 30 ? hp : hm) * 60 + m), ok: false });
+    let b;
+    if (m % 5 === 0 && m >= 10) b = `${h}じ ${m / 5}${fun(m / 5)}`;
+    else { const h2 = Math.round(m / 5) % 12 || 12, m2 = ((h % 12) * 5 + Math.floor(m / 12)) % 60; b = kidTime(h2 * 60 + m2); }
+    if (out.some(o => o.label === b)) b = kidTime(hm * 60 + m);
+    if (out.some(o => o.label === b)) b = kidTime(((h + 5) % 12 || 12) * 60 + m);
+    out.push({ label: b, ok: false });
+    return shuffle(out);
+  }
+  function gen(level, i) {
+    reset(); st.canDrag = false;
+    const T = genTime(level), at = { x: L.cx, y: L.cy, r: L.R * .7 };
+    if (i % 2 === 0) {
+      st.t = T < 6 * 60 ? T + 720 : T; update();
+      return {
+        say: 'なんじ なんぷん？', at, choices: readChoices(T),
+        hint(k) { if (k === 1) { st.room = true; HUD.say('みじかい はりの <b>へや</b>を みてね'); } if (k === 2) { st.five = true; HUD.say('ながい はりは <em>5とび</em>で かぞえる'); } if (k === 3) { st.minSector = true; HUD.say(`ながい はりは <em>${MIN(T)}${fun(MIN(T))}</em>`); } update(); },
+        async verify() { st.digital = true; st.room = true; update(); TTS.speak(spTime(T)); await wait(900); }
+      };
+    }
+    let s0 = T + pick([-1, 1]) * rnd(110, 260); while (s0 < 6 * 60) s0 += 720; while (s0 > 21 * 60) s0 -= 720; st.t = s0; st.canDrag = true; update();
+    const target = T;
+    return {
+      set: true, say: `<b>${kidTime(target)}</b> に あわせてね`, speech: spTime(target) + 'に合わせてね', at,
+      check() { return ((Math.round(st.t) % 720) + 720) % 720 === target % 720; },
+      hint(k) { if (k === 1) { st.roomFor = hour12(target); HUD.say(`みじかい はりは <b>${hour12(target)}</b> の へや`); } if (k === 2) { st.five = true; HUD.say('ながい はりは <em>5とび</em>で かぞえる'); } if (k === 3) { st.ghost = MIN(target); HUD.say('ながい はりは この ばしょ'); } update(); },
+      async verify(ok) {
+        st.canDrag = false;
+        if (!ok) { let tt = target % 720; const cur = st.t % 720; let d = tt - cur; if (d > 360) d -= 720; if (d < -360) d += 720; await moveTo(st.t + d, 1400); }
+        st.digital = true; st.roomFor = null; st.room = true; update(); TTS.speak(spTime(target)); await wait(700);
+      }
+    };
+  }
+  let quiz = null;
+  return {
+    title: 'とけい', grade: '1・2ねん',
+    mount(c) { svg = c.svg; layout(c.W, c.H); bind(); },
+    layout(w, h) { layout(w, h); },
+    unmount() { svg.onpointerdown = svg.onpointermove = svg.onpointerup = svg.onpointercancel = null; },
+    setTab(id, p) {
+      if (id === 'miru') { miruPanel(p); run(miru); }
+      if (id === 'sawaru') sawaruPanel(p);
+      if (id === 'tamesu') { quiz = makeQuiz({ key: 'clock', n: 6, gen, panel: () => $('#panel') }); quiz.start(); }
+    }
+  };
+})();
+/* ---------- かさ：みずを うつす・ますで はかる（K1・K2） ---------- */
+SCENES.water = (() => {
+  let svg, Wd, Ht, k = 20, tableY = 400, layer, fx, vs = [], sel = null, busy = false, spill = 0, setName = 'masu', count = 0, loop = 0, quizCups = null;
+  const SETS = {
+    masu: () => [
+      { id: 'dl', name: '1dLます', w: 5, h: 4, cap: 100, vol: 0, masu: true },
+      { id: 'l', name: '1Lます', w: 10, h: 10, cap: 1000, vol: 0, masu: true, marks: 10 },
+      { id: 'pet', name: 'ペットボトル', w: 6.5, h: 17, cap: 500, vol: 500, bottle: true },
+      { id: 'cup', name: 'コップ', w: 7, h: 8.5, cap: 300, vol: 0 }
+    ],
+    kurabe: () => [
+      { id: 'a', name: 'あか', w: 5, h: 18, cap: 450, vol: 350, tag: css('--face-1') },
+      { id: 'b', name: 'あお', w: 12, h: 7.5, cap: 700, vol: 450, tag: css('--face-4') },
+      { id: 'c1', name: 'コップ', w: 7.5, h: 11, cap: 500, vol: 0 },
+      { id: 'c2', name: 'コップ', w: 7.5, h: 11, cap: 500, vol: 0 }
+    ]
+  };
+  /* 多角形の切り取りと面積（水面を水平に保つため） */
+  function clipHalf(poly, g, s) {
+    const out = [];
+    for (let i = 0; i < poly.length; i++) {
+      const a = poly[i], b = poly[(i + 1) % poly.length], da = a[0] * g[0] + a[1] * g[1] - s, db = b[0] * g[0] + b[1] * g[1] - s;
+      if (da >= 0) out.push(a);
+      if ((da >= 0) !== (db >= 0)) { const t = da / (da - db); out.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]); }
+    }
+    return out;
+  }
+  const area = p => { let s = 0; for (let i = 0; i < p.length; i++) { const a = p[i], b = p[(i + 1) % p.length]; s += a[0] * b[1] - b[0] * a[1]; } return Math.abs(s) / 2; };
+  function rectOf(v) { const w = v.w * k, h = v.h * k; return [[-w / 2, -h], [w / 2, -h], [w / 2, 0], [-w / 2, 0]]; }
+  function gravity(th) { const r = th * Math.PI / 180; return [Math.sin(r), Math.cos(r)]; }
+  function waterPoly(v) {
+    const R = rectOf(v), g = gravity(v.rot), f = clamp(v.vol / v.cap, 0, 1); if (f <= 0.0005) return null;
+    const target = f * area(R), ds = R.map(p => p[0] * g[0] + p[1] * g[1]);
+    let lo = Math.min(...ds), hi = Math.max(...ds);
+    for (let i = 0; i < 26; i++) { const m = (lo + hi) / 2; if (area(clipHalf(R, g, m)) > target) lo = m; else hi = m; }
+    return clipHalf(R, g, (lo + hi) / 2);
+  }
+  function tiltFor(v, sign) {
+    const R = rectOf(v), f = clamp(v.vol / v.cap, 0, 1), target = f * area(R), lip = [sign * v.w * k / 2, -v.h * k];
+    let lo = 0, hi = 135;
+    for (let i = 0; i < 22; i++) { const m = (lo + hi) / 2, g = gravity(sign * m), s = lip[0] * g[0] + lip[1] * g[1]; if (area(clipHalf(R, g, s)) > target) lo = m; else hi = m; }
+    return (lo + hi) / 2;
+  }
+  function setup(name, preset) {
+    setName = name; vs = (preset || SETS[name]()).map(v => Object.assign({ rot: 0, lift: 0, wave: 0, sign: 1, px: null, py: null }, v));
+    sel = null; spill = 0; count = 0; quizCups = null; layout(Wd, Ht);
+  }
+  function layout(w, h) {
+    Wd = w; Ht = h; svg.innerHTML = '';
+    tableY = Ht * (Wd > Ht ? .86 : .82);
+    const totalW = vs.reduce((s, v) => s + v.w, 0) + 3.2 * (vs.length - 1), maxH = Math.max(...vs.map(v => v.h));
+    k = Math.min((tableY - 96) / (maxH + 2), (Wd - 48) / totalW, 34);
+    let x = (Wd - totalW * k) / 2;
+    for (const v of vs) { v.x = x + v.w * k / 2; x += (v.w + 3.2) * k; }
+    S('rect', { x: 0, y: tableY, width: Wd, height: Ht - tableY, fill: css('--wood-pale') }, svg);
+    S('rect', { x: 0, y: tableY, width: Wd, height: 5, fill: css('--wood') }, svg);
+    fx = S('g', {}, svg);
+    layer = S('g', {}, svg);
+    for (const v of vs) build(v);
+    draw();
+  }
+  function build(v) {
+    const g = S('g', { class: 'vessel', style: 'cursor:pointer' }, layer); v.g = g;
+    const w = v.w * k, h = v.h * k, t = Math.max(3, k * .16);
+    v.ring = S('rect', { x: -w / 2 - t - 6, y: -h - 10, width: w + 2 * t + 12, height: h + t + 16, rx: 12, fill: 'none', stroke: css('--yamabuki'), 'stroke-width': 4, opacity: 0 }, g);
+    S('rect', { x: -w / 2 - t, y: -h, width: w + 2 * t, height: h + t, rx: v.masu ? 3 : Math.min(10, w * .2), fill: css('--glass'), opacity: .8 }, g);
+    v.water = S('path', { fill: css('--water'), opacity: .92 }, g);
+    v.surf = S('path', { fill: 'none', stroke: css('--water-deep'), 'stroke-width': 2.5, 'stroke-linecap': 'round' }, g);
+    S('rect', { x: -w / 2 + Math.max(4, w * .1), y: -h + 8, width: Math.max(3, w * .07), height: Math.max(4, h - 18), rx: 3, fill: '#fff', opacity: .55 }, g);
+    if (v.marks) {
+      v.markG = S('g', {}, g);
+      for (let i = 1; i < v.marks; i++) { const y = -h * i / v.marks; S('line', { x1: w / 2 - w * (i === 5 ? .32 : .2), y1: y, x2: w / 2, y2: y, stroke: '#2f5d8a', 'stroke-width': i === 5 ? 3 : 2 }, v.markG); }
+      v.markNums = S('g', { opacity: 0 }, g);
+      for (let i = 1; i < v.marks; i++) { const tt = S('text', { x: w / 2 - w * .36, y: -h * i / v.marks + 5, 'text-anchor': 'end', 'font-size': Math.max(12, k * .7), fill: '#2f5d8a', class: 'ui' }, v.markNums); tt.textContent = i; }
+    }
+    const outline = v.masu
+      ? `M${-w / 2 - t},${-h - 2}V${t}H${w / 2 + t}V${-h - 2}`
+      : `M${-w / 2 - t / 2},${-h - 2}V${-6}Q${-w / 2 - t / 2},${t / 2} ${-w / 2 + 6},${t / 2}H${w / 2 - 6}Q${w / 2 + t / 2},${t / 2} ${w / 2 + t / 2},${-6}V${-h - 2}`;
+    S('path', { d: outline, fill: 'none', stroke: v.masu ? '#7d9db3' : '#9fb7c9', 'stroke-width': t, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
+    if (v.bottle) { S('rect', { x: -w * .22, y: -h - k * 1.4, width: w * .44, height: k * 1.4, rx: 3, fill: css('--face-4') }, g); S('rect', { x: -w / 2 - t / 2, y: -h * .62, width: w + t, height: h * .2, fill: '#fff', stroke: css('--line') }, g); const tt = S('text', { x: 0, y: -h * .52 + 2, 'text-anchor': 'middle', 'font-size': Math.max(11, k * .65), fill: css('--sora'), class: 'ui' }, g); tt.textContent = '500mL'; }
+    if (v.tag) S('rect', { x: -w / 2 - t, y: -h * .5 - k * .6, width: k * 1.2, height: k * 1.2, rx: 4, fill: v.tag }, g);
+    if (v.masu && v.id === 'l') { const tt = S('text', { x: w / 2 - w * .1, y: -h - 8, 'text-anchor': 'end', 'font-size': Math.max(12, k * .7), fill: '#2f5d8a', class: 'ui' }, g); tt.textContent = '1L'; }
+    v.label = S('text', { 'text-anchor': 'middle', 'font-size': Math.max(14, Math.min(20, k * .9)), fill: v.tag ? v.tag : css('--ink-soft') }, svg);
+    v.label.textContent = v.name;
+    g.addEventListener('pointerdown', e => { e.stopPropagation(); tap(v); });
+  }
+  function draw() {
+    for (const v of vs) {
+      const w = v.w * k, h = v.h * k;
+      if (v.px == null) { v.g.setAttribute('transform', `translate(${v.x},${tableY - v.lift})`); }
+      else { const lx = v.sign * w / 2, ly = -h; v.g.setAttribute('transform', `translate(${v.px},${v.py}) rotate(${v.rot}) translate(${-lx},${-ly})`); }
+      v.label.setAttribute('x', v.x); v.label.setAttribute('y', tableY + Math.max(22, Math.min(30, k * 1.3)));
+      v.ring.setAttribute('opacity', sel === v ? 1 : 0);
+      const P = waterPoly(v);
+      if (!P) { v.water.setAttribute('d', ''); v.surf.setAttribute('d', ''); continue; }
+      if (Math.abs(v.rot) < .5) {
+        const lvl = h * v.vol / v.cap, n = 16, amp = v.wave * Math.min(6, k * .3); let d = `M${-w / 2},0H${w / 2}`, sd = '';
+        for (let i = 0; i <= n; i++) { const xx = w / 2 - w * i / n, yy = -lvl + Math.sin(i / n * Math.PI * 2 + loop * .012) * amp * (lvl > 2 ? 1 : 0); d += `L${xx.toFixed(1)},${yy.toFixed(1)}`; sd += (i ? 'L' : 'M') + xx.toFixed(1) + ',' + yy.toFixed(1); }
+        v.water.setAttribute('d', d + 'Z'); v.surf.setAttribute('d', sd);
+      } else { v.water.setAttribute('d', 'M' + P.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('L') + 'Z'); v.surf.setAttribute('d', ''); }
+    }
+  }
+  let raf = 0;
+  function tick() { loop++; let any = false; for (const v of vs) { if (v.wave > .02) { v.wave *= .965; any = true; } } if (any) draw(); raf = requestAnimationFrame(tick); }
+  function tap(v) {
+    if (busy || App.tab === 'miru' || (App.tab === 'tamesu' && !quizCups)) return;
+    if (!sel) { sel = v; v.lift = 10; draw(); SFX.pop(); HUD.say('どこに いれる？ いれものを タッチ'); return; }
+    if (sel === v) { v.lift = 0; sel = null; draw(); HUD.hide(); return; }
+    const src = sel; src.lift = 0; sel = null;
+    run(async () => { await pour(src, v); afterPour(src, v); });
+  }
+  function afterPour(src, dst) {
+    if (setName === 'masu' && src.id === 'dl' && dst.id === 'l') {
+      count++;
+      HUD.say(dst.vol >= dst.cap - .5 ? `1dLます <b>${count}${hai(count)}</b> で いっぱい。<b>1L は 10dL</b>` : `1dLます <b>${count}${hai(count)}</b>`);
+    } else if (spill > 0 && dst.vol >= dst.cap - .5) HUD.say(`<b>あふれた！</b> ${src.name}の ほうが おおかった`);
+    else HUD.hide();
+  }
+  function surfaceY(v) { return tableY - v.h * k * clamp(v.vol / v.cap, 0, 1); }
+  async function pour(src, dst, o = {}) {
+    busy = true; SFX.pop();
+    const sw = src.w * k, sh = src.h * k, dl = dst.x - dst.w * k / 2, dr = dst.x + dst.w * k / 2, dTop = tableY - dst.h * k;
+    src.sign = (dl - sw > 8) ? 1 : -1;
+    const lipX0 = src.x + src.sign * sw / 2, lipY0 = tableY - sh;
+    src.px = lipX0; src.py = lipY0; layer.appendChild(src.g);
+    const tx = src.sign > 0 ? dl + 6 : dr - 6, tyHi = Math.min(dTop - 30, lipY0 - 10), tyLo = dTop - 12;
+    await tween(520 * (o.fast ? .6 : 1), e => { src.px = lerp(lipX0, tx, e); src.py = lerp(lipY0, tyHi, e) - Math.sin(e * Math.PI) * 24; draw(); });
+    const th0 = tiltFor(src, src.sign);
+    await tween(380 * (o.fast ? .6 : 1), e => { src.rot = src.sign * th0 * e; src.py = lerp(tyHi, tyLo, e); draw(); });
+    const stream = S('path', { fill: 'none', stroke: css('--water'), 'stroke-width': Math.max(4, k * .35), 'stroke-linecap': 'round', opacity: .9 }, fx);
+    SFX.pourStart();
+    const rate = Math.max(220, src.cap * .9) * (o.fast ? 1.8 : 1);
+    let last = performance.now();
+    await new Promise((res, rej) => {
+      const id = RUN.id;
+      const f = now => {
+        if (id !== RUN.id) { stream.remove(); SFX.pourStop(); busy = false; rej(new Cancel()); return; }
+        const dt = Math.min(.05, (now - last) / 1000) / SPEED; last = now;
+        const dv = Math.min(src.vol, rate * dt);
+        src.vol -= dv; dst.vol += dv; dst.wave = 1;
+        if (dst.vol > dst.cap) { spill += dst.vol - dst.cap; dst.vol = dst.cap; }
+        src.rot = src.sign * (src.vol > .5 ? tiltFor(src, src.sign) + 6 : 125);
+        const sy = surfaceY(dst);
+        stream.setAttribute('d', `M${src.px},${src.py}Q${src.px + src.sign * 10},${src.py + 6} ${src.px + src.sign * 12},${sy}`);
+        drawSpill(dst);
+        draw();
+        if (src.vol <= .01) { src.vol = 0; res(); } else requestAnimationFrame(f);
+      };
+      requestAnimationFrame(f);
+    });
+    stream.remove(); SFX.pourStop();
+    await tween(360 * (o.fast ? .6 : 1), e => { src.rot = src.sign * 125 * (1 - e); src.py = lerp(tyLo, tyHi, e); draw(); });
+    await tween(460 * (o.fast ? .6 : 1), e => { src.px = lerp(tx, lipX0, e); src.py = lerp(tyHi, lipY0, e); draw(); });
+    src.px = null; src.rot = 0; draw(); busy = false;
+  }
+  let puddle = null;
+  function drawSpill(dst) {
+    if (spill <= 0) return;
+    if (!puddle) puddle = S('ellipse', { fill: css('--water'), opacity: .55 }, fx);
+    if (!puddle.isConnected) fx.appendChild(puddle);
+    const r = Math.min(Wd * .2, Math.sqrt(spill) * k * .35);
+    puddle.setAttribute('cx', dst.x + dst.w * k * .5); puddle.setAttribute('cy', tableY + 6); puddle.setAttribute('rx', r); puddle.setAttribute('ry', r * .18);
+  }
+  async function fill(v, to, fast) {
+    busy = true; to = to == null ? v.cap : to;
+    const top = 0, stream = S('path', { fill: 'none', stroke: css('--water'), 'stroke-width': Math.max(5, k * .35), 'stroke-linecap': 'round' }, fx);
+    const tap = S('g', {}, fx); S('rect', { x: v.x - 28, y: -4, width: 56, height: 22, rx: 8, fill: css('--metal'), stroke: css('--metal-deep'), 'stroke-width': 2 }, tap); S('rect', { x: v.x - 6, y: 16, width: 12, height: 12, rx: 3, fill: css('--metal-deep') }, tap);
+    SFX.pourStart(); const a = v.vol;
+    await tween((fast ? 260 : 500) + (fast ? 200 : 700) * (to - a) / v.cap, e => { v.vol = lerp(a, to, e); v.wave = 1; stream.setAttribute('d', `M${v.x},28V${surfaceY(v)}`); draw(); }, E.lin);
+    SFX.pourStop(); stream.remove(); tap.remove(); busy = false;
+  }
+  async function dump(v) {
+    busy = true; const a = v.vol; const sgn = v.x > Wd / 2 ? 1 : -1;
+    v.sign = sgn; const w = v.w * k, h = v.h * k; v.px = v.x + sgn * w / 2; v.py = tableY - h;
+    SFX.pourStart();
+    await tween(900, e => { v.rot = sgn * 110 * Math.sin(Math.min(1, e * 1.4) * Math.PI / 2); v.vol = a * (1 - e); draw(); });
+    SFX.pourStop(); v.vol = 0;
+    await tween(300, e => { v.rot = sgn * 110 * (1 - e); draw(); });
+    v.px = null; v.rot = 0; draw(); busy = false;
+  }
+  function byId(id) { return vs.find(v => v.id === id); }
+  /* 「杯」の読み：1・6・8・10は「ぱい」、3は「ばい」、ほかは「はい」 */
+  const hai = n => { const d = n % 10; return d === 0 || d === 1 || d === 6 || d === 8 ? 'ぱい' : d === 3 ? 'ばい' : 'はい'; };
+
+  /* みる */
+  async function miru() {
+    setup('kurabe'); HUD.say('<b>あか</b>と <em>あお</em>、みずが おおいのは どっち？'); await wait(3200);
+    HUD.say('おなじ コップに うつして くらべよう'); await wait(900);
+    await pour(byId('a'), byId('c1')); byId('c1').label.textContent = 'あか'; byId('c1').label.setAttribute('fill', css('--face-1'));
+    await pour(byId('b'), byId('c2')); byId('c2').label.textContent = 'あお'; byId('c2').label.setAttribute('fill', css('--face-4'));
+    HUD.say('ひくく みえた <em>あお</em>の ほうが おおかった！'); await wait(3600);
+    setup('masu'); byId('pet').vol = 0; draw();
+    HUD.say('1dLますで 1Lますに いれて みよう'); await wait(1600);
+    for (let i = 1; i <= 10; i++) {
+      await fill(byId('dl'), null, true);
+      await pour(byId('dl'), byId('l'), { fast: true });
+      HUD.say(`<b>${i}${hai(i)}</b>`, { speech: i + '杯' });
+    }
+    HUD.say('1dLます <b>10ぱい</b>で 1Lます いっぱい。<b>1L は 10dL</b>', { speech: '1デシリットルます10杯で、1リットルますいっぱい。1リットルは10デシリットル' });
+  }
+  /* さわる */
+  function sawaruPanel(p) {
+    setup('masu');
+    p.appendChild(H('div', { class: 'row' }, [
+      seg([{ id: 'masu', label: 'ます' }, { id: 'kurabe', label: 'くらべる' }], setName, id => { cancelRuns(); busy = false; setup(id); hello(); }),
+      H('button', { class: 'btn sub small', text: 'みずを くむ', onclick: () => { if (busy) return; if (!sel) { HUD.say('さきに いれものを タッチ'); return; } const v = sel; v.lift = 0; sel = null; run(() => fill(v)); } }),
+      H('button', { class: 'btn sub small', text: 'すてる', onclick: () => { if (busy) return; if (!sel) { HUD.say('すてる いれものを タッチ'); return; } const v = sel; v.lift = 0; sel = null; run(() => dump(v)); } }),
+      H('button', { class: 'btn sub small', text: 'もとに もどす', onclick: () => { cancelRuns(); busy = false; setup(setName); hello(); } })
+    ]));
+    hello();
+  }
+  function hello() { HUD.say(setName === 'masu' ? 'いれものを タッチして、ほかの いれものに うつそう' : '<b>あか</b>と <em>あお</em>、どっちが おおいか しらべよう'); }
+
+  /* ためす */
+  function cupsFor(a, b, done) {
+    return async () => {
+      const c1 = byId('c1'), c2 = byId('c2');
+      await pour(a, c1, { fast: true }); c1.label.textContent = a.name; c1.label.setAttribute('fill', a.tag);
+      await pour(b, c2, { fast: true }); c2.label.textContent = b.name; c2.label.setAttribute('fill', b.tag);
+      done && done();
+    };
+  }
+  function gen(level, i) {
+    const kind = [0, 3].includes(i) ? 'compare' : [1, 4].includes(i) ? 'read' : 'est';
+    if (kind === 'compare') {
+      let va, vb, eq = level === 'challenge' && Math.random() < .35;
+      if (eq) { va = vb = pick([300, 350, 400]); } else { va = pick([250, 300, 350]); vb = va + pick(level === 'easy' ? [150, 200] : [50, 100]); }
+      const tallIsA = Math.random() < .5;
+      const A = { id: 'a', name: 'あか', w: 5, h: 18, cap: 450, vol: tallIsA ? va : vb, tag: css('--face-1') };
+      const B = { id: 'b', name: 'あお', w: 12, h: 7.5, cap: 700, vol: tallIsA ? vb : va, tag: css('--face-4') };
+      setup('kurabe', [A, B, { id: 'c1', name: 'コップ', w: 7.5, h: 11, cap: 500, vol: 0 }, { id: 'c2', name: 'コップ', w: 7.5, h: 11, cap: 500, vol: 0 }]);
+      const more = A.vol > B.vol ? 'a' : A.vol < B.vol ? 'b' : 'eq';
+      const ch = [{ label: 'あか', html: '<span class="sw" style="background:var(--face-1)"></span>あか', ok: more === 'a' }, { label: 'あお', html: '<span class="sw" style="background:var(--face-4)"></span>あお', ok: more === 'b' }];
+      if (level === 'challenge') ch.push({ label: 'おなじ', ok: more === 'eq' });
+      return {
+        say: 'みずが おおいのは どっち？', choices: ch, at: { x: Wd * .72, y: tableY - 11 * k * .6, r: k * 4 },
+        hint(s) { if (s === 1) HUD.say('たかさだけで きめられるかな？'); if (s === 2) HUD.say('ふとさも みてね'); if (s === 3) HUD.say('おなじ コップに うつすと くらべられる'); },
+        async verify() { await cupsFor(byId('a'), byId('b'))(); }
+      };
+    }
+    if (kind === 'read') {
+      const v = level === 'easy' ? rnd(2, 8) : rnd(1, 9);
+      setup('masu', [{ id: 'l', name: '1Lます', w: 10, h: 10, cap: 1000, vol: v * 100, masu: true, marks: 10 }]);
+      const l = byId('l');
+      const opts = [{ label: v + 'dL', ok: true }, { label: (10 - v) + 'dL', ok: false }, { label: v + 'L', ok: false }];
+      if (v === 5) opts[1] = { label: '50dL', ok: false };
+      return {
+        say: 'みずは なんdL？', speech: '水は何デシリットル？', choices: shuffle(opts), at: { x: l.x, y: tableY - 5 * k, r: k * 4 },
+        hint(s) { if (s === 1) HUD.say('めもりは 1dL ずつ'); if (s === 2) HUD.say('したから かぞえよう'); if (s === 3) l.markNums.setAttribute('opacity', 1); },
+        async verify() { for (let j = 1; j <= v; j++) { const n = l.markNums.children[j - 1]; if (n) { l.markNums.setAttribute('opacity', 1); for (const c of l.markNums.children) c.setAttribute('opacity', 0); for (let q = 0; q < j; q++) l.markNums.children[q] && l.markNums.children[q].setAttribute('opacity', 1); } SFX.tick(); await wait(260); } HUD.say(`<b>${v}dL</b>`, { speech: v + 'デシリットル' }); await wait(500); }
+      };
+    }
+    const big = level === 'easy' ? 'l' : pick(['l', 'pet']);
+    const set = [{ id: 'dl', name: '1dLます', w: 5, h: 4, cap: 100, vol: 0, masu: true }, big === 'l' ? { id: 'l', name: '1Lます', w: 10, h: 10, cap: 1000, vol: 0, masu: true, marks: 10 } : { id: 'pet', name: 'ペットボトル', w: 6.5, h: 17, cap: 500, vol: 0, bottle: true }];
+    setup('masu', set);
+    const nAns = big === 'l' ? 10 : 5;
+    return {
+      say: big === 'l' ? '1Lますを いっぱいに するには、1dLますで なんばい？' : '500mLの ペットボトルは、1dLますで なんばい？', choices: shuffle([nAns, nAns === 10 ? 100 : 50, nAns === 10 ? 5 : 10].map((n, q) => ({ label: n + hai(n), ok: q === 0 }))),
+      at: { x: Wd / 2, y: tableY - 6 * k, r: k * 4 },
+      hint(s) { if (s === 1) HUD.say('1dL は 1Lの 10こに わけた 1つぶん'); if (s === 2) HUD.say(big === 'l' ? '1L = 10dL' : '500mL は 1Lの はんぶん'); if (s === 3) HUD.say(big === 'l' ? '10こで 1L' : '10dLの はんぶん'); },
+      async verify() { const d = byId('dl'), t = byId(big); for (let j = 1; j <= nAns; j++) { await fill(d, null, true); await pour(d, t, { fast: true }); HUD.say(`<b>${j}${hai(j)}</b>`, { speech: j + '杯', speak: j === nAns }); } }
+    };
+  }
+  let quiz = null;
+  return {
+    title: 'みずの かさ', grade: '1・2ねん',
+    mount(c) { svg = c.svg; Wd = c.W; Ht = c.H; vs = SETS.masu().map(v => Object.assign({ rot: 0, lift: 0, wave: 0, sign: 1, px: null, py: null }, v)); layout(Wd, Ht); raf = requestAnimationFrame(tick); },
+    layout(w, h) { if (!busy) layout(w, h); else { Wd = w; Ht = h; } },
+    unmount() { cancelAnimationFrame(raf); busy = false; },
+    setTab(id, p) {
+      busy = false; puddle = null;
+      if (id === 'miru') { p.appendChild(H('div', { class: 'row' }, [H('button', { class: 'btn', onclick: () => { cancelRuns(); busy = false; run(miru); }, html: ICON.replay + 'もういちど みる' })])); run(miru); }
+      if (id === 'sawaru') sawaruPanel(p);
+      if (id === 'tamesu') { quiz = makeQuiz({ key: 'water', n: 5, gen, panel: () => $('#panel') }); quiz.start(); }
+    }
+  };
+})();
+/* ---------- おもさ：はかりと てんびん（O3） ---------- */
+SCENES.scale = (() => {
+  let svg, Wd, Ht, el = {}, raf = 0, mode = 'hakari', cap = 1000, lens = false;
+  /* 値はおよそ（⚠️要検証。製品では data/benchmarks.json に置く） */
+  const ITEMS = {
+    apple: { name: 'りんご', g: 280 }, egg: { name: 'たまご', g: 60 }, carrot: { name: 'にんじん', g: 150 },
+    book: { name: 'ほん', g: 320 }, clay: { name: 'ねんど', g: 200 }, pack: { name: 'みず 1L', g: 1030 },
+    pencil: { name: 'えんぴつ', g: 6 }, eraser: { name: 'けしごむ', g: 20 },
+    sponge: { name: 'スポンジ', g: 20 }, iron: { name: 'てつの たま', g: 110 },
+    rice: { name: 'おこめ', g: 3000 }, box: { name: 'にもつ', g: 0 }
+  };
+  const SHELF = ['apple', 'egg', 'carrot', 'book', 'clay', 'pack'];
+  let onPlate = [], clayShape = 0, needle = { a: 0, v: 0, said: -1 }, beam = { a: 0, v: 0, hold: false }, left = 'egg', right = null, coins = 0, boxG = 0;
+  const mass = () => onPlate.reduce((s, id) => s + (id === 'box' ? boxG : ITEMS[id].g), 0);
+  const gfmt = g => g < 1000 ? `${g}g` : `${Math.floor(g / 1000)}kg${g % 1000 ? ' ' + (g % 1000) + 'g' : ''}`;
+  const gsp = g => g < 1000 ? `${g}グラム` : `${Math.floor(g / 1000)}キログラム${g % 1000 ? (g % 1000) + 'グラム' : ''}`;
+  const TICK = { 1000: [5, 50, 100], 2000: [10, 100, 200], 4000: [20, 100, 500] };
+
+  /* 物の絵（中心が下の真ん中、大きさ s） */
+  function drawItem(p, id, s, shape) {
+    const g = S('g', {}, p);
+    if (id === 'apple') { S('circle', { cx: 0, cy: -s * .45, r: s * .45, fill: '#d9452f' }, g); S('path', { d: `M0,${-s * .85}q${s * .05},${-s * .2} ${s * .02},${-s * .25}`, stroke: '#6b4a2a', 'stroke-width': s * .06, fill: 'none', 'stroke-linecap': 'round' }, g); S('ellipse', { cx: s * .14, cy: -s * 1, rx: s * .14, ry: s * .07, fill: '#8cc152', transform: `rotate(-25 ${s * .14} ${-s})` }, g); S('ellipse', { cx: -s * .16, cy: -s * .6, rx: s * .08, ry: s * .12, fill: '#fff', opacity: .35 }, g); }
+    if (id === 'egg') { S('ellipse', { cx: 0, cy: -s * .38, rx: s * .3, ry: s * .38, fill: '#f7ead0', stroke: '#d9c49b', 'stroke-width': 2 }, g); }
+    if (id === 'carrot') { S('path', { d: `M${-s * .5},${-s * .2}L${s * .55},${-s * .08}L${-s * .5},${-s * .02}Q${-s * .62},${-s * .11} ${-s * .5},${-s * .2}Z`, fill: '#f08a24' }, g); S('path', { d: `M${-s * .55},${-s * .12}l${-s * .25},${-s * .14}M${-s * .55},${-s * .11}l${-s * .28},${s * .02}M${-s * .55},${-s * .1}l${-s * .2},${s * .14}`, stroke: '#5a9a3a', 'stroke-width': s * .06, 'stroke-linecap': 'round' }, g); }
+    if (id === 'book') { S('rect', { x: -s * .5, y: -s * .22, width: s, height: s * .22, rx: 3, fill: '#4f9bd9' }, g); S('rect', { x: -s * .46, y: -s * .18, width: s * .92, height: s * .08, fill: '#fff', opacity: .8 }, g); }
+    if (id === 'clay') {
+      if (shape === 1) S('rect', { x: -s * .6, y: -s * .2, width: s * 1.2, height: s * .2, rx: s * .1, fill: '#8cc152' }, g);
+      else if (shape === 2) [[-.42, .13], [-.12, .16], [.18, .12], [.44, .14]].forEach(([x, r]) => S('circle', { cx: x * s, cy: -r * s, r: r * s, fill: '#8cc152' }, g));
+      else S('ellipse', { cx: 0, cy: -s * .3, rx: s * .34, ry: s * .3, fill: '#8cc152' }, g);
+    }
+    if (id === 'pack') { S('path', { d: `M${-s * .26},0V${-s * .95}l${s * .12},${-s * .14}h${s * .28}l${s * .12},${s * .14}V0Z`, fill: '#fbfbf7', stroke: '#9fb3c9', 'stroke-width': 2 }, g); S('rect', { x: -s * .26, y: -s * .62, width: s * .52, height: s * .3, fill: '#4f9bd9' }, g); const t = S('text', { x: 0, y: -s * .42, 'text-anchor': 'middle', 'font-size': s * .15, fill: '#fff', class: 'ui' }, g); t.textContent = '1L'; }
+    if (id === 'pencil') { S('rect', { x: -s * .5, y: -s * .08, width: s * .85, height: s * .08, fill: '#f2b833' }, g); S('path', { d: `M${s * .35},${-s * .08}l${s * .15},${s * .04}l${-s * .15},${s * .04}z`, fill: '#e8cfa0' }, g); }
+    if (id === 'eraser') { S('rect', { x: -s * .28, y: -s * .18, width: s * .56, height: s * .18, rx: 3, fill: '#fff', stroke: '#d6dcd5', 'stroke-width': 2 }, g); S('rect', { x: -s * .12, y: -s * .19, width: s * .3, height: s * .2, fill: '#4f9bd9' }, g); }
+    if (id === 'sponge') { S('rect', { x: -s * .55, y: -s * .7, width: s * 1.1, height: s * .7, rx: s * .12, fill: '#f6d55c' }, g); [[-.3, -.5], [.1, -.35], [.32, -.55], [-.1, -.2], [.35, -.15]].forEach(([x, y]) => S('circle', { cx: x * s, cy: y * s, r: s * .05, fill: '#d9b23a' }, g)); }
+    if (id === 'iron') { S('circle', { cx: 0, cy: -s * .17, r: s * .17, fill: '#4d5659' }, g); S('circle', { cx: -s * .05, cy: -s * .23, r: s * .05, fill: '#fff', opacity: .5 }, g); }
+    if (id === 'rice') { S('path', { d: `M${-s * .45},0Q${-s * .5},${-s * .7} ${-s * .3},${-s * .8}H${s * .3}Q${s * .5},${-s * .7} ${s * .45},0Z`, fill: '#f3ecdc', stroke: '#c9b48a', 'stroke-width': 2 }, g); const t = S('text', { x: 0, y: -s * .32, 'text-anchor': 'middle', 'font-size': s * .2, fill: '#8a6d3b', class: 'ui' }, g); t.textContent = 'おこめ'; }
+    if (id === 'box') { S('rect', { x: -s * .4, y: -s * .5, width: s * .8, height: s * .5, rx: 3, fill: '#d9b27a', stroke: '#a88350', 'stroke-width': 2 }, g); S('path', { d: `M${-s * .4},${-s * .32}H${s * .4}`, stroke: '#a88350', 'stroke-width': 2 }, g); }
+    return g;
+  }
+  function coin(p, x, y, r) { S('ellipse', { cx: x, cy: y, rx: r, ry: r * .32, fill: '#dfe3e6', stroke: '#9aa3a8', 'stroke-width': 1.2 }, p); }
+
+  function layout(w, h) {
+    Wd = w; Ht = h; svg.innerHTML = ''; el = {};
+    const land = Wd > Ht * 1.05;
+    el.tableY = Ht * .9;
+    S('rect', { x: 0, y: el.tableY, width: Wd, height: Ht - el.tableY, fill: css('--wood-pale') }, svg);
+    S('rect', { x: 0, y: el.tableY, width: Wd, height: 5, fill: css('--wood') }, svg);
+    if (mode === 'hakari') layoutScale(land); else layoutBalance(land);
+  }
+  function layoutScale(land) {
+    const shelfOn = App.tab === 'sawaru';
+    const R = land ? Math.min(Ht * .2, Wd * .16) : Math.min(Wd * .3, Ht * (shelfOn ? .16 : .2));
+    const cx = land && shelfOn ? Wd * .32 : Wd / 2, bodyB = el.tableY, cy = bodyB - R * 1.3;
+    Object.assign(el, { R, cx, cy });
+    S('rect', { x: cx - R * 1.38, y: cy - R * 1.42, width: R * 2.76, height: bodyB - cy + R * 1.42, rx: R * .3, fill: '#f2b833', stroke: '#c48a10', 'stroke-width': 4 }, svg);
+    el.plateG = S('g', {}, svg);
+    el.plateY = cy - R * 1.42 - R * .28;
+    S('rect', { x: cx - R * .12, y: el.plateY, width: R * .24, height: R * .3, fill: css('--metal-deep') }, el.plateG);
+    S('ellipse', { cx, cy: el.plateY, rx: R * 1.25, ry: R * .16, fill: css('--metal'), stroke: css('--metal-deep'), 'stroke-width': 3 }, el.plateG);
+    el.onPlate = S('g', {}, el.plateG);
+    const defs = S('defs', {}, svg);
+    const dg = S('g', { id: 'dialG' }, defs);
+    S('circle', { cx, cy, r: R, fill: css('--paper'), stroke: '#c48a10', 'stroke-width': 3 }, dg);
+    const [mi, mid, lab] = TICK[cap], n = cap / mi;
+    for (let i = 0; i < n; i++) {
+      const v = i * mi, a = v / cap * 2 * Math.PI, major = v % lab === 0, md = v % mid === 0;
+      const r1 = R * .95, r2 = R * (major ? .8 : md ? .85 : .9);
+      S('line', { x1: cx + r1 * Math.sin(a), y1: cy - r1 * Math.cos(a), x2: cx + r2 * Math.sin(a), y2: cy - r2 * Math.cos(a), stroke: css('--ink'), 'stroke-width': major ? 2.4 : md ? 1.6 : .9 }, dg);
+      if (major) { const t = S('text', { x: cx + R * .66 * Math.sin(a), y: cy - R * .66 * Math.cos(a) + R * .045, 'text-anchor': 'middle', 'font-size': R * (v % 1000 === 0 ? .13 : .11), fill: v % 1000 === 0 && v ? css('--ok') : css('--ink'), class: 'ui' }, dg); t.textContent = v === 0 ? '0' : v % 1000 === 0 ? (v / 1000) + 'kg' : (v % 1000); }
+    }
+    const ct = S('text', { x: cx, y: cy + R * .42, 'text-anchor': 'middle', 'font-size': R * .12, fill: css('--ink-soft'), class: 'ui' }, dg); ct.textContent = cap / 1000 + 'kg';
+    el.needle = S('g', {}, dg);
+    S('line', { x1: cx, y1: cy + R * .12, x2: cx, y2: cy - R * .9, stroke: css('--ok'), 'stroke-width': Math.max(2.5, R * .025), 'stroke-linecap': 'round' }, el.needle);
+    S('circle', { cx, cy, r: R * .06, fill: css('--ok') }, el.needle);
+    S('use', { href: '#dialG' }, svg);
+    el.hl = S('g', {}, svg);
+    el.lensG = S('g', {}, svg);
+    /* たな */
+    el.shelf = S('g', {}, svg); el.cells = null;
+    if (!shelfOn) { drawPlate(); updateNeedle(); drawLens(); return; }
+    const cols = 3, sw = land ? Wd - cx - R * 1.6 - 32 : Wd - 32, sx = land ? cx + R * 1.6 + 16 : 16;
+    const cellW = sw / cols, cellH = land ? Math.min(Ht * .22, 150) : Math.min(90, (cy - R * 1.9 - 60) / 2), sy = land ? Ht * .2 : 50;
+    el.cells = {};
+    SHELF.forEach((id, i) => {
+      const c = i % cols, r = Math.floor(i / cols), x = sx + c * cellW + cellW / 2, y = sy + r * (cellH + 10);
+      const g = S('g', { style: 'cursor:pointer' }, el.shelf);
+      S('rect', { x: x - cellW / 2 + 5, y, width: cellW - 10, height: cellH, rx: 14, fill: css('--paper'), stroke: css('--line'), 'stroke-width': 2 }, g);
+      const s = Math.min(cellW * .5, cellH * .55);
+      const ig = drawItem(g, id, s, 0); ig.setAttribute('transform', `translate(${x},${y + cellH * .7})`);
+      const t = S('text', { x, y: y + cellH - 8, 'text-anchor': 'middle', 'font-size': Math.max(12, Math.min(16, cellH * .14)), fill: css('--ink-soft') }, g); t.textContent = ITEMS[id].name;
+      el.cells[id] = { g, ig, x, y: y + cellH * .7, s };
+      g.addEventListener('pointerdown', () => tapShelf(id));
+    });
+    drawPlate(); updateNeedle(); drawLens();
+  }
+  function drawPlate() {
+    if (!el.onPlate) return;
+    el.onPlate.innerHTML = '';
+    const R = el.R, n = onPlate.length, s = R * .62;
+    onPlate.forEach((id, i) => {
+      const x = el.cx + (i - (n - 1) / 2) * Math.min(R * .7, R * 2.2 / Math.max(1, n)), g = drawItem(el.onPlate, id, id === 'rice' || id === 'pack' ? s * 1.1 : s, id === 'clay' ? clayShape : 0);
+      g.setAttribute('transform', `translate(${x},${el.plateY - R * .06})`); g.style.cursor = 'pointer';
+      g.addEventListener('pointerdown', () => tapPlate(id));
+    });
+    if (el.cells) for (const id of SHELF) el.cells[id].ig.setAttribute('opacity', onPlate.includes(id) ? .2 : 1);
+  }
+  function updateNeedle() { if (el.needle) el.needle.setAttribute('transform', `rotate(${needle.a} ${el.cx} ${el.cy})`); }
+  function drawLens() {
+    if (!el.lensG) return; el.lensG.innerHTML = '';
+    if (!lens || mode !== 'hakari') return;
+    const R = el.R, a = needle.a * Math.PI / 180, tx = el.cx + R * .88 * Math.sin(a), ty = el.cy - R * .88 * Math.cos(a), lr = R * .42;
+    const lx = el.cx + (R * 1.55) * Math.sin(a), ly = el.cy - (R * 1.55) * Math.cos(a);
+    const lxC = clamp(lx, lr + 6, Wd - lr - 6), lyC = clamp(ly, lr + 50, Ht - lr - 6);
+    const cpId = 'lensClip'; const d = S('defs', {}, el.lensG); const cp = S('clipPath', { id: cpId }, d); S('circle', { cx: lxC, cy: lyC, r: lr }, cp);
+    S('line', { x1: tx, y1: ty, x2: lxC, y2: lyC, stroke: css('--ink-soft'), 'stroke-width': 2, 'stroke-dasharray': '4 4' }, el.lensG);
+    const g = S('g', { 'clip-path': `url(#${cpId})` }, el.lensG);
+    S('circle', { cx: lxC, cy: lyC, r: lr, fill: css('--paper') }, g);
+    S('use', { href: '#dialG', transform: `translate(${lxC},${lyC}) scale(3.2) translate(${-tx},${-ty})` }, g);
+    S('circle', { cx: lxC, cy: lyC, r: lr, fill: 'none', stroke: css('--ink'), 'stroke-width': 5 }, el.lensG);
+  }
+  function layoutBalance(land) {
+    const bx = land ? Wd * .4 : Wd / 2, by = Ht * .3, Lb = land ? Math.min(Wd * .26, 300) : Wd * .4;
+    Object.assign(el, { bx, by, Lb, str: Ht * .26 });
+    S('rect', { x: bx - 9, y: by, width: 18, height: el.tableY - by - 14, fill: '#c9a06b', stroke: '#9c7642', 'stroke-width': 2 }, svg);
+    S('path', { d: `M${bx - Lb * .4},${el.tableY}L${bx - Lb * .3},${el.tableY - 18}H${bx + Lb * .3}L${bx + Lb * .4},${el.tableY}Z`, fill: '#c9a06b', stroke: '#9c7642', 'stroke-width': 2 }, svg);
+    el.beamG = S('g', {}, svg);
+    S('rect', { x: bx - Lb, y: by - 7, width: Lb * 2, height: 14, rx: 7, fill: '#8e979b' }, el.beamG);
+    S('circle', { cx: bx, cy: by, r: 12, fill: '#5e6b66' }, el.beamG);
+    el.panL = S('g', {}, svg); el.panR = S('g', {}, svg);
+    el.pointer = S('path', { d: `M${bx},${by}V${by - 54}`, stroke: css('--ok'), 'stroke-width': 4, 'stroke-linecap': 'round' }, svg);
+    S('path', { d: `M${bx - 26},${by - 62}Q${bx},${by - 70} ${bx + 26},${by - 62}`, fill: 'none', stroke: css('--ink-soft'), 'stroke-width': 2 }, svg);
+    S('line', { x1: bx, y1: by - 72, x2: bx, y2: by - 60, stroke: css('--ink-soft'), 'stroke-width': 2 }, svg);
+    el.lvl = S('text', { x: bx + Lb * .92, y: by + el.str + Lb * .5 * .35 + 30, 'text-anchor': 'middle', 'font-size': 18, fill: css('--mat-deep') }, svg);
+    drawPans();
+  }
+  function drawPans() {
+    if (!el.panL) return;
+    const a = beam.a * Math.PI / 180, { bx, by, Lb, str } = el;
+    el.beamG.setAttribute('transform', `rotate(${beam.a} ${bx} ${by})`);
+    el.pointer.setAttribute('transform', `rotate(${beam.a} ${bx} ${by})`);
+    [[el.panL, -1], [el.panR, 1]].forEach(([g, sgn]) => {
+      g.innerHTML = '';
+      const ex = bx + sgn * Lb * .92 * Math.cos(a), ey = by + sgn * Lb * .92 * Math.sin(a), py = ey + str, pw = Lb * .5;
+      S('path', { d: `M${ex},${ey}L${ex - pw * .8},${py}M${ex},${ey}L${ex + pw * .8},${py}`, stroke: '#8e979b', 'stroke-width': 2 }, g);
+      S('path', { d: `M${ex - pw},${py}Q${ex},${py + pw * .35} ${ex + pw},${py}Z`, fill: css('--metal'), stroke: css('--metal-deep'), 'stroke-width': 3 }, g);
+      const id = sgn < 0 ? left : right;
+      if (id) { const ig = drawItem(g, id, pw * .9, 0); ig.setAttribute('transform', `translate(${ex},${py})`); }
+      if (sgn > 0 && !right && coins) {
+        const cr = pw * .14, cols = Math.ceil(coins / 10);
+        for (let c = 0; c < cols; c++) { const cnt = Math.min(10, coins - c * 10), x = ex + (c - (cols - 1) / 2) * cr * 2.15; for (let i = 0; i < cnt; i++) coin(g, x, py - 3 - i * cr * .3, cr); }
+      }
+    });
+    const m = left ? ITEMS[left].g : 0, rr = right ? ITEMS[right].g : coins;
+    el.lvl.textContent = !right && coins ? `1えんだま ${coins}まい` : '';
+  }
+  function physics(dt) {
+    if (mode === 'hakari' && el.needle) {
+      const m = mass(), over = m > cap, target = over ? 362 : m / cap * 360;
+      needle.v += (-90 * (needle.a - target) - 11 * needle.v) * dt; needle.a += needle.v * dt;
+      if (needle.a > 363) { needle.a = 363; needle.v = -Math.abs(needle.v) * .3; }
+      if (needle.a < -2) { needle.a = -2; needle.v = Math.abs(needle.v) * .3; }
+      updateNeedle(); if (lens) drawLens();
+      if (Math.abs(needle.a - target) < .25 && Math.abs(needle.v) < .6 && needle.said !== m * 10 + cap) { needle.said = m * 10 + cap; settled(m, over); }
+    }
+    if (mode === 'tenbin' && el.beamG) {
+      const m = left ? ITEMS[left].g : 0, rr = right ? ITEMS[right].g : coins;
+      const target = beam.hold ? 0 : clamp((rr - m) / Math.max(m, rr, 10), -1, 1) * 14;
+      beam.v += (-40 * (beam.a - target) - 6 * beam.v) * dt; beam.a += beam.v * dt; drawPans();
+    }
+  }
+  let onSettle = null;
+  function settled(m, over) {
+    if (onSettle) { const f = onSettle; onSettle = null; f(m, over); return; }
+    if (App.tab !== 'sawaru' || !m) return;
+    if (over) { HUD.say(`<b>はかれない！</b> ${cap / 1000}kgより おもい。おおきい はかりに しよう`); return; }
+    let msg = `<b>${gfmt(m)}</b>`, sp = gsp(m);
+    if (onPlate.length === 1 && onPlate[0] === 'pack') { msg += '。パックの 30gを ひくと みずは <b>1kg</b>'; sp += '。パックの30グラムを引くと、水は1キログラム'; }
+    HUD.say(msg, { speech: sp });
+  }
+  function loop() { let last = performance.now(); const f = now => { const dt = Math.min(.04, (now - last) / 1000); last = now; physics(dt); raf = requestAnimationFrame(f); }; raf = requestAnimationFrame(f); }
+  function tapShelf(id) { if (App.tab !== 'sawaru' || mode !== 'hakari') return; if (onPlate.includes(id)) return tapPlate(id); onPlate.push(id); SFX.thud(); needle.said = -1; drawPlate(); if (id === 'clay') showClayBtn(true); }
+  function tapPlate(id) { if (App.tab !== 'sawaru') return; onPlate = onPlate.filter(x => x !== id); SFX.pop(); needle.said = -1; drawPlate(); if (id === 'clay') showClayBtn(false); if (!onPlate.length) HUD.hide(); }
+  let clayBtn = null;
+  function showClayBtn(v) { if (clayBtn) clayBtn.hidden = !v; }
+  function setCap(c) { cap = c; needle.said = -1; layout(Wd, Ht); }
+  function setMode(m) { mode = m; layout(Wd, Ht); }
+
+  /* みる */
+  async function miru() {
+    setMode('tenbin'); left = 'sponge'; right = 'iron'; coins = 0; beam.a = 0; beam.v = 0; beam.hold = true; drawPans();
+    HUD.say('おおきい スポンジと ちいさい てつの たま。おもいのは どっち？'); await wait(3000);
+    beam.hold = false; await wait(1800);
+    HUD.say('おおきい ほうが おもい とは かぎらない'); await wait(2600);
+    left = 'egg'; right = null; coins = 0; drawPans();
+    HUD.say('たまごと 1えんだまで くらべよう'); await wait(1600);
+    for (let i = 0; i < 6; i++) { coins += 10; SFX.clink(); drawPans(); await wait(650); }
+    await wait(900);
+    HUD.say('1えんだま <b>60まい</b>で つりあった。1えんだま 1まいは <b>1g</b>。たまごは <b>60g</b>', { speech: '1円玉60枚でつりあった。1円玉1枚は1グラム。たまごは60グラム' }); await wait(5200);
+    cap = 1000; onPlate = []; needle.a = 0; needle.v = 0; setMode('hakari');
+    HUD.say('はかりに のせると…'); await wait(1000);
+    onPlate = ['egg']; SFX.thud(); drawPlate(); needle.said = -1;
+    await new Promise(r => { onSettle = () => r(); }); await wait(300);
+    lens = true; drawLens(); HUD.say('<b>60g</b>。めもり 1つは <b>5g</b>', { speech: '60グラム。目もり1つは5グラム' }); await wait(3800); lens = false; drawLens();
+    onPlate = ['clay']; clayShape = 0; SFX.thud(); drawPlate(); needle.said = -1;
+    await new Promise(r => { onSettle = () => r(); });
+    HUD.say('ねんど <b>200g</b>。かたちを かえると…', { speech: 'ねんど200グラム。形を変えると' }); await wait(2200);
+    clayShape = 1; drawPlate(); SFX.pop(); await wait(1600); clayShape = 2; drawPlate(); SFX.pop(); await wait(1600);
+    HUD.say('かたちを かえても おもさは おなじ'); await wait(3000);
+    onPlate = ['pack']; SFX.thud(); drawPlate(); needle.said = -1;
+    await new Promise(r => { onSettle = () => r(); });
+    HUD.say('<b>はかれない！</b> 1kgより おもい'); await wait(2600);
+    setCap(2000); onPlate = ['pack']; drawPlate(); needle.a = 0; needle.said = -1; HUD.say('2kgまで はかれる はかりに かえよう');
+    await new Promise(r => { onSettle = () => r(); });
+    HUD.say('<b>1kg 30g</b>。パックの 30gを ひくと、みず 1Lは <b>1kg</b>', { speech: '1キログラム30グラム。パックの30グラムを引くと、水1リットルは1キログラム' });
+  }
+  /* さわる */
+  function sawaruPanel(p) {
+    onSettle = null; lens = false; onPlate = []; clayShape = 0; left = 'egg'; right = null; coins = 0; beam.hold = false; needle.said = -1;
+    layout(Wd, Ht);
+    const row = H('div', { class: 'row' });
+    const sub = H('div', { class: 'row' });
+    const build = () => {
+      sub.innerHTML = '';
+      if (mode === 'hakari') {
+        sub.appendChild(seg([{ id: 1000, label: '1kg' }, { id: 2000, label: '2kg' }, { id: 4000, label: '4kg' }], cap, c => setCap(c), { label: 'はかり' }));
+        sub.appendChild(toggleBtn('むしめがね', lens, v => { lens = v; drawLens(); }));
+        clayBtn = H('button', { class: 'btn sub small', text: 'ねんどの かたち', onclick: () => { clayShape = (clayShape + 1) % 3; drawPlate(); SFX.pop(); HUD.say('はりは うごいた？'); } }); clayBtn.hidden = !onPlate.includes('clay');
+        sub.appendChild(clayBtn);
+        sub.appendChild(H('button', { class: 'btn sub small', text: 'ぜんぶ おろす', onclick: () => { onPlate = []; needle.said = -1; drawPlate(); showClayBtn(false); HUD.hide(); } }));
+        HUD.say('たなの ものを タッチして はかりに のせよう');
+      } else {
+        sub.appendChild(seg([{ id: 'pencil', label: 'えんぴつ' }, { id: 'eraser', label: 'けしごむ' }, { id: 'egg', label: 'たまご' }], left, id => { left = id; coins = 0; drawPans(); HUD.say('1えんだまを のせて つりあわせよう'); }));
+        const add = n => { coins = clamp(coins + n, 0, 120); if (n > 0) SFX.clink(); drawPans(); const m = ITEMS[left].g; if (coins === m) HUD.say(`<b>つりあった！</b> 1えんだま ${coins}まいぶん。${ITEMS[left].name}は <b>${m}g</b>`, { speech: `つりあった。1円玉${coins}枚分。${ITEMS[left].name}は${m}グラム` }); else HUD.say(`1えんだま ${coins}まい`, { speak: false }); };
+        sub.appendChild(H('button', { class: 'btn sub small', text: '+1まい', onclick: () => add(1) }));
+        sub.appendChild(H('button', { class: 'btn sub small', text: '+10まい', onclick: () => add(10) }));
+        sub.appendChild(H('button', { class: 'btn sub small', text: '−1まい', onclick: () => add(-1) }));
+        HUD.say('1えんだまを のせて つりあわせよう');
+      }
+    };
+    row.appendChild(seg([{ id: 'hakari', label: 'はかり' }, { id: 'tenbin', label: 'てんびん' }], mode, m => { setMode(m); build(); }));
+    p.appendChild(row); p.appendChild(sub); build();
+  }
+  /* ためす */
+  function readQ(level) {
+    let c = level === 'challenge' ? pick([2000, 4000]) : 1000; const [mi, , lab] = TICK[c];
+    let m;
+    if (level === 'easy') m = rnd(1, 19) * 50;
+    else if (level === 'normal') { do m = rnd(10, 190) * 5; while (m % 50 === 0); }
+    else { do m = rnd(Math.ceil(300 / mi), Math.floor((c - 100) / mi)) * mi; while (m % 100 === 0); }
+    cap = c; mode = 'hakari'; onPlate = ['box']; boxG = m; needle.a = 0; needle.v = 0; needle.said = -2; lens = false; layout(Wd, Ht);
+    const base = Math.floor(m / 100) * 100, ticks = (m - base) / mi;
+    const opts = [m, base + ticks, m + mi * 2 <= c ? m + mi * 2 : m - mi * 2].filter((v, i, a) => a.indexOf(v) === i);
+    if (opts.length < 3) opts.push(m + 50 <= c ? m + 50 : m - 50);
+    return {
+      say: `はかりの はりは なんg？（${c / 1000}kgの はかり）`, speech: `はかりの針は何グラム？${c / 1000}キログラムのはかり`,
+      choices: shuffle(opts.slice(0, 3).map((v, i) => ({ label: gfmt(v), ok: v === m }))), at: { x: el.cx, y: el.cy, r: el.R * .7 },
+      hint(s) { if (s === 1) { lens = true; drawLens(); HUD.say('むしめがねで ちかくを みよう'); } if (s === 2) HUD.say(`めもり 1つは <b>${mi}g</b>`); if (s === 3) HUD.say(`<b>${gfmt(base)}</b> から めもりを かぞえよう`); },
+      async verify() { lens = true; drawLens(); HUD.say(`${gfmt(base)} から…`, { speak: false }); for (let k = 1; k <= ticks; k++) { SFX.tick(); await wait(Math.max(120, 900 / ticks)); HUD.say(gfmt(base + k * mi), { speak: false }); } TTS.speak(gsp(m)); HUD.say(`<b>${gfmt(m)}</b>`, { speak: false }); await wait(700); }
+    };
+  }
+  function chooseQ() {
+    cap = 1000; mode = 'hakari'; onPlate = ['rice']; needle.a = 0; needle.said = -2; lens = false;
+    const rice = ITEMS.rice.g; layout(Wd, Ht); onPlate = []; drawPlate();
+    let chosen = 4000;
+    return {
+      say: '3kgの おこめを はかる はかりは どれ？', speech: '3キログラムのお米をはかるはかりはどれ？',
+      choices: [1000, 2000, 4000].map(c => ({ label: c / 1000 + 'kg', ok: c === 4000, c })), at: { x: el.cx, y: el.cy, r: el.R * .7 },
+      hint(s) { if (s === 1) HUD.say('はかりに かいて ある おもさまで はかれる'); if (s === 2) HUD.say('3kgより おおきい かずは？'); if (s === 3) HUD.say('4kgまで はかれる はかり'); },
+      async verify(ok) {
+        for (const c of ok ? [4000] : [1000, 4000]) {
+          setCap(c); onPlate = ['rice']; drawPlate(); needle.a = 0; needle.said = -2; SFX.thud();
+          await new Promise(r => { onSettle = (m, over) => r(over); });
+          HUD.say(c === 4000 ? '<b>3kg</b> ぴったり はかれた' : `<b>はかれない！</b> ${c / 1000}kgの はかりでは たりない`); await wait(1800);
+        }
+      }
+    };
+  }
+  function estQ() {
+    cap = 2000; mode = 'hakari'; onPlate = []; needle.a = 0; needle.said = -2; lens = false; layout(Wd, Ht);
+    return {
+      say: '1kgに いちばん ちかいのは どれ？', speech: '1キログラムに一番近いのはどれ？',
+      choices: shuffle([{ label: 'たまご 1こ', ok: false }, { label: 'みず 1L', ok: true }, { label: 'りんご 1こ', ok: false }]), at: { x: el.cx, y: el.cy, r: el.R * .7 },
+      hint(s) { if (s === 1) HUD.say('1kgは 1000g'); if (s === 2) HUD.say('たまごは やく 60g'); if (s === 3) HUD.say('みず 1Lは やく 1kg'); },
+      async verify() {
+        for (const id of ['egg', 'apple', 'pack']) {
+          onPlate = [id]; drawPlate(); SFX.thud(); needle.said = -2;
+          await new Promise(r => { onSettle = () => r(); });
+          HUD.say(`${ITEMS[id].name} <b>${gfmt(ITEMS[id].g)}</b>`, { speak: false }); await wait(1300);
+        }
+      }
+    };
+  }
+  function gen(level, i) { onSettle = null; return i === 1 ? chooseQ() : i === 3 ? estQ() : readQ(level); }
+  let quiz = null;
+  return {
+    title: 'おもさ', grade: '3ねん',
+    mount(c) { svg = c.svg; Wd = c.W; Ht = c.H; mode = 'hakari'; cap = 1000; layout(Wd, Ht); loop(); },
+    layout(w, h) { layout(w, h); },
+    unmount() { cancelAnimationFrame(raf); onSettle = null; },
+    setTab(id, p) {
+      onSettle = null; lens = false;
+      if (id === 'miru') { p.appendChild(H('div', { class: 'row' }, [H('button', { class: 'btn', onclick: () => { cancelRuns(); onSettle = null; run(miru); }, html: ICON.replay + 'もういちど みる' })])); run(miru); }
+      if (id === 'sawaru') { mode = 'hakari'; cap = 1000; sawaruPanel(p); }
+      if (id === 'tamesu') { quiz = makeQuiz({ key: 'scale', n: 5, gen, panel: () => $('#panel') }); quiz.start(); }
+    }
+  };
+})();
+/* ---------- ながさ：じっすんの ものさし（N2） ----------
+   画面の1mmを、1円玉（直径20mm）かカード（85.60mm）で合わせる。⚠️要検証の値は data/benchmarks.json へ移す。 */
+const CAL = {
+  pm: store.get('pm', null),
+  get v() { return this.pm || 96 / 25.4; },
+  get ok() { return !!this.pm; }
+};
+function openCalib(after) {
+  let pm = CAL.v, ref = 'coin';
+  openSheet((card, close) => {
+    card.appendChild(H('div', { class: 'sheet-head' }, [H('h2', { text: 'がめんの ながさ あわせ' }), close]));
+    card.appendChild(H('p', { text: '1えんだまを まるの うえに おいて、ふちが ぴったり かさなるように うごかしてね。おうちのひとと いっしょに。' }));
+    const box = H('div', { class: 'calib-box' }); const sv = S('svg', { width: '100%', height: 170 }); box.appendChild(sv); card.appendChild(box);
+    const draw = () => {
+      sv.innerHTML = ''; const w = box.clientWidth || 300;
+      sv.setAttribute('viewBox', `0 0 ${w} 170`);
+      if (ref === 'coin') {
+        const r = 10 * pm; S('circle', { cx: w / 2, cy: 85, r, fill: '#e9edf0', stroke: css('--ink'), 'stroke-width': 2 }, sv);
+        S('line', { x1: w / 2 - r, y1: 85, x2: w / 2 + r, y2: 85, stroke: css('--ok'), 'stroke-width': 1.5, 'stroke-dasharray': '3 3' }, sv);
+        const t = S('text', { x: w / 2, y: 85 + r + 18, 'text-anchor': 'middle', 'font-size': 13, fill: css('--ink-soft'), class: 'ui' }, sv); t.textContent = 'ちょっけい 20mm';
+      } else {
+        const cw = 85.6 * pm, ch = 53.98 * pm, x = Math.max(4, (w - cw) / 2);
+        S('rect', { x, y: 85 - ch / 2, width: cw, height: ch, rx: 3.2 * pm, fill: '#e9edf0', stroke: css('--ink'), 'stroke-width': 2 }, sv);
+      }
+    };
+    const rng = H('input', { type: 'range', id: 'calRange', min: '2', max: '9', step: '0.01', value: String(pm), 'aria-label': 'おおきさ' });
+    rng.addEventListener('input', () => { pm = +rng.value; draw(); });
+    const nudge = d => { pm = clamp(pm + d, 2, 9); rng.value = pm; draw(); };
+    card.appendChild(H('div', { class: 'calib-row' }, [H('button', { class: 'btn sub small', text: '−', 'aria-label': 'ちいさく', onclick: () => nudge(-.01) }), rng, H('button', { class: 'btn sub small', text: '+', 'aria-label': 'おおきく', onclick: () => nudge(.01) })]));
+    card.appendChild(H('div', { class: 'row' }, [seg([{ id: 'coin', label: '1えんだま' }, { id: 'card', label: 'カード' }], ref, id => { ref = id; card.querySelector('p').textContent = id === 'coin' ? '1えんだまを まるの うえに おいて、ふちが ぴったり かさなるように うごかしてね。おうちのひとと いっしょに。' : 'ポイントカードなど、ふつうの おおきさの カードを かさねて、かどが ぴったり あうように うごかしてね。'; draw(); })]));
+    card.appendChild(H('div', { class: 'row' }, [
+      H('button', { class: 'btn sub', text: 'あわせない', onclick: () => { CAL.pm = null; store.set('pm', null); closeSheet(); after && after(); } }),
+      H('button', { class: 'btn', text: 'これで OK', onclick: () => { CAL.pm = pm; store.set('pm', pm); closeSheet(); SFX.good(); after && after(); } })
+    ]));
+    requestAnimationFrame(draw);
+  });
+}
+
+SCENES.ruler = (() => {
+  let svg, Wd, Ht, el = {}, mode = 'ruler', item = 'pencil', rx = 0, ox = 0, drag = null, lens = false, cm = 15, fixed = false, objLen = 96, tapes = null, blocks = null, rulerAlpha = 1;
+  const OBJ = { pencil: { name: 'えんぴつ', len: 96, h: 7 }, eraser: { name: 'けしごむ', len: 43, h: 12 }, clip: { name: 'クリップ', len: 32, h: 8 }, coin: { name: '1えんだま', len: 20, h: 20 }, tape: { name: 'テープ', len: 50, h: 6 } };
+  const pmm = () => CAL.v;
+  const fmt = mm => { const c = Math.floor(mm / 10), m = Math.round(mm % 10); return c && m ? `${c}cm ${m}mm` : c ? `${c}cm` : `${m}mm`; };
+  const fsp = mm => { const c = Math.floor(mm / 10), m = Math.round(mm % 10); return (c ? c + 'センチ' : '') + (m ? m + 'ミリ' : ''); };
+  function zeroX() { return rx + 4 * pmm(); }
+  function layout(w, h) {
+    Wd = w; Ht = h; svg.innerHTML = ''; el = {};
+    const pm = pmm();
+    cm = clamp(Math.floor((Wd - 32) / pm / 10) - 1, 4, 20);
+    el.rw = (cm * 10 + 8) * pm; el.rh = Math.max(44, 14 * pm);
+    el.ry = Math.round(Ht * .52);
+    if (mode === 'ruler') { if (!drag && !fixed) { rx = (Wd - el.rw) / 2; } }
+    S('rect', { x: 0, y: 0, width: Wd, height: Ht, fill: '#f8f6ef', opacity: .6 }, svg);
+    el.badge = S('g', { style: 'cursor:pointer' }, svg);
+    const bt = S('text', { x: Wd - 16, y: Ht - 14, 'text-anchor': 'end', 'font-size': 13, fill: CAL.ok ? css('--mat-deep') : css('--ink-soft'), class: 'ui' }, el.badge); bt.textContent = CAL.ok ? 'じっすん（あわせ ずみ）' : 'じっすんでは ない（ながさ あわせ）';
+    el.badge.addEventListener('pointerdown', e => { e.stopPropagation(); openCalib(() => layout(Wd, Ht)); });
+    if (mode === 'body') { layoutBody(); return; }
+    const defs = S('defs', {}, svg);
+    el.world = S('g', { id: 'rulerWorld' }, defs);
+    el.rulerG = S('g', {}, el.world);
+    el.objG = S('g', {}, el.world);
+    el.extra = S('g', {}, el.world);
+    S('use', { href: '#rulerWorld' }, svg);
+    el.lensG = S('g', {}, svg);
+    drawRuler(); drawObj(); drawLens();
+  }
+  function drawRuler() {
+    const g = el.rulerG, pm = pmm(); g.innerHTML = ''; g.setAttribute('opacity', rulerAlpha);
+    g.setAttribute('transform', `translate(${rx},${el.ry})`);
+    S('rect', { x: 0, y: 0, width: el.rw, height: el.rh, rx: 4, fill: '#f4e2b2', stroke: '#c9a06b', 'stroke-width': 2 }, g);
+    S('rect', { x: 0, y: el.rh * .72, width: el.rw, height: el.rh * .28, rx: 3, fill: '#ecd59a' }, g);
+    for (let i = 0; i <= cm * 10; i++) {
+      const x = (4 + i) * pm, L = i % 10 === 0 ? el.rh * .5 : i % 5 === 0 ? el.rh * .36 : el.rh * .22;
+      S('line', { x1: x, y1: 0, x2: x, y2: L, stroke: '#5a4220', 'stroke-width': i % 10 === 0 ? 1.6 : 1 }, g);
+      if (i % 10 === 0) { const t = S('text', { x, y: el.rh * .5 + Math.max(13, pm * 3.4), 'text-anchor': 'middle', 'font-size': Math.max(12, pm * 3.2), fill: '#5a4220', class: 'ui' }, g); t.textContent = i / 10; }
+    }
+    const u = S('text', { x: el.rw - 6, y: el.rh - 6, 'text-anchor': 'end', 'font-size': 11, fill: '#8a6d3b', class: 'ui' }, g); u.textContent = 'cm';
+  }
+  function drawItem(g, id, x, yb, len) {
+    const pm = pmm(), L = len * pm, o = OBJ[id], h = o.h * pm;
+    if (id === 'pencil') {
+      const tip = 14 * pm;
+      S('rect', { x, y: yb - h, width: L - tip, height: h, fill: '#f2b833', stroke: '#c48a10', 'stroke-width': 1 }, g);
+      S('rect', { x, y: yb - h * .62, width: L - tip, height: h * .24, fill: '#f7cf5e' }, g);
+      S('path', { d: `M${x + L - tip},${yb - h}L${x + L - tip * .25},${yb - h * .62}V${yb - h * .38}L${x + L - tip},${yb}Z`, fill: '#ead2a8', stroke: '#c9a06b', 'stroke-width': 1 }, g);
+      S('path', { d: `M${x + L - tip * .25},${yb - h * .62}L${x + L},${yb - h / 2}L${x + L - tip * .25},${yb - h * .38}Z`, fill: '#3b3b3b' }, g);
+    } else if (id === 'eraser') {
+      S('rect', { x, y: yb - h, width: L, height: h, rx: 2, fill: '#fff', stroke: '#c8cdc9', 'stroke-width': 1.5 }, g);
+      S('rect', { x: x + L * .3, y: yb - h - 1, width: L * .55, height: h + 2, fill: '#4f9bd9' }, g);
+    } else if (id === 'clip') {
+      const r = h / 2; S('path', { d: `M${x + L - r},${yb - h}H${x + r}a${r},${r} 0 0,0 0,${h}H${x + L - r * 1.4}a${r * .7},${r * .7} 0 0,0 0,${-h * .7}H${x + r * 1.8}`, fill: 'none', stroke: '#8e979b', 'stroke-width': Math.max(1.5, pm * .7), 'stroke-linecap': 'round' }, g);
+    } else if (id === 'coin') {
+      S('circle', { cx: x + L / 2, cy: yb - L / 2, r: L / 2, fill: '#e3e7ea', stroke: '#9aa3a8', 'stroke-width': 1.5 }, g);
+    } else {
+      S('rect', { x, y: yb - h, width: L, height: h, rx: 2, fill: o.color || css('--face-1') }, g);
+    }
+  }
+  function drawObj() {
+    const g = el.objG; g.innerHTML = '';
+    if (tapes) { tapes.forEach(t => { OBJ.tape.color = t.color; drawItem(g, 'tape', t.x, t.y, t.len); }); return; }
+    if (!item) return;
+    if (item === 'tape') OBJ.tape.color = css('--face-1');
+    drawItem(g, item, ox, el.ry - 3, objLen);
+  }
+  function drawLens() {
+    el.lensG.innerHTML = ''; if (!lens || !item) return;
+    const pm = pmm(), tx = ox + objLen * pm, ty = el.ry + 6, lr = Math.max(84, 20 * pm);
+    const lx = clamp(tx, lr + 6, Wd - lr - 6), ly = Math.max(lr + 72, el.ry - lr - 30 - 10 * pm);
+    const d = S('defs', {}, el.lensG), cp = S('clipPath', { id: 'rlens' }, d); S('circle', { cx: lx, cy: ly, r: lr }, cp);
+    S('line', { x1: tx, y1: ty, x2: lx, y2: ly + lr, stroke: css('--ink-soft'), 'stroke-width': 2, 'stroke-dasharray': '4 4' }, el.lensG);
+    const g = S('g', { 'clip-path': 'url(#rlens)' }, el.lensG);
+    S('circle', { cx: lx, cy: ly, r: lr, fill: '#f8f6ef' }, g);
+    S('use', { href: '#rulerWorld', transform: `translate(${lx},${ly}) scale(2.6) translate(${-tx},${-ty})` }, g);
+    S('circle', { cx: lx, cy: ly, r: lr, fill: 'none', stroke: css('--ink'), 'stroke-width': 5 }, el.lensG);
+  }
+  function placeObj() { const pm = pmm(), L = objLen * pm; ox = clamp(rx + 40 * pm, 8, Wd - L - 8); }
+  function measured() { return Math.abs(ox - zeroX()) < .6 ? objLen : null; }
+  function bind() {
+    svg.onpointerdown = e => {
+      if (mode !== 'ruler' || fixed || App.tab !== 'sawaru') return;
+      const p = ptr(e), pm = pmm();
+      const onObj = item && p.x >= ox - 10 && p.x <= ox + objLen * pm + 10 && p.y >= el.ry - (OBJ[item].h + 6) * pm - 16 && p.y <= el.ry + 2;
+      const onRuler = p.x >= rx && p.x <= rx + el.rw && p.y >= el.ry && p.y <= el.ry + el.rh + 10;
+      if (!onObj && !onRuler) return;
+      svg.setPointerCapture(e.pointerId); drag = { what: onObj ? 'obj' : 'ruler', x0: p.x, a: onObj ? ox : rx, id: e.pointerId }; HUD.hide();
+    };
+    svg.onpointermove = e => {
+      if (!drag || e.pointerId !== drag.id) return;
+      const p = ptr(e), nx = drag.a + (p.x - drag.x0);
+      if (drag.what === 'obj') ox = clamp(nx, 4, Wd - objLen * pmm() - 4); else rx = clamp(nx, -el.rw + 60, Wd - 60);
+      drawRuler(); drawObj(); drawLens();
+    };
+    const end = () => {
+      if (!drag) return; drag = null;
+      const pm = pmm();
+      if (Math.abs(ox - zeroX()) < 2 * pm) { ox = zeroX(); SFX.pop(); drawObj(); drawLens(); }
+      const m = measured();
+      if (m != null) HUD.say(`${OBJ[item].name}は <b>${fmt(m)}</b>`, { speech: OBJ[item].name + 'は' + fsp(m) });
+      else if (ox + objLen * pm > rx && ox < rx + el.rw) HUD.say('はしを <b>0</b>に あわせよう');
+    };
+    svg.onpointerup = end; svg.onpointercancel = end;
+  }
+  /* からだものさし：指2本の あいだ */
+  let touches = new Map(), hands = null;
+  function layoutBody() {
+    const pm = pmm();
+    if (!hands) hands = [{ x: Wd / 2 - 65 * pm, y: Ht * .5 }, { x: Wd / 2 + 65 * pm, y: Ht * .5 }];
+    hands.forEach(h => { h.x = clamp(h.x, 30, Wd - 30); h.y = clamp(h.y, 70, Ht - 40); });
+    el.bodyG = S('g', {}, svg); drawBody();
+    svg.onpointerdown = e => {
+      if (mode !== 'body') return; const p = ptr(e);
+      if (touches.size >= 2) return;
+      let idx = hands.findIndex((h, i) => ![...touches.values()].includes(i) && Math.hypot(h.x - p.x, h.y - p.y) < 60);
+      if (idx < 0) idx = [0, 1].find(i => ![...touches.values()].includes(i));
+      if (idx == null) return;
+      touches.set(e.pointerId, idx); hands[idx] = p; svg.setPointerCapture(e.pointerId); drawBody();
+    };
+    svg.onpointermove = e => { if (!touches.has(e.pointerId)) return; hands[touches.get(e.pointerId)] = ptr(e); drawBody(); };
+    const end = e => { if (!touches.has(e.pointerId)) return; touches.delete(e.pointerId); if (!touches.size) { const mm = Math.round(dist() / pmm()); HUD.say(CAL.ok ? `<b>${fmt(mm)}</b>` : `<b>${fmt(mm)}</b>（じっすんでは ない）`, { speech: fsp(mm) }); } };
+    svg.onpointerup = end; svg.onpointercancel = end;
+  }
+  const dist = () => Math.hypot(hands[0].x - hands[1].x, hands[0].y - hands[1].y);
+  function drawBody() {
+    const g = el.bodyG; g.innerHTML = ''; const [a, b] = hands, pm = pmm(), mm = dist() / pm;
+    const ang = Math.atan2(b.y - a.y, b.x - a.x);
+    S('line', { x1: a.x, y1: a.y, x2: b.x, y2: b.y, stroke: css('--ok'), 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
+    for (let i = 10; i < mm; i += 10) { const x = a.x + Math.cos(ang) * i * pm, y = a.y + Math.sin(ang) * i * pm; S('line', { x1: x - Math.sin(ang) * 8, y1: y + Math.cos(ang) * 8, x2: x + Math.sin(ang) * 8, y2: y - Math.cos(ang) * 8, stroke: css('--ok'), 'stroke-width': 2 }, g); }
+    [['おやゆび', a], ['こゆび', b]].forEach(([t, p]) => { S('circle', { cx: p.x, cy: p.y, r: 26, fill: css('--paper'), stroke: css('--mat-deep'), 'stroke-width': 3 }, g); const tt = S('text', { x: p.x, y: p.y - 34, 'text-anchor': 'middle', 'font-size': 14, fill: css('--ink-soft'), class: 'ui' }, g); tt.textContent = t; });
+    const tx = S('text', { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 - 40, 'text-anchor': 'middle', 'font-size': 34, fill: css('--ink') }, g); tx.textContent = fmt(Math.round(mm));
+  }
+
+  /* みる */
+  async function miru() {
+    mode = 'ruler'; item = 'pencil'; objLen = 96; fixed = true; lens = false; tapes = null; rulerAlpha = 0; layout(Wd, Ht);
+    const pm = pmm(); rx = (Wd - el.rw) / 2; ox = zeroX(); drawRuler(); drawObj();
+    const ex = el.extra; ex.innerHTML = '';
+    HUD.say('えんぴつの ながさを つたえるには？'); await wait(1800);
+    const row = (id, n, y) => { const g = S('g', {}, ex); for (let i = 0; i < n; i++) drawItem(g, id, ox + i * OBJ[id].len * pm, y, OBJ[id].len); return g; };
+    const r1 = row('clip', 3, el.ry + 18 * pm); r1.setAttribute('opacity', 0); await tween(500, e => r1.setAttribute('opacity', e));
+    HUD.say('クリップなら <b>3こぶん</b>'); await wait(1800);
+    const r2 = row('eraser', 2, el.ry + 36 * pm); r2.setAttribute('opacity', 0); await tween(500, e => r2.setAttribute('opacity', e));
+    HUD.say('けしごむなら <b>2こと すこし</b>。はかる ものが ちがうと つたわらない'); await wait(3200);
+    await tween(400, e => { r1.setAttribute('opacity', 1 - e); r2.setAttribute('opacity', 1 - e); }); ex.innerHTML = '';
+    HUD.say('だれが はかっても おなじ <b>1cm</b>を つかおう');
+    const bg = S('g', {}, ex);
+    for (let i = 0; i < 9; i++) {
+      const b = S('rect', { x: ox + i * 10 * pm, y: el.ry + 2, width: 10 * pm - 1.5, height: 10 * pm, fill: i % 2 ? css('--face-4') : css('--sora-soft'), opacity: 0 }, bg);
+      await tween(160, e => { b.setAttribute('opacity', e); b.setAttribute('y', el.ry + 2 + (1 - e) * 30); }, E.out); SFX.tick();
+    }
+    HUD.say('1cmが <b>9こと すこし</b>'); await wait(2000);
+    HUD.say('1cmを ならべると <b>ものさし</b>'); await tween(900, e => { rulerAlpha = e; drawRuler(); bg.setAttribute('opacity', 1 - e); }); bg.remove(); await wait(800);
+    lens = true; drawLens(); HUD.say('1cmを 10に わけた 1つが <b>1mm</b>'); await wait(3000);
+    HUD.say(`えんぴつは <b>${fmt(96)}</b>`, { speech: 'えんぴつは' + fsp(96) }); await wait(1500);
+    fixed = false; rulerAlpha = 1;
+  }
+  /* さわる */
+  function sawaruPanel(p) {
+    fixed = false; tapes = null; lens = false; rulerAlpha = 1;
+    if (OBJ[item].len * pmm() > Wd - 40) item = 'eraser'; objLen = OBJ[item].len;
+    layout(Wd, Ht); placeObj(); drawObj();
+    const sub = H('div', { class: 'row' });
+    const build = () => {
+      sub.innerHTML = '';
+      if (mode === 'ruler') {
+        sub.appendChild(seg(['pencil', 'eraser', 'clip', 'coin'].map(id => ({ id, label: OBJ[id].name })), item, id => { item = id; objLen = OBJ[id].len; placeObj(); drawObj(); drawLens(); HUD.say('はしを <b>0</b>に あわせて はかろう'); }));
+        sub.appendChild(toggleBtn('むしめがね', lens, v => { lens = v; drawLens(); }));
+        HUD.say('ものさしか えんぴつを ゆびで うごかして、はしを <b>0</b>に あわせよう');
+      } else HUD.say(CAL.ok ? 'てを ひろげて、おやゆびと こゆびを がめんに おいてね' : 'さきに <b>がめんの ながさ あわせ</b>を すると、ほんとうの ながさが わかる');
+    };
+    p.appendChild(H('div', { class: 'row' }, [
+      seg([{ id: 'ruler', label: 'ものさし' }, { id: 'body', label: 'からだものさし' }], mode, m => { mode = m; hands = null; svg.onpointerdown = null; layout(Wd, Ht); if (m === 'ruler') { bind(); placeObj(); drawObj(); } build(); }),
+      H('button', { class: 'btn sub small', text: 'ながさ あわせ', onclick: () => openCalib(() => { layout(Wd, Ht); if (mode === 'ruler') { placeObj(); drawObj(); } }) })
+    ]));
+    p.appendChild(sub); build();
+  }
+  /* ためす */
+  function readQ(level) {
+    mode = 'ruler'; fixed = true; lens = false; tapes = null; rulerAlpha = 1; layout(Wd, Ht);
+    const pm = pmm(), maxMm = (cm - 1) * 10;
+    let off = 0, L;
+    if (level === 'easy') L = rnd(3, Math.min(12, cm - 2)) * 10;
+    else if (level === 'normal') { if (Math.random() < .5) { L = rnd(2, Math.min(10, cm - 3)) * 10 + rnd(1, 9); } else { off = rnd(1, 3) * 10; L = rnd(3, Math.min(9, cm - 5)) * 10; } }
+    else { off = rnd(1, 3) * 10 + (Math.random() < .3 ? 5 : 0); L = rnd(2, Math.min(8, cm - 6)) * 10 + rnd(1, 9); }
+    L = Math.min(L, maxMm - off);
+    item = 'tape'; objLen = L; rx = (Wd - el.rw) / 2; drawRuler(); ox = zeroX() + off * pm; drawObj();
+    const right = off + L;
+    let alt = [L, off ? right : L + 10, Math.floor(L / 10) * 10 === L ? L + 1 : Math.floor(L / 10) * 10 + (L % 10 === 9 ? 0 : 10)];
+    alt = alt.filter((v, i, a) => a.indexOf(v) === i); while (alt.length < 3) alt.push(L + 10 * alt.length);
+    return {
+      say: 'あかい テープの ながさは？', choices: shuffle(alt.slice(0, 3).map((v, i) => ({ label: fmt(v), ok: v === L }))), at: { x: ox + L * pm / 2, y: el.ry - 10, r: Math.max(60, L * pm * .35) },
+      hint(s) { if (s === 1) HUD.say(off ? 'テープの はしは <b>0</b>に ある？' : '1cmが いくつ ある？'); if (s === 2) { lens = true; drawLens(); HUD.say('はしの めもりを ちかくで みよう'); } if (s === 3) HUD.say(off ? `はしは <b>${fmt(off)}</b>の ところ。そこから かぞえよう` : 'mmの めもりも かぞえよう'); },
+      async verify() {
+        if (off) { const a = ox, b = zeroX(); HUD.say('テープを <b>0</b>に あわせて みよう', { speak: false }); await tween(900, e => { ox = lerp(a, b, e); drawObj(); drawLens(); }); }
+        lens = true; drawLens(); TTS.speak(fsp(L)); HUD.say(`<b>${fmt(L)}</b>`, { speak: false }); await wait(800);
+      }
+    };
+  }
+  function compareQ() {
+    mode = 'ruler'; fixed = true; lens = false; rulerAlpha = 1; item = null; layout(Wd, Ht);
+    const pm = pmm(), a = pick([[20, 9], [30, 18], [15, 8], [40, 25]]), redFirst = Math.random() < .5;
+    const red = redFirst ? a[0] : a[1], blue = redFirst ? a[1] : a[0];
+    tapes = [{ len: red, color: css('--face-1'), x: Wd * .2, y: el.ry - 60 }, { len: blue, color: css('--face-4'), x: Wd * .58, y: el.ry - 60 }];
+    rulerAlpha = .25; drawRuler(); drawObj();
+    const ex = el.extra; ex.innerHTML = '';
+    [[tapes[0], red], [tapes[1], blue]].forEach(([t, v]) => { const tt = S('text', { x: t.x + t.len * pm / 2, y: t.y - 14, 'text-anchor': 'middle', 'font-size': 22, fill: t.color }, ex); tt.textContent = fmt(v); });
+    return {
+      say: 'ながいのは どっち？', choices: [{ label: 'あか', html: '<span class="sw" style="background:var(--face-1)"></span>' + fmt(red), ok: red > blue }, { label: 'あお', html: '<span class="sw" style="background:var(--face-4)"></span>' + fmt(blue), ok: blue > red }],
+      at: { x: Wd / 2, y: el.ry - 40, r: 70 },
+      hint(s) { if (s === 1) HUD.say('かずだけで くらべて いいかな？'); if (s === 2) HUD.say('1cm は 10mm'); if (s === 3) HUD.say('ものさしに ならべて みよう'); },
+      async verify() {
+        ex.innerHTML = ''; const z = zeroX(), t0 = tapes.map(t => ({ x: t.x, y: t.y }));
+        await tween(900, e => { rulerAlpha = .25 + .75 * e; drawRuler(); tapes[0].x = lerp(t0[0].x, z, e); tapes[0].y = lerp(t0[0].y, el.ry - 3, e); tapes[1].x = lerp(t0[1].x, z, e); tapes[1].y = lerp(t0[1].y, el.ry - 3 - 14 * pm, e); drawObj(); });
+        HUD.say(`<b>${fmt(Math.max(red, blue))}</b> の ほうが ながい`); await wait(700);
+      }
+    };
+  }
+  function gen(level, i) { return i === 2 ? compareQ() : readQ(level); }
+  let quiz = null;
+  return {
+    title: 'ながさの たんい', grade: '2ねん',
+    mount(c) { svg = c.svg; Wd = c.W; Ht = c.H; layout(Wd, Ht); bind(); },
+    layout(w, h) { layout(w, h); if (mode === 'ruler') { ox = clamp(ox, 4, Wd - 40); drawObj(); } },
+    unmount() { svg.onpointerdown = svg.onpointermove = svg.onpointerup = svg.onpointercancel = null; touches.clear(); },
+    setTab(id, p) {
+      tapes = null; fixed = false; touches.clear(); if (mode === 'body' && id !== 'sawaru') { mode = 'ruler'; }
+      bind();
+      if (id === 'miru') { p.appendChild(H('div', { class: 'row' }, [H('button', { class: 'btn', onclick: () => { cancelRuns(); run(miru); }, html: ICON.replay + 'もういちど みる' })])); run(miru); }
+      if (id === 'sawaru') { if (!item || item === 'tape') item = 'pencil'; sawaruPanel(p); }
+      if (id === 'tamesu') { quiz = makeQuiz({ key: 'ruler', n: 5, gen, panel: () => $('#panel') }); quiz.start(); }
+    }
+  };
+})();
+/* ---------- ひろさ：かさねる・マスの いくつぶん（H1） ---------- */
+SCENES.area = (() => {
+  let svg, Wd, Ht, c = 40, ox = 0, oy = 0, cols = 20, rows = 10, shapes = [], layer, fx, drag = null, pairKey = 'thin', busy = false;
+  const rect = (w, h) => { const a = []; for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) a.push([x, y]); return a; };
+  const L6 = [[0, 0], [0, 1], [0, 2], [0, 3], [1, 3], [2, 3]];
+  const PAIRS = {
+    thin: { label: 'ほそい と ましかく', a: rect(7, 1), b: rect(3, 3) },
+    hook: { label: 'かぎ と ながしかく', a: L6, b: rect(3, 2) },
+    two: { label: 'ながしかく 2つ', a: rect(6, 2), b: rect(4, 3) },
+    inside: { a: rect(2, 2), b: rect(3, 3) },
+    cross: { a: rect(5, 2), b: rect(3, 3) }
+  };
+  function setPair(k, pos) {
+    pairKey = k; const P = PAIRS[k];
+    const bw = Math.max(...P.b.map(p => p[0])) + 1, aw = Math.max(...P.a.map(p => p[0])) + 1;
+    const ah = Math.max(...P.a.map(p => p[1])) + 1, bh = Math.max(...P.b.map(p => p[1])) + 1;
+    const gap = 2, total = aw + gap + bw, sx = Math.max(1, Math.floor((cols - total) / 2)), sy = Math.max(1, Math.floor((rows - Math.max(ah, bh)) / 2));
+    shapes = [
+      { id: 'a', name: 'あか', color: css('--face-1'), cells: P.a, gx: pos ? pos[0][0] : sx, gy: pos ? pos[0][1] : sy },
+      { id: 'b', name: 'あお', color: css('--face-4'), cells: P.b, gx: pos ? pos[1][0] : sx + aw + gap, gy: pos ? pos[1][1] : sy }
+    ];
+    draw();
+  }
+  function layout(w, h) {
+    Wd = w; Ht = h; svg.innerHTML = '';
+    c = Math.floor(Math.min(Wd / 16, (Ht - 70) / 9, 58)); cols = Math.floor((Wd - 24) / c); rows = Math.floor((Ht - 70) / c);
+    ox = Math.round((Wd - cols * c) / 2); oy = 62 + Math.round((Ht - 70 - rows * c) / 2);
+    const g = S('g', {}, svg);
+    S('rect', { x: ox, y: oy, width: cols * c, height: rows * c, fill: '#fbfbf7', stroke: css('--line'), 'stroke-width': 2 }, g);
+    for (let i = 1; i < cols; i++) S('line', { x1: ox + i * c, y1: oy, x2: ox + i * c, y2: oy + rows * c, stroke: '#dfe6ee', 'stroke-width': 1 }, g);
+    for (let j = 1; j < rows; j++) S('line', { x1: ox, y1: oy + j * c, x2: ox + cols * c, y2: oy + j * c, stroke: '#dfe6ee', 'stroke-width': 1 }, g);
+    layer = S('g', {}, svg); fx = S('g', {}, svg);
+    if (shapes.length) shapes.forEach(s => { s.gx = clamp(s.gx, 0, cols - 1); s.gy = clamp(s.gy, 0, rows - 1); });
+    draw();
+  }
+  function outline(s) {
+    const set = new Set(s.cells.map(p => p.join(','))), segs = [];
+    for (const [x, y] of s.cells) {
+      if (!set.has([x, y - 1].join(','))) segs.push([x, y, x + 1, y]);
+      if (!set.has([x, y + 1].join(','))) segs.push([x, y + 1, x + 1, y + 1]);
+      if (!set.has([x - 1, y].join(','))) segs.push([x, y, x, y + 1]);
+      if (!set.has([x + 1, y].join(','))) segs.push([x + 1, y, x + 1, y + 1]);
+    }
+    return segs;
+  }
+  function draw() {
+    if (!layer) return; layer.innerHTML = '';
+    for (const s of shapes) {
+      const g = S('g', { style: 'cursor:grab', transform: `translate(${ox + s.gx * c + (s.dx || 0)},${oy + s.gy * c + (s.dy || 0)})` }, layer); s.g = g;
+      for (const [x, y] of s.cells) S('rect', { x: x * c, y: y * c, width: c, height: c, fill: s.color, opacity: .72 }, g);
+      const d = outline(s).map(q => `M${q[0] * c},${q[1] * c}L${q[2] * c},${q[3] * c}`).join('');
+      S('path', { d, stroke: s.color, 'stroke-width': 3, fill: 'none', 'stroke-linecap': 'square' }, g);
+      g.addEventListener('pointerdown', e => { if (busy || App.tab !== 'sawaru') return; e.stopPropagation(); const p = ptr(e); layer.appendChild(g); drag = { s, x0: p.x, y0: p.y, id: e.pointerId }; svg.setPointerCapture(e.pointerId); fx.innerHTML = ''; HUD.hide(); });
+    }
+  }
+  function bind() {
+    svg.onpointermove = e => { if (!drag || e.pointerId !== drag.id) return; const p = ptr(e); drag.s.dx = p.x - drag.x0; drag.s.dy = p.y - drag.y0; drag.s.g.setAttribute('transform', `translate(${ox + drag.s.gx * c + drag.s.dx},${oy + drag.s.gy * c + drag.s.dy})`); };
+    const end = () => {
+      if (!drag) return; const s = drag.s; drag = null;
+      const w = Math.max(...s.cells.map(p => p[0])) + 1, h = Math.max(...s.cells.map(p => p[1])) + 1;
+      s.gx = clamp(Math.round(s.gx + (s.dx || 0) / c), 0, cols - w); s.gy = clamp(Math.round(s.gy + (s.dy || 0) / c), 0, rows - h); s.dx = s.dy = 0; SFX.pop(); draw();
+      const o = overlapInfo(); if (o.over) HUD.say(o.aIn ? '<b>あか</b>が すっぽり はいった。<em>あお</em>の ほうが ひろい' : o.bIn ? '<em>あお</em>が すっぽり はいった。<b>あか</b>の ほうが ひろい' : 'かさねても わからない。<b>マス</b>で かぞえよう');
+    };
+    svg.onpointerup = end; svg.onpointercancel = end;
+  }
+  function cellsAbs(s) { return s.cells.map(([x, y]) => (x + s.gx) + ',' + (y + s.gy)); }
+  function overlapInfo() {
+    const A = cellsAbs(shapes[0]), B = new Set(cellsAbs(shapes[1])), Aset = new Set(A);
+    const inter = A.filter(k => B.has(k)).length;
+    return { over: inter > 0, aIn: inter === A.length, bIn: inter === B.size && [...B].every(k => Aset.has(k)) };
+  }
+  async function countTiles(s) {
+    let n = 0; const g = S('g', {}, fx);
+    for (const [x, y] of s.cells) {
+      n++; const X = ox + (s.gx + x) * c, Y = oy + (s.gy + y) * c;
+      const t = S('g', {}, g); S('rect', { x: X + 3, y: Y + 3, width: c - 6, height: c - 6, rx: 4, fill: '#fff', stroke: s.color, 'stroke-width': 2 }, t);
+      const tx = S('text', { x: X + c / 2, y: Y + c / 2 + c * .14, 'text-anchor': 'middle', 'font-size': c * .4, fill: s.color }, t); tx.textContent = n;
+      await tween(150, e => t.setAttribute('transform', `translate(0,${(1 - e) * -14})`), E.out); SFX.tick();
+    }
+    return n;
+  }
+  async function perim(s) {
+    const segs = outline(s), P = segs.length, g = S('g', {}, fx);
+    const d = segs.map(q => `M${ox + (s.gx + q[0]) * c},${oy + (s.gy + q[1]) * c}L${ox + (s.gx + q[2]) * c},${oy + (s.gy + q[3]) * c}`).join('');
+    const p = S('path', { d, stroke: css('--ink'), 'stroke-width': 5, fill: 'none', 'stroke-linecap': 'round', 'stroke-dasharray': '1 9' }, g);
+    const by = oy + rows * c - c * .6, x0 = ox + (s.gx) * c, bw = P * c * .35;
+    const bar = S('rect', { x: x0, y: by - 8, width: 0, height: 10, rx: 5, fill: s.color }, g);
+    await tween(700, e => bar.setAttribute('width', bw * e));
+    const t = S('text', { x: x0 + bw + 8, y: by + 2, 'font-size': 18, fill: s.color }, g); t.textContent = 'まわり ' + P;
+    return P;
+  }
+  async function moveShape(s, gx, gy, ms = 800) { const a = { x: s.gx, y: s.gy }; await tween(ms, e => { s.dx = (gx - a.x) * c * e; s.dy = (gy - a.y) * c * e; s.g.setAttribute('transform', `translate(${ox + a.x * c + s.dx},${oy + a.y * c + s.dy})`); }); s.gx = gx; s.gy = gy; s.dx = s.dy = 0; draw(); }
+
+  async function miru() {
+    busy = true; fx.innerHTML = ''; setPair('inside');
+    HUD.say('ひろいのは どっち？'); await wait(1800);
+    HUD.say('かさねて みよう'); await moveShape(shapes[0], shapes[1].gx, shapes[1].gy);
+    HUD.say('<b>あか</b>が すっぽり はいった。はみだした <em>あお</em>の ほうが ひろい'); await wait(3000);
+    setPair('thin'); HUD.say('こんどは どっち？'); await wait(1800);
+    const home = { x: shapes[0].gx, y: shapes[0].gy };
+    await moveShape(shapes[0], shapes[1].gx - 2, shapes[1].gy + 1);
+    HUD.say('かさねても わからない…'); await wait(2200);
+    await moveShape(shapes[0], home.x, home.y, 600);
+    HUD.say('おなじ おおきさの <b>マス</b>で かぞえよう');
+    const na = await countTiles(shapes[0]); await wait(300); const nb = await countTiles(shapes[1]);
+    HUD.say(`<b>あか ${na}マス</b>、<em>あお ${nb}マス</em>。<em>あお</em>の ほうが ひろい`); await wait(3200);
+    HUD.say('まわりの ながさは？'); fx.innerHTML = ''; await perim(shapes[0]); await perim(shapes[1]);
+    HUD.say('まわりが ながくても、ひろいとは かぎらない'); busy = false;
+  }
+  function sawaruPanel(p) {
+    busy = false; fx.innerHTML = ''; setPair('thin');
+    p.appendChild(H('div', { class: 'row' }, [seg(['thin', 'hook', 'two'].map(k => ({ id: k, label: PAIRS[k].label })), pairKey, k => { cancelRuns(); busy = false; fx.innerHTML = ''; setPair(k); HUD.say('ゆびで うごかして かさねて みよう'); })]));
+    p.appendChild(H('div', { class: 'row' }, [
+      H('button', { class: 'btn sub small', text: 'マスを かぞえる', onclick: () => { if (busy) return; busy = true; fx.innerHTML = ''; run(async () => { const a = await countTiles(shapes[0]); const b = await countTiles(shapes[1]); HUD.say(`<b>あか ${a}マス</b>、<em>あお ${b}マス</em>` + (a === b ? '。おなじ ひろさ' : a > b ? '。<b>あか</b>の ほうが ひろい' : '。<em>あお</em>の ほうが ひろい')); busy = false; }); } }),
+      H('button', { class: 'btn sub small', text: 'まわりの ながさ', onclick: () => { if (busy) return; busy = true; fx.innerHTML = ''; run(async () => { const a = await perim(shapes[0]); const b = await perim(shapes[1]); HUD.say(`まわりは <b>あか ${a}</b>、<em>あお ${b}</em>`); busy = false; }); } }),
+      H('button', { class: 'btn sub small', text: 'もとに もどす', onclick: () => { cancelRuns(); busy = false; fx.innerHTML = ''; setPair(pairKey); HUD.hide(); } })
+    ]));
+    HUD.say('ゆびで うごかして かさねて みよう');
+  }
+  function gen(level, i) {
+    busy = false; fx.innerHTML = '';
+    const pool = level === 'easy' ? [['inside'], [{ a: rect(2, 3), b: rect(3, 4) }], [{ a: rect(4, 2), b: rect(3, 1) }]]
+      : level === 'normal' ? [['cross'], ['thin'], [{ a: rect(8, 1), b: rect(3, 3) }], [{ a: rect(4, 3), b: rect(5, 2) }]]
+        : [['hook'], ['two'], [{ a: rect(8, 1), b: rect(3, 3) }], [{ a: [[0, 0], [1, 0], [2, 0], [0, 1], [0, 2], [0, 3], [0, 4]], b: rect(3, 2) }]];
+    const pk = pool[i % pool.length][0];
+    if (typeof pk === 'string') setPair(pk); else { PAIRS.q = pk; setPair('q'); }
+    const na = shapes[0].cells.length, nb = shapes[1].cells.length;
+    const ch = [{ label: 'あか', html: '<span class="sw" style="background:var(--face-1)"></span>あか', ok: na > nb }, { label: 'あお', html: '<span class="sw" style="background:var(--face-4)"></span>あお', ok: nb > na }];
+    if (level !== 'easy') ch.push({ label: 'おなじ', ok: na === nb });
+    return {
+      say: 'ひろいのは どっち？', choices: ch, at: { x: Wd / 2, y: oy + rows * c / 2, r: c * 2.4 },
+      hint(s) { if (s === 1) HUD.say(level === 'easy' ? 'かさねて みると？' : 'まわりの ながさで きめて いいかな？'); if (s === 2) HUD.say('おなじ おおきさの マスで かぞえよう'); if (s === 3) HUD.say(`あかは ${na}マス`); },
+      async verify() { busy = true; const a = await countTiles(shapes[0]); const b = await countTiles(shapes[1]); HUD.say(`<b>あか ${a}マス</b>、<em>あお ${b}マス</em>`, { speak: false }); busy = false; }
+    };
+  }
+  let quiz = null;
+  return {
+    title: 'ひろさくらべ', grade: '1ねん',
+    mount(cc) { svg = cc.svg; Wd = cc.W; Ht = cc.H; layout(Wd, Ht); setPair('thin'); bind(); },
+    layout(w, h) { layout(w, h); },
+    unmount() { svg.onpointermove = svg.onpointerup = svg.onpointercancel = null; busy = false; },
+    setTab(id, p) {
+      busy = false; if (fx) fx.innerHTML = ''; bind();
+      if (id === 'miru') { p.appendChild(H('div', { class: 'row' }, [H('button', { class: 'btn', onclick: () => { cancelRuns(); busy = false; run(miru); }, html: ICON.replay + 'もういちど みる' })])); run(miru); }
+      if (id === 'sawaru') sawaruPanel(p);
+      if (id === 'tamesu') { quiz = makeQuiz({ key: 'area', n: 4, gen, panel: () => $('#panel') }); quiz.start(); }
+    }
+  };
+})();
+/* ---------- たんいの しくみ：k と m（U3） ---------- */
+SCENES.units = (() => {
+  let svg, Wd, Ht, cols = [], mode = 'k', step = 0, busy = false, land = true;
+  const Q = [
+    { id: 'naga', name: 'ながさ', color: '--face-1', k: ['1m', '10m', '100m', '1km'], kEq: '1km = 1000m', m: ['1m', '10cm', '1cm', '1mm'], mEq: '1m = 1000mm' },
+    { id: 'kasa', name: 'かさ', color: '--face-4', k: ['1L', '10L', '100L', '1kL'], kEq: '1kL = 1000L', m: ['1L', '1dL', '10mL', '1mL'], mEq: '1L = 1000mL' },
+    { id: 'omo', name: 'おもさ', color: '--face-3', k: ['1g', '10g', '100g', '1kg'], kEq: '1kg = 1000g', m: ['1g', '', '', '1mg'], mEq: '1g = 1000mg' }
+  ];
+  function icon(g, q, lv, s, md) {
+    const col = css(q.color), dark = '#1f2b27';
+    if (q.id === 'naga') {
+      const w = s, h = s * .22;
+      S('rect', { x: -w / 2, y: -h / 2, width: w, height: h, rx: 3, fill: '#f4e2b2', stroke: '#c9a06b', 'stroke-width': 1.5 }, g);
+      for (let i = 0; i <= 10; i++) S('line', { x1: -w / 2 + w * i / 10, y1: -h / 2, x2: -w / 2 + w * i / 10, y2: -h / 2 + h * (i % 5 ? .35 : .55), stroke: '#5a4220', 'stroke-width': 1 }, g);
+      if (md === 'm' && lv === 3) S('line', { x1: 0, y1: -h * 1.2, x2: 0, y2: h * 1.2, stroke: col, 'stroke-width': 3 }, g);
+    } else if (q.id === 'kasa') {
+      if (md === 'k' && lv === 1) S('path', { d: `M${-s * .32},${-s * .3}H${s * .32}L${s * .25},${s * .3}H${-s * .25}Z`, fill: '#b5d4f4', stroke: '#4f8fc6', 'stroke-width': 2 }, g);
+      else if (md === 'k' && lv === 2) S('rect', { x: -s * .5, y: -s * .22, width: s, height: s * .44, rx: s * .12, fill: '#b5d4f4', stroke: '#4f8fc6', 'stroke-width': 2 }, g);
+      else if (md === 'k' && lv === 3) { const a = s * .36; S('path', { d: `M0,${-a}L${a * 1.1},${-a * .45}V${a * .7}L0,${a * 1.25}L${-a * 1.1},${a * .7}V${-a * .45}Z`, fill: '#b5d4f4', stroke: '#4f8fc6', 'stroke-width': 2 }, g); S('path', { d: `M${-a * 1.1},${-a * .45}L0,${a * .1}L${a * 1.1},${-a * .45}M0,${a * .1}V${a * 1.25}`, fill: 'none', stroke: '#4f8fc6', 'stroke-width': 2 }, g); }
+      else if (md === 'm' && lv === 3) S('path', { d: `M0,${-s * .3}C${s * .2},${-s * .05} ${s * .22},${s * .12} 0,${s * .25}C${-s * .22},${s * .12} ${-s * .2},${-s * .05} 0,${-s * .3}Z`, fill: '#7fb8e6' }, g);
+      else { S('rect', { x: -s * .3, y: -s * .3, width: s * .6, height: s * .6, rx: 4, fill: '#f7fbff', stroke: '#7d9db3', 'stroke-width': 2 }, g); S('rect', { x: -s * .28, y: -s * .05, width: s * .56, height: s * .33, fill: '#7fb8e6' }, g); }
+    } else {
+      if (md === 'k' && lv === 1) for (let i = 0; i < 6; i++) S('ellipse', { cx: 0, cy: s * .2 - i * s * .07, rx: s * .26, ry: s * .08, fill: '#dfe3e6', stroke: '#9aa3a8', 'stroke-width': 1.2 }, g);
+      else if (md === 'k' && lv >= 2) { const b = lv === 3 ? s * .5 : s * .36; S('path', { d: `M${-b * .7},${-b * .55}Q0,${-b * .85} ${b * .7},${-b * .55}L${b * .9},${b * .6}Q0,${b * .8} ${-b * .9},${b * .6}Z`, fill: '#e9dcc0', stroke: '#b59b6a', 'stroke-width': 2 }, g); S('path', { d: `M${-b * .3},${-b * .7}Q0,${-b * 1} ${b * .3},${-b * .7}`, fill: 'none', stroke: '#b59b6a', 'stroke-width': 3 }, g); }
+      else if (md === 'm' && lv === 3) S('ellipse', { cx: 0, cy: 0, rx: s * .2, ry: s * .1, fill: '#f6f2e8', stroke: '#c9b48a', 'stroke-width': 2 }, g);
+      else { S('circle', { cx: 0, cy: 0, r: s * .3, fill: '#dfe3e6', stroke: '#9aa3a8', 'stroke-width': 2 }, g); const t = S('text', { x: 0, y: s * .1, 'text-anchor': 'middle', 'font-size': s * .28, fill: '#6b7478', class: 'ui' }, g); t.textContent = '1'; }
+    }
+    const lab = (md === 'k' ? q.k : q.m)[lv];
+    if (lab) { const t = S('text', { x: 0, y: s * .62 + 14, 'text-anchor': 'middle', 'font-size': Math.max(18, s * .2), fill: dark }, g); t.textContent = lab; }
+  }
+  function layout(w, h) {
+    Wd = w; Ht = h; svg.innerHTML = ''; land = Wd > Ht;
+    cols = Q.map((q, i) => {
+      const box = land ? { x: 16 + i * (Wd - 32) / 3, y: 64, w: (Wd - 32) / 3, h: Ht - 76 } : { x: 16, y: 60 + i * (Ht - 70) / 3, w: Wd - 32, h: (Ht - 70) / 3 };
+      const g = S('g', {}, svg);
+      S('rect', { x: box.x + 6, y: box.y, width: box.w - 12, height: box.h, rx: 18, fill: css('--paper'), stroke: css('--line'), 'stroke-width': 2 }, g);
+      const chip = S('g', {}, g); S('rect', { x: box.x + 18, y: box.y + 12, width: 82, height: 30, rx: 9, fill: css(q.color) }, chip); const t = S('text', { x: box.x + 59, y: box.y + 33, 'text-anchor': 'middle', 'font-size': 17, fill: '#fff' }, chip); t.textContent = q.name;
+      const s = Math.min(box.w * .42, box.h * .42, 150);
+      const stage = S('g', {}, g), cx = box.x + box.w / 2, cy = box.y + box.h * (land ? .45 : .55);
+      const eq = S('text', { x: cx, y: box.y + box.h - 18, 'text-anchor': 'middle', 'font-size': Math.max(18, Math.min(26, box.w * .08)), fill: css(q.color) }, g);
+      const cnt = S('text', { x: box.x + box.w - 22, y: box.y + 34, 'text-anchor': 'end', 'font-size': 20, fill: css('--ink-soft'), class: 'ui' }, g);
+      return { q, box, g, stage, cx, cy, s, eq, cnt };
+    });
+    paint();
+  }
+  function paint() { for (const c of cols) { c.stage.innerHTML = ''; const g = S('g', { transform: `translate(${c.cx},${c.cy})` }, c.stage); icon(g, c.q, step, c.s, mode); c.eq.textContent = step === 3 ? (mode === 'k' ? c.q.kEq : c.q.mEq) : ''; c.cnt.textContent = ''; } }
+  function slots(c) {
+    const out = [];
+    if (c.q.id === 'naga') { const w = Math.min(c.s * .9, (c.box.w - 40) / 10); for (let i = 0; i < 10; i++) out.push({ x: c.cx - 4.5 * w + i * w, y: c.cy, sc: w / c.s, sy: Math.min(1, w / c.s * 2.6), alt: i % 2 }); }
+    else { const sp = Math.min((c.box.w - 40) / 5, c.box.h * .3), sc = Math.min(.42, sp / c.s * .95); for (let i = 0; i < 10; i++) out.push({ x: c.cx + ((i % 5) - 2) * sp, y: c.cy + (Math.floor(i / 5) - .5) * sp * 1.05, sc }); }
+    return out;
+  }
+  /* 3つの量で同じ動き。k：10こ ならべて 1つに まとめる。m：10に わけて 1つを ひろげる。 */
+  async function doStep(only, fast) {
+    if (step >= 3) return;
+    const f = fast ? .45 : 1, which = only != null ? [cols[only]] : cols;
+    const groups = which.map(c => { c.stage.innerHTML = ''; const all = S('g', {}, c.stage); const sl = slots(c); return { c, all, sl, items: [] }; });
+    if (mode === 'k') {
+      for (let i = 0; i < 10; i++) {
+        for (const G of groups) { const p = G.sl[i], g = S('g', { transform: `translate(${p.x},${p.y}) scale(${p.sc},${p.sy || p.sc})` }, G.all); icon(g, G.c.q, step, G.c.s, 'k'); g.querySelectorAll('text').forEach(t => t.remove()); if (p.alt) { const r = g.querySelector('rect'); r && r.setAttribute('fill', '#e3c47f'); } G.items.push(g); G.c.cnt.textContent = `×${i + 1}`; }
+        SFX.tick(); await wait(110 * f);
+      }
+      await wait(400 * f);
+      await tween(650 * f, e => { for (const G of groups) G.items.forEach((g, i) => { const p = G.sl[i]; g.setAttribute('transform', `translate(${lerp(p.x, G.c.cx, e)},${lerp(p.y, G.c.cy, e)}) scale(${p.sc * (1 - e * .7)},${(p.sy || p.sc) * (1 - e * .7)})`); g.setAttribute('opacity', 1 - e); }); });
+      step++; for (const G of groups) { G.c.stage.innerHTML = ''; const g = S('g', {}, G.c.stage); icon(g, G.c.q, step, G.c.s, 'k'); await null; G.g2 = g; }
+      await tween(380 * f, e => { for (const G of groups) G.g2.setAttribute('transform', `translate(${G.c.cx},${G.c.cy}) scale(${.4 + .6 * E.back(e)})`); }, E.lin);
+    } else {
+      for (const G of groups) { const g = S('g', { transform: `translate(${G.c.cx},${G.c.cy})` }, G.all); icon(g, G.c.q, step, G.c.s, 'm'); G.big = g; }
+      await wait(250 * f);
+      await tween(450 * f, e => { for (const G of groups) G.big.setAttribute('opacity', 1 - e); });
+      for (let i = 0; i < 10; i++) { for (const G of groups) { const p = G.sl[i], g = S('g', { transform: `translate(${p.x},${p.y}) scale(${p.sc},${p.sy || p.sc})` }, G.all); icon(g, G.c.q, step, G.c.s, 'm'); g.querySelectorAll('text').forEach(t => t.remove()); G.items.push(g); G.c.cnt.textContent = `${i + 1}/10`; } SFX.tick(); await wait(70 * f); }
+      await wait(350 * f);
+      await tween(650 * f, e => { for (const G of groups) G.items.forEach((g, i) => { const p = G.sl[i]; if (i === 0) g.setAttribute('transform', `translate(${lerp(p.x, G.c.cx, e)},${lerp(p.y, G.c.cy, e)}) scale(${lerp(p.sc, 1, e)},${lerp(p.sy || p.sc, 1, e)})`); else g.setAttribute('opacity', 1 - e); }); });
+      step++;
+    }
+    for (const G of groups) { G.c.stage.innerHTML = ''; const g = S('g', { transform: `translate(${G.c.cx},${G.c.cy})` }, G.c.stage); icon(g, G.c.q, step, G.c.s, mode); G.c.cnt.textContent = ''; G.c.eq.textContent = step === 3 ? (mode === 'k' ? G.c.q.kEq : G.c.q.mEq) : ''; }
+  }
+  async function playAll(md) {
+    mode = md; step = 0; paint();
+    HUD.say(md === 'k' ? '10こ あつめると つぎの たんいへ' : '10に わけて 1つを ちかくで みる'); await wait(1600);
+    for (let i = 0; i < 3; i++) { await doStep(); await wait(500); }
+    HUD.say(md === 'k' ? '<b>k（キロ）</b>が つくと <b>1000ばい</b>' : '<b>m（ミリ）</b>が つくと <b>1000ぶんの1</b>', { speech: md === 'k' ? 'キロがつくと1000倍' : 'ミリがつくと1000分の1' });
+    await wait(3600);
+  }
+  async function miru() { busy = true; await playAll('k'); await playAll('m'); busy = false; }
+  function sawaruPanel(p) {
+    mode = 'k'; step = 0; paint(); busy = false;
+    const stepBtn = H('button', { class: 'btn', text: '×10', onclick: () => { if (busy) return; if (step >= 3) { HUD.say(mode === 'k' ? '<b>1000ばい</b>に なった' : '<b>1000ぶんの1</b>に なった'); return; } busy = true; run(async () => { await doStep(); busy = false; if (step === 3) HUD.say(mode === 'k' ? '<b>k（キロ）</b>が つくと <b>1000ばい</b>' : '<b>m（ミリ）</b>が つくと <b>1000ぶんの1</b>'); }); } });
+    p.appendChild(H('div', { class: 'row' }, [
+      seg([{ id: 'k', label: 'k（キロ）' }, { id: 'm', label: 'm（ミリ）' }], mode, id => { cancelRuns(); busy = false; mode = id; step = 0; stepBtn.textContent = id === 'k' ? '×10' : '10に わける'; paint(); HUD.say(id === 'k' ? 'ボタンで 10こずつ あつめよう' : 'ボタンで 10に わけよう'); }),
+      stepBtn,
+      H('button', { class: 'btn sub small', html: ICON.replay + 'はじめから', onclick: () => { cancelRuns(); busy = false; step = 0; paint(); } })
+    ]));
+    HUD.say('ボタンで 10こずつ あつめよう');
+  }
+  const QS = {
+    easy: [['1kgは なんg？', ['1000g', '100g', '10g'], 2, 'k'], ['1kmは なんm？', ['1000m', '100m', '10m'], 0, 'k'], ['1Lは なんmL？', ['1000mL', '100mL', '10mL'], 1, 'm'], ['1mは なんmm？', ['1000mm', '100mm', '10mm'], 0, 'm']],
+    normal: [['2kgは なんg？', ['2000g', '200g', '20g'], 2, 'k'], ['3kmは なんm？', ['3000m', '300m', '30m'], 0, 'k'], ['1Lは なんdL？', ['10dL', '100dL', '1000dL'], 1, null], ['5000gは なんkg？', ['5kg', '50kg', '500kg'], 2, 'k']],
+    challenge: [['2kg300gは なんg？', ['2300g', '2003g', '230g'], 2, 'k'], ['1km200mは なんm？', ['1200m', '1020m', '120m'], 0, 'k'], ['1L5dLは なんdL？', ['15dL', '105dL', '6dL'], 1, null], ['4000mLは なんL？', ['4L', '40L', '400L'], 1, 'm']]
+  };
+  function gen(level, i) {
+    mode = 'k'; step = 0; paint();
+    const [q, ch, col, md] = QS[level][i % 4];
+    return {
+      say: q, choices: shuffle(ch.map((l, j) => ({ label: l, ok: j === 0 }))), at: { x: cols[col].cx, y: cols[col].cy, r: cols[col].s * .5 },
+      hint(s) { if (s === 1) HUD.say(md === 'm' ? '<b>m</b>は 1000ぶんの1' : md === 'k' ? '<b>k</b>は 1000ばい' : '1Lは 10dL'); if (s === 2) HUD.say('いくつぶんかを かんがえよう'); if (s === 3) { const e = md === 'm' ? Q[col].mEq : md === 'k' ? Q[col].kEq : '1L = 10dL'; cols[col].eq.textContent = e; HUD.say(`<b>${e}</b>`); } },
+      async verify() { if (md) { mode = md; step = 0; paint(); for (let k = 0; k < 3; k++) await doStep(col, true); } HUD.say(`<b>${q.replace('は なん', ' = ').replace(/[gmLkdＬ]*？$/, '')}${ch[0]}</b>`, { speak: false }); await wait(600); }
+    };
+  }
+  let quiz = null;
+  return {
+    title: 'たんいの しくみ', grade: '3ねん',
+    mount(c) { svg = c.svg; layout(c.W, c.H); },
+    layout(w, h) { layout(w, h); },
+    unmount() { busy = false; },
+    setTab(id, p) {
+      busy = false;
+      if (id === 'miru') { p.appendChild(H('div', { class: 'row' }, [H('button', { class: 'btn', onclick: () => { cancelRuns(); busy = false; run(miru); }, html: ICON.replay + 'もういちど みる' })])); run(miru); }
+      if (id === 'sawaru') sawaruPanel(p);
+      if (id === 'tamesu') { quiz = makeQuiz({ key: 'units', n: 4, gen, panel: () => $('#panel') }); quiz.start(); }
+    }
+  };
+})();
+/* ---------- 起動 ---------- */
+renderHome(); show('home');
+if (TTS.ok) { TTS.pick(); speechSynthesis.onvoiceschanged = () => TTS.pick(); } else { $('#ttsBtn').hidden = true; $('#hudSay').hidden = true; }
+/* 見本の確認用：#clock などで場面を直接ひらく */
+(function () { const k = (location.hash || '').slice(1); const u = UNITS.find(x => x.play === k); if (u) { App.area = u.areas[0]; openScene(k, u); } })();
+</script>

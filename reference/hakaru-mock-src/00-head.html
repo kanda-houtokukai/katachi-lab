@@ -1,0 +1,189 @@
+<title>量をはかる</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Zen+Maru+Gothic:wght@500;700;900&display=swap">
+<style>
+/* レイアウト：図形の見本v2と同じ「部屋と紙」の見た目（katachi-lab の tokens.css と同じ値）。上に単元名と小さなボタン、中央に場面、下に操作の棚とタブ。
+   ホームは「入口 → 単元」の2段。単一の明るい見た目に決めているので、暗い配色は持たない。 */
+:root{
+  --room:#e4e8e2; --room-edge:#d3d9d1;
+  --paper:#fbfbf7; --paper-2:#f3f5f0;
+  --ink:#1f2b27; --ink-soft:#5e6b66; --line:#d6dcd5;
+  --mat:#2f6b57; --mat-deep:#1f4f3f; --mat-press:#163b2f;
+  --ok:#d9452f; --yamabuki:#f2b833; --sora:#3f6aa0; --hint:#b8860b;
+  --ok-soft:#e3a79c; --sora-soft:#9fb3c9; --ok-pale:#f3b3a8;
+  --hint-bg:#fffaf0; --hint-line:#e0c36a; --hint-ink:#7a5b00; --pick-bg:#eef6f1;
+  --face-1:#e5654b; --face-2:#f2b833; --face-3:#8cc152; --face-4:#4f9bd9; --face-5:#9a77cf; --face-6:#f19bb5;
+  --water:#7fb8e6; --water-deep:#4f8fc6; --glass:#f7fbff; --wood:#c9a06b; --wood-pale:#f1dfb8;
+  --metal:#c7cdd0; --metal-deep:#8e979b;
+  --scrim:rgba(31,43,39,.42);
+  --font-display:"Klee One","Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic","Noto Sans CJK JP",sans-serif;
+  --font-ui:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic","Noto Sans CJK JP",sans-serif;
+  color-scheme:light;
+}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{margin:0;background:var(--room);color:var(--ink);font-family:var(--font-ui);overscroll-behavior:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+button{font-family:inherit}
+#app{position:relative;height:100%;overflow:hidden;background:radial-gradient(120% 90% at 50% 40%,var(--room) 55%,var(--room-edge) 100%)}
+
+/* ホーム */
+#home{position:absolute;inset:0;overflow:auto;padding-block:20px 32px;padding-inline:max(16px,4vw)}
+.home-in{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+.home-top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.home-top h1{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(26px,5vw,36px);letter-spacing:.08em;line-height:1.3}
+.home-top h1 small{display:block;font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink-soft);letter-spacing:.06em}
+.doors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:640px){.doors{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.door{appearance:none;position:relative;border:2px solid var(--line);background:var(--paper);border-radius:22px;padding:14px 12px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;box-shadow:0 4px 0 var(--line);color:var(--ink);min-width:0}
+.door:active{transform:translateY(4px);box-shadow:none}
+.door:focus-visible{outline:3px solid var(--yamabuki);outline-offset:3px}
+.door svg{width:min(120px,80%);height:auto;aspect-ratio:1/1;max-width:100%}
+.door b{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,3.2vw,24px);letter-spacing:.08em}
+.door .n{font-size:12px;font-weight:700;color:var(--ink-soft)}
+.door .tag{position:absolute;top:10px;right:10px;font-size:11px;font-weight:900;border-radius:7px;padding:3px 7px;background:var(--paper-2);color:var(--ink-soft)}
+.door .tag.go{background:var(--mat-deep);color:var(--paper)}
+
+/* 入口の中（単元の一覧） */
+#areaView{position:absolute;inset:0;overflow:auto;padding-block:16px 32px;padding-inline:max(16px,4vw)}
+.area-in{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.area-head{display:flex;align-items:center;gap:12px}
+.area-head svg.ic{width:56px;height:56px;flex:none}
+.area-head h2{margin:0;font-family:var(--font-display);font-weight:600;font-size:28px;letter-spacing:.08em;flex:1;min-width:0}
+.grade-row{display:grid;grid-template-columns:64px minmax(0,1fr);gap:10px;align-items:start}
+.grade-row .gl{font-weight:900;font-size:13px;letter-spacing:.06em;color:var(--paper);background:var(--mat-deep);border-radius:9px;padding:6px 0;text-align:center;margin-top:8px}
+.grade-row .gl.ahead{background:var(--yamabuki);color:var(--ink)}
+.ulist{display:flex;flex-direction:column;gap:8px;min-width:0}
+.ucard{appearance:none;text-align:left;border:2px solid var(--line);background:var(--paper);border-radius:16px;padding:10px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;color:var(--ink);box-shadow:0 3px 0 var(--line);min-width:0}
+.ucard:active{transform:translateY(3px);box-shadow:none}
+.ucard:focus-visible{outline:3px solid var(--yamabuki);outline-offset:2px}
+.ucard .ut{flex:1;min-width:0;font-family:var(--font-display);font-weight:600;font-size:19px;letter-spacing:.05em;line-height:1.45}
+.ucard .ut small{display:block;font-family:var(--font-ui);font-size:12px;font-weight:700;color:var(--ink-soft);letter-spacing:.03em}
+.ucard .st{flex:none;font-size:12px;font-weight:900;border-radius:8px;padding:4px 8px;background:var(--paper-2);color:var(--ink-soft);white-space:nowrap}
+.ucard.play{border-color:var(--mat);box-shadow:0 3px 0 var(--mat)}
+.ucard.play .st{background:var(--mat-deep);color:var(--paper);display:inline-flex;align-items:center;gap:4px}
+.ucard.play .st svg{width:14px;height:14px}
+.ucard.other .st{background:#fff4d6;color:var(--hint-ink)}
+.ucard.ahead{background:#fdfcf6}
+
+/* 学ぶ画面 */
+#play{position:absolute;inset:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px 6px;z-index:3}
+.unit{display:flex;align-items:center;gap:10px;background:var(--paper);border:1.5px solid var(--line);border-radius:14px;padding:6px 14px 6px 8px;box-shadow:0 2px 0 var(--line);min-width:0}
+.unit h1{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(17px,3.4vw,22px);letter-spacing:.04em;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.grade{font-weight:900;font-size:12px;letter-spacing:.06em;color:var(--paper);background:var(--mat-deep);border-radius:8px;padding:4px 8px;line-height:1;white-space:nowrap;flex:none}
+.tools{display:flex;gap:8px;flex:none}
+.icon-btn{position:relative;width:48px;height:48px;border-radius:14px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);display:grid;place-items:center;box-shadow:0 2px 0 var(--line);cursor:pointer;padding:0}
+.icon-btn svg{width:24px;height:24px}
+.icon-btn:active{transform:translateY(2px);box-shadow:none}
+.icon-btn:focus-visible{outline:3px solid var(--yamabuki);outline-offset:2px}
+.icon-btn[aria-pressed="false"]{color:var(--ink-soft)}
+.icon-btn[aria-pressed="false"] .on-only{display:none}
+.icon-btn[aria-pressed="true"] .off-only{display:none}
+.tip{position:absolute;top:calc(100% + 6px);right:0;white-space:nowrap;font-size:12px;font-weight:700;background:var(--ink);color:var(--paper);border-radius:8px;padding:4px 8px;opacity:0;pointer-events:none;transition:opacity .15s}
+.icon-btn:hover .tip,.icon-btn:focus-visible .tip{opacity:1}
+@media (hover:none){.icon-btn:hover .tip{opacity:0}}
+
+#stageWrap{position:relative;min-height:0;overflow:hidden}
+#stage{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;outline:none}
+#stage text{font-family:var(--font-display);font-weight:600}
+#stage .ui{font-family:var(--font-ui);font-weight:900}
+.hud{position:absolute;left:50%;top:6px;transform:translateX(-50%);width:max-content;max-width:calc(100% - 32px);display:flex;align-items:center;gap:10px;background:var(--paper);border-radius:18px;padding:8px 10px 8px 18px;box-shadow:0 3px 0 var(--line);border:1.5px solid var(--line);transition:opacity .25s,transform .25s;z-index:2;pointer-events:none}
+.hud.off{opacity:0;transform:translate(-50%,-8px)}
+.hud .txt{font-family:var(--font-display);font-weight:600;font-size:clamp(16px,3.6vw,22px);letter-spacing:.06em;line-height:1.5;text-wrap:balance}
+.hud .txt b{color:var(--ok);font-weight:600}
+.hud .txt em{font-style:normal;color:var(--sora)}
+.say{pointer-events:auto;flex:none;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink-soft);display:grid;place-items:center;cursor:pointer;padding:0}
+.say svg{width:18px;height:18px}
+.say:active{transform:scale(.94)}
+
+.dock{background:var(--paper);border-top:1.5px solid var(--line);padding:10px 16px calc(6px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px;z-index:3}
+.panel{display:flex;flex-direction:column;align-items:center;gap:8px;min-height:56px;justify-content:center}
+.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;border-top:1px dashed var(--line);padding-top:6px;max-width:520px;width:100%;margin:0 auto}
+.tab{appearance:none;border:0;background:none;color:var(--ink-soft);font-weight:700;font-size:13px;letter-spacing:.06em;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0;cursor:pointer}
+.tab .ic{width:40px;height:32px;border-radius:12px;display:grid;place-items:center;transition:background .2s,color .2s}
+.tab svg{width:24px;height:24px}
+.tab[aria-selected="true"]{color:var(--mat-deep)}
+.tab[aria-selected="true"] .ic{background:var(--mat-deep);color:var(--paper)}
+.tab:focus-visible{outline:3px solid var(--yamabuki);outline-offset:2px}
+
+.row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;width:100%}
+.btn{appearance:none;font-weight:900;font-size:17px;letter-spacing:.05em;border-radius:16px;padding:0 18px;min-height:52px;border:2px solid var(--mat-press);background:var(--mat-deep);color:var(--paper);box-shadow:0 4px 0 var(--mat-press);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}
+.btn:active{transform:translateY(4px);box-shadow:0 0 0 var(--mat-press)}
+.btn.sub{background:var(--paper);color:var(--ink);border-color:var(--line);box-shadow:0 4px 0 var(--line)}
+.btn.sub:active{box-shadow:0 0 0 var(--line)}
+.btn.small{min-height:44px;font-size:15px;padding:0 13px;border-radius:14px}
+.btn svg{width:22px;height:22px}
+.btn:focus-visible{outline:3px solid var(--yamabuki);outline-offset:3px}
+.btn[aria-pressed="true"].sub{background:var(--pick-bg);border-color:var(--mat-deep);box-shadow:0 4px 0 var(--mat-deep)}
+.btn.ans{min-width:110px;font-family:var(--font-display);font-weight:600;font-size:20px;letter-spacing:.04em;background:var(--paper);color:var(--ink);border-color:var(--line);box-shadow:0 4px 0 var(--line)}
+.btn.ans:active{box-shadow:none}
+.btn.ans.ng{opacity:.45;text-decoration:line-through;pointer-events:none}
+.btn.ans.right{border-color:var(--ok);box-shadow:0 4px 0 var(--ok-soft);color:var(--ok)}
+.btn.ans .sw{width:16px;height:16px;border-radius:5px;display:inline-block}
+.seg{display:inline-flex;background:var(--paper-2);border:1.5px solid var(--line);border-radius:14px;padding:3px;gap:2px;flex-wrap:wrap;justify-content:center}
+.seg button{appearance:none;border:0;background:none;font-weight:900;font-size:14px;color:var(--ink-soft);padding:0 11px;min-height:40px;border-radius:11px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--mat-deep);color:var(--paper)}
+.seg button:focus-visible{outline:3px solid var(--yamabuki);outline-offset:1px}
+.seg button svg{width:18px;height:18px}
+.dots{display:flex;gap:7px;align-items:center}
+.dots i{width:13px;height:13px;border-radius:50%;border:2px solid var(--line);background:var(--paper)}
+.dots i.now{border-color:var(--mat-deep)}
+.dots i.ok{background:var(--ok);border-color:var(--ok)}
+.dots i.okh{background:var(--ok-pale);border-color:var(--ok-pale)}
+.dots i.ng{background:var(--sora-soft);border-color:var(--sora-soft)}
+.hint-btn{appearance:none;border:2px dashed var(--hint-line);background:var(--hint-bg);color:var(--hint-ink);font-weight:900;font-size:14px;border-radius:12px;min-height:40px;padding:0 11px;display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.hint-btn i{width:8px;height:8px;border-radius:50%;background:var(--hint-line);display:inline-block}
+.hint-btn i.used{background:transparent;border:1.5px solid var(--hint-line)}
+.hint-btn:active{transform:scale(.97)}
+.hint-btn svg{width:18px;height:18px}
+.result{display:flex;flex-direction:column;align-items:center;gap:6px}
+.result .score{font-family:var(--font-display);font-weight:600;font-size:22px;letter-spacing:.06em}
+.stars{display:flex;gap:4px}
+.stars svg{width:28px;height:28px}
+.counter{font-family:var(--font-display);font-weight:600;font-size:20px;letter-spacing:.05em;color:var(--mat-deep);font-variant-numeric:tabular-nums}
+input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:44px;background:transparent;margin:0;min-width:0;max-width:420px}
+input[type=range]::-webkit-slider-runnable-track{height:12px;border-radius:999px;background:var(--line)}
+input[type=range]::-moz-range-track{height:12px;border-radius:999px;background:var(--line)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:38px;height:38px;margin-top:-13px;border-radius:50%;background:var(--paper);border:3px solid var(--mat-deep);box-shadow:0 3px 0 var(--mat-press)}
+input[type=range]::-moz-range-thumb{width:34px;height:34px;border-radius:50%;background:var(--paper);border:3px solid var(--mat-deep)}
+input[type=range]:focus-visible{outline:3px solid var(--yamabuki);outline-offset:2px;border-radius:999px}
+
+.sheet{position:absolute;inset:0;background:var(--scrim);display:flex;align-items:center;justify-content:center;z-index:9;padding:16px}
+.sheet-card{background:var(--paper);width:100%;max-width:520px;max-height:calc(100% - 16px);border-radius:24px;padding:18px 18px 20px;display:flex;flex-direction:column;gap:14px;overflow:auto;animation:rise .3s ease-out}
+@keyframes rise{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
+.sheet-head{display:flex;align-items:center;gap:10px}
+.sheet-head h2{margin:0;font-family:var(--font-display);font-weight:600;font-size:23px;letter-spacing:.06em;flex:1;min-width:0;line-height:1.4}
+.sheet p{margin:0;line-height:1.75;font-size:15px}
+.sheet .aim{font-family:var(--font-display);font-weight:600;font-size:18px;letter-spacing:.04em;line-height:1.7}
+.sheet .meta{font-size:13px;color:var(--ink-soft);font-weight:700}
+.calib-box{display:flex;justify-content:center;align-items:center;background:var(--paper-2);border-radius:16px;min-height:160px;overflow:hidden}
+.calib-row{display:flex;align-items:center;gap:10px}
+.calib-row .btn{flex:none}
+.badge-real{font-size:11px;font-weight:900;border-radius:7px;padding:3px 7px;background:var(--paper-2);color:var(--ink-soft);white-space:nowrap}
+.badge-real.on{background:var(--pick-bg);color:var(--mat-deep)}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+
+<div id="app">
+  <section id="home" aria-label="はいりぐち"></section>
+  <section id="areaView" hidden></section>
+  <section id="play" hidden>
+    <header class="top">
+      <div class="unit"><button class="icon-btn" id="backBtn" aria-label="もどる" style="width:40px;height:40px;box-shadow:none;border:0;background:var(--paper-2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><span class="grade" id="gradeTag">2ねん</span><h1 id="unitTitle">とけい</h1></div>
+      <div class="tools">
+        <button class="icon-btn" id="ttsBtn" aria-pressed="true" aria-label="よみあげ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="on-only" d="M16.5 8.5a5 5 0 010 7M19 6a8.5 8.5 0 010 12"/><path class="off-only" d="M17 9l5 6M22 9l-5 6"/></svg><span class="tip">よみあげ</span></button>
+        <button class="icon-btn" id="homeBtn" aria-label="はいりぐちへ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg><span class="tip">はいりぐち</span></button>
+      </div>
+    </header>
+    <div id="stageWrap">
+      <svg id="stage" role="img" aria-label="ばめん"></svg>
+      <div class="hud off" id="hud" role="status" aria-live="polite"><span class="txt" id="hudTxt"></span><button class="say" id="hudSay" aria-label="もういちど きく"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 010 7"/></svg></button></div>
+    </div>
+    <nav class="dock">
+      <div class="panel" id="panel"></div>
+      <div class="tabs" id="tabs" role="tablist"></div>
+    </nav>
+  </section>
+  <div id="sheetHost"></div>
+</div>

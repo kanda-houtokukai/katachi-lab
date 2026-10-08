@@ -8,9 +8,10 @@
 - 種別: 個人開発
 - 台帳: `HANDOFF.md`
 - 決定事項リスト: `docs/decisions.md`
-- 設計書: `docs/rittai-design.md`（立体の領域）
-- 有料サービスとの網羅表: `docs/coverage.md`
-- いまの指示書: `docs/night-run-01.md`
+- 設計書: `docs/rittai-design.md`（立体の領域）、`docs/hakaru-design.md`（量の領域・はかる）
+- 量の調査: `docs/hakaru-research.md`（学習指導要領・教科書・つまずき・競合。出典つき）
+- 有料サービスとの網羅表: `docs/coverage.md`（立体）、`docs/hakaru-coverage.md`（量）
+- いまの指示書: `docs/run-02-hakaru.md`（量の自走・2026-10-09〜）。前の指示書 `docs/night-run-01.md`（立体・完了）
 
 ## セッション開始時に必ずやること
 
@@ -26,6 +27,8 @@
 - この案件で該当する箇所: `reference/` の書き換え、`reference/net-counts.json` の凍結値の変更、公開設定（noindex の解除を含む）の変更、外部サービスの追加
 
 **例外：2026-10-08 夜の自走（D11）**では止まらない。`docs/night-run-01.md` §0 の「事前に承認されていること」は承認済みとして進め、それ以外の判断は既定の選択で進めて `HANDOFF.md` の「朝の確認事項」に記録する。「今夜してはいけないこと」は例外なく守る。
+
+**例外：2026-10-09 の量の自走（D18）**でも止まらない。`docs/run-02-hakaru.md` §0-2 の「事前に承認されていること」は承認済みとして進め、それ以外の判断は指示書の既定の選択で進めて `HANDOFF.md` の「朝の確認事項」の見出し「量の自走（2026-10-09〜）」に記録する。§0-3「してはいけないこと」は例外なく守る。
 
 ## 台帳の維持（dev-workflow §E の統一値）
 

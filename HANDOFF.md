@@ -6,14 +6,15 @@
 
 ## 現在地サマリ
 
-- **今どこ**：P1 の夜間自走が完了（2026-10-08 夜）。N0〜N7 すべて完了。2026-10-09 に公開済み：ユーザーが push と Pages を実行し、`https://kanda-houtokukai.github.io/katachi-lab/` で地図が開くこと、noindex・robots.txt（Disallow: /）・service worker が効くこと、地図の図鑑の総数（4年94・5年610・中1 73）を Chat で確認。
+- **今どこ**：**量の自走（D18・`docs/run-02-hakaru.md`）H0**。一式を `docs/`・`reference/` に置き、決定事項 D13〜D16・D18〜D20 と P10〜P13 を `docs/decisions.md` に足した。以下は前の段階：P1 の夜間自走が完了（2026-10-08 夜）。N0〜N7 すべて完了。2026-10-09 に公開済み：ユーザーが push と Pages を実行し、`https://kanda-houtokukai.github.io/katachi-lab/` で地図が開くこと、noindex・robots.txt（Disallow: /）・service worker が効くこと、地図の図鑑の総数（4年94・5年610・中1 73）を Chat で確認。
 - **直近の決定**：
   - [DECISION] D9 内容の種類と数もすべて網羅する（立体は小1〜中1。展開図の数は計算で確定）
   - [DECISION] D10 kanda-houtokukai に公開リポジトリ `katachi-lab`、GitHub Pages、正式公開まで検索除け
   - [DECISION] D11 今夜は止まらずに自走。判断は既定の選択で進めて「朝の確認事項」に記録
   - [DECISION] D12 デザインは見本v2の見た目を仮に使い、`app/ui/tokens.css` に集めて後で差し替える
   - [DECISION] D17 読み上げは端末の音声のまま。Gemini TTS（Google Cloud TTS の Gemini TTS を含む）は使わない（2026-10-09）
-- **次の一手**：①iPad 実機で「朝の報告」の順に触る（iOS Safari・手触り・読み上げの声）②印刷・PDF を紙に出して実寸を測る ③下書きの文面（思い出し問題・見立て）を教科書と照らす ④P1b（デザインの方向性）の比較案づくりへ。
+- **次の一手（量の自走）**：H1 統合の骨格 → H2 じかん → H3 ながさ → H4 かさ・おもさ → H5 ひろさ → H6・H7 ちょっと先 → H8 横断 → H9 仕上げ（指示書 §1）。
+- **次の一手（前から）**：①iPad 実機で「朝の報告」の順に触る（iOS Safari・手触り・読み上げの声）②印刷・PDF を紙に出して実寸を測る ③下書きの文面（思い出し問題・見立て）を教科書と照らす ④P1b（デザインの方向性）の比較案づくりへ。
 - **ブロッカー**：なし。
 
 ### ファイルの地図と正本
@@ -28,12 +29,20 @@
 | `reference/engine-v2-cube.js` | 見本の立方体エンジン（11種の番号の並び） | 参照用 |
 | `reference/net_counter.py` | 展開図の数を数えた検証済みプログラム | 参照用 |
 | `reference/net-counts.json` | 展開図の数の凍結値と寸法 | 凍結（計算し直さずに変えない） |
+| `docs/run-02-hakaru.md` | 量の自走の指示書（H0〜H9・2026-10-09） | ○ |
+| `docs/hakaru-design.md` | 量の領域の設計書（単元19・部品・数の決め方・統合の手順） | ○ |
+| `docs/hakaru-coverage.md` | 量の有料級サービスとの網羅表 | ○ |
+| `docs/hakaru-research.md` | 量の調査（学習指導要領・教科書6社・つまずき・競合。出典つき） | ○ |
+| `reference/hakaru-mock-v1.html` | 見本 v1「量をはかる」（Artifact）。量の移植の手本 | 参照用（書き換えない） |
+| `reference/hakaru-mock-src/` | 見本 v1 の部品のソース（`build.sh` で上の HTML を作る） | 参照用 |
+| `katachi-lab-archive-2026-10.md` | 台帳のアーカイブ（10件を超えた古い記録を原文のまま） | 参照用 |
 
 ### 生きている注意事項
 
 - 展開図の数（凍結値）：正四面体2、立方体11、直方体54、正四角柱29、正三角柱9、二等辺三角形の三角柱23、直角三角形の三角柱42、正五角柱99、正六角柱354、正三角錐4、正四角錐8、正五角錐15、正六角錐33、正八面体11。正十二面体・正二十面体は文献値43,380（カタログを作らずランダム生成）。
 - 実行中に外部 API を呼ばない（D3）。広告・課金・登録・送信・解析なし。
 - 読み上げは端末の音声のまま（D17）。Gemini TTS（Google Cloud TTS の Gemini TTS も）は使わない。18歳未満が使う・使う可能性が高いアプリでの利用を禁じる条項（Gemini API 追加規約、Google Cloud 個別サービス規約 第20条d）に当たるため。
+- ★ 数は計算で決める。手で数えた数を画面に書かない（量の図鑑の総数も同じ。ビルド時に計算して `data/hakaru/*.json` に凍結し、テストで件数を保証する）。
 - 正式公開まで検索除けを外さない。
 - 落とし穴は `docs/night-run-01.md` §5。
 - ★ 描画ループ（`app/stage/stage.js` frame）は、アニメ1つの例外で止まると全画面が固まる。tween の中で片づけ済みの物を触らない（`disposeNet` は holder を空の Group に差しかえて空振りさせる）。ループ側も try/catch 済み。
@@ -47,6 +56,16 @@
 ---
 
 ## 朝の確認事項
+
+### 量の自走（2026-10-09〜）
+
+（指示書 `docs/run-02-hakaru.md` の既定の選択で進めたこと。何を・なぜ・変えるならどこか）
+
+- **H0 一式のコピー**：同名のファイルはなく、上書きなしで `docs/`・`reference/hakaru-mock-v1.html`・`reference/hakaru-mock-src/` に置いた。`docs/decisions-hakaru.md` は `docs/decisions.md` に足し、リポジトリには入れていない。
+- **H0 変更前の main の基準（SHA af06fe8）**：単体 20件 PASS。E2E は 25件中 23件 PASS、2件が失敗（全ボタン・R2 の巡回）。2件とも同じ原因：R2「ためす」の「はこに なるかな」で、答えたあとの組み立ての動きの最中（`app/parts/net-quiz.js` の `phase === 'fold'`）は難しさのボタンを受け付けない作りで、巡回がちょうどその最中に押すと「押しても何も起きない」になる（たまに起きる）。図形側の部品は変えない決まりなので、巡回（`tests/e2e/crawl.mjs`）の側で「動きの最中は待ってから押す」ようにした。**子どもが組み立ての途中で難しさを押すと何も起きない**のは図形側に残っている（直すなら net-quiz.js の該当行。直すかどうかはユーザーが決める）。
+- **H0 基準物の出典**：指示書の造幣局の URL（`…/operations_coin_presently.html`）は 404。同じ造幣局の「現在製造している貨幣」は `https://www.mint.go.jp/operations/production/operations_coin_presently-minted.html` にあり、そこで 1円 20mm・1g、10円 23.5mm・4.5g、100円 22.6mm・4.8g、500円 26.5mm・7.1g を確かめて `data/benchmarks.json` に `verified:true` と出典を書いた。カード（85.60×53.98mm）はウィキペディアでのみ確認（`verified:false`）。ほかの身の回りの物は「教科書の例（およその値）」で `verified:false`。
+
+### 図形の自走（2026-10-08）
 
 - **【済み 2026-10-09】GitHub への公開と Pages の有効化**：ユーザーが実行。本番 URL で地図・noindex・robots.txt・service worker・図鑑の総数を Chat で確認済み。
 - **npm install は端末の設定で止まっている**ため、three r128 と jsPDF 2.5.1 は npm 登録の tarball から必要な1ファイルだけ取り出して `vendor/` に置いた（shasum は npm 登録の値と一致）。E2E の Playwright は【済み 2026-10-09】ユーザーが devDependencies に入れたので自前（`node_modules/playwright` 1.63.0）。`tools/pw.mjs` の探す順は KATACHI_PW → このリポジトリ → yugure-no-sato のまま。
@@ -114,6 +133,15 @@
 
 ## 記録
 
+### 記録 2026-10-09 H0 量の自走の準備（Code）
+- 一式を配置：`docs/hakaru-design.md`・`hakaru-coverage.md`・`hakaru-research.md`・`run-02-hakaru.md`、`reference/hakaru-mock-v1.html`、`reference/hakaru-mock-src/`（同名なし・上書きなし）。
+- `docs/decisions.md` に D13〜D16・D18〜D20 と P10〜P13、ユーザーが決めること（量）を足した。`docs/decisions-hakaru.md` はリポジトリに入れない。
+- `CLAUDE.md`：量の設計書・調査・網羅表・指示書を地図に、止まる場面の例外に「2026-10-09 の量の自走（D18）」を足した。
+- 基準（変更前の main・SHA af06fe8）：単体 20/20 PASS、E2E 23/25 PASS（失敗2件は R2 の組み立て中に難しさを押すとき。確認事項に記載）。
+- 基準物：造幣局の「現在製造している貨幣」で 1・10・100・500円の直径と量目を確認（指示書の URL は 404、正しい URL を確認事項に記載）。値は H1 で `data/benchmarks.json` に入れる。
+- 台帳の記録が10件になるため、最も古い「立ち上げ（Chat）」を `katachi-lab-archive-2026-10.md` へ原文のまま移した（「数は計算で決める」を生きている注意事項へ昇格）。
+- SHA：（この commit）
+
 ### 記録 2026-10-09 公開済みの反映・D17・Playwright を自前に（Code）
 - 公開：ユーザーが push と Pages を実行。本番で地図・noindex・robots.txt・service worker・図鑑の総数（4年94・5年610・中1 73）を Chat で確認済み。Code からも robots.txt・noindex・sw.js（200）を取得して一致を確認。
 - [DECISION] D17 読み上げは端末の音声のまま。Gemini TTS（Google Cloud TTS の Gemini TTS を含む）は使わない（`docs/decisions.md`）。
@@ -178,10 +206,3 @@
 - テスト：単体 9件 PASS（凍結値・数え直し・折りたたみ・合同キー・のりしろ・立方体の番号・検索除け・外部読み込み・事前キャッシュ）。
 - 公開 URL の確認：未検証（push 前のため）。手元 `http://localhost:5310/?nosw` で地図の表示と「じゅんび中」の反応を確認。
 - SHA：a0a09d9（push なし）
-
-### 記録 2026-10-08 立ち上げ（Chat）
-- 見本 v1（アニメーションの水準を確認）・v2（網羅表の不足分を追加）を Artifact で公開。アニメーションはユーザーが合格と判断（D7）。
-- 有料サービス約25本を調査し、網羅表を作成（`docs/coverage.md`）。
-- 展開図の数を総当たりで計算し、文献値（2・11・11・54）と一致することを確認して凍結（`reference/net-counts.json`）。
-- 立体の領域の設計書と夜間の指示書を作成。
-- ★ 数は計算で決める。手で数えた数を画面に書かない。
