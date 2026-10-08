@@ -6,20 +6,21 @@
 
 ## 現在地サマリ
 
-- **今どこ**：P1 の夜間自走が完了（2026-10-08 夜）。N0〜N7 すべて完了（手元の commit のみ。GitHub への push と Pages は朝の確認事項の先頭の1行）。
+- **今どこ**：P1 の夜間自走が完了（2026-10-08 夜）。N0〜N7 すべて完了。2026-10-09 に公開済み：ユーザーが push と Pages を実行し、`https://kanda-houtokukai.github.io/katachi-lab/` で地図が開くこと、noindex・robots.txt（Disallow: /）・service worker が効くこと、地図の図鑑の総数（4年94・5年610・中1 73）を Chat で確認。
 - **直近の決定**：
   - [DECISION] D9 内容の種類と数もすべて網羅する（立体は小1〜中1。展開図の数は計算で確定）
   - [DECISION] D10 kanda-houtokukai に公開リポジトリ `katachi-lab`、GitHub Pages、正式公開まで検索除け
   - [DECISION] D11 今夜は止まらずに自走。判断は既定の選択で進めて「朝の確認事項」に記録
   - [DECISION] D12 デザインは見本v2の見た目を仮に使い、`app/ui/tokens.css` に集めて後で差し替える
-- **次の一手**：①朝の確認事項の先頭の1行で push と Pages を有効にし、本番 URL で開くことを確かめる ②iPad 実機で「朝の報告」の順に触る ③下書きの文面（思い出し問題・見立て）を教科書と照らす ④P1b（デザインの方向性）の比較案づくりへ。
-- **ブロッカー**：公開リポジトリの作成（`gh repo create --public`）が Claude Code の自動判定で止められた。手元で全段を進め、push と Pages は朝にユーザーが1回の操作で行う（朝の確認事項の先頭）。
+  - [DECISION] D17 読み上げは端末の音声のまま。Gemini TTS（Google Cloud TTS の Gemini TTS を含む）は使わない（2026-10-09）
+- **次の一手**：①iPad 実機で「朝の報告」の順に触る（iOS Safari・手触り・読み上げの声）②印刷・PDF を紙に出して実寸を測る ③下書きの文面（思い出し問題・見立て）を教科書と照らす ④P1b（デザインの方向性）の比較案づくりへ。
+- **ブロッカー**：なし。
 
 ### ファイルの地図と正本
 
 | ファイル | 中身 | 正本 |
 |---|---|---|
-| `docs/decisions.md` | 決定事項リスト（D1〜D12、提案、やらないこと、根拠） | ○ |
+| `docs/decisions.md` | 決定事項リスト（D1〜D12・D17、提案、やらないこと、根拠） | ○ |
 | `docs/rittai-design.md` | 立体の領域の設計書（単元・活動・数・判定・記録） | ○ |
 | `docs/night-run-01.md` | 今夜の実装指示書 | ○ |
 | `docs/coverage.md` | 有料サービスとの網羅表 | ○ |
@@ -32,6 +33,7 @@
 
 - 展開図の数（凍結値）：正四面体2、立方体11、直方体54、正四角柱29、正三角柱9、二等辺三角形の三角柱23、直角三角形の三角柱42、正五角柱99、正六角柱354、正三角錐4、正四角錐8、正五角錐15、正六角錐33、正八面体11。正十二面体・正二十面体は文献値43,380（カタログを作らずランダム生成）。
 - 実行中に外部 API を呼ばない（D3）。広告・課金・登録・送信・解析なし。
+- 読み上げは端末の音声のまま（D17）。Gemini TTS（Google Cloud TTS の Gemini TTS も）は使わない。18歳未満が使う・使う可能性が高いアプリでの利用を禁じる条項（Gemini API 追加規約、Google Cloud 個別サービス規約 第20条d）に当たるため。
 - 正式公開まで検索除けを外さない。
 - 落とし穴は `docs/night-run-01.md` §5。
 - ★ 描画ループ（`app/stage/stage.js` frame）は、アニメ1つの例外で止まると全画面が固まる。tween の中で片づけ済みの物を触らない（`disposeNet` は holder を空の Group に差しかえて空振りさせる）。ループ側も try/catch 済み。
@@ -46,10 +48,8 @@
 
 ## 朝の確認事項
 
-- **【最初にお願いする操作・1回】GitHub への公開と Pages の有効化**：今夜は `gh repo create kanda-houtokukai/katachi-lab --public` が Claude Code の自動判定（公開面の作成）で止められたため、手元の commit だけで全段を進めた。ターミナルで次の1行を実行すると、リポジトリ作成・全 commit の push・Pages の有効化まで終わる（1〜2分後に `https://kanda-houtokukai.github.io/katachi-lab/` で開ける）。
-  `cd ~/dev/katachi-lab && gh repo create kanda-houtokukai/katachi-lab --public --source=. --remote=origin --push --description "うごかして わかる 学習アプリ（試作）" && gh api -X POST repos/kanda-houtokukai/katachi-lab/pages -f "source[branch]=main" -f "source[path]=/"`
-  - 今後 Code に任せる場合は、Claude Code の権限設定で `gh repo create` を許可する（変えるのは `~/.claude/settings.json`）。
-- **npm install は端末の設定で止まっている**ため、three r128 と jsPDF 2.5.1 は npm 登録の tarball から必要な1ファイルだけ取り出して `vendor/` に置いた（shasum は npm 登録の値と一致）。E2E の Playwright は `~/dev/yugure-no-sato/node_modules/playwright` を借りている（`tools/pw.mjs`。`KATACHI_PW` で差し替え可）。自前で持たせるなら `npm i -D playwright` を一度だけ許可する。
+- **【済み 2026-10-09】GitHub への公開と Pages の有効化**：ユーザーが実行。本番 URL で地図・noindex・robots.txt・service worker・図鑑の総数を Chat で確認済み。
+- **npm install は端末の設定で止まっている**ため、three r128 と jsPDF 2.5.1 は npm 登録の tarball から必要な1ファイルだけ取り出して `vendor/` に置いた（shasum は npm 登録の値と一致）。E2E の Playwright は【済み 2026-10-09】ユーザーが devDependencies に入れたので自前（`node_modules/playwright` 1.63.0）。`tools/pw.mjs` の探す順は KATACHI_PW → このリポジトリ → yugure-no-sato のまま。
 - **2年の追加の活動の言葉と量（既定の選択）**：「この 6まいで はこが できる？」の答えは「できる／できない」、やさしい4問・ふつう5問・チャレンジ6問。「はこを えらぶ」は12枚（箱になる6枚＋紛らわしい6枚）。カードの寸法は `app/parts/card-quiz.js`・`box-pick.js` の表。変えるならそこ。
 - **設定に2つ足した（決定事項 P6-9 の「音・動きの量」「先取りの可否」）**：「動きの量（ふつう／すくなめ）」「ちょっと先の単元（ひらく／とじる・既定はひらく）」。不要なら `app/core/parent.js` の2行を消す。
 - **地図（ホーム）の見た目は仮**：学年ごとの帯に単元カードを並べ、進み具合（4段）とずかんの数を出すだけ。世界観は P1b/P2 で決める。
@@ -71,7 +71,7 @@
 （2026-10-08 夜の自走・P1。指示書 §6 の5項目）
 
 ### 1. 公開 URL と、iPad で最初に触ってほしい順番
-- 公開 URL：`https://kanda-houtokukai.github.io/katachi-lab/`。**まだ公開されていない**（公開リポジトリの作成が自動判定で止められたため）。朝の確認事項の先頭の1行を実行すると、push と Pages が有効になり、1〜2分で開ける。それまでは Mac で `node tools/serve.mjs 5310` → `http://localhost:5310/?nosw`。
+- 公開 URL：`https://kanda-houtokukai.github.io/katachi-lab/`（2026-10-09 公開済み・検索除けあり）。
 - iPad で触る順（各5分ほど）
   1. 地図 → 2年「はこの形」：みる → さわる（指で回す・めん／へん／ちょうてん・おかしの はこ）→ つくる「うつしとる」「ほねぐみ」
   2. 4年「直方体と立方体」：つくる「てんかいず（ちょくほうたい）」でカードを辺につなぐ（長さの合わない辺は はじかれる・くるっと）→ くみたてる → かみで つくる（印刷・PDF の実寸）
@@ -82,7 +82,7 @@
 ### 2. 段ごとの結果と SHA（すべて手元の commit。push なし）
 | 段 | 結果 | SHA |
 |---|---|---|
-| N0 準備 | 完了（公開 URL の確認だけ未。push 前のため） | a0a09d9 |
+| N0 準備 | 完了（公開 URL は 2026-10-09 に確認済み） | a0a09d9 |
 | N1 骨格・エンジン・カタログ・R2 | 完了 | 84beb49 |
 | N2 R4 直方体と立方体 | 完了 | f74bd1e |
 | N3 R5a 角柱と円柱・R5b 体積 | 完了 | 10f11da |
@@ -103,7 +103,7 @@
 上の「朝の確認事項」を参照（先頭は push と Pages の1行の操作。ほかは既定の選択と、下書きの文面の確認）。
 
 ### 5. 未検証の項目
-- 本番 URL（GitHub Pages）での表示：push 前のため未検証。push 後に開いて確かめる。
+- 本番 URL（GitHub Pages）：【済み 2026-10-09】地図が開く・noindex・robots.txt・service worker・図鑑の総数を Chat で確認。単元の中の各画面を本番で触るのは iPad 実機の確認でまとめて行う。
 - iPad・スマホ実機の手触り（指で回す・タップの当たり・ボタンの大きさ）：手元の Chrome の画面サイズの模擬だけ。iOS Safari は未検証。
 - 読み上げの声：端末の日本語の声があるときだけボタンを出す作り。実機の声・読み方（ルビの読み）は未確認。
 - 印刷・PDF の実寸（1単位 4.5cm 上限・A4）：画面とファイルの生成までは確認。紙に出して定規で測るのは未検証。
