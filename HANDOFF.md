@@ -6,13 +6,13 @@
 
 ## 現在地サマリ
 
-- **今どこ**：P1 の夜間自走中（2026-10-08 夜）。N0 完了（手元のみ。GitHub への push と Pages は朝の確認事項の先頭）。
+- **今どこ**：P1 の夜間自走中（2026-10-08 夜）。N0・N1 完了（手元のみ。GitHub への push と Pages は朝の確認事項の先頭）。
 - **直近の決定**：
   - [DECISION] D9 内容の種類と数もすべて網羅する（立体は小1〜中1。展開図の数は計算で確定）
   - [DECISION] D10 kanda-houtokukai に公開リポジトリ `katachi-lab`、GitHub Pages、正式公開まで検索除け
   - [DECISION] D11 今夜は止まらずに自走。判断は既定の選択で進めて「朝の確認事項」に記録
   - [DECISION] D12 デザインは見本v2の見た目を仮に使い、`app/ui/tokens.css` に集めて後で差し替える
-- **次の一手**：`docs/night-run-01.md` の N1（骨格と汎用エンジン、R2 の移植）。
+- **次の一手**：`docs/night-run-01.md` の N2（R4 4年「直方体と立方体」。`net-build-cards` をここで作る）。
 - **ブロッカー**：公開リポジトリの作成（`gh repo create --public`）が Claude Code の自動判定で止められた。手元で全段を進め、push と Pages は朝にユーザーが1回の操作で行う（朝の確認事項の先頭）。
 
 ### ファイルの地図と正本
@@ -34,6 +34,10 @@
 - 実行中に外部 API を呼ばない（D3）。広告・課金・登録・送信・解析なし。
 - 正式公開まで検索除けを外さない。
 - 落とし穴は `docs/night-run-01.md` §5。
+- ★ 描画ループ（`app/stage/stage.js` frame）は、アニメ1つの例外で止まると全画面が固まる。tween の中で片づけ済みの物を触らない（`disposeNet` は holder を空の Group に差しかえて空振りさせる）。ループ側も try/catch 済み。
+- ★ 枠どり（fitBox）は棚の高さを毎回測り直す。部品が棚の中身を作った直後に枠どりすると、古い高さで計算して下にはみ出していた。
+- ★ CSS のクラス名 `.home` は保護者画面の「おうちでできること」で使う。地図は `.homemap`。
+- E2E は `node --test --test-concurrency=1 "tests/e2e/*.test.mjs"`（`npm run e2e`）。押す前後の比べ方は `tests/e2e/harness.mjs` の SIG。部品はテスト用ののぞき口（mount の戻り値の `test`）を持ち、3D の上を実際にタップして進める。
 - 見本v2の保護者向け文面・思い出し問題は下書き（`reviewed:false`）。正式公開の前にユーザーが教科書と照らして確認する。
 
 ---
@@ -44,6 +48,10 @@
   `cd ~/dev/katachi-lab && gh repo create kanda-houtokukai/katachi-lab --public --source=. --remote=origin --push --description "うごかして わかる 学習アプリ（試作）" && gh api -X POST repos/kanda-houtokukai/katachi-lab/pages -f "source[branch]=main" -f "source[path]=/"`
   - 今後 Code に任せる場合は、Claude Code の権限設定で `gh repo create` を許可する（変えるのは `~/.claude/settings.json`）。
 - **npm install は端末の設定で止まっている**ため、three r128 と jsPDF 2.5.1 は npm 登録の tarball から必要な1ファイルだけ取り出して `vendor/` に置いた（shasum は npm 登録の値と一致）。E2E の Playwright は `~/dev/yugure-no-sato/node_modules/playwright` を借りている（`tools/pw.mjs`。`KATACHI_PW` で差し替え可）。自前で持たせるなら `npm i -D playwright` を一度だけ許可する。
+- **2年の追加の活動の言葉と量（既定の選択）**：「この 6まいで はこが できる？」の答えは「できる／できない」、やさしい4問・ふつう5問・チャレンジ6問。「はこを えらぶ」は12枚（箱になる6枚＋紛らわしい6枚）。カードの寸法は `app/parts/card-quiz.js`・`box-pick.js` の表。変えるならそこ。
+- **設定に2つ足した（決定事項 P6-9 の「音・動きの量」「先取りの可否」）**：「動きの量（ふつう／すくなめ）」「ちょっと先の単元（ひらく／とじる・既定はひらく）」。不要なら `app/core/parent.js` の2行を消す。
+- **地図（ホーム）の見た目は仮**：学年ごとの帯に単元カードを並べ、進み具合（4段）とずかんの数を出すだけ。世界観は P1b/P2 で決める。
+- **ためす「はこに なるかな」の学年札は 4ねん**（見本v2 と同じ。展開図は4年の内容のため）。
 - **手元確認のサーバ**：`node tools/serve.mjs 5310`（`~/.claude/launch.json` に `katachi-lab` を追加した）。service worker が効くと古いファイルが出るので、手元では `?nosw` を付けて開く。
 
 ---
@@ -55,6 +63,15 @@
 ---
 
 ## 記録
+
+### 記録 2026-10-08 N1 骨格と R2（Code・夜の自走）
+- 骨格：`app/core`（記録 schema:1・ミッション・思い出し・保護者画面・設定・休けい・印刷/PDF）、`app/stage`（見本v2 の3Dの土台＋汎用の折れる展開図）、`app/parts`（8部品）、`app/units/r2.json`。
+- R2 は見本v2 の機能をすべて移した（みる・さわる・ためす3段とヒント3段と★・うつしとる・ほねぐみ・てんかいず・ずかん・ミッション・読み上げ・保護者画面・設定）。設計書の追加2つ（6まいで はこ？・はこを えらぶ）も入れた。
+- 地図：R2 のみ「ひらく」、ほかは「じゅんび中」（押すと「つぎに できるよ」）。
+- テスト：単体11件 PASS（凍結値14件一致を含む）。E2E 3件 PASS：R2 の見えたボタン80個をすべて押し、80個すべてで状態が変化（dead 0・未押下 0）、iPad横 1180×820・スマホ縦 390×844 で全タブが収まる、コンソールのエラー0。スクショは `test-results/`。
+- 踏んだもの：片づけ済みの展開図のアニメで例外→描画ループ停止（修正）、古い棚の高さで枠どり（修正）、`.home` のクラス衝突（修正）。
+- 未検証：iPad 実機の手触り・読み上げの声・印刷の実寸（手元の Chrome でのみ確認）。
+- SHA：84beb49（push なし）
 
 ### 記録 2026-10-08 N0 準備（Code・夜の自走）
 - `git init -b main` と最初の commit（f67514f）。`gh repo create --public` は自動判定で止められたため、手元だけで進める（朝の確認事項の先頭に1行の操作を記載）。
