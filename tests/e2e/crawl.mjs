@@ -40,6 +40,7 @@ export async function crawlActivity(h, { maxSteps = 160, skip = [] } = {}) {
     if (a.click) { if (!(await h.visible(a.click))) { await page.waitForTimeout(300); continue; } await h.click(a.click, { expectChange: false }); }
     else if (a.clickNth) await h.clickNth(a.clickNth[0], a.clickNth[1], { expectChange: false });
     else if (a.tap) { await page.mouse.click(a.tap.x, a.tap.y); await page.waitForTimeout(80); }
+    else if (a.slider) { await page.locator(a.slider[0]).fill(String(a.slider[1])); await page.waitForTimeout(150); }
     else if (a.drag) {
       // 指で回す（マットの上をなぞる）
       const r = await page.evaluate(() => { const c = document.getElementById('stage').getBoundingClientRect(); return { x: c.left + c.width / 2, y: c.top + c.height * 0.35 }; });

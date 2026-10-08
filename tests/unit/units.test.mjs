@@ -37,3 +37,22 @@ test('保護者画面の規則（つまずき・ほめどころ・対応表・�
   assert.equal(labelOf(L[5], r2.labels), '展開図をつくって組み立て成功（No.3）');
   assert.equal(labelOf({ kind: 'r2.quiz', correct: true, hints: 2, detail: { type: 'opp' } }, r2.labels), '向かい合う面の問題：正解（ヒント2回）');
 });
+
+test('R5b の図鑑は、体積ごとに すべての たて×よこ×たかさ の組（計算で出したもの）と一致する', async () => {
+  // app/parts/_blocks.js の triples と同じ計算（_blocks.js は three を読むので、ここで書き直して照合する）
+  const tr = V => { const o = []; for (let a = 1; a <= V; a++) for (let b = a; b <= V; b++) { if (V % (a * b)) continue; const c = V / (a * b); if (c >= b) o.push([a, b, c]); } return o; };
+  const j = readJSON('app/units/r5b.json');
+  for (const z of j.zukan) { const V = +z.id.slice(3); assert.deepEqual(z.items.map(i => i.id), tr(V).map(t => t.join('x')), z.id); }
+  assert.deepEqual(tr(24).length, 6);
+});
+
+test('各単元の展開図ずかんの総数が、凍結値（reference/net-counts.json）と一致する', () => {
+  const fz = readJSON('reference/net-counts.json');
+  for (const u of ready) {
+    const j = readJSON('app/units/' + u.file);
+    for (const z of j.zukan || []) {
+      if (z.kind === 'catalog') assert.equal(z.total, fz.solids.find(s => s.id === z.solid).nets, `${u.id} ${z.id}`);
+      if (z.kind === 'counter') assert.equal(z.total, fz.solids.find(s => s.id === z.solid).nets, `${u.id} ${z.id}`);
+    }
+  }
+});

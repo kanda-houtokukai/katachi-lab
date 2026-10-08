@@ -1,0 +1,613 @@
+{
+ "note": "5年「直方体や立方体の体積」（ちょっと先）。設計書 R5b。文面はすべて下書き（reviewed:false）。「つくる」の図鑑は、体積ごとに すべての たて×よこ×たかさ の組（計算で出したもの）。",
+ "school": "5年「直方体や立方体の体積」",
+ "tabs": {
+  "miru": [
+   {
+    "part": "volume-fill",
+    "label": "みる",
+    "opts": {
+     "mode": "fill"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "volume-fill",
+    "label": "つみき",
+    "opts": {
+     "mode": "blocks"
+    }
+   },
+   {
+    "part": "volume-fill",
+    "label": "1L",
+    "opts": {
+     "mode": "liter"
+    }
+   },
+   {
+    "part": "volume-fill",
+    "label": "1m³",
+    "opts": {
+     "mode": "meter"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "volume-quiz",
+    "label": "たいせき",
+    "opts": {
+     "kind": "volume",
+     "levels": {
+      "easy": [
+       "box",
+       "box",
+       "box",
+       "unit"
+      ],
+      "normal": [
+       "box",
+       "box",
+       "unit",
+       "compose"
+      ],
+      "challenge": [
+       "compose",
+       "compose",
+       "unit",
+       "unit",
+       "box"
+      ]
+     },
+     "units": [
+      {
+       "id": "u-l",
+       "q": "1L は なん cm³？",
+       "ch": [
+        "100cm³",
+        "1000cm³",
+        "10000cm³"
+       ],
+       "a": 1,
+       "hint": "10cm × 10cm × 10cm の いれものに はいる りょうが 1L",
+       "reviewed": false
+      },
+      {
+       "id": "u-m3",
+       "q": "1m³ は なん cm³？",
+       "ch": [
+        "1000cm³",
+        "100000cm³",
+        "1000000cm³"
+       ],
+       "a": 2,
+       "hint": "1m は 100cm。100 × 100 × 100",
+       "reviewed": false
+      },
+      {
+       "id": "u-area",
+       "q": "めんせき（ひろさ）の たんいは どれ？",
+       "ch": [
+        "cm²",
+        "cm³"
+       ],
+       "a": 0,
+       "hint": "² は ながさを 2かい、³ は 3かい かけた たんい",
+       "reviewed": false
+      },
+      {
+       "id": "u-vol",
+       "q": "たいせき（かさ）の たんいは どれ？",
+       "ch": [
+        "cm²",
+        "cm³"
+       ],
+       "a": 1,
+       "hint": "たて × よこ × たかさ で 3かい かける",
+       "reviewed": false
+      },
+      {
+       "id": "u-ml",
+       "q": "1000cm³ は なん L？",
+       "ch": [
+        "1L",
+        "10L",
+        "100L"
+       ],
+       "a": 0,
+       "hint": "1L ＝ 1000cm³",
+       "reviewed": false
+      }
+     ]
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "volume-make",
+    "label": "きまった たいせきの はこ",
+    "opts": {
+     "volumes": [
+      12,
+      24,
+      36
+     ]
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "vol12",
+   "kind": "list",
+   "label": "12cm³",
+   "title": "12cm³ の はこ（ぜんぶで 4しゅるい）",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "goLabel": "「つくる」で さがそう",
+   "items": [
+    {
+     "id": "1x1x12",
+     "label": "1 × 1 × 12",
+     "hint": "？"
+    },
+    {
+     "id": "1x2x6",
+     "label": "1 × 2 × 6",
+     "hint": "？"
+    },
+    {
+     "id": "1x3x4",
+     "label": "1 × 3 × 4",
+     "hint": "？"
+    },
+    {
+     "id": "2x2x3",
+     "label": "2 × 2 × 3",
+     "hint": "？"
+    }
+   ]
+  },
+  {
+   "id": "vol24",
+   "kind": "list",
+   "label": "24cm³",
+   "title": "24cm³ の はこ（ぜんぶで 6しゅるい）",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "goLabel": "「つくる」で さがそう",
+   "items": [
+    {
+     "id": "1x1x24",
+     "label": "1 × 1 × 24",
+     "hint": "？"
+    },
+    {
+     "id": "1x2x12",
+     "label": "1 × 2 × 12",
+     "hint": "？"
+    },
+    {
+     "id": "1x3x8",
+     "label": "1 × 3 × 8",
+     "hint": "？"
+    },
+    {
+     "id": "1x4x6",
+     "label": "1 × 4 × 6",
+     "hint": "？"
+    },
+    {
+     "id": "2x2x6",
+     "label": "2 × 2 × 6",
+     "hint": "？"
+    },
+    {
+     "id": "2x3x4",
+     "label": "2 × 3 × 4",
+     "hint": "？"
+    }
+   ]
+  },
+  {
+   "id": "vol36",
+   "kind": "list",
+   "label": "36cm³",
+   "title": "36cm³ の はこ（ぜんぶで 8しゅるい）",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "goLabel": "「つくる」で さがそう",
+   "items": [
+    {
+     "id": "1x1x36",
+     "label": "1 × 1 × 36",
+     "hint": "？"
+    },
+    {
+     "id": "1x2x18",
+     "label": "1 × 2 × 18",
+     "hint": "？"
+    },
+    {
+     "id": "1x3x12",
+     "label": "1 × 3 × 12",
+     "hint": "？"
+    },
+    {
+     "id": "1x4x9",
+     "label": "1 × 4 × 9",
+     "hint": "？"
+    },
+    {
+     "id": "1x6x6",
+     "label": "1 × 6 × 6",
+     "hint": "？"
+    },
+    {
+     "id": "2x2x9",
+     "label": "2 × 2 × 9",
+     "hint": "？"
+    },
+    {
+     "id": "2x3x6",
+     "label": "2 × 3 × 6",
+     "hint": "？"
+    },
+    {
+     "id": "3x3x4",
+     "label": "3 × 3 × 4",
+     "hint": "？"
+    }
+   ]
+  }
+ ],
+ "mission": [
+  {
+   "key": "vol-make",
+   "label": "あたらしい はこを 1つ みつける",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "r5b-f",
+   "q": "ちょくほうたいの たいせきの もとめかたは？",
+   "ch": [
+    "たて × よこ × たかさ",
+    "たて × よこ",
+    "たて ＋ よこ ＋ たかさ"
+   ],
+   "a": 0,
+   "fig": "cubes",
+   "reviewed": false
+  },
+  {
+   "id": "r5b-c",
+   "q": "1ぺん 3cm の りっぽうたいの たいせきは？",
+   "ch": [
+    "9cm³",
+    "27cm³",
+    "18cm³"
+   ],
+   "a": 1,
+   "fig": "box",
+   "reviewed": false
+  },
+  {
+   "id": "r5b-l",
+   "q": "1L は なん cm³？",
+   "ch": [
+    "100cm³",
+    "1000cm³",
+    "10cm³"
+   ],
+   "a": 1,
+   "fig": "box",
+   "reviewed": false
+  },
+  {
+   "id": "r5b-u",
+   "q": "たいせきの たんいは どれ？",
+   "ch": [
+    "cm",
+    "cm²",
+    "cm³"
+   ],
+   "a": 2,
+   "fig": "cubes",
+   "reviewed": false
+  },
+  {
+   "id": "r5b-m3",
+   "q": "1m³ は なん cm³？",
+   "ch": [
+    "1000cm³",
+    "1000000cm³"
+   ],
+   "a": 1,
+   "fig": "box",
+   "reviewed": false
+  },
+  {
+   "id": "r5b-b",
+   "q": "たて 2cm、よこ 3cm、たかさ 4cm の はこの たいせきは？",
+   "ch": [
+    "9cm³",
+    "24cm³",
+    "20cm³"
+   ],
+   "a": 1,
+   "fig": "cuboid",
+   "reviewed": false
+  }
+ ],
+ "insights": [
+  {
+   "key": "area",
+   "title": "縦×横で止めてしまう（面積と体積の混同）",
+   "tag": "5年の内容",
+   "reviewed": false,
+   "test": {
+    "type": "wrongRate",
+    "where": {
+     "kind": "r5b.volume",
+     "detail.type": "box"
+    },
+    "minN": 3,
+    "minWrong": 2,
+    "ratio": 0.5
+   },
+   "obs": "箱の体積の問題で {n}問中{w}問がまちがいでした。",
+   "body": "1段分（縦×横）の数で止めたり、高さをかけ忘れたりしている段階です。",
+   "home": "空き箱に1cmのさいころ（または角砂糖）を並べ、「1段に何個？　何段？」と声をかけながら積んでみてください。"
+  },
+  {
+   "key": "unit",
+   "title": "単位の取り違え（cm² と cm³）",
+   "tag": "5年の内容",
+   "reviewed": false,
+   "test": {
+    "type": "wrongRate",
+    "where": {
+     "kind": "r5b.volume",
+     "detail.type": "unit"
+    },
+    "minN": 2,
+    "minWrong": 2
+   },
+   "obs": "単位の問題で {n}問中{w}問がまちがいでした。",
+   "body": "長さを2回かけた広さ（cm²）と、3回かけたかさ（cm³）の区別が、まだついていない段階です。",
+   "home": "折り紙（広さ）とさいころ（かさ）を並べ、「どっちが cm³ かな」と比べてみてください。"
+  },
+  {
+   "key": "liter",
+   "title": "L と cm³ の換算",
+   "tag": "5年の内容",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "r5b.volume",
+     "detail.type": "unit",
+     "correct": false,
+     "detail.ans": [
+      "u-l",
+      "u-ml",
+      "u-m3"
+     ]
+    },
+    "min": 2
+   },
+   "obs": "L・m³ と cm³ の換算で {n}回まちがえています。",
+   "body": "1L＝1000cm³、1m³＝1000000cm³ の関係が、まだ実感と結びついていない段階です。",
+   "home": "1Lの牛乳パックの中身を、計量カップ（cm³＝mL）に移してみてください。1000 になることが目で確かめられます。"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "distinct",
+    "where": {
+     "kind": "r5b.make",
+     "correct": true
+    },
+    "field": "detail.dims",
+    "min": 2
+   },
+   "text": "決められた体積になる箱を{u}種類見つけました。"
+  },
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "r5b.volume"
+    },
+    "min": 3
+   },
+   "text": "体積の問題で、ヒントを使わずに{best}問続けて正解しました。"
+  },
+  {
+   "test": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r5b.liter"
+     }
+    ]
+   },
+   "text": "1L が 1000cm³ になる様子を確かめました。"
+  }
+ ],
+ "map": [
+  {
+   "activity": "1cm³ がいくつ分か（体積の意味）",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r5b.miru",
+      "detail.mode": "fill"
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r5b.blocks"
+     }
+    ]
+   }
+  },
+  {
+   "activity": "縦×横×高さで体積を求める",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "r5b.volume",
+     "detail.type": "box"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r5b.volume"
+     }
+    ]
+   }
+  },
+  {
+   "activity": "cm³・m³・L の関係",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "r5b.volume",
+     "detail.type": "unit"
+    },
+    "minN": 2,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r5b.liter"
+     },
+     {
+      "kind": "r5b.meter"
+     }
+    ]
+   }
+  },
+  {
+   "activity": "組み合わせた形の体積",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "r5b.volume",
+     "detail.type": "compose"
+    },
+    "minN": 2,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r5b.volume",
+      "detail.type": "compose"
+     }
+    ]
+   }
+  },
+  {
+   "activity": "決められた体積の箱をつくる",
+   "done": {
+    "type": "distinct",
+    "where": {
+     "kind": "r5b.make",
+     "correct": true
+    },
+    "field": "detail.dims",
+    "min": 4
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r5b.make"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "r5b.miru": "1cm³の積み木で箱を埋める様子を見ました（{v}cm³）",
+  "r5b.blocks": "縦・横・高さを変えて、積み木の数を確かめました（{v}cm³）",
+  "r5b.liter": "10cmの立方体に水を入れて、1L＝1000cm³を確かめました",
+  "r5b.meter": "1m³ に 1cm³ がいくつ入るかを見ました",
+  "r5b.volume": "体積の問題：{ok}{hints}",
+  "r5b.volume-done": "「たいせき」（{level}）{n}問中{score}問正解",
+  "r5b.make": [
+   {
+    "where": {
+     "correct": true
+    },
+    "text": "{V}cm³の箱をつくりました（{dims}）"
+   },
+   {
+    "where": {},
+    "text": "{V}cm³の箱づくりに挑戦しました"
+   }
+  ],
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 8,
+   "h": 18.5,
+   "kind": "volume",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "box"
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 8,
+   "h": 18.55,
+   "kind": "volume",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "box"
+   }
+  },
+  {
+   "d": 8,
+   "h": 18.6,
+   "kind": "volume",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "type": "box"
+   }
+  }
+ ]
+}

@@ -21,3 +21,24 @@ export function boxFaceDims(L, W, H) { return [[L, W], [L, W], [L, H], [W, H], [
 export function cubeGridLayout(i, orient = null) { return cellsToLayout(orient ? normalize(orient) : NETS11[i]); }
 export async function catalogLayout(solid, no) { const c = await loadCatalog(solid); return c.layout(no); }
 export { NETS11 };
+
+// その場で作る立体（カタログのない n角柱・n角錐）の展開図。側面を1列に並べ、底面を真ん中の側面につける
+import { prism as prismSolid, pyramid as pyramidSolid } from '../engine/solids.js';
+const genCache = new Map();
+export function genLayout(gen) {
+  const key = JSON.stringify(gen);
+  if (genCache.has(key)) return genCache.get(key);
+  let P, pairs;
+  if (gen.prism) {
+    const n = gen.prism; P = prismSolid(n, { side: gen.side || 1, h: gen.h || 1.6 });
+    pairs = []; for (let k = 0; k < n - 1; k++) pairs.push([2 + k, 3 + k]);
+    const m = 2 + Math.floor((n - 1) / 2); pairs.push([0, m], [1, m]);
+  } else {
+    const n = gen.pyramid; P = pyramidSolid(n, { side: gen.side || 1, h: gen.h || 1.2 });
+    pairs = []; for (let k = 1; k <= n; k++) pairs.push([0, k]);
+  }
+  const E = faceEdges(P), L = layoutFromTree(P, E, treeByPairs(P, E, pairs));
+  L.P = P;
+  genCache.set(key, L);
+  return L;
+}

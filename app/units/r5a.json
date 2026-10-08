@@ -1,0 +1,127 @@
+{
+ "note": "5年「角柱と円柱」（ちょっと先）。設計書 R5a。文面はすべて下書き（reviewed:false）。",
+ "school": "5年「角柱と円柱」",
+ "tabs": {
+  "miru": [
+   { "part": "prism-grow", "label": "そだつ かくちゅう" },
+   { "part": "miru-solids", "label": "きりひらく", "opts": { "mode": "cut", "solids": [{ "solid": "tri-prism", "label": "さんかくちゅう" }, { "solid": "pent-prism", "label": "ごかくちゅう" }, { "solid": "hex-prism", "label": "ろっかくちゅう" }] } }
+  ],
+  "sawaru": [
+   { "part": "fold-explore", "label": "かずを しらべる", "opts": { "table": true, "countKind": "count-table", "progress": 1,
+    "solids": [
+     { "key": "p3", "label": "さんかくちゅう", "short": "3", "src": "gen", "gen": { "prism": 3 } },
+     { "key": "p4", "label": "しかくちゅう", "short": "4", "src": "gen", "gen": { "prism": 4 } },
+     { "key": "p5", "label": "ごかくちゅう", "short": "5", "src": "gen", "gen": { "prism": 5 } },
+     { "key": "p6", "label": "ろっかくちゅう", "short": "6", "src": "gen", "gen": { "prism": 6 } },
+     { "key": "p7", "label": "ななかくちゅう", "short": "7", "src": "gen", "gen": { "prism": 7 } },
+     { "key": "p8", "label": "はっかくちゅう", "short": "8", "src": "gen", "gen": { "prism": 8 } }
+    ], "tools": ["count"] } },
+   { "part": "fold-explore", "label": "ひらく", "opts": {
+    "solids": [
+     { "key": "tri-prism", "label": "さんかくちゅう", "src": "catalog", "solid": "tri-prism", "paperTitle": "さんかくちゅう" },
+     { "key": "iso-prism", "label": "にとうへん", "src": "catalog", "solid": "iso-prism", "paperTitle": "さんかくちゅう" },
+     { "key": "right-prism", "label": "ちょっかく", "src": "catalog", "solid": "right-prism", "paperTitle": "さんかくちゅう" },
+     { "key": "pent-prism", "label": "ごかくちゅう", "src": "catalog", "solid": "pent-prism", "paperTitle": "ごかくちゅう" },
+     { "key": "hex-prism", "label": "ろっかくちゅう", "src": "catalog", "solid": "hex-prism", "paperTitle": "ろっかくちゅう" }
+    ], "tools": ["next", "paper", "edge", "vertex"] } },
+   { "part": "cylinder-roll", "label": "えんちゅうを ころがす", "opts": { "mode": "roll" } },
+   { "part": "cylinder-roll", "label": "えんちゅうを ひらく", "opts": { "mode": "open" } }
+  ],
+  "tamesu": [
+   { "part": "net-quiz", "label": "てんかいず", "opts": { "kinds": { "valid?": "net-quiz" }, "question": "この てんかいずで かくちゅうが できる？", "yes": "できる", "no": "できない", "okText": "かくちゅうが できたね", "wrongValid": "ほんとうは できるよ", "levels": {
+    "easy": [{ "type": "valid?", "src": "catalog", "solid": "tri-prism", "valid": true, "n": 2, "coll": "tri-prism" }, { "type": "valid?", "src": "catalog", "solid": "tri-prism", "valid": false, "n": 2 }],
+    "normal": [{ "type": "valid?", "src": "catalog", "solid": "iso-prism", "valid": true, "n": 1, "coll": "iso-prism" }, { "type": "valid?", "src": "catalog", "solid": "right-prism", "valid": true, "n": 1, "coll": "right-prism" }, { "type": "valid?", "src": "catalog", "solid": "right-prism", "valid": false, "n": 2, "mismatch": 1 }],
+    "challenge": [{ "type": "valid?", "src": "catalog", "solid": "pent-prism", "valid": true, "n": 1, "coll": "pent-prism" }, { "type": "valid?", "src": "catalog", "solid": "hex-prism", "valid": true, "n": 1, "coll": "hex-prism" }, { "type": "valid?", "src": "catalog", "solid": "pent-prism", "valid": false, "n": 1 }, { "type": "valid?", "src": "catalog", "solid": "hex-prism", "valid": false, "n": 1 }]
+   } } },
+   { "part": "cylinder-build", "label": "えんちゅうの そくめん", "opts": { "mode": "match" } },
+   { "part": "count-quiz", "label": "かずの きまり", "opts": { "kind": "count-quiz",
+    "solids": [{ "gen": { "prism": 3 } }, { "gen": { "prism": 4 } }, { "gen": { "prism": 5 } }, { "gen": { "prism": 6 } }, { "gen": { "prism": 7 } }, { "gen": { "prism": 8 } }],
+    "levels": { "easy": [[0, "face"], [1, "vertex"], [0, "edge"], [2, "face"]], "normal": [[2, "vertex"], [3, "edge"], [1, "face"], [3, "vertex"]], "challenge": [[4, "vertex"], [5, "edge"], [4, "face"], [5, "vertex"], [3, "edge"]] } } }
+  ],
+  "tsukuru": [
+   { "part": "net-build-cards", "label": "てんかいず（かくちゅう）", "opts": { "solids": [
+    { "key": "tri-prism", "label": "さんかく", "solid": "tri-prism", "made": "さんかくちゅうが できた", "paperTitle": "さんかくちゅう" },
+    { "key": "iso-prism", "label": "にとうへん", "solid": "iso-prism", "made": "さんかくちゅうが できた", "paperTitle": "さんかくちゅう" },
+    { "key": "right-prism", "label": "ちょっかく", "solid": "right-prism", "made": "さんかくちゅうが できた", "paperTitle": "さんかくちゅう" },
+    { "key": "pent-prism", "label": "ごかく", "solid": "pent-prism", "made": "ごかくちゅうが できた", "paperTitle": "ごかくちゅう" },
+    { "key": "hex-prism", "label": "ろっかく", "solid": "hex-prism", "made": "ろっかくちゅうが できた", "paperTitle": "ろっかくちゅう" }
+   ] } },
+   { "part": "cylinder-build", "label": "てんかいず（えんちゅう）", "opts": { "mode": "build" } }
+  ]
+ },
+ "zukan": [
+  { "id": "tri-prism", "kind": "catalog", "solid": "tri-prism", "total": 9, "label": "さんかくちゅう", "title": "<ruby>正三角柱<rt>せいさんかくちゅう</rt></ruby>", "go": { "mode": "tsukuru", "act": 0 }, "play": { "mode": "sawaru", "act": 1 } },
+  { "id": "iso-prism", "kind": "catalog", "solid": "iso-prism", "total": 23, "label": "にとうへん", "title": "<ruby>二等辺三角形<rt>にとうへんさんかくけい</rt></ruby>の <ruby>三角柱<rt>さんかくちゅう</rt></ruby>", "go": { "mode": "tsukuru", "act": 0 }, "play": { "mode": "sawaru", "act": 1 } },
+  { "id": "right-prism", "kind": "catalog", "solid": "right-prism", "total": 42, "label": "ちょっかく", "title": "<ruby>直角三角形<rt>ちょっかくさんかくけい</rt></ruby>の <ruby>三角柱<rt>さんかくちゅう</rt></ruby>", "go": { "mode": "tsukuru", "act": 0 }, "play": { "mode": "sawaru", "act": 1 } },
+  { "id": "sq-prism", "kind": "catalog", "solid": "sq-prism", "total": 29, "label": "しかくちゅう", "title": "ましかくが 2つの <ruby>四角柱<rt>しかくちゅう</rt></ruby>（4年と おなじ）", "go": { "mode": "tsukuru", "act": 0 }, "play": { "mode": "sawaru", "act": 1 } },
+  { "id": "cuboid", "kind": "catalog", "solid": "cuboid", "total": 54, "label": "ちょくほうたい", "title": "<ruby>直方体<rt>ちょくほうたい</rt></ruby>（4年と おなじ）", "go": { "mode": "tsukuru", "act": 0 }, "play": { "mode": "sawaru", "act": 1 } },
+  { "id": "pent-prism", "kind": "catalog", "solid": "pent-prism", "total": 99, "label": "ごかくちゅう", "title": "<ruby>正五角柱<rt>せいごかくちゅう</rt></ruby>", "go": { "mode": "tsukuru", "act": 0 }, "play": { "mode": "sawaru", "act": 1 } },
+  { "id": "hex-prism", "kind": "catalog", "solid": "hex-prism", "total": 354, "label": "ろっかくちゅう", "title": "<ruby>正六角柱<rt>せいろっかくちゅう</rt></ruby>", "go": { "mode": "tsukuru", "act": 0 }, "play": { "mode": "sawaru", "act": 1 } },
+  { "id": "cylinder", "kind": "list", "label": "えんちゅう", "title": "<ruby>円柱<rt>えんちゅう</rt></ruby>の てんかいず", "go": { "mode": "tsukuru", "act": 1 }, "goLabel": "「つくる」で つくろう",
+   "items": [{ "id": 1, "label": "ちいさい えん", "hint": "ちいさい えん" }, { "id": 2, "label": "ちゅうくらいの えん", "hint": "ちゅうくらい" }, { "id": 3, "label": "おおきい えん", "hint": "おおきい えん" }] }
+ ],
+ "mission": [
+  { "key": "build", "label": "かくちゅうの ずかんを 1つ ふやす", "icon": "zukan", "go": { "mode": "tsukuru", "act": 0 } },
+  { "key": "cylinder", "label": "えんちゅうを つくる", "icon": "make", "go": { "mode": "tsukuru", "act": 1 } }
+ ],
+ "review": [
+  { "id": "r5a-base", "q": "かくちゅうの そこの めんは いくつ？", "ch": ["1つ", "2つ", "3つ"], "a": 1, "fig": "triprism", "reviewed": false },
+  { "id": "r5a-side", "q": "かくちゅうの そくめんは どんな かたち？", "ch": ["ながしかく", "さんかくけい", "えん"], "a": 0, "fig": "triprism", "reviewed": false },
+  { "id": "r5a-v6", "q": "ろっかくちゅうの ちょうてんは いくつ？", "ch": ["6つ", "12こ", "18こ"], "a": 1, "fig": "triprism", "reviewed": false },
+  { "id": "r5a-e3", "q": "さんかくちゅうの へんは なんぼん？", "ch": ["6ぽん", "9ほん", "12ほん"], "a": 1, "fig": "triprism", "reviewed": false },
+  { "id": "r5a-f5", "q": "ごかくちゅうの めんは いくつ？", "ch": ["5つ", "7つ", "10こ"], "a": 1, "fig": "triprism", "reviewed": false },
+  { "id": "r5a-cyl-side", "q": "えんちゅうの そくめんを ひらくと どんな かたち？", "ch": ["ながしかく", "えん", "さんかくけい"], "a": 0, "fig": "cylinder", "reviewed": false },
+  { "id": "r5a-cyl-w", "q": "えんちゅうの てんかいずで、ながしかくの よこの ながさと おなじなのは？", "ch": ["えんの まわりの ながさ", "えんの ちょっけい", "えんちゅうの たかさ"], "a": 0, "fig": "cylinder", "reviewed": false },
+  { "id": "r5a-cyl-base", "q": "えんちゅうの そこの めんは どんな かたち？", "ch": ["えん", "ながしかく"], "a": 0, "fig": "cylinder", "reviewed": false },
+  { "id": "r5a-h", "q": "かくちゅうの たかさは どこの ながさ？", "ch": ["2つの そこの あいだ", "そこの へんの ながさ"], "a": 0, "fig": "triprism", "reviewed": false },
+  { "id": "r5a-net", "q": "さんかくちゅうの てんかいずに、さんかくけいは いくつ ある？", "ch": ["1つ", "2つ", "3つ"], "a": 1, "fig": "triprism", "reviewed": false }
+ ],
+ "insights": [
+  { "key": "baseside", "title": "底面と側面の取り違え（数のきまり）", "tag": "5年の内容", "reviewed": false,
+   "test": { "type": "wrongRate", "where": { "kind": "r5a.count-quiz" }, "minN": 3, "minWrong": 2, "ratio": 0.5 },
+   "obs": "角柱の面・辺・頂点の数の問題で {n}問中{w}問がまちがいでした。",
+   "body": "角柱を横に倒すと、下の面を「底面」と思いやすくなります。底面は向かい合う同じ形の2つの面、側面は長方形の面です。",
+   "home": "牛乳パックやお菓子の箱を横に倒し、「底面はどれとどれ？」と聞いてみてください。置き方を変えても底面は変わらないことを確かめると効果的です。" },
+  { "key": "diameter", "title": "円柱の側面の横の長さを、直径と同じと考えやすい", "tag": "5年の内容", "reviewed": false,
+   "test": { "type": "count", "where": { "kind": "r5a.cyl-match", "correct": false, "detail.res": "gap" }, "min": 2 },
+   "obs": "円柱の側面を選ぶ問題で、短すぎる長方形を {n}回選んでいます。",
+   "body": "側面の横の長さは底面の円のまわりの長さ（直径の約3.14倍）ですが、直径くらいと考えている段階です。",
+   "home": "ラップの芯にひもを1周巻き、ほどいたひもの長さと芯の太さ（直径）を比べてみてください。3倍より少し長いことが実感できます。" },
+  { "key": "sameSide", "title": "角柱の展開図で、底面の位置があいまい", "tag": "5年の内容", "reviewed": false,
+   "test": { "type": "wrongRate", "where": { "kind": "r5a.net-quiz", "detail.valid": false }, "minN": 2, "minWrong": 2, "ratio": 0.5 },
+   "obs": "角柱にならない展開図の問題で {n}問中{w}問を「できる」と答えています。",
+   "body": "底面を同じ側に2つ付けたり、辺の長さが合わない所に付けたりした形を、組み立てられると考えている段階です。",
+   "home": "三角柱のお菓子の箱などを切り開き、2つの三角形が側面の帯の両側に分かれて付くことを一緒に確かめてください。" }
+ ],
+ "praises": [
+  { "test": { "type": "distinct", "where": { "kind": "r5a.build", "detail.valid": true }, "field": "detail.id", "min": 1 }, "text": "角柱の展開図を、カードをつないで{u}種類つくりました。" },
+  { "test": { "type": "count", "where": { "kind": "r5a.count-table" }, "min": 6 }, "text": "いろいろな角柱の面・辺・頂点を数えて、表にまとめました。" },
+  { "test": { "type": "any", "of": [{ "kind": "r5a.cyl-build", "correct": true }] }, "text": "円柱の展開図で、側面の長さを円のまわりにぴったり合わせられました。" },
+  { "test": { "type": "streak", "where": { "kind": "r5a.count-quiz" }, "min": 3 }, "text": "数のきまりの問題で、ヒントを使わずに{best}問続けて正解しました。" }
+ ],
+ "map": [
+  { "activity": "角柱の底面・側面・高さ", "done": { "type": "any", "of": [{ "kind": "r5a.miru", "detail.mode": "prism-grow" }] } },
+  { "activity": "面・辺・頂点の数のきまり", "done": { "type": "rate", "where": { "kind": "r5a.count-quiz" }, "minN": 4, "min": 0.7 }, "mid": { "type": "any", "of": [{ "kind": "r5a.count-table" }, { "kind": "r5a.count-quiz" }] } },
+  { "activity": "角柱の展開図をつくる", "done": { "type": "distinct", "where": { "kind": "r5a.build", "detail.valid": true }, "field": "detail.id", "min": 3 }, "mid": { "type": "any", "of": [{ "kind": "r5a.build" }] } },
+  { "activity": "円柱の側面と、底面の円のまわりの長さ", "done": { "type": "any", "of": [{ "kind": "r5a.cyl-build", "correct": true }] }, "mid": { "type": "any", "of": [{ "kind": "r5a.cyl-roll" }, { "kind": "r5a.cyl-match" }] } },
+  { "activity": "角柱になる展開図を見分ける", "done": { "type": "rate", "where": { "kind": "r5a.net-quiz" }, "minN": 4, "min": 0.7 }, "mid": { "type": "any", "of": [{ "kind": "r5a.net-quiz" }] } }
+ ],
+ "labels": {
+  "r5a.miru": [{ "where": { "detail.mode": "prism-grow" }, "text": "角柱が育って円柱に近づく様子を見ました" }, { "where": {}, "text": "角柱を切り開いて展開図にする様子を見ました" }],
+  "r5a.count-table": "角柱の{what}を数えて表に書きました（{n}）",
+  "r5a.cyl-roll": "円柱を転がして、側面の長方形を確かめました",
+  "r5a.cyl-open": "円柱の展開図を開いて確かめました",
+  "r5a.net-quiz": [{ "where": { "detail.valid": true }, "text": "角柱になる展開図：{ok}{hints}" }, { "where": {}, "text": "角柱にならない形：{ok}{hints}" }],
+  "r5a.cyl-match": "円柱の側面に合う長方形：{ok}{hints}",
+  "r5a.count-quiz": "面・辺・頂点の数：{ok}{hints}",
+  "r5a.build": [{ "where": { "detail.valid": true }, "text": "展開図をつくって組み立て成功（{name} No.{id}）" }, { "where": {}, "text": "並べた形が角柱にならないことを確かめました" }],
+  "r5a.cyl-build": [{ "where": { "correct": true }, "text": "円柱の展開図で、側面の長さを合わせました" }, { "where": {}, "text": "円柱の側面の長さを調べました" }],
+  "r5a.paper": "展開図を紙で作るために印刷画面を開きました（{name}）",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  { "d": 6, "h": 20, "kind": "miru", "detail": { "mode": "prism-grow" }, "stage": "miru" },
+  { "d": 6, "h": 20.1, "kind": "cyl-match", "correct": false, "level": "normal", "detail": { "res": "gap" }, "stage": "tamesu" },
+  { "d": 7, "h": 19, "kind": "cyl-match", "correct": false, "level": "normal", "detail": { "res": "gap" } }
+ ]
+}

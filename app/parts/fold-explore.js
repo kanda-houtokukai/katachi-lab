@@ -6,7 +6,7 @@ import { makeFoldNet, mountNet, centerBase, fitLayout, frameBox, frameFlat, fold
 import { cellsToLayout, NETS11 } from '../engine/grid.js';
 import { loadCatalog } from '../engine/catalog.js';
 import { edgePairs, vertexGroups, outerEdges } from '../engine/fold.js';
-import { boxCrossLayout } from './_nets.js';
+import { boxCrossLayout, genLayout } from './_nets.js';
 import { tok } from '../core/theme.js';
 import { PAL, on, $p, $$p, sliderRow, setSlider } from './_common.js';
 import * as R4 from './_explore-tools.js';
@@ -30,6 +30,7 @@ export function mount(ctx) {
       ${tools.includes('paper') ? `<button class="chip" type="button" data-k="paper">${ctx.ICONS_UI.scissors}かみで つくる</button>` : ''}
       <span class="status" data-k="no"></span>
     </div>
+    ${opts.table ? `<div class="row" style="overflow-x:auto"><table class="ctable" data-k="table"></table></div>` : ''}
     ${toolSeg.length > 1 ? `<div class="row"><div class="seg" role="group" aria-label="どうぐ">${toolSeg.map(t => `<button type="button" data-tool="${t}" aria-pressed="${t === st.tool}">${R4.TOOLS[t].label}</button>`).join('')}</div></div>` : ''}`;
   const slider = $p(panel, '#foldSlider');
   let net = null, countTag = null, tool = null;
@@ -39,11 +40,12 @@ export function mount(ctx) {
     const i = st.index[s.key] || 0;
     if (s.src === 'grid') return { L: cellsToLayout(NETS11[((i % 11) + 11) % 11]), snap: true, count: 11, no: (((i % 11) + 11) % 11) + 1 };
     if (s.src === 'box') return { L: boxCrossLayout(...s.dims), snap: false, count: 1, no: 0 };
+    if (s.src === 'gen') return { L: genLayout(s.gen), snap: false, count: 1, no: 0 };
     const cat = await loadCatalog(s.solid), no = (((i % cat.count) + cat.count) % cat.count) + 1;
     return { L: cat.layout(no), snap: false, count: cat.count, no, cat };
   }
   function nextBtnVisible() {
-    const b = $p(panel, '[data-k="next"]'); if (b) b.hidden = cur().src === 'box';
+    const b = $p(panel, '[data-k="next"]'); if (b) b.hidden = cur().src === 'box' || cur().src === 'gen';
     const s = $p(panel, '[data-k="no"]'); if (s) s.innerHTML = net && net.info.cat ? `No.<b>${net.info.no}</b> / ${net.info.count}` : '';
   }
 
@@ -55,7 +57,7 @@ export function mount(ctx) {
     net = mountNet(makeFoldNet(L, PAL(), { id: info.no }), centerBase(L, -0.5, info.snap));
     net.info = info;
     net.setProgress(progress); syncSlider(progress);
-    frameFlat(net, 0.62, 0.55);
+    if (progress > 0.99 && !play) frameBox(net, 0.95, 0.6, 2.0); else frameFlat(net, 0.62, 0.55);
     nextBtnVisible();
     if (!st.touched) caption('ゆびで まわしたり、めんを タッチしたり してみよう');
     if (tool && tool.leave) tool.leave(); tool = null;
@@ -152,7 +154,8 @@ export function mount(ctx) {
       else ctx.say(isEdge ? `へんは ${items.length}ほん` : `ちょうてんは ${items.length}つ`);
       if (await wait(2.2)) spinner.done = true; else spinner.done = true;
     }
-    ctx.log('count', { detail: { kind, what: { face: '面', edge: '辺', vertex: '頂点' }[kind], solid: cur().key } });
+    ctx.log(opts.countKind || 'count', { detail: { kind, what: { face: '面', edge: '辺', vertex: '頂点' }[kind], solid: cur().key, n: kind === 'face' ? nF : (kind === 'edge' ? net.solid.edges.length : net.solid.verts.length) } });
+    if (opts.table) { (st.table || (st.table = {}))[cur().key + ':' + kind] = kind === 'face' ? nF : (kind === 'edge' ? net.solid.edges.length : net.solid.verts.length); renderTable(); }
   }
 
   // 向かい合う面（タッチ）
@@ -181,6 +184,14 @@ export function mount(ctx) {
     }
   }
 
+  // 数えた結果の表：数え終わった所だけ数が入る。いまの立体の行を押すと、その数を数える
+  function renderTable() {
+    const t = $p(panel, '[data-k="table"]'); if (!t) return;
+    const T = st.table || {}, K = ['face', 'edge', 'vertex'];
+    t.innerHTML = `<tr><th></th>${solids.map(s => `<th>${s.short || s.label}</th>`).join('')}</tr>` +
+      K.map(k => `<tr><th>${{ face: 'めん', edge: 'へん', vertex: 'ちょうてん' }[k]}</th>${solids.map(s => { const v = T[s.key + ':' + k]; return s.key === st.key ? `<td class="now"><button type="button" data-cell="${k}">${v ?? '？'}</button></td>` : `<td>${v ?? ''}</td>`; }).join('')}</tr>`).join('');
+    $$p(panel, '[data-cell]').forEach(b => on(b, 'click', () => { sfx.tap(); onUserTouch(); runCount(b.dataset.cell); }));
+  }
   const api = { ctx, get net() { return net; }, syncSlider, clearCountings, onUserTouch, cur };
 
   on(slider, 'input', () => {
@@ -196,7 +207,7 @@ export function mount(ctx) {
     if (st.key === b.dataset.solid) { sfx.tap(); ctx.toast('', `いまは「${b.textContent.trim()}」だよ`, 1.6); return; }
     sfx.tap(); st.key = b.dataset.solid;
     $$p(panel, '[data-solid]').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.solid === st.key)));
-    clearCountings(); ctx.hideHud(); show(net ? net.progress : 0.35);
+    clearCountings(); ctx.hideHud(); show(net ? net.progress : 0.35); renderTable();
   }));
   $$p(panel, '[data-tool]').forEach(b => on(b, 'click', () => {
     if (st.tool === b.dataset.tool) { sfx.tap(); ctx.toast('', `いまは「${b.textContent.trim()}」だよ`, 1.6); return; }
@@ -231,6 +242,7 @@ export function mount(ctx) {
     ctx.log('paper', { detail: { solid: s.key, name: s.paperTitle || s.label, id: net.info.no } });
   });
   show(opts.progress != null ? opts.progress : 0.35, !!opts.play);
+  renderTable();
   return {
     onTap(e) {
       if (!net) return;

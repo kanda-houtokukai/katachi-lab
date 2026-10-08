@@ -4,8 +4,8 @@
   { "id": "r1", "grade": 1, "band": "main", "file": "r1.json", "ready": false, "title": "かたちあそび", "plain": "1年 かたちあそび", "requires": [] },
   { "id": "r2", "grade": 2, "band": "main", "file": "r2.json", "ready": true, "title": "はこの<ruby>形<rt>かたち</rt></ruby>", "plain": "2年 はこの形", "requires": ["r1"] },
   { "id": "r4", "grade": 4, "band": "ahead", "file": "r4.json", "ready": true, "title": "<ruby>直方体<rt>ちょくほうたい</rt></ruby>と<ruby>立方体<rt>りっぽうたい</rt></ruby>", "plain": "4年 直方体と立方体", "requires": ["r2"] },
-  { "id": "r5a", "grade": 5, "band": "ahead", "file": "r5a.json", "ready": false, "title": "<ruby>角柱<rt>かくちゅう</rt></ruby>と<ruby>円柱<rt>えんちゅう</rt></ruby>", "plain": "5年 角柱と円柱", "requires": ["r4"] },
-  { "id": "r5b", "grade": 5, "band": "ahead", "file": "r5b.json", "ready": false, "title": "<ruby>直方体<rt>ちょくほうたい</rt></ruby>や<ruby>立方体<rt>りっぽうたい</rt></ruby>の<ruby>体積<rt>たいせき</rt></ruby>", "plain": "5年 直方体や立方体の体積", "requires": ["r4"] },
+  { "id": "r5a", "grade": 5, "band": "ahead", "file": "r5a.json", "ready": true, "title": "<ruby>角柱<rt>かくちゅう</rt></ruby>と<ruby>円柱<rt>えんちゅう</rt></ruby>", "plain": "5年 角柱と円柱", "requires": ["r4"] },
+  { "id": "r5b", "grade": 5, "band": "ahead", "file": "r5b.json", "ready": true, "title": "<ruby>直方体<rt>ちょくほうたい</rt></ruby>や<ruby>立方体<rt>りっぽうたい</rt></ruby>の<ruby>体積<rt>たいせき</rt></ruby>", "plain": "5年 直方体や立方体の体積", "requires": ["r4"] },
   { "id": "r6", "grade": 6, "band": "ahead", "file": "r6.json", "ready": false, "title": "<ruby>角柱<rt>かくちゅう</rt></ruby>と<ruby>円柱<rt>えんちゅう</rt></ruby>の<ruby>体積<rt>たいせき</rt></ruby>", "plain": "6年 角柱と円柱の体積・およその形と大きさ", "requires": ["r5b"] },
   { "id": "rj", "grade": 7, "band": "ahead", "file": "rj.json", "ready": false, "title": "<ruby>空間図形<rt>くうかんずけい</rt></ruby>", "plain": "中1 空間図形", "requires": ["r5a", "r6"] }
  ]
