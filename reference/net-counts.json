@@ -1,0 +1,142 @@
+{
+ "note": "展開図の数の凍結値。reference/net_counter.py で全域木を総当たりして数えた値（2026-10-08）。寸法を変えると数が変わるので、アプリはこの寸法を使う。長さの単位は任意（印刷時は1単位を最大4.5cmに換算）。",
+ "method": "面の隣接グラフの全域木を総当たり → 平面に展開 → 凸多角形どうしの重なり判定（SAT）→ 回転・裏返しで合同なものを同一視",
+ "solids": [
+  {
+   "id": "tetra",
+   "name": "正四面体",
+   "def": "platonic('tetrahedron')",
+   "trees": 16,
+   "overlapping": 0,
+   "nets": 2,
+   "literature": 2
+  },
+  {
+   "id": "cube",
+   "name": "立方体",
+   "def": "box(1,1,1)",
+   "trees": 384,
+   "overlapping": 0,
+   "nets": 11,
+   "literature": 11
+  },
+  {
+   "id": "cuboid",
+   "name": "直方体（3辺がすべて違う）",
+   "def": "box(1,1.5,2.2)",
+   "trees": 384,
+   "overlapping": 0,
+   "nets": 54,
+   "literature": 54
+  },
+  {
+   "id": "sq-prism",
+   "name": "正四角柱（正方形の面が2つの直方体）",
+   "def": "box(1,1,1.7)",
+   "trees": 384,
+   "overlapping": 0,
+   "nets": 29
+  },
+  {
+   "id": "tri-prism",
+   "name": "正三角柱",
+   "def": "prism(3, side=1, h=1.6)",
+   "trees": 75,
+   "overlapping": 0,
+   "nets": 9
+  },
+  {
+   "id": "iso-prism",
+   "name": "二等辺三角形の三角柱",
+   "def": "prism(base=[(0,0),(1.2,0),(0.6,1.3)], h=1.6)",
+   "trees": 75,
+   "overlapping": 0,
+   "nets": 23
+  },
+  {
+   "id": "right-prism",
+   "name": "直角三角形の三角柱",
+   "def": "prism(base=[(0,0),(1.2,0),(0,0.9)], h=1.6)",
+   "trees": 75,
+   "overlapping": 0,
+   "nets": 42
+  },
+  {
+   "id": "pent-prism",
+   "name": "正五角柱",
+   "def": "prism(5, side=1, h=1.6)",
+   "trees": 1805,
+   "overlapping": 0,
+   "nets": 99
+  },
+  {
+   "id": "hex-prism",
+   "name": "正六角柱",
+   "def": "prism(6, side=1, h=1.6)",
+   "trees": 8100,
+   "overlapping": 0,
+   "nets": 354
+  },
+  {
+   "id": "tri-pyramid",
+   "name": "正三角錐（側面が二等辺三角形）",
+   "def": "pyramid(3, side=1, h=1.3)",
+   "trees": 16,
+   "overlapping": 0,
+   "nets": 4
+  },
+  {
+   "id": "sq-pyramid",
+   "name": "正四角錐",
+   "def": "pyramid(4, side=1, h=1.2)",
+   "trees": 45,
+   "overlapping": 0,
+   "nets": 8
+  },
+  {
+   "id": "pent-pyramid",
+   "name": "正五角錐",
+   "def": "pyramid(5, side=1, h=1.2)",
+   "trees": 121,
+   "overlapping": 0,
+   "nets": 15
+  },
+  {
+   "id": "hex-pyramid",
+   "name": "正六角錐",
+   "def": "pyramid(6, side=1, h=1.2)",
+   "trees": 320,
+   "overlapping": 0,
+   "nets": 33
+  },
+  {
+   "id": "octa",
+   "name": "正八面体",
+   "def": "platonic('octahedron')",
+   "trees": 384,
+   "overlapping": 0,
+   "nets": 11,
+   "literature": 11
+  },
+  {
+   "id": "dodeca",
+   "name": "正十二面体",
+   "def": "platonic('dodecahedron')",
+   "nets": 43380,
+   "source": "文献値（Bouzette & Vandamme; Hippenmeyer 1979）。カタログは作らずランダムに生成する",
+   "spanningTrees": 5184000
+  },
+  {
+   "id": "icosa",
+   "name": "正二十面体",
+   "def": "platonic('icosahedron')",
+   "nets": 43380,
+   "source": "文献値（同上）。カタログは作らずランダムに生成する",
+   "spanningTrees": 5184000
+  }
+ ],
+ "references": [
+  "京都大学数理解析研究所講究録 1744-22（正多面体の展開図の数と文献）: https://www.kurims.kyoto-u.ac.jp/~kyodo/kokyuroku/contents/pdf/1744-22.pdf",
+  "Horiyama & Shoji, Edge unfoldings of Platonic solids never overlap (CCCG 2011)"
+ ]
+}
