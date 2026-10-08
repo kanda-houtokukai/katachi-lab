@@ -56,6 +56,7 @@ export function fitBox(box, phi, theta, pad = 1.12, refit = false) {
   const prev = S.view.bottom + ',' + S.view.top + ',' + S.view.W + ',' + S.view.H;
   measureView();
   if (prev !== S.view.bottom + ',' + S.view.top + ',' + S.view.W + ',' + S.view.H) measure();
+  if (S.lastFit) S.lastFit.view = S.view.bottom + ',' + S.view.top + ',' + S.view.W + ',' + S.view.H;
   const { view, camera, goal } = S;
   const tgt = box.getCenter(new THREE.Vector3());
   const cam = new THREE.PerspectiveCamera();

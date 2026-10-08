@@ -56,3 +56,10 @@ test('各単元の展開図ずかんの総数が、凍結値（reference/net-cou
     }
   }
 });
+
+test('R6 の図鑑は、底面積×高さ＝体積 になる組（計算で出したもの）と一致する', () => {
+  const CARDS = [['t3', 3], ['r4', 4], ['t6', 6], ['r8', 8], ['t12', 12]];
+  const combos = V => CARDS.filter(([, a]) => V % a === 0 && V / a <= 16).map(([c, a]) => `${c}x${V / a}`);
+  const j = readJSON('app/units/r6.json');
+  for (const z of j.zukan) assert.deepEqual(z.items.map(i => i.id), combos(+z.id.slice(5)), z.id);
+});

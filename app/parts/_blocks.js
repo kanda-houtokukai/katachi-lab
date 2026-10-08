@@ -38,9 +38,9 @@ export function wireBox(w, h, d, hex = tok('ink'), r = 0.015) {
   return g;
 }
 // テンキー（大きなボタン）。onEnter(数) を呼ぶ
-export function keypadHTML() {
+export function keypadHTML(decimal = false) {
   return `<div class="row"><span class="entry" data-k="entry"></span><span class="status" data-k="unitw">cm³</span></div>
-  <div class="keypad">${[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map(n => `<button type="button" data-key="${n}">${n}</button>`).join('')}<button type="button" data-key="del" aria-label="けす">⌫</button><button type="button" data-key="ok" style="grid-column:span 1;background:var(--mat-deep);color:var(--paper)">OK</button></div>`;
+  <div class="keypad" style="grid-template-columns:repeat(${decimal ? 7 : 6},minmax(40px,1fr))">${[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map(n => `<button type="button" data-key="${n}">${n}</button>`).join('')}${decimal ? '<button type="button" data-key="dot" aria-label="てん">.</button>' : ''}<button type="button" data-key="del" aria-label="けす">⌫</button><button type="button" data-key="ok" style="grid-column:span 1;background:var(--mat-deep);color:var(--paper)">OK</button></div>`;
 }
 export function bindKeypad(panel, onEnter, warn = () => {}, max = 6) {
   let v = '';
@@ -50,6 +50,7 @@ export function bindKeypad(panel, onEnter, warn = () => {}, max = 6) {
     const k = b.dataset.key;
     if (k === 'del') { if (!v) { warn('まだ なにも はいって いないよ'); return; } v = v.slice(0, -1); }
     else if (k === 'ok') { if (v) onEnter(+v); else warn('すうじを いれてから OK を おそう'); return; }
+    else if (k === 'dot') { if (v.includes('.')) { warn('てんは 1つだけ'); return; } v = (v || '0') + '.'; }
     else if (v.length >= max) { warn('これ いじょう いれられないよ'); return; }
     else v = (v === '0' ? '' : v) + k;
     render();

@@ -31,9 +31,10 @@ export async function startApp() {
   renderMissionBtns();
   window.addEventListener('resize', onResize);
   if (window.ResizeObserver) new ResizeObserver(() => {
-    const before = S.view.bottom; measure();
-    // 棚の高さが変わったら、いまの見え方のまま枠に収め直す
-    if (S.ok && S.lastFit && Math.abs(S.view.bottom - before) > 2) fitBox(S.lastFit.box, S.goal.phi, S.goal.theta, S.lastFit.pad, true);
+    measure();
+    // 棚の高さが、最後に枠どりしたときと変わっていたら、いまの見え方のまま枠に収め直す
+    const now = S.view.bottom + ',' + S.view.top + ',' + S.view.W + ',' + S.view.H;
+    if (S.ok && S.lastFit && S.lastFit.view !== now) fitBox(S.lastFit.box, S.goal.phi, S.goal.theta, S.lastFit.pad, true);
   }).observe($('dock'));
   decorateSay();
   const q = new URLSearchParams(location.search);

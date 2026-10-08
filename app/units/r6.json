@@ -1,0 +1,479 @@
+{
+ "note": "6年「角柱と円柱の体積」「およその形と大きさ」（ちょっと先）。設計書 R6。文面はすべて下書き（reviewed:false）。円周率は 3.14。",
+ "school": "6年「角柱と円柱の体積」「およその形と大きさ」",
+ "tabs": {
+  "miru": [
+   {
+    "part": "volume-slice",
+    "label": "みる",
+    "opts": {
+     "mode": "stack"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "volume-slice",
+    "label": "さわる",
+    "opts": {
+     "mode": "play"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "volume-quiz",
+    "label": "たいせき",
+    "opts": {
+     "kind": "volume",
+     "decimal": true,
+     "levels": {
+      "easy": [
+       "prism",
+       "prism",
+       "prism",
+       "cyl"
+      ],
+      "normal": [
+       "prism",
+       "cyl",
+       "cyl",
+       "prism"
+      ],
+      "challenge": [
+       "cyl",
+       "cyl",
+       "cyl",
+       "prism",
+       "cyl"
+      ]
+     }
+    }
+   },
+   {
+    "part": "estimate",
+    "label": "およその かたち"
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "prism-make",
+    "label": "きまった たいせきの はしら",
+    "opts": {
+     "volumes": [
+      24,
+      36,
+      48
+     ]
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "prism24",
+   "kind": "list",
+   "label": "24cm³",
+   "title": "24cm³ の はしら（ぜんぶで 5しゅるい）",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "goLabel": "「つくる」で さがそう",
+   "items": [
+    {
+     "id": "t3x8",
+     "label": "そこ 3cm² × たかさ 8cm",
+     "fig": "triprism",
+     "hint": "？"
+    },
+    {
+     "id": "r4x6",
+     "label": "そこ 4cm² × たかさ 6cm",
+     "fig": "cuboid",
+     "hint": "？"
+    },
+    {
+     "id": "t6x4",
+     "label": "そこ 6cm² × たかさ 4cm",
+     "fig": "triprism",
+     "hint": "？"
+    },
+    {
+     "id": "r8x3",
+     "label": "そこ 8cm² × たかさ 3cm",
+     "fig": "cuboid",
+     "hint": "？"
+    },
+    {
+     "id": "t12x2",
+     "label": "そこ 12cm² × たかさ 2cm",
+     "fig": "triprism",
+     "hint": "？"
+    }
+   ]
+  },
+  {
+   "id": "prism36",
+   "kind": "list",
+   "label": "36cm³",
+   "title": "36cm³ の はしら（ぜんぶで 4しゅるい）",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "goLabel": "「つくる」で さがそう",
+   "items": [
+    {
+     "id": "t3x12",
+     "label": "そこ 3cm² × たかさ 12cm",
+     "fig": "triprism",
+     "hint": "？"
+    },
+    {
+     "id": "r4x9",
+     "label": "そこ 4cm² × たかさ 9cm",
+     "fig": "cuboid",
+     "hint": "？"
+    },
+    {
+     "id": "t6x6",
+     "label": "そこ 6cm² × たかさ 6cm",
+     "fig": "triprism",
+     "hint": "？"
+    },
+    {
+     "id": "t12x3",
+     "label": "そこ 12cm² × たかさ 3cm",
+     "fig": "triprism",
+     "hint": "？"
+    }
+   ]
+  },
+  {
+   "id": "prism48",
+   "kind": "list",
+   "label": "48cm³",
+   "title": "48cm³ の はしら（ぜんぶで 5しゅるい）",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "goLabel": "「つくる」で さがそう",
+   "items": [
+    {
+     "id": "t3x16",
+     "label": "そこ 3cm² × たかさ 16cm",
+     "fig": "triprism",
+     "hint": "？"
+    },
+    {
+     "id": "r4x12",
+     "label": "そこ 4cm² × たかさ 12cm",
+     "fig": "cuboid",
+     "hint": "？"
+    },
+    {
+     "id": "t6x8",
+     "label": "そこ 6cm² × たかさ 8cm",
+     "fig": "triprism",
+     "hint": "？"
+    },
+    {
+     "id": "r8x6",
+     "label": "そこ 8cm² × たかさ 6cm",
+     "fig": "cuboid",
+     "hint": "？"
+    },
+    {
+     "id": "t12x4",
+     "label": "そこ 12cm² × たかさ 4cm",
+     "fig": "triprism",
+     "hint": "？"
+    }
+   ]
+  }
+ ],
+ "mission": [
+  {
+   "key": "prism-make",
+   "label": "あたらしい はしらを 1つ みつける",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "r6-f",
+   "q": "かくちゅうの たいせきの もとめかたは？",
+   "ch": [
+    "そこの めんせき × たかさ",
+    "たて × よこ",
+    "そこの めんせき ＋ たかさ"
+   ],
+   "a": 0,
+   "fig": "triprism",
+   "reviewed": false
+  },
+  {
+   "id": "r6-cyl",
+   "q": "えんちゅうの そこの めんせきは？",
+   "ch": [
+    "はんけい × はんけい × 3.14",
+    "ちょっけい × 3.14",
+    "はんけい × 2"
+   ],
+   "a": 0,
+   "fig": "cylinder",
+   "reviewed": false
+  },
+  {
+   "id": "r6-c1",
+   "q": "はんけい 1cm、たかさ 10cm の えんちゅうの たいせきは？",
+   "ch": [
+    "31.4cm³",
+    "62.8cm³",
+    "3.14cm³"
+   ],
+   "a": 0,
+   "fig": "cylinder",
+   "reviewed": false
+  },
+  {
+   "id": "r6-p",
+   "q": "そこの めんせき 6cm²、たかさ 5cm の かくちゅうの たいせきは？",
+   "ch": [
+    "11cm³",
+    "30cm³",
+    "60cm³"
+   ],
+   "a": 1,
+   "fig": "triprism",
+   "reviewed": false
+  },
+  {
+   "id": "r6-est",
+   "q": "のみものの かんは どんな かたちと みられる？",
+   "ch": [
+    "えんちゅう",
+    "ちょくほうたい",
+    "さんかくちゅう"
+   ],
+   "a": 0,
+   "fig": "can",
+   "reviewed": false
+  },
+  {
+   "id": "r6-pool",
+   "q": "プールは どんな かたちと みられる？",
+   "ch": [
+    "ちょくほうたい",
+    "えんちゅう"
+   ],
+   "a": 0,
+   "fig": "cuboid",
+   "reviewed": false
+  }
+ ],
+ "insights": [
+  {
+   "key": "baseside",
+   "title": "底面と側面の取り違え",
+   "tag": "6年の内容",
+   "reviewed": false,
+   "test": {
+    "type": "wrongRate",
+    "where": {
+     "kind": "r6.volume",
+     "detail.type": "prism"
+    },
+    "minN": 2,
+    "minWrong": 2,
+    "ratio": 0.5
+   },
+   "obs": "角柱の体積の問題で {n}問中{w}問がまちがいでした。",
+   "body": "どの面が底面で、どの長さが高さなのかを見分けきれていない段階です。底面は向かい合う同じ形の2つの面、高さは2つの底面の間の長さです。",
+   "home": "三角柱のお菓子の箱などを手に取り、「底面はどこ？」「高さはどこ？」と指さしで確かめてみてください。"
+  },
+  {
+   "key": "diameter",
+   "title": "円の面積で、直径を使ってしまう",
+   "tag": "6年の内容",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "r6.volume",
+     "detail.mistake": "diameter"
+    },
+    "min": 2
+   },
+   "obs": "円柱の体積で、直径を使って計算した答えが {n}回ありました。",
+   "body": "円の面積は 半径×半径×3.14 ですが、直径をそのまま使っている段階です。",
+   "home": "コップの底をなぞって円をかき、中心から端までの長さ（半径）を一緒に測ってみてください。"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "distinct",
+    "where": {
+     "kind": "r6.make",
+     "correct": true
+    },
+    "field": "detail.combo",
+    "min": 2
+   },
+   "text": "決められた体積になる柱を{u}種類見つけました。"
+  },
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "r6.volume"
+    },
+    "min": 3
+   },
+   "text": "体積の問題で、ヒントを使わずに{best}問続けて正解しました。"
+  },
+  {
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "r6.estimate",
+     "correct": true
+    },
+    "min": 3
+   },
+   "text": "身の回りの物の、およその体積を{n}問正しく見積もりました。"
+  }
+ ],
+ "map": [
+  {
+   "activity": "体積＝底面積×高さ",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r6.miru"
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r6.slice"
+     }
+    ]
+   }
+  },
+  {
+   "activity": "角柱・円柱の体積を求める",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "r6.volume"
+    },
+    "minN": 4,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r6.volume"
+     }
+    ]
+   }
+  },
+  {
+   "activity": "およその形と大きさ",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "r6.estimate"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r6.estimate"
+     }
+    ]
+   }
+  },
+  {
+   "activity": "決められた体積の柱をつくる",
+   "done": {
+    "type": "distinct",
+    "where": {
+     "kind": "r6.make",
+     "correct": true
+    },
+    "field": "detail.combo",
+    "min": 3
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r6.make"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "r6.miru": "底面の板を積み重ねて体積を考える様子を見ました",
+  "r6.slice": "底面の形・大きさ・高さを変えて体積を確かめました",
+  "r6.volume": "体積の問題：{ok}{hints}",
+  "r6.volume-done": "「たいせき」（{level}）{n}問中{score}問正解",
+  "r6.estimate": "およその形と大きさ：{ok}{hints}",
+  "r6.estimate-done": "「およその かたち」（{level}）{n}問中{score}問正解",
+  "r6.make": [
+   {
+    "where": {
+     "correct": true
+    },
+    "text": "{V}cm³の柱をつくりました"
+   },
+   {
+    "where": {},
+    "text": "{V}cm³の柱づくりに挑戦しました"
+   }
+  ],
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 8,
+   "h": 19,
+   "kind": "volume",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "cyl",
+    "mistake": "diameter"
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 8,
+   "h": 19.1,
+   "kind": "volume",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "cyl",
+    "mistake": "diameter"
+   }
+  }
+ ]
+}

@@ -44,6 +44,7 @@ button{font:inherit}
 
 /* 下の棚 */
 .dock{position:absolute;left:0;right:0;bottom:0;background:var(--paper);border-top:1.5px solid var(--line);padding:10px 16px calc(6px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px;z-index:2;max-height:58%;overflow-y:auto}
+.dock>*{flex-shrink:0}
 .panel{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;min-height:56px}
 .panel[hidden]{display:none}
 .tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;border-top:1px dashed var(--line);padding-top:6px}
@@ -272,6 +273,8 @@ input[type=range]:focus-visible{outline:3px solid var(--yamabuki);outline-offset
   .tools{gap:6px}
   .seg button{font-size:14px;padding:0 9px}
   .hud .txt{font-size:17px}
+  .keypad button{min-height:40px;font-size:18px}
+  .q{font-size:18px}
   .top{padding:10px 10px 0}
   .dock{padding:8px 10px calc(6px + env(safe-area-inset-bottom,0px))}
 }
