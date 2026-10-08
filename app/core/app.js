@@ -2,9 +2,9 @@
 // 部品（app/parts/*.js）は mount(ctx) で棚と 3D に出し、dispose で片づける。
 import { $, esc, h } from './text.js';
 import { R, initRecords, onChange, log as addLog, register, hasZukan, zukanList, touchUnit, prof, markStage } from './records.js';
-import { sfx, say, hush, sound, setSound, decorateSay } from './sound.js';
+import { sfx, say, hush, sound, setSound, decorateSay, speech } from './sound.js';
 import { caption, toast, hideHud, setCounter, hideCounter, setGrade, setupHud, makeIcons, ICON, ICONS_UI, gradeLabel } from './hud.js';
-import { S, initStage, measure, newToken, alive, killTweens, stopGlows, stopConfetti, fitBox, disposeObject, showMat, isPortrait, snapCamera } from '../stage/stage.js';
+import { S, initStage, measure, newToken, alive, killTweens, stopGlows, stopConfetti, fitBox, disposeObject, showMat, isPortrait, snapCamera, toScreen, objScreen, fitCheck } from '../stage/stage.js';
 import { openZukanSheet, setupZukan } from './zukan.js';
 import { openPaper, setupPaper } from './paper.js';
 import { setupMission, missionDone, renderMissionBtns } from './mission.js';
@@ -41,7 +41,7 @@ export async function startApp() {
   const q = new URLSearchParams(location.search);
   if (q.get('unit') && A.byId.has(q.get('unit'))) openUnit(q.get('unit'), q.get('mode') || 'miru');
   else goHome();
-  window.__katachi = { A, S, R, setMode, openUnit, goHome };
+  window.__katachi = { A, S, R, speech, setMode, openUnit, goHome, toScreen, objScreen, fitCheck, test: () => (A.current && A.current.test) || null };
 }
 
 /* ---------------- 地図 ---------------- */
@@ -128,7 +128,7 @@ export async function setMode(m, opts = {}) {
   if (!act) return;
   const mod = await loadPart(act.part);
   if (!alive(tag)) return;
-  const ctx = makeCtx(unit, act, Object.assign({}, act.opts || {}, opts.params || {}), panel, m);
+  const ctx = makeCtx(unit, act, Object.assign({}, act.opts || {}, opts.params || {}), panel, m, ai);
   try { A.current = mod.mount(ctx) || {}; } catch (e) { console.error(e); toast(ICON.X, 'うまく ひらけませんでした', 2.4); A.current = {}; }
   S.onTap = e => A.current && A.current.onTap && A.current.onTap(e);
   decorateSay(panel);
@@ -147,9 +147,10 @@ async function loadPart(name) {
 
 // 部品に渡す道具一式
 function ctxBase() { return { S, sfx, say, caption, toast, hideHud, setCounter, hideCounter, setGrade, ICON, ICONS_UI, R }; }
-function makeCtx(unit, act, opts, panel, mode) {
+function makeCtx(unit, act, opts, panel, mode, actIndex) {
   return Object.assign(ctxBase(), {
-    unit, act, opts, panel, mode,
+    unit, act, opts, panel, mode, actIndex,
+    restart: (params = {}) => setMode(mode, { act: actIndex, params }),
     log: (kind, info = {}) => addLog(unit.id, unit.id + '.' + kind, info, STAGES.includes(mode) ? mode : null),
     stageDone: () => { markStage(unit.id, mode); },
     register: (coll, id) => register(coll, id),

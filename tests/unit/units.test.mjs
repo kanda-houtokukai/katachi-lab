@@ -1,0 +1,39 @@
+// 単元データ：部品が実在する・地図と一致する・保護者画面の規則が評価できる
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { existsSync } from 'node:fs';
+import { readJSON } from './helpers.mjs';
+import { evaluate, labelOf, fill } from '../../app/core/rules.js';
+
+const idx = readJSON('app/units/index.json');
+const ready = idx.units.filter(u => u.ready);
+
+test('地図の単元は app/units/ にあり、使う部品はすべて app/parts/ にある', () => {
+  assert.ok(ready.length >= 1);
+  for (const u of ready) {
+    const j = readJSON('app/units/' + u.file);
+    for (const [mode, acts] of Object.entries(j.tabs)) {
+      assert.ok(['miru', 'sawaru', 'tamesu', 'tsukuru'].includes(mode), u.id + ' ' + mode);
+      for (const a of acts) assert.ok(existsSync(new URL(`../../app/parts/${a.part}.js`, import.meta.url)), `${u.id} の部品 ${a.part}`);
+    }
+    for (const r of j.review || []) { assert.ok(r.ch[r.a] != null, u.id + ' ' + r.id); assert.equal(r.reviewed, false, '思い出し問題は下書き'); }
+    for (const x of j.insights || []) assert.equal(x.reviewed, false, '見立ての文面は下書き');
+  }
+});
+
+test('保護者画面の規則（つまずき・ほめどころ・対応表・記録の文）が記録から評価できる', () => {
+  const L = [
+    { kind: 'r2.quiz', correct: false, hints: 0, detail: { type: 'valid?', valid: false } },
+    { kind: 'r2.quiz', correct: false, hints: 0, detail: { type: 'valid?', valid: false } },
+    { kind: 'r2.quiz', correct: true, hints: 0, detail: { type: 'valid?', valid: true } },
+    { kind: 'r2.stamp', detail: { miss: 2 } }, { kind: 'r2.hone', detail: { miss: 1 } },
+    { kind: 'r2.build', correct: true, detail: { valid: true, id: 3 } }, { kind: 'r2.build', correct: true, detail: { valid: true, id: 3 } },
+  ];
+  const r2 = readJSON('app/units/r2.json');
+  const hit = r2.insights.filter(x => evaluate(x.test, L).ok).map(x => x.key);
+  assert.deepEqual(hit, ['overlap', 'cuboid']);
+  assert.equal(fill(r2.insights[0].obs, evaluate(r2.insights[0].test, L).vars), '箱にならない形の問題で 2問中2問を「なる」と答えています。');
+  assert.equal(evaluate(r2.praises[0].test, L).vars.u, 1);
+  assert.equal(labelOf(L[5], r2.labels), '展開図をつくって組み立て成功（No.3）');
+  assert.equal(labelOf({ kind: 'r2.quiz', correct: true, hints: 2, detail: { type: 'opp' } }, r2.labels), '向かい合う面の問題：正解（ヒント2回）');
+});

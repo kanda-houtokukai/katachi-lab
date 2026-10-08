@@ -1,0 +1,149 @@
+{
+ "note": "2年「はこの形」。見本v2（reference/mock-v2.html）を部品と単元データに分けて移したもの。文面はすべて下書き（reviewed:false）。",
+ "school": "2年「はこの形」",
+ "tabs": {
+  "miru": [{ "part": "miru-box", "label": "みる" }],
+  "sawaru": [{ "part": "fold-explore", "label": "さわる", "opts": {
+   "solids": [
+    { "key": "cube", "label": "さいころ", "src": "grid", "oppGrade": 4 },
+    { "key": "r2-cuboid", "label": "おかしの はこ", "src": "box", "dims": [1.6, 1.0, 0.6], "oppGrade": 2 }
+   ],
+   "tools": ["count", "opposite", "next"]
+  } }],
+  "tamesu": [
+   { "part": "net-quiz", "label": "はこに なるかな", "grade": 4, "opts": { "levels": {
+    "easy": [{ "type": "valid?", "src": "grid", "valid": true, "pool": [0, 1, 2, 3, 4, 5], "n": 2, "coll": "cube" }, { "type": "valid?", "src": "grid", "valid": false, "from": 0, "to": 2, "n": 2 }],
+    "normal": [{ "type": "valid?", "src": "grid", "valid": true, "n": 3, "coll": "cube" }, { "type": "valid?", "src": "grid", "valid": false, "n": 3 }],
+    "challenge": [{ "type": "valid?", "src": "grid", "valid": true, "pool": [6, 7, 8, 9, 10], "n": 2, "coll": "cube" }, { "type": "valid?", "src": "grid", "valid": false, "from": 2, "n": 2 }, { "type": "opp", "src": "grid", "n": 2 }]
+   } } },
+   { "part": "card-quiz", "label": "6まいで はこ？", "grade": 2 }
+  ],
+  "tsukuru": [
+   { "part": "stamp", "label": "うつしとる", "grade": 2 },
+   { "part": "skeleton", "label": "ほねぐみ", "grade": 2 },
+   { "part": "box-pick", "label": "はこを えらぶ", "grade": 2 },
+   { "part": "net-build-grid", "label": "てんかいず", "grade": 4, "opts": { "coll": "cube" } }
+  ]
+ },
+ "zukan": [
+  { "id": "cube", "kind": "catalog", "solid": "cube", "total": 11, "label": "ひらきかた", "title": "ひらきかた ずかん", "initial": [5], "go": { "mode": "tsukuru", "act": 3 }, "play": { "mode": "sawaru", "act": 0 } }
+ ],
+ "mission": [
+  { "key": "stamp", "label": "めんを うつして はこを つくる", "icon": "make", "go": { "mode": "tsukuru", "act": 0 } },
+  { "key": "hone", "label": "ほねぐみを かんせい させる", "icon": "make", "go": { "mode": "tsukuru", "act": 1 } },
+  { "key": "build", "label": "ずかんを 1つ ふやす", "icon": "zukan", "go": { "mode": "tsukuru", "act": 3 } }
+ ],
+ "review": [
+  { "id": "r-face", "q": "はこの めんは いくつ？", "ch": ["4つ", "6つ", "8つ"], "a": 1, "fig": "box", "reviewed": false },
+  { "id": "r-edge", "q": "はこの へんは なんぼん？", "ch": ["8ほん", "12ほん", "6ほん"], "a": 1, "fig": "box", "reviewed": false },
+  { "id": "r-vert", "q": "はこの ちょうてんは いくつ？", "ch": ["6つ", "12こ", "8つ"], "a": 2, "fig": "box", "reviewed": false },
+  { "id": "r-opp", "q": "おかしの はこの むかいあう めんは？", "ch": ["おなじ かたち", "ちがう かたち"], "a": 0, "fig": "cuboid", "reviewed": false },
+  { "id": "r-len", "q": "おかしの はこで、おなじ ながさの へんは なんぼんずつ？", "ch": ["2ほん", "3ぼん", "4ほん"], "a": 2, "fig": "cuboid", "reviewed": false },
+  { "id": "r-sq", "q": "さいころの めんは どんな かたち？", "ch": ["ましかく", "ながしかく", "さんかく"], "a": 0, "fig": "box", "reviewed": false },
+  { "id": "r-net", "q": "この ひらきかたは はこに なる？", "ch": ["なる", "ならない"], "a": 1, "fig": "cells:[[0,0],[1,0],[2,0],[3,0],[0,1],[2,1]]", "reviewed": false },
+  { "id": "r-net2", "q": "この ひらきかたは はこに なる？", "ch": ["なる", "ならない"], "a": 0, "fig": "cells:[[0,0],[0,1],[1,1],[2,1],[3,1],[2,2]]", "reviewed": false }
+ ],
+ "insights": [
+  { "key": "overlap", "title": "箱にならない形を「なる」と答えやすい", "tag": "4年の内容", "reviewed": false,
+   "test": { "type": "wrongRate", "where": { "kind": "r2.quiz", "detail.type": "valid?", "detail.valid": false }, "minN": 2, "minWrong": 2, "ratio": 0.5 },
+   "obs": "箱にならない形の問題で {n}問中{w}問を「なる」と答えています。",
+   "body": "面と面が重なる場所を頭の中で追うのは、まだ難しい段階です。6枚の面がどこへ動くかを、一度に全部想像しようとしているのかもしれません。",
+   "home": "ティッシュ箱や菓子箱を辺にそって切り開き、もう一度たたむ遊びがおすすめです。「この面はどこに来るかな」と1枚ずつ指さしながらたたむと、重なりに気づきやすくなります。" },
+  { "key": "cautious", "title": "箱になる形を「ならない」と答えやすい", "tag": "4年の内容", "reviewed": false,
+   "test": { "type": "wrongRate", "where": { "kind": "r2.quiz", "detail.type": "valid?", "detail.valid": true }, "minN": 2, "minWrong": 2, "ratio": 0.5 },
+   "obs": "箱になる展開図の問題で {n}問中{w}問を「ならない」と答えています。",
+   "body": "見慣れない並び方を見ると、慎重になって「ならない」を選んでいるようです。十字形以外にも箱になる形が11種類あることを、まだ知らない段階です。",
+   "home": "「ずかん」を一緒に開き、見つけた形を指でたどってみてください。「こんな形でも箱になるんだね」と声をかけると、見慣れない形への抵抗が減ります。" },
+  { "key": "opp", "title": "向かい合う面の見つけ方を練習中", "tag": "4年の内容", "reviewed": false,
+   "test": { "type": "wrongRate", "where": { "kind": "r2.quiz", "detail.type": "opp" }, "minN": 2, "minWrong": 2 },
+   "obs": "向かい合う面の問題で {n}問中{w}問がまちがいでした。",
+   "body": "展開図の上で、となり合う面と向かい合う面の区別がまだついていない段階です。",
+   "home": "サイコロを見ながら「1の反対は6」のように、向かい合う目を当てる遊びが役に立ちます。展開図では、となりの面は向かい合わないことを一緒に確かめてください。" },
+  { "key": "count", "title": "辺と頂点の数があいまい", "tag": "2年の内容", "reviewed": false,
+   "test": { "type": "count", "where": { "kind": "review", "detail.id": ["r-edge", "r-vert"], "correct": false }, "min": 2 },
+   "obs": "思い出し問題の「辺の数」「頂点の数」で {n}回まちがえています。",
+   "body": "辺（面と面の境目）と頂点（かど）の言葉と数が、まだ結びついていない様子です。2年で習ったあと、4年まで出てこないため忘れやすいところです。",
+   "home": "身近な箱のかどに付せんを貼りながら一緒に数えると、頂点は8つだと体で覚えられます。「さわる」の「へん」「ちょうてん」で数える様子を見るのも効果があります。" },
+  { "key": "cuboid", "title": "直方体の面や辺の長さを見分ける練習中", "tag": "2年の内容", "reviewed": false,
+   "test": { "type": "sum", "where": { "kind": ["r2.stamp", "r2.hone"] }, "field": "detail.miss", "min": 3 },
+   "obs": "面の組み合わせや、ひごの長さで {s}回まちがえています。",
+   "body": "直方体には同じ形の面が2枚ずつ、同じ長さの辺が4本ずつあることを、まだ見通せていない段階です。",
+   "home": "お菓子の箱の面を紙に写し取り、切り抜いて重ねてみてください。ぴったり重なる2枚を見つける体験が、そのまま学校の学習につながります。" },
+  { "key": "cards", "title": "6枚の面で箱ができるかを見分ける練習中", "tag": "2年の内容", "reviewed": false,
+   "test": { "type": "wrongRate", "where": { "kind": "r2.card-quiz" }, "minN": 3, "minWrong": 2, "ratio": 0.5 },
+   "obs": "「この6まいで箱ができる？」で {n}問中{w}問がまちがいでした。",
+   "body": "同じ形が2枚ずつそろっているか、辺の長さが合っているかを、まだ同時に見られない段階です。",
+   "home": "空き箱を1つ切り開き、6枚の面を並べて「同じ形はどれとどれ？」と組にしてみてください。組ができたら、もう一度テープで箱に戻すと確かめられます。" }
+ ],
+ "praises": [
+  { "test": { "type": "distinct", "where": { "kind": "r2.build", "detail.valid": true }, "field": "detail.id", "min": 1 }, "text": "自分で並べた展開図を{u}種類、箱に組み立てられました。" },
+  { "test": { "type": "streak", "where": { "kind": "r2.quiz" }, "min": 3 }, "text": "「ためす」でヒントを使わずに{best}問続けて正解しました。" },
+  { "test": { "type": "any", "of": [{ "kind": "r2.hone", "detail.miss": 0 }] }, "text": "ひごとねんど玉の骨組みを、長さのまちがいなしで完成させました。" },
+  { "test": { "type": "count", "where": { "kind": "r2.quiz", "detail.type": "opp", "correct": true }, "min": 2 }, "text": "向かい合う面の問題に{n}問正解しています（4年で習う内容です）。" },
+  { "test": { "type": "any", "of": [{ "kind": "r2.stamp-box" }] }, "text": "写し取った6枚の面をつないで、自分で箱を作りました。" },
+  { "test": { "type": "any", "of": [{ "kind": "r2.box-pick", "correct": true }] }, "text": "12枚のカードから、箱になる6枚を自分で選べました。" }
+ ],
+ "map": [
+  { "activity": "面・辺・頂点を数える", "done": { "type": "all", "of": [{ "kind": "r2.count", "detail.kind": "face" }, { "kind": "r2.count", "detail.kind": "edge" }, { "kind": "r2.count", "detail.kind": "vertex" }] }, "mid": { "type": "any", "of": [{ "kind": "r2.count" }] } },
+  { "activity": "面を写し取り、同じ形を見つける", "done": { "type": "any", "of": [{ "kind": "r2.stamp-box" }] }, "mid": { "type": "any", "of": [{ "kind": "r2.stamp" }] } },
+  { "activity": "ひごとねんど玉で骨組みを作る", "done": { "type": "any", "of": [{ "kind": "r2.hone" }] } },
+  { "activity": "6枚の面で箱ができるかを見分ける", "done": { "type": "rate", "where": { "kind": "r2.card-quiz" }, "minN": 3, "min": 0.7 }, "mid": { "type": "any", "of": [{ "kind": "r2.card-quiz" }] }, "note": { "test": { "type": "rate", "where": { "kind": "r2.card-quiz" }, "minN": 1, "min": 0 }, "text": "{k}/{n}問" } },
+  { "activity": "12枚から箱になる6枚を選ぶ", "done": { "type": "any", "of": [{ "kind": "r2.box-pick", "correct": true }] }, "mid": { "type": "any", "of": [{ "kind": "r2.box-pick" }] } },
+  { "school": "4年「直方体と立方体」（先取り）", "activity": "展開図を作って組み立てる", "done": { "type": "distinct", "where": { "kind": "r2.build", "detail.valid": true }, "field": "detail.id", "min": 3 }, "mid": { "type": "any", "of": [{ "kind": "r2.build" }] }, "note": { "test": { "type": "distinct", "where": { "kind": "r2.build", "detail.valid": true }, "field": "detail.id", "min": 1 }, "text": "{u}種類" } },
+  { "school": "4年「直方体と立方体」（先取り）", "activity": "箱にならない形を見分ける", "done": { "type": "rate", "where": { "kind": "r2.quiz", "detail.type": "valid?", "detail.valid": false }, "minN": 3, "min": 0.7 }, "mid": { "type": "any", "of": [{ "kind": "r2.quiz", "detail.type": "valid?", "detail.valid": false }] }, "note": { "test": { "type": "rate", "where": { "kind": "r2.quiz", "detail.type": "valid?", "detail.valid": false }, "minN": 1, "min": 0 }, "text": "{k}/{n}問" } },
+  { "school": "4年「直方体と立方体」（先取り）", "activity": "向かい合う面を見つける", "done": { "type": "rate", "where": { "kind": "r2.quiz", "detail.type": "opp" }, "minN": 2, "min": 0.7 }, "mid": { "type": "any", "of": [{ "kind": "r2.quiz", "detail.type": "opp" }] }, "note": { "test": { "type": "rate", "where": { "kind": "r2.quiz", "detail.type": "opp" }, "minN": 1, "min": 0 }, "text": "{k}/{n}問" } }
+ ],
+ "labels": {
+  "r2.miru": "「みる」で箱を開いて閉じる様子を見ました",
+  "r2.count": [
+   { "where": { "detail.solid": "r2-cuboid" }, "text": "直方体の{what}を数えました" },
+   { "where": {}, "text": "立方体の{what}を数えました" }
+  ],
+  "r2.opp-look": [{ "where": { "detail.solid": "r2-cuboid" }, "text": "直方体の向かい合う面を確かめました" }, { "where": {}, "text": "立方体の向かい合う面を確かめました" }],
+  "r2.quiz": [
+   { "where": { "detail.type": "opp" }, "text": "向かい合う面の問題：{ok}{hints}" },
+   { "where": { "detail.valid": true }, "text": "箱になる展開図：{ok}{hints}" },
+   { "where": {}, "text": "箱にならない形：{ok}{hints}" }
+  ],
+  "r2.quiz-done": "「ためす」（{level}）{n}問中{score}問正解",
+  "r2.card-quiz": "「この6まいで箱ができる？」：{ok}{hints}",
+  "r2.card-quiz-done": "「6まいで はこ？」（{level}）{n}問中{score}問正解",
+  "r2.build": [{ "where": { "detail.valid": true }, "text": "展開図をつくって組み立て成功（No.{id}）" }, { "where": {}, "text": "並べた形が箱にならないことを確かめました" }],
+  "r2.stamp": "箱の面を写し取り、同じ形の組を見つけました（見まちがい{miss}回）",
+  "r2.stamp-box": "写した6枚の面をつないで箱にしました",
+  "r2.hone": "ひごとねんど玉で骨組みを完成（長さのまちがい{miss}回）",
+  "r2.box-pick": [{ "where": { "correct": true }, "text": "12枚のカードから箱になる6枚を選びました" }, { "where": {}, "text": "選んだ6枚では箱にならないことを確かめました" }],
+  "r2.paper": "展開図を紙で作るために印刷画面を開きました（No.{id}）",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  { "d": 0, "h": 17, "kind": "miru", "stage": "miru" },
+  { "d": 0, "h": 17.2, "kind": "count", "detail": { "kind": "face", "solid": "cube" }, "stage": "sawaru" },
+  { "d": 0, "h": 17.3, "kind": "count", "detail": { "kind": "edge", "solid": "cube" } },
+  { "d": 1, "h": 18, "kind": "quiz", "correct": false, "hints": 0, "level": "normal", "detail": { "type": "valid?", "valid": false }, "stage": "tamesu" },
+  { "d": 1, "h": 18.05, "kind": "quiz", "correct": true, "hints": 1, "level": "normal", "detail": { "type": "valid?", "valid": true } },
+  { "d": 1, "h": 18.1, "kind": "quiz", "correct": false, "hints": 0, "level": "normal", "detail": { "type": "valid?", "valid": false } },
+  { "d": 1, "h": 18.15, "kind": "quiz", "correct": true, "hints": 0, "level": "normal", "detail": { "type": "valid?", "valid": true } },
+  { "d": 1, "h": 18.2, "kind": "quiz", "correct": true, "hints": 2, "level": "normal", "detail": { "type": "valid?", "valid": false } },
+  { "d": 1, "h": 18.25, "kind": "quiz", "correct": true, "hints": 0, "level": "normal", "detail": { "type": "valid?", "valid": true } },
+  { "d": 1, "h": 18.3, "kind": "quiz-done", "level": "normal", "detail": { "n": 6, "score": 4 } },
+  { "d": 3, "h": 17, "kind": "stamp", "detail": { "miss": 1 }, "stage": "tsukuru" },
+  { "d": 3, "h": 17.1, "kind": "stamp-box" },
+  { "d": 3, "h": 17.4, "kind": "review", "correct": false, "detail": { "id": "r-edge" } },
+  { "d": 3, "h": 17.45, "kind": "review", "correct": true, "detail": { "id": "r-vert" } },
+  { "d": 5, "h": 19, "kind": "hone", "detail": { "miss": 2 } },
+  { "d": 5, "h": 19.3, "kind": "build", "correct": true, "hints": 0, "detail": { "valid": true, "id": 1 } },
+  { "d": 5, "h": 19.4, "kind": "build", "correct": false, "hints": 0, "detail": { "valid": false, "id": 0 } },
+  { "d": 5, "h": 19.5, "kind": "build", "correct": true, "hints": 2, "detail": { "valid": true, "id": 7 } },
+  { "d": 7, "h": 18, "kind": "quiz", "correct": true, "hints": 0, "level": "challenge", "detail": { "type": "opp", "valid": true } },
+  { "d": 7, "h": 18.05, "kind": "quiz", "correct": false, "hints": 0, "level": "challenge", "detail": { "type": "valid?", "valid": false } },
+  { "d": 7, "h": 18.1, "kind": "quiz", "correct": true, "hints": 1, "level": "challenge", "detail": { "type": "opp", "valid": true } },
+  { "d": 7, "h": 18.15, "kind": "quiz", "correct": true, "hints": 0, "level": "challenge", "detail": { "type": "valid?", "valid": true } },
+  { "d": 7, "h": 18.2, "kind": "quiz-done", "level": "challenge", "detail": { "n": 6, "score": 4 } },
+  { "d": 7, "h": 18.3, "kind": "card-quiz", "correct": false, "hints": 0, "level": "normal", "detail": { "valid": false, "kind": "three" } },
+  { "d": 7, "h": 18.35, "kind": "card-quiz", "correct": true, "hints": 0, "level": "normal", "detail": { "valid": true, "kind": "ok" } },
+  { "d": 7, "h": 18.4, "kind": "review", "correct": false, "detail": { "id": "r-edge" } },
+  { "d": 8, "h": 17, "kind": "review", "correct": true, "detail": { "id": "r-face" } }
+ ],
+ "demoZukan": { "cube": [1, 7] }
+}

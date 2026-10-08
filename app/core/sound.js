@@ -61,6 +61,7 @@ export const onVoices = fn => { voiceListeners.add(fn); fn(speech.available); };
 
 export function say(text, force) {
   if (text != null) lastLine = plain(text);
+  if (force) speech.forced = (speech.forced || 0) + 1;
   if (!speech.available || !sound.on || !lastLine) return;
   if (!force && !R.settings.readAuto) return;
   try {

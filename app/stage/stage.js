@@ -53,6 +53,9 @@ export function spinCamera(dur, amount) {
 }
 export function fitBox(box, phi, theta, pad = 1.12, refit = false) {
   if (!refit) { S.camEpoch++; S.lastFit = { box: box.clone(), pad }; }
+  const prev = S.view.bottom + ',' + S.view.top + ',' + S.view.W + ',' + S.view.H;
+  measureView();
+  if (prev !== S.view.bottom + ',' + S.view.top + ',' + S.view.W + ',' + S.view.H) measure();
   const { view, camera, goal } = S;
   const tgt = box.getCenter(new THREE.Vector3());
   const cam = new THREE.PerspectiveCamera();
@@ -194,6 +197,15 @@ function makeMatTexture() {
 export const showMat = v => { if (S.matMesh) S.matMesh.visible = v; };
 
 /* ---------- 大きさ ---------- */
+function measureView() {
+  const app = document.getElementById('app');
+  const r = app.getBoundingClientRect();
+  S.view.W = r.width; S.view.H = r.height;
+  const top = document.getElementById('topBar'), dock = document.getElementById('dock');
+  const head = top.hidden ? { bottom: r.top + 60 } : top.getBoundingClientRect();
+  const dk = dock.hidden ? { top: r.bottom } : dock.getBoundingClientRect();
+  S.view.top = head.bottom - r.top + 54; S.view.bottom = r.bottom - dk.top + 8;
+}
 export function measure() {
   const app = document.getElementById('app');
   const r = app.getBoundingClientRect();
@@ -292,8 +304,14 @@ const frameHooks = new Set();
 export const onFrame = fn => { frameHooks.add(fn); return () => frameHooks.delete(fn); };
 let last = performance.now(), lastCam = performance.now();
 function frame(now) {
+  // 1つのアニメで例外が出ても、描画のループは止めない
+  requestAnimationFrame(frame);
   const dt = Math.min(0.05, (now - last) / 1000); last = now;
-  for (const t of S.tweens) { const k = Math.min(1, (now - t.t0) / t.dur); t.fn(t.ease(k)); if (k >= 1) { S.tweens.delete(t); t.res(); } }
+  for (const t of S.tweens) {
+    const k = Math.min(1, (now - t.t0) / t.dur);
+    try { t.fn(t.ease(k)); } catch (e) { console.error(e); S.tweens.delete(t); t.res(); continue; }
+    if (k >= 1) { S.tweens.delete(t); t.res(); }
+  }
   for (const p of S.pulses) {
     const k = (now - p.t0) / p.dur;
     if (k >= 1) { if (p.hold) p.m.emissive.copy(p.c).multiplyScalar(p.hold); else p.m.emissive.setRGB(0, 0, 0); S.pulses.delete(p); continue; }
@@ -301,7 +319,7 @@ function frame(now) {
     p.m.emissive.copy(p.c).multiplyScalar((0.5 - 0.5 * Math.cos(k * p.dur / 700 * Math.PI * 2)) * p.strength);
   }
   for (const g of S.ghosts.children) if (g.material && g.material.userData.pulse) g.material.opacity = 0.22 + 0.16 * (0.5 + 0.5 * Math.sin(now / 380));
-  for (const f of frameHooks) f(dt, now);
+  for (const f of frameHooks) { try { f(dt, now); } catch (e) { console.error(e); frameHooks.delete(f); } }
   // カメラの追従は経過時間で決める（フレーム数に依存させない）
   const f = 1 - Math.exp(-Math.min(0.25, (now - lastCam) / 1000) * 5.5); lastCam = now;
   const { rig, goal } = S;
@@ -309,5 +327,25 @@ function frame(now) {
   placeCamera(); stepConfetti(dt);
   S.renderer.render(S.scene, S.camera);
   S.idle = S.tweens.size === 0 && Math.abs(goal.theta - rig.theta) < 0.01 && Math.abs(goal.phi - rig.phi) < 0.01 && Math.abs(goal.radius - rig.radius) < 0.05 && rig.target.distanceTo(goal.target) < 0.02;
-  requestAnimationFrame(frame);
+}
+
+/* ---------- テスト用：3D の点を画面の座標に（E2E が実際にタップする位置を求める） ---------- */
+export function toScreen(v) {
+  const r = S.renderer.domElement.getBoundingClientRect();
+  const p = v.clone().project(S.camera);
+  return { x: r.left + (p.x + 1) / 2 * r.width, y: r.top + (1 - p.y) / 2 * r.height };
+}
+export function objScreen(obj, local = null) {
+  obj.updateMatrixWorld(true);
+  const w = local ? local.clone().applyMatrix4(obj.matrixWorld) : obj.getWorldPosition(new THREE.Vector3());
+  return toScreen(w);
+}
+// 枠どりした箱が、上の帯と下の棚のあいだに収まっているか（縦長・横長の確認）
+export function fitCheck() {
+  if (!S.lastFit) return null;
+  const b = S.lastFit.box, pts = [];
+  for (let i = 0; i < 8; i++) pts.push(toScreen(new THREE.Vector3(i & 1 ? b.max.x : b.min.x, i & 2 ? b.max.y : b.min.y, i & 4 ? b.max.z : b.min.z)));
+  const r = S.renderer.domElement.getBoundingClientRect();
+  const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
+  return { minX: Math.min(...xs), maxX: Math.max(...xs), minY: Math.min(...ys), maxY: Math.max(...ys), W: r.width, H: r.height, top: S.view.top - 54, bottom: r.height - S.view.bottom + 8 };
 }

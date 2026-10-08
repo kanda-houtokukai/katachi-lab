@@ -57,7 +57,7 @@ function renderParent() {
       const done = evaluate(m.done, UL, D).ok, mid = evaluate(m.mid || m.done, UL, D);
       const anyLog = mid.ok || (m.mid ? false : UL.some(l => (m.kinds || []).includes(l.kind)));
       const note = m.note ? evaluate(m.note.test, UL, D) : null;
-      rows.push({ u, m, done, mid: anyLog, note: note && note.vars && Object.keys(note.vars).length ? fill(m.note.text, note.vars) : '' });
+      rows.push({ u, m, done, mid: anyLog, note: note && note.ok ? fill(m.note.text, note.vars) : '' });
     }
   }
   const dayPr = evaluate({ type: 'days', min: 3 }, L, D); if (dayPr.ok) prs.push(`これまでに${dayPr.vars.n}日取り組みました。`);

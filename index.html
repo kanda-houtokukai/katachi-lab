@@ -38,8 +38,8 @@
     </div>
   </header>
 
-  <div class="hud off" id="caption" aria-live="polite"><button class="say" type="button" aria-label="もういちど きく"></button><span class="txt"></span></div>
-  <div class="hud toast" id="toast" hidden aria-live="polite"><button class="say" type="button" aria-label="もういちど きく"></button><span class="mk"></span><span class="txt"></span></div>
+  <div class="hud off" id="caption" aria-live="polite"><button class="say" type="button" data-k="say-caption" aria-label="もういちど きく"></button><span class="txt"></span></div>
+  <div class="hud toast" id="toast" hidden aria-live="polite"><button class="say" type="button" data-k="say-toast" aria-label="もういちど きく"></button><span class="mk"></span><span class="txt"></span></div>
   <div class="counter" id="counter" hidden><span class="lab" id="cLab">めん</span><span class="num" id="cNum">0</span><span class="unitw" id="cUnit">つ</span></div>
 
   <section class="dock app-screen" id="dock" hidden>
@@ -55,7 +55,7 @@
   </section>
 
   <!-- 地図（ホーム） -->
-  <section class="home" id="home">
+  <section class="homemap" id="home">
     <div class="home-head">
       <h1>かたちラボ<small>しさく</small></h1>
       <div class="tools">

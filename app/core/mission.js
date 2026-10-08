@@ -41,14 +41,16 @@ export function dueReviews() {
 
 export function ensureMission() {
   const t = today();
-  if (R.data.mission && R.data.mission.date === t && R.data.mission.v === 2) return R.data.mission;
   const uid = currentUnitId(), unit = A.byId.get(uid);
+  const old = R.data.mission;
+  // その日のミッションは1回だけ作る。ただし単元が1つもない状態で作ったものは、単元が開いたら作り直す
+  if (old && old.date === t && old.v === 2 && (old.tasks.length >= 3 || !unit || !(unit.mission || []).length)) return old;
   const dueN = Math.max(1, Math.min(3, dueReviews().length || 2));
   const rot = (unit && unit.mission) || [];
   const dayIdx = Math.floor(Date.now() / 864e5);
   const m3 = rot.length ? rot[dayIdx % rot.length] : null;
   R.data.mission = { v: 2, date: t, done: false, tasks: [
-    { key: 'review', goal: dueN, n: 0, label: `おもいだし ${dueN}もん`, icon: 'review' },
+    { key: 'review', goal: dueN, n: old && old.date === t ? Math.min(dueN, (old.tasks.find(x => x.key === 'review') || {}).n || 0) : 0, label: `おもいだし ${dueN}もん`, icon: 'review' },
     { key: 'tamesu', unit: uid, goal: 1, n: 0, label: '「ためす」を 1かい', icon: 'tamesu' },
     ...(m3 ? [{ key: m3.key, unit: uid, goal: 1, n: 0, label: m3.label, icon: m3.icon || 'make', go: m3.go }] : []),
   ] };
