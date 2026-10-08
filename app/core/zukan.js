@@ -4,7 +4,7 @@ import { zukanList, newlyFound } from './records.js';
 import { sfx, hush } from './sound.js';
 import { hideHud, gradeLabel } from './hud.js';
 import { loadCatalog } from '../engine/catalog.js';
-import { polysSVG } from './figs.js';
+import { polysSVG, figSVG } from './figs.js';
 import { faceColors, tok } from './theme.js';
 
 let getCtx = null, Z = { unit: null, coll: null };
@@ -66,7 +66,7 @@ async function renderBody() {
     const items = z.items || [];
     $('zCount').textContent = `${items.filter(it => found.has(it.id)).length} / ${items.length}`;
     body.innerHTML = `<div class="zgrid">${items.map(it => found.has(it.id)
-      ? `<div class="zcard${newlyFound.has(z.id + ':' + it.id) ? ' new' : ''}">${it.svg || ''}<span class="lbl">${it.label}</span></div>`
+      ? `<div class="zcard${newlyFound.has(z.id + ':' + it.id) ? ' new' : ''}">${it.svg || (it.fig ? figSVG(it.fig) : '')}<span class="lbl">${it.label}</span></div>`
       : `<div class="zcard none"><span class="q2">？</span><span class="lbl" style="color:${tok('ink-soft')}">${it.hint || ''}</span></div>`).join('')}</div>${goBtn}`;
   }
   [...newlyFound].filter(k => k.startsWith(z.id + ':')).forEach(k => newlyFound.delete(k));

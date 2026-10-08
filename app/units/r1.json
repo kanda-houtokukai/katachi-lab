@@ -1,0 +1,586 @@
+{
+ "note": "1年「かたちあそび」。設計書 R1。文面はすべて下書き（reviewed:false）。身の回りの物は商品名・商標の分かる絵を使わず、形と色だけで作る。坂・積み上げは決まった動き（物理エンジンなし）。",
+ "school": "1年「かたちあそび」",
+ "tabs": {
+  "miru": [
+   {
+    "part": "slope-roll",
+    "label": "みる",
+    "opts": {
+     "mode": "demo"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "slope-roll",
+    "label": "さかで ためす",
+    "opts": {
+     "mode": "try",
+     "things": [
+      "ball",
+      "can",
+      "snack",
+      "dice",
+      "wrap",
+      "orange"
+     ]
+    }
+   },
+   {
+    "part": "stack",
+    "label": "つむ",
+    "opts": {
+     "mode": "stack"
+    }
+   },
+   {
+    "part": "stack",
+    "label": "さわって くらべる",
+    "opts": {
+     "mode": "feel"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "sort",
+    "label": "なかまわけ",
+    "opts": {
+     "mode": "sort"
+    }
+   },
+   {
+    "part": "sort",
+    "label": "ころがる？ つめる？",
+    "opts": {
+     "mode": "pick"
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "shape-stamp",
+    "label": "かたちを うつす",
+    "opts": {
+     "mode": "stamp"
+    }
+   },
+   {
+    "part": "shape-stamp",
+    "label": "つみきの まち",
+    "opts": {
+     "mode": "town"
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "things",
+   "kind": "list",
+   "label": "みのまわりの かたち",
+   "title": "みのまわりの かたち",
+   "go": {
+    "mode": "tamesu",
+    "act": 0
+   },
+   "goLabel": "「なかまわけ」で あつめよう",
+   "items": [
+    {
+     "id": "snack",
+     "label": "おかしの はこ（はこ）",
+     "fig": "box",
+     "hint": "はこの なかま"
+    },
+    {
+     "id": "dice",
+     "label": "さいころ（はこ）",
+     "fig": "box",
+     "hint": "はこの なかま"
+    },
+    {
+     "id": "tissue",
+     "label": "ティッシュの はこ（はこ）",
+     "fig": "box",
+     "hint": "はこの なかま"
+    },
+    {
+     "id": "block",
+     "label": "つみき（はこ）",
+     "fig": "box",
+     "hint": "はこの なかま"
+    },
+    {
+     "id": "lunch",
+     "label": "おべんとうばこ（はこ）",
+     "fig": "box",
+     "hint": "はこの なかま"
+    },
+    {
+     "id": "can",
+     "label": "かん（つつ）",
+     "fig": "can",
+     "hint": "つつの なかま"
+    },
+    {
+     "id": "wrap",
+     "label": "ラップの しん（つつ）",
+     "fig": "can",
+     "hint": "つつの なかま"
+    },
+    {
+     "id": "roll",
+     "label": "トイレットペーパー（つつ）",
+     "fig": "can",
+     "hint": "つつの なかま"
+    },
+    {
+     "id": "pencil",
+     "label": "えんぴつたて（つつ）",
+     "fig": "can",
+     "hint": "つつの なかま"
+    },
+    {
+     "id": "ball",
+     "label": "ボール（ボール）",
+     "fig": "ball",
+     "hint": "ボールの なかま"
+    },
+    {
+     "id": "marble",
+     "label": "ビーだま（ボール）",
+     "fig": "ball",
+     "hint": "ボールの なかま"
+    },
+    {
+     "id": "orange",
+     "label": "みかん（ボール）",
+     "fig": "ball",
+     "hint": "ボールの なかま"
+    },
+    {
+     "id": "beach",
+     "label": "ビーチボール（ボール）",
+     "fig": "ball",
+     "hint": "ボールの なかま"
+    },
+    {
+     "id": "snow",
+     "label": "ゆきだま（ボール）",
+     "fig": "ball",
+     "hint": "ボールの なかま"
+    }
+   ]
+  }
+ ],
+ "mission": [
+  {
+   "key": "sort",
+   "label": "なかまわけを する",
+   "icon": "tamesu",
+   "go": {
+    "mode": "tamesu",
+    "act": 0
+   }
+  },
+  {
+   "key": "stamp",
+   "label": "かたちを うつして あてっこ",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  },
+  {
+   "key": "town",
+   "label": "つみきの まちを つくる",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 1
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "r1-roll",
+   "q": "ころがるのは どれ？",
+   "ch": [
+    "ボール",
+    "はこ"
+   ],
+   "a": 0,
+   "fig": "ball",
+   "reviewed": false
+  },
+  {
+   "id": "r1-stack",
+   "q": "うえに つみきを つめるのは どれ？",
+   "ch": [
+    "はこ",
+    "ボール"
+   ],
+   "a": 0,
+   "fig": "box",
+   "reviewed": false
+  },
+  {
+   "id": "r1-flat",
+   "q": "たいらな ところが ある かたちは？",
+   "ch": [
+    "はこ",
+    "ボール"
+   ],
+   "a": 0,
+   "fig": "box",
+   "reviewed": false
+  },
+  {
+   "id": "r1-round",
+   "q": "まるい ところ だけの かたちは？",
+   "ch": [
+    "ボール",
+    "つつ",
+    "はこ"
+   ],
+   "a": 0,
+   "fig": "ball",
+   "reviewed": false
+  },
+  {
+   "id": "r1-tube-up",
+   "q": "さかに たてに おいた つつは どうなる？",
+   "ch": [
+    "ころがる",
+    "すべる"
+   ],
+   "a": 1,
+   "fig": "can",
+   "reviewed": false
+  },
+  {
+   "id": "r1-tube-side",
+   "q": "さかに よこに おいた つつは どうなる？",
+   "ch": [
+    "ころがる",
+    "すべる"
+   ],
+   "a": 0,
+   "fig": "slope",
+   "reviewed": false
+  },
+  {
+   "id": "r1-stamp-box",
+   "q": "はこを かみに おしあてると どんな かたちが うつる？",
+   "ch": [
+    "しかく",
+    "まる",
+    "ちいさな てん"
+   ],
+   "a": 0,
+   "fig": "box",
+   "reviewed": false
+  },
+  {
+   "id": "r1-stamp-tube",
+   "q": "つつの たいらな ところを おしあてると？",
+   "ch": [
+    "しかく",
+    "まる"
+   ],
+   "a": 1,
+   "fig": "can",
+   "reviewed": false
+  },
+  {
+   "id": "r1-ball-stack",
+   "q": "ボールの うえに つみきは つめる？",
+   "ch": [
+    "つめる",
+    "つめない"
+   ],
+   "a": 1,
+   "fig": "ball",
+   "reviewed": false
+  }
+ ],
+ "insights": [
+  {
+   "key": "tube",
+   "title": "つつはいつも転がると考えている",
+   "tag": "1年の内容",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "r1.quiz",
+     "detail.mistake": "tube-up"
+    },
+    "min": 2
+   },
+   "obs": "「ころがるのは どれ？」で、立てて置いたつつを {n}回選んでいます。",
+   "body": "つつは置く向きで、転がったり（横向き）すべったり（縦向き）します。向きで変わることに、まだ気づいていない段階です。",
+   "home": "空き缶やラップの芯を、立てたり寝かせたりして坂（まな板を傾けたものなど）で転がす遊びがおすすめです。"
+  },
+  {
+   "key": "ball",
+   "title": "ボールも積めると考えている",
+   "tag": "1年の内容",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "r1.quiz",
+     "detail.mistake": "ball-stack"
+    },
+    "min": 2
+   },
+   "obs": "「つめるのは どれ？」で、ボールを {n}回選んでいます。",
+   "body": "平らなところがあると上に積めることと、ボールには平らなところがないことが、まだ結びついていない段階です。",
+   "home": "積み木の上にボールを、ボールの上に積み木を乗せてみてください。落ちる様子を一緒に見て「平らなところがないからだね」と声をかけると効果的です。"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r1.sort-done",
+      "correct": true
+     }
+    ]
+   },
+   "text": "身の回りの物を、はこ・つつ・ボールの仲間に、まちがいなく分けられました。"
+  },
+  {
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "r1.stack",
+     "correct": true
+    },
+    "min": 4
+   },
+   "text": "形を選んで{n}回積み上げました。"
+  },
+  {
+   "test": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r1.town",
+      "correct": true
+     }
+    ]
+   },
+   "text": "「つみきの まち」で、決められた形を作りました。"
+  },
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "r1.quiz"
+    },
+    "min": 3
+   },
+   "text": "「ころがる？ つめる？」で、ヒントを使わずに{best}問続けて正解しました。"
+  }
+ ],
+ "map": [
+  {
+   "activity": "箱・つつ・ボールの仲間分け",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r1.sort-done"
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r1.sort"
+     }
+    ]
+   }
+  },
+  {
+   "activity": "転がる・すべる（坂で確かめる）",
+   "done": {
+    "type": "count",
+    "where": {
+     "kind": "r1.roll"
+    },
+    "min": 3
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r1.roll"
+     },
+     {
+      "kind": "r1.miru"
+     }
+    ]
+   }
+  },
+  {
+   "activity": "積める・積めない",
+   "done": {
+    "type": "count",
+    "where": {
+     "kind": "r1.stack",
+     "correct": true
+    },
+    "min": 3
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r1.stack"
+     }
+    ]
+   }
+  },
+  {
+   "activity": "平らなところ・まるいところ",
+   "done": {
+    "type": "distinct",
+    "where": {
+     "kind": "r1.feel"
+    },
+    "field": "detail.kind",
+    "min": 3
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r1.feel"
+     }
+    ]
+   }
+  },
+  {
+   "activity": "形を写し取る",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "r1.stamp-guess"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r1.stamp"
+     }
+    ]
+   }
+  },
+  {
+   "activity": "形を組み合わせて作る",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "r1.town",
+      "correct": true
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "r1.miru": "坂で転がる形・すべる形を見ました",
+  "r1.roll": "坂で形を転がして確かめました",
+  "r1.stack": [
+   {
+    "where": {
+     "correct": true
+    },
+    "text": "形を積み上げました（{n}こ）"
+   },
+   {
+    "where": {},
+    "text": "積めない形を確かめました"
+   }
+  ],
+  "r1.feel": "形の平らなところ・まるいところを調べました",
+  "r1.sort": [
+   {
+    "where": {
+     "correct": true
+    },
+    "text": "仲間分けで正しく入れました"
+   },
+   {
+    "where": {},
+    "text": "仲間分けでまちがえました"
+   }
+  ],
+  "r1.sort-done": "仲間分けを最後までしました（まちがい{miss}回）",
+  "r1.quiz": "「ころがる？ つめる？」：{ok}{hints}",
+  "r1.quiz-done": "「ころがる？ つめる？」（{level}）{n}問中{score}問正解",
+  "r1.stamp": "形を紙に写し取りました",
+  "r1.stamp-guess": "写った形から元の形を当てる：{ok}",
+  "r1.town": "「つみきの まち」で{design}を作りました",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 16.5,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 2,
+   "h": 17,
+   "kind": "quiz",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "roll",
+    "mistake": "tube-up"
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 2,
+   "h": 17.1,
+   "kind": "quiz",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "roll",
+    "mistake": "tube-up"
+   }
+  },
+  {
+   "d": 4,
+   "h": 17.5,
+   "kind": "sort-done",
+   "correct": true,
+   "detail": {
+    "miss": 0
+   }
+  }
+ ],
+ "demoZukan": {
+  "things": [
+   "ball",
+   "can",
+   "snack"
+  ]
+ }
+}

@@ -1,7 +1,7 @@
 {
  "note": "地図の定義。単元を足すときは app/units/ に JSON を1つ置き、ここに1行足す（ready:true）。前提関係は R1→R2→R4→R5a→RJ、R4→R5b→R6→RJ。",
  "units": [
-  { "id": "r1", "grade": 1, "band": "main", "file": "r1.json", "ready": false, "title": "かたちあそび", "plain": "1年 かたちあそび", "requires": [] },
+  { "id": "r1", "grade": 1, "band": "main", "file": "r1.json", "ready": true, "title": "かたちあそび", "plain": "1年 かたちあそび", "requires": [] },
   { "id": "r2", "grade": 2, "band": "main", "file": "r2.json", "ready": true, "title": "はこの<ruby>形<rt>かたち</rt></ruby>", "plain": "2年 はこの形", "requires": ["r1"] },
   { "id": "r4", "grade": 4, "band": "ahead", "file": "r4.json", "ready": true, "title": "<ruby>直方体<rt>ちょくほうたい</rt></ruby>と<ruby>立方体<rt>りっぽうたい</rt></ruby>", "plain": "4年 直方体と立方体", "requires": ["r2"] },
   { "id": "r5a", "grade": 5, "band": "ahead", "file": "r5a.json", "ready": true, "title": "<ruby>角柱<rt>かくちゅう</rt></ruby>と<ruby>円柱<rt>えんちゅう</rt></ruby>", "plain": "5年 角柱と円柱", "requires": ["r4"] },
