@@ -91,6 +91,14 @@ export function mount(ctx) {
     },
     onResize() { if (!net) { const b = new THREE.Box3(); meshes.forEach(m => b.expandByPoint(m.userData.home.clone().add(new THREE.Vector3(1.0, 0.2, 0.75))).expandByPoint(m.userData.home.clone().add(new THREE.Vector3(-1.0, 0, -0.75)))); fitBox(b, 0.3, 0, 1.04); } },
     dispose() {},
-    test: { cards: () => cards.map((d, i) => ({ i, dims: d, picked: picked.has(i) })), target: () => target, cardPoint: i => objScreen(meshes[i]), state: () => ({ built: !!net, busy, picked: picked.size }) },
+    test: { auto() {
+        if (busy && !net) return { wait: 300 };
+        if (net) return { done: true };
+        const need = [[target[0], target[1]], [target[0], target[1]], [target[0], target[2]], [target[0], target[2]], [target[1], target[2]], [target[1], target[2]]].map(([a, b]) => [Math.max(a, b), Math.min(a, b)].join('x'));
+        const want = []; for (const n of need) { const i = cards.findIndex((c, k) => c.join('x') === n && !want.includes(k)); want.push(i); }
+        const wrong = [...picked].find(i => !want.includes(i)); if (wrong != null) return { tap: objScreen(meshes[wrong]) };
+        const add = want.find(i => !picked.has(i)); if (add != null) return { tap: objScreen(meshes[add]) };
+        return { click: 'data-k=build|' };
+      }, cards: () => cards.map((d, i) => ({ i, dims: d, picked: picked.has(i) })), target: () => target, cardPoint: i => objScreen(meshes[i]), state: () => ({ built: !!net, busy, picked: picked.size }) },
   };
 }

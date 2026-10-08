@@ -104,13 +104,13 @@ export function mount(ctx) {
       toast(ICON.X, 'あかい めんが かさなって、あなが あいたよ', 3.6);
       q$('st').innerHTML = 'べつの ならべかたを ためそう'; q$('paper').hidden = true;
     }
-    ctx.log('build', { correct: a.valid, hints, detail: { valid: a.valid, id, solid: 'cube' } });
+    ctx.log('build', { correct: a.valid, hints, detail: { valid: a.valid, id, solid: 'cube', name: '立方体' } });
     state = 'done'; q$('after').hidden = false;
   });
   async function backToEdit(keep) {
     if (!net) return;
     const tag = S.token, n0 = net;
-    ctx.hideHud(); q$('after').hidden = true;
+    state = 'back'; ctx.hideHud(); q$('after').hidden = true;
     frameGrid(); S.allowRotate = false;
     await settleHolder(n0); sfx.swish(1.2);
     await foldTo(n0, 0, 1.4); if (!alive(tag)) return;
@@ -130,7 +130,7 @@ export function mount(ctx) {
     sfx.tap();
     const id = netId(net.cells) + 1;
     ctx.openPaper({ layout: net.L, colors: net.colors, title: 'はこの てんかいず', sub: `No.${id} / 11`, unitText: '1マス', foot: '2ねん「はこの形」　4ねん「直方体と立方体」', file: `hako-tenkaizu-${id}` });
-    ctx.log('paper', { detail: { solid: 'cube', id } });
+    ctx.log('paper', { detail: { solid: 'cube', name: '立方体', id } });
   });
   enter();
   return {
@@ -151,6 +151,14 @@ export function mount(ctx) {
     },
     onResize() { if (state === 'edit') frameGrid(); },
     dispose() { clearGhosts(); },
-    test: { cellPoint: (x, z) => toScreen(new THREE.Vector3(GRID.x0 + x + 0.5, 0.01, GRID.z0 + z + 0.5)), state: () => ({ state, tiles: tiles.size, valid: net ? net.analysis.valid : null }) },
+    test: { auto() {
+        if (state === 'done') return { done: true };
+        if (state !== 'edit') return { wait: 300 };
+        const want = [[0, 0], [0, 1], [1, 1], [2, 1], [3, 1], [1, 2]], have = new Set([...tiles.keys()]);
+        const extra = [...tiles.values()].find(t => !want.some(([x, z]) => x === t.x && z === t.z));
+        if (extra) return { tap: this.cellPoint(extra.x, extra.z) };
+        const next = want.find(([x, z]) => !have.has(x + ',' + z));
+        return next ? { tap: this.cellPoint(next[0], next[1]) } : { click: 'data-k=build|' };
+      }, cellPoint: (x, z) => toScreen(new THREE.Vector3(GRID.x0 + x + 0.5, 0.01, GRID.z0 + z + 0.5)), state: () => ({ state, tiles: tiles.size, valid: net ? net.analysis.valid : null }) },
   };
 }

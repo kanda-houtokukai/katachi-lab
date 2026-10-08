@@ -185,6 +185,14 @@ export function mount(ctx) {
     onResize() { ctx.restart(); },
     dispose() {},
     test: {
+      auto() {
+        if (U.busy) return { wait: 300 };
+        if (U.phase === 'done' || U.phase === 'ready') return { done: true };
+        if (U.phase === 'stamp') { const vis = this.visibleSides(); return vis.length ? { tap: this.sidePoint(vis[0]) } : { click: 'data-k=roll|' }; }
+        const key = r => r.dims.join('x');
+        if (U.sel) { const t = U.stamps.find(r => r !== U.sel && !r.paired && key(r) === key(U.sel)); return { tap: objScreen(t.mesh) }; }
+        const s = U.stamps.find(r => !r.paired); return s ? { tap: objScreen(s.mesh) } : { done: true };
+      },
       state: () => ({ phase: U.phase, busy: U.busy, stamped: [...U.stamped], pairs: U.pairs, sel: !!U.sel }),
       visibleSides: () => [0, 1, 2, 3, 4, 5].filter(s => !U.stamped.includes(s) && sideVisible(s)),
       sidePoint: s => toScreen(SIDE_N[s].clone().multiply(new THREE.Vector3(BOX.L / 2, BOX.H / 2, BOX.W / 2)).applyQuaternion(U.box.quaternion).add(U.box.position)),

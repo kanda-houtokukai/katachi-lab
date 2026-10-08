@@ -173,7 +173,7 @@ export function mount(ctx) {
     const b = netBox(net); b.max.y += 1; fitBox(b, 0.92, 0.5, 1.15);
     sfx.swish(1.4); await foldTo(net, 1, 1.9 * (1 - net.progress) + 0.2); if (!alive(tag)) return null;
     quiz.results[quiz.i] = { correct, hints: quiz.hints }; renderDots();
-    ctx.log('quiz', { correct, hints: quiz.hints, level: quiz.level, detail: Object.assign({ type: q.type, valid: q.valid, id: q.no, solid: q.solid || 'cube' }, extra) });
+    ctx.log((opts.kinds && opts.kinds[q.type]) || 'quiz', { correct, hints: quiz.hints, level: quiz.level, detail: Object.assign({ type: q.type, valid: q.valid, id: q.no, solid: q.solid || 'cube' }, extra) });
     return tag;
   }
   async function answer(saysValid) {
@@ -190,8 +190,10 @@ export function mount(ctx) {
     } else {
       if (correct) sfx.good(); else sfx.bad();
       const ov = net.analysis.overlaps.length ? net.analysis.overlaps : [];
+      const bad = q.Lshown.badHinges || [];
       if (ov.length) showOverlap(net, ov); else spinCamera(3.2, Math.PI * 0.85);
-      const what = ov.length ? 'あかい めんが かさなって、あなが あいたよ' : 'めんが ぴったり あわないね';
+      bad.forEach(i => { glow(net.nodes[i].mesh, tok('glow-red'), 3, 0.75, 0.4); S.held.add(net.nodes[i].mat); });
+      const what = bad.length ? 'あかい めんは、へんの ながさが あわなくて となりあわないよ' : ov.length ? 'あかい めんが かさなって、あなが あいたよ' : 'めんが ぴったり あわないね';
       toast(correct ? ICON.HANAMARU : ICON.X, correct ? `せいかい！ ${what}` : what, 3.6);
     }
     afterAnswer();
@@ -221,7 +223,7 @@ export function mount(ctx) {
     const score = quiz.results.filter(r => r.correct).length;
     q$('stars').innerHTML = starsHTML(quiz.results, ICON);
     q$('score').textContent = `${quiz.list.length}もん中 ${score}もん せいかい`;
-    ctx.log('quiz-done', { level: quiz.level, detail: { n: quiz.list.length, score } });
+    ctx.log(opts.doneKind || 'quiz-done', { level: quiz.level, detail: { n: quiz.list.length, score } });
     ctx.done('tamesu');
     if (score === quiz.list.length) { sfx.good(); burst(done.home); toast(ICON.HANAMARU, 'ぜんもん せいかい！', 3); } else ctx.say(`${quiz.list.length}もん中 ${score}もん せいかい`);
   });
@@ -287,6 +289,16 @@ export function mount(ctx) {
     onResize() { if (quiz.net) { if (quiz.phase === 'ask') frameFlat(quiz.net, 0.18, 0); else frameBox(quiz.net, S.goal.phi, S.goal.theta, 2.0); } },
     dispose() { clearOverlays(); },
     test: {
+      auto() {
+        const q = quiz.list[quiz.i]; if (!q || !quiz.net) return { wait: 300 };
+        if (!q$('result').hidden) return { done: true };
+        if (quiz.phase === 'done') return { click: 'data-k=next|' };
+        if (quiz.phase !== 'ask') return { wait: 300 };
+        if (q.type === 'valid?') return { click: q.valid ? 'data-ans=1|' : 'data-ans=0|' };
+        if (q.type === 'opp') return { tap: this.facePoint(quiz.net.analysis.opposite[quiz.star]) };
+        if (q.type === 'edge') return { tap: this.edgePoint('answer') };
+        return { tap: this.vertexPoint('answer') };
+      },
       state: () => { const q = quiz.list[quiz.i]; return q && { phase: quiz.phase, i: quiz.i, n: quiz.list.length, type: q.type, valid: q.valid, star: quiz.star && quiz.star.face != null ? { face: quiz.star.face, k: quiz.star.k } : quiz.star, opposite: quiz.net && quiz.net.analysis.opposite, faces: q.Lshown.faces.length }; },
       facePoint: i => objScreen(quiz.net.nodes[i].mesh, new THREE.Vector3(quiz.net.nodes[i].center[0], 0.03, quiz.net.nodes[i].center[1])),
       edgePoint: which => { const e = which === 'answer' ? quiz.answer : quiz.list[quiz.i].outer.find(x => !(x.face === quiz.answer.face && x.k === quiz.answer.k) && !(x.face === quiz.star.face && x.k === quiz.star.k)); return objScreen(quiz.net.nodes[e.face].g, new THREE.Vector3((e.a[0] + e.b[0]) / 2, T, (e.a[1] + e.b[1]) / 2)); },

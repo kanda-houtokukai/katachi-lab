@@ -40,7 +40,7 @@ export function mount(ctx) {
   const updateH = () => { q$('st').innerHTML = `ひご <b>${Hn.placed}</b>/12　ねんど <b>${Hn.balls.size}</b>/8`; };
   renderTray(); updateH();
   caption('ひごを えらんで、てんせんの ところを タッチしよう');
-  $$p(panel, '.stick').forEach(b => on(b, 'click', () => { if (Hn.left[b.dataset.t] === 0) return; sfx.tap(); Hn.sel = b.dataset.t; renderTray(); }));
+  $$p(panel, '.stick').forEach(b => on(b, 'click', () => { if (Hn.left[b.dataset.t] === 0) return; sfx.tap(); if (Hn.sel === b.dataset.t) { toast('', 'てんせんの ところを タッチすると この ひごを おけるよ', 2); return; } Hn.sel = b.dataset.t; renderTray(); }));
   on(q$('reset'), 'click', () => { sfx.tap(); ctx.restart(); });
   function makeStick(type, len) {
     const g = new THREE.Group();
@@ -101,6 +101,12 @@ export function mount(ctx) {
     },
     dispose() {},
     test: {
+      auto() {
+        if (Hn.done) return { done: true };
+        const e = Hn.edges.find(x => !x.placed && x.type === Hn.sel) || Hn.edges.find(x => !x.placed);
+        if (e.type !== Hn.sel) return { click: `data-t=${e.type}|` };
+        return { tap: this.edgePoint(Hn.edges.indexOf(e)), wait: 250 };
+      },
       edges: () => Hn.edges.map((e, i) => ({ i, type: e.type, placed: e.placed })),
       edgePoint: i => { Hn.group.updateMatrixWorld(true); const e = Hn.edges[i], d = new THREE.Vector3(e.ax === 'x' ? 1 : 0, e.ax === 'y' ? 1 : 0, e.ax === 'z' ? 1 : 0).multiplyScalar(e.len * 0.2); return toScreen(e.p.clone().add(d).applyMatrix4(Hn.group.matrixWorld)); },
       state: () => ({ placed: Hn.placed, done: Hn.done, sel: Hn.sel }),

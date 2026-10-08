@@ -281,7 +281,7 @@ function setupPointers(canvas) {
     if (!drag) return;
     const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY;
     if (Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy) > 9) drag.moved = true;
-    if (drag.custom) { S.onDrag && S.onDrag('move', e); return; }
+    if (drag.custom) { if (drag.moved) S.onDrag && S.onDrag('move', e); return; }
     if (drag.moved && S.allowRotate) {
       S.goal.theta -= dx * 0.009; S.rig.theta = S.goal.theta;
       S.goal.phi = THREE.MathUtils.clamp(S.goal.phi - dy * 0.007, 0.06, 1.38); S.rig.phi = S.goal.phi;
@@ -292,7 +292,7 @@ function setupPointers(canvas) {
     if (!pointers.has(e.pointerId)) return;
     pointers.delete(e.pointerId);
     if (drag && drag.custom) S.onDrag && S.onDrag('end', e);
-    else if (drag && !drag.moved && pointers.size === 0 && S.onTap) S.onTap(e);
+    if (drag && !drag.moved && pointers.size === 0 && S.onTap) S.onTap(e);
     if (pointers.size < 2) pinch = null; if (pointers.size === 0) drag = null;
   });
   canvas.addEventListener('pointercancel', e => { pointers.delete(e.pointerId); drag = null; pinch = null; });

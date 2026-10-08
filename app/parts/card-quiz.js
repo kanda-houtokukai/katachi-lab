@@ -141,6 +141,6 @@ export function mount(ctx) {
   });
   on(q$('again'), 'click', () => { sfx.tap(); start(); });
   start();
-  return { test: { state: () => { const q = quiz.list[quiz.i]; return q && { phase: quiz.phase, valid: q.valid, i: quiz.i, n: quiz.list.length }; } }, onResize() { if (quiz.phase === 'ask') { meshes.forEach((m, i) => m.position.copy(trayPos(i))); frameTray(); } }, dispose() {} };
+  return { test: { auto() { const q = quiz.list[quiz.i]; if (!q) return { wait: 300 }; if (!q$('result').hidden) return { done: true }; if (quiz.phase === 'done') return { click: 'data-k=next|' }; if (quiz.phase !== 'ask') return { wait: 300 }; return { click: q.valid ? 'data-ans=1|' : 'data-ans=0|' }; }, state: () => { const q = quiz.list[quiz.i]; return q && { phase: quiz.phase, valid: q.valid, i: quiz.i, n: quiz.list.length }; } }, onResize() { if (quiz.phase === 'ask') { meshes.forEach((m, i) => m.position.copy(trayPos(i))); frameTray(); } }, dispose() {} };
 }
 export { makeQ };

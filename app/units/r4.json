@@ -1,0 +1,157 @@
+{
+ "note": "4年「直方体と立方体」（ちょっと先）。設計書 R4。文面はすべて下書き（reviewed:false）。展開図の数はカタログ（凍結値）から引く。",
+ "school": "4年「直方体と立方体」",
+ "tabs": {
+  "miru": [
+   { "part": "miru-solids", "label": "みわける", "opts": { "mode": "kinds", "intro": "3つの はこを くらべよう",
+    "items": [
+     { "solid": "cube", "label": "りっぽうたい", "say": "ましかく だけで かこまれた はこは <ruby>立方体<rt>りっぽうたい</rt></ruby>" },
+     { "solid": "sq-prism", "label": "ちょくほうたい", "say": "ながしかくと ましかくで かこまれた はこも <ruby>直方体<rt>ちょくほうたい</rt></ruby>" },
+     { "solid": "cuboid", "label": "ちょくほうたい", "say": "ながしかく だけで かこまれた はこは <ruby>直方体<rt>ちょくほうたい</rt></ruby>" }
+    ], "outro": "ひかった ましかくの めんで みわけられるね" } },
+   { "part": "miru-solids", "label": "きりひらく", "opts": { "mode": "cut", "solids": [{ "solid": "cuboid", "label": "ちょくほうたい" }, { "solid": "cube", "label": "りっぽうたい" }] } }
+  ],
+  "sawaru": [{ "part": "fold-explore", "label": "さわる", "opts": {
+   "solids": [
+    { "key": "cube", "label": "りっぽうたい", "src": "catalog", "solid": "cube", "oppGrade": 4, "paperTitle": "りっぽうたい" },
+    { "key": "cuboid", "label": "ちょくほうたい", "src": "catalog", "solid": "cuboid", "oppGrade": 4, "paperTitle": "ちょくほうたい" },
+    { "key": "sq-prism", "label": "ましかくが 2つ", "src": "catalog", "solid": "sq-prism", "oppGrade": 4, "paperTitle": "ちょくほうたい" }
+   ],
+   "tools": ["count", "next", "paper", "opposite", "edge", "vertex", "paraperp", "sketch"]
+  } }],
+  "tamesu": [
+   { "part": "net-quiz", "label": "はこに なるかな", "opts": { "kinds": { "valid?": "net-quiz" }, "levels": {
+    "easy": [{ "type": "valid?", "src": "catalog", "solid": "cube", "valid": true, "n": 2, "coll": "cube" }, { "type": "valid?", "src": "grid", "valid": false, "n": 2 }],
+    "normal": [{ "type": "valid?", "src": "catalog", "solid": "cuboid", "valid": true, "n": 2, "coll": "cuboid" }, { "type": "valid?", "src": "catalog", "solid": "cuboid", "valid": false, "n": 2, "mismatch": 1 }, { "type": "valid?", "src": "catalog", "solid": "cube", "valid": true, "n": 1, "coll": "cube" }, { "type": "valid?", "src": "grid", "valid": false, "n": 1 }],
+    "challenge": [{ "type": "valid?", "src": "catalog", "solid": "cuboid", "valid": true, "n": 2, "coll": "cuboid" }, { "type": "valid?", "src": "catalog", "solid": "cuboid", "valid": false, "n": 2, "mismatch": 1 }, { "type": "valid?", "src": "catalog", "solid": "sq-prism", "valid": true, "n": 1, "coll": "sq-prism" }, { "type": "valid?", "src": "catalog", "solid": "sq-prism", "valid": false, "n": 1 }]
+   } } },
+   { "part": "net-quiz", "label": "★の あいて", "opts": { "kinds": { "opp": "opp", "edge": "edge-match", "vertex": "vertex-match" }, "doneKind": "star-done", "levels": {
+    "easy": [{ "type": "opp", "src": "catalog", "solid": "cube", "n": 3 }, { "type": "opp", "src": "catalog", "solid": "cuboid", "n": 1 }],
+    "normal": [{ "type": "opp", "src": "catalog", "solid": "cuboid", "n": 2 }, { "type": "edge", "src": "catalog", "solid": "cube", "n": 2 }],
+    "challenge": [{ "type": "edge", "src": "catalog", "solid": "cuboid", "n": 2 }, { "type": "vertex", "src": "catalog", "solid": "cube", "n": 2 }, { "type": "opp", "src": "catalog", "solid": "sq-prism", "n": 1 }]
+   } } },
+   { "part": "para-quiz", "label": "へいこう・すいちょく" },
+   { "part": "sketch-quiz", "label": "みとりず" },
+   { "part": "position", "label": "いちの あらわしかた" }
+  ],
+  "tsukuru": [
+   { "part": "net-build-grid", "label": "てんかいず（りっぽうたい）", "opts": { "coll": "cube" } },
+   { "part": "net-build-cards", "label": "てんかいず（ちょくほうたい）", "opts": { "solids": [
+    { "key": "cuboid", "label": "ちょくほうたい", "solid": "cuboid", "made": "ちょくほうたいが できた", "paperTitle": "ちょくほうたい" },
+    { "key": "sq-prism", "label": "ましかくが 2つ", "solid": "sq-prism", "made": "ちょくほうたいが できた", "paperTitle": "ちょくほうたい" }
+   ] } },
+   { "part": "dice", "label": "さいころを つくる" }
+  ]
+ },
+ "zukan": [
+  { "id": "cube", "kind": "catalog", "solid": "cube", "total": 11, "label": "りっぽうたい", "title": "<ruby>立方体<rt>りっぽうたい</rt></ruby>の てんかいず", "initial": [5], "go": { "mode": "tsukuru", "act": 0 }, "play": { "mode": "sawaru", "act": 0 } },
+  { "id": "cuboid", "kind": "catalog", "solid": "cuboid", "total": 54, "label": "ちょくほうたい", "title": "<ruby>直方体<rt>ちょくほうたい</rt></ruby>の てんかいず", "go": { "mode": "tsukuru", "act": 1 }, "play": { "mode": "sawaru", "act": 0 } },
+  { "id": "sq-prism", "kind": "catalog", "solid": "sq-prism", "total": 29, "label": "ましかくが 2つ", "title": "ましかくが 2つの <ruby>直方体<rt>ちょくほうたい</rt></ruby>", "go": { "mode": "tsukuru", "act": 1 }, "play": { "mode": "sawaru", "act": 0 } }
+ ],
+ "mission": [
+  { "key": "build", "label": "ずかんを 1つ ふやす", "icon": "zukan", "go": { "mode": "tsukuru", "act": 1 } },
+  { "key": "dice", "label": "さいころを つくる", "icon": "make", "go": { "mode": "tsukuru", "act": 2 } }
+ ],
+ "review": [
+  { "id": "r4-def1", "q": "ましかく だけで かこまれた はこを なんと いう？", "ch": ["りっぽうたい", "ちょくほうたい"], "a": 0, "fig": "box", "reviewed": false },
+  { "id": "r4-def2", "q": "ながしかく だけで かこまれた はこを なんと いう？", "ch": ["りっぽうたい", "ちょくほうたい"], "a": 1, "fig": "cuboid", "reviewed": false },
+  { "id": "r4-face", "q": "ちょくほうたいの めんは いくつ？", "ch": ["4つ", "6つ", "8つ"], "a": 1, "fig": "cuboid", "reviewed": false },
+  { "id": "r4-edge", "q": "ちょくほうたいの へんは なんぼん？", "ch": ["8ほん", "12ほん", "16ぽん"], "a": 1, "fig": "cuboid", "reviewed": false },
+  { "id": "r4-vert", "q": "ちょくほうたいの ちょうてんは いくつ？", "ch": ["6つ", "8つ", "12こ"], "a": 1, "fig": "cuboid", "reviewed": false },
+  { "id": "r4-net", "q": "りっぽうたいの てんかいずは ぜんぶで なんしゅるい？", "ch": ["6しゅるい", "11しゅるい", "54しゅるい"], "a": 1, "fig": "cells:[[1,0],[0,1],[1,1],[2,1],[3,1],[1,2]]", "reviewed": false },
+  { "id": "r4-opp", "q": "てんかいずで となりあう めんは、くみたてると むかいあう？", "ch": ["むかいあう", "むかいあわない"], "a": 1, "fig": "cells:[[0,0],[0,1],[1,1],[2,1],[3,1],[1,2]]", "reviewed": false },
+  { "id": "r4-epair", "q": "くみたてると かさなる へんは、なんぼんずつ くみに なる？", "ch": ["1ぽん", "2ほん", "3ぼん"], "a": 1, "fig": "box", "reviewed": false },
+  { "id": "r4-vgroup", "q": "りっぽうたいの 1つの ちょうてんに あつまる めんは いくつ？", "ch": ["2つ", "3つ", "4つ"], "a": 1, "fig": "box", "reviewed": false },
+  { "id": "r4-par", "q": "ちょくほうたいで、1つの めんに へいこうな めんは いくつ？", "ch": ["1つ", "2つ", "4つ"], "a": 0, "fig": "cuboid", "reviewed": false },
+  { "id": "r4-per", "q": "ちょくほうたいで、1つの めんに すいちょくな めんは いくつ？", "ch": ["2つ", "4つ", "5つ"], "a": 1, "fig": "cuboid", "reviewed": false },
+  { "id": "r4-epar", "q": "ちょくほうたいで、1ぽんの へんに へいこうな へんは なんぼん？", "ch": ["1ぽん", "3ぼん", "4ほん"], "a": 1, "fig": "cuboid", "reviewed": false },
+  { "id": "r4-eper", "q": "1ぽんの へんに すいちょくに まじわる へんは なんぼん？", "ch": ["2ほん", "4ほん", "6ぽん"], "a": 1, "fig": "cuboid", "reviewed": false },
+  { "id": "r4-sketch", "q": "みとりずで、みえない へんは どう かく？", "ch": ["じっせん", "てんせん"], "a": 1, "fig": "box", "reviewed": false },
+  { "id": "r4-pos", "q": "いちを（よこ、たて）で あらわす とき、さきに いうのは？", "ch": ["よこ", "たて"], "a": 0, "fig": "cubes", "reviewed": false }
+ ],
+ "insights": [
+  { "key": "overlap", "title": "箱にならない形を「なる」と答えやすい", "tag": "4年の内容", "reviewed": false,
+   "test": { "type": "wrongRate", "where": { "kind": "r4.net-quiz", "detail.valid": false }, "minN": 2, "minWrong": 2, "ratio": 0.5 },
+   "obs": "箱にならない形の問題で {n}問中{w}問を「なる」と答えています。",
+   "body": "辺の長さが合わない所や、面が重なる所を、頭の中で追いきれていない段階です。",
+   "home": "菓子箱を辺にそって切り開き、たたみ直す遊びがおすすめです。「この面はどこに来るかな」と1枚ずつ指さしながらたたむと、重なりに気づきやすくなります。" },
+  { "key": "cautious", "title": "箱になる見慣れない形を「ならない」と答えやすい", "tag": "4年の内容", "reviewed": false,
+   "test": { "type": "wrongRate", "where": { "kind": "r4.net-quiz", "detail.valid": true }, "minN": 2, "minWrong": 2, "ratio": 0.5 },
+   "obs": "箱になる展開図の問題で {n}問中{w}問を「ならない」と答えています。",
+   "body": "立方体の展開図は11種類、直方体は54種類あります。見慣れない並び方を見ると、慎重になって「ならない」を選んでいるようです。",
+   "home": "「ずかん」を一緒に開き、見つけた展開図をたどってみてください。「こんな形でも箱になるんだね」と声をかけると、見慣れない形への抵抗が減ります。" },
+  { "key": "opp", "title": "向かい合う面の見つけ方を練習中", "tag": "4年の内容", "reviewed": false,
+   "test": { "type": "wrongRate", "where": { "kind": "r4.opp" }, "minN": 2, "minWrong": 2 },
+   "obs": "向かい合う面の問題で {n}問中{w}問がまちがいでした。",
+   "body": "展開図の上で、となり合う面と向かい合う面の区別がまだついていない段階です。",
+   "home": "サイコロを見ながら「1の反対は6」のように向かい合う目を当てる遊びが役に立ちます。「つくる」の「さいころを つくる」もおすすめです。" },
+  { "key": "edgevert", "title": "重なる辺・頂点を、となりの辺と取り違えやすい", "tag": "4年の内容", "reviewed": false,
+   "test": { "type": "wrongRate", "where": { "kind": ["r4.edge-match", "r4.vertex-match"], "correct": [true, false] }, "minN": 2, "minWrong": 2, "ratio": 0.5 },
+   "obs": "重なる辺・頂点の問題で {n}問中{w}問がまちがいでした。",
+   "body": "組み立てたときに辺がどこへ動くかを、まだ1本ずつ追えていない段階です。",
+   "home": "菓子箱を切り開き、重なる辺に同じ色のシールを貼ってから組み立て直してみてください。同じ色どうしがくっつく様子が、そのまま答えの確かめになります。" },
+  { "key": "paraperp", "title": "平行と垂直の取り違え", "tag": "4年の内容", "reviewed": false,
+   "test": { "type": "wrongRate", "where": { "kind": "r4.para-perp", "correct": [true, false] }, "minN": 2, "minWrong": 2, "ratio": 0.5 },
+   "obs": "平行・垂直の問題で {n}問中{w}問がまちがいでした。",
+   "body": "「平行＝どこまでのばしても交わらない」「垂直＝直角に交わる」の言葉と、箱の面や辺の関係がまだ結びついていない段階です。",
+   "home": "ティッシュ箱を机に置き、「この面と平行な面は？」「この辺に直角にくっつく辺は？」と指さしで当てっこをしてみてください。" },
+  { "key": "sketch", "title": "見取図で、見えない辺を実線でかいてしまう", "tag": "4年の内容", "reviewed": false,
+   "test": { "type": "wrongRate", "where": { "kind": "r4.sketch" }, "minN": 2, "minWrong": 2 },
+   "obs": "見取図の問題で {n}問中{w}問がまちがいでした。",
+   "body": "箱の後ろ側に隠れて見えない辺を、見えている辺と区別できていない段階です。",
+   "home": "透明なケースや、針金で作った骨組みの箱を見せ、「前から見ると、どの辺が後ろに隠れるかな」と話してみてください。" },
+  { "key": "position", "title": "位置の表し方で、横と縦の順を逆にしやすい", "tag": "4年の内容", "reviewed": false,
+   "test": { "type": "wrongRate", "where": { "kind": "r4.position" }, "minN": 2, "minWrong": 2 },
+   "obs": "位置の表し方の問題で {n}問中{w}問がまちがいでした。",
+   "body": "基準の点から「横にいくつ、縦にいくつ（高さいくつ）」と順に数える約束が、まだ定まっていない段階です。",
+   "home": "部屋のすみを0にして、「横に3歩、縦に2歩」で宝物を置く遊びがおすすめです。言う順番をそろえるのがこつです。" }
+ ],
+ "praises": [
+  { "test": { "type": "distinct", "where": { "kind": "r4.build", "detail.valid": true, "detail.solid": "cuboid" }, "field": "detail.id", "min": 1 }, "text": "直方体の展開図を、カードをつないで{u}種類つくりました。" },
+  { "test": { "type": "streak", "where": { "kind": ["r4.net-quiz", "r4.opp", "r4.edge-match", "r4.vertex-match"], "correct": [true, false] }, "min": 3 }, "text": "展開図の問題で、ヒントを使わずに{best}問続けて正解しました。" },
+  { "test": { "type": "any", "of": [{ "kind": "r4.dice", "correct": true }] }, "text": "向かい合う目の和が7になるさいころを、自分で作りました。" },
+  { "test": { "type": "count", "where": { "kind": "r4.para-perp", "correct": true }, "min": 3 }, "text": "平行・垂直の問題に{n}問正解しています。" },
+  { "test": { "type": "count", "where": { "kind": "r4.position", "correct": true }, "min": 3 }, "text": "位置の表し方の問題に{n}問正解しています。" }
+ ],
+ "map": [
+  { "activity": "直方体と立方体を、面の形で見分ける", "done": { "type": "any", "of": [{ "kind": "r4.miru", "detail.mode": "kinds" }] } },
+  { "activity": "展開図をつくって組み立てる（立方体・直方体）", "done": { "type": "distinct", "where": { "kind": "r4.build", "detail.valid": true }, "field": "detail.id", "min": 3 }, "mid": { "type": "any", "of": [{ "kind": "r4.build" }] }, "note": { "test": { "type": "distinct", "where": { "kind": "r4.build", "detail.valid": true }, "field": "detail.id", "min": 1 }, "text": "{u}種類" } },
+  { "activity": "箱になる展開図を見分ける", "done": { "type": "rate", "where": { "kind": "r4.net-quiz" }, "minN": 4, "min": 0.7 }, "mid": { "type": "any", "of": [{ "kind": "r4.net-quiz" }] }, "note": { "test": { "type": "rate", "where": { "kind": "r4.net-quiz" }, "minN": 1, "min": 0 }, "text": "{k}/{n}問" } },
+  { "activity": "重なる辺・重なる頂点", "done": { "type": "rate", "where": { "kind": ["r4.edge-match", "r4.vertex-match"], "correct": [true, false] }, "minN": 2, "min": 0.7 }, "mid": { "type": "any", "of": [{ "kind": "r4.edge-match" }, { "kind": "r4.vertex-match" }] } },
+  { "activity": "面と面・辺と辺の平行と垂直", "done": { "type": "rate", "where": { "kind": "r4.para-perp", "correct": [true, false] }, "minN": 3, "min": 0.7 }, "mid": { "type": "any", "of": [{ "kind": "r4.para-perp" }] } },
+  { "activity": "見取図", "done": { "type": "rate", "where": { "kind": "r4.sketch" }, "minN": 2, "min": 0.7 }, "mid": { "type": "any", "of": [{ "kind": "r4.sketch" }, { "kind": "r4.sketch-look" }] } },
+  { "activity": "位置の表し方（平面・空間）", "done": { "type": "rate", "where": { "kind": "r4.position" }, "minN": 3, "min": 0.7 }, "mid": { "type": "any", "of": [{ "kind": "r4.position" }] } },
+  { "activity": "さいころを作る（向かい合う面）", "done": { "type": "any", "of": [{ "kind": "r4.dice", "correct": true }] }, "mid": { "type": "any", "of": [{ "kind": "r4.dice" }] } }
+ ],
+ "labels": {
+  "r4.miru": [{ "where": { "detail.mode": "kinds" }, "text": "直方体と立方体を、面の形で見分ける様子を見ました" }, { "where": {}, "text": "箱を切り開いて展開図にする様子を見ました（No.{no}）" }],
+  "r4.count": "{what}を数えました",
+  "r4.opp-look": "向かい合う面を確かめました",
+  "r4.edge-match": [{ "where": { "correct": null }, "text": "展開図で重なる辺を確かめました" }, { "where": {}, "text": "重なる辺の問題：{ok}{hints}" }],
+  "r4.vertex-match": [{ "where": { "correct": null }, "text": "展開図で同じ角に集まる頂点を確かめました" }, { "where": {}, "text": "集まる頂点の問題：{ok}{hints}" }],
+  "r4.para-perp": [{ "where": { "correct": null }, "text": "組み立てた箱で平行・垂直を確かめました" }, { "where": {}, "text": "平行・垂直の問題：{ok}{hints}" }],
+  "r4.sketch-look": "箱を回して、見取図の点線の変わり方を見ました",
+  "r4.net-quiz": [{ "where": { "detail.valid": true }, "text": "箱になる展開図：{ok}{hints}" }, { "where": {}, "text": "箱にならない形：{ok}{hints}" }],
+  "r4.opp": "向かい合う面の問題：{ok}{hints}",
+  "r4.quiz-done": "「はこに なるかな」（{level}）{n}問中{score}問正解",
+  "r4.star-done": "「★の あいて」（{level}）{n}問中{score}問正解",
+  "r4.para-perp-done": "「へいこう・すいちょく」（{level}）{n}問中{score}問正解",
+  "r4.sketch": "見取図の完成：{ok}{hints}",
+  "r4.sketch-done": "「みとりず」（{level}）{n}問中{score}問正解",
+  "r4.position": "位置の表し方：{ok}{hints}",
+  "r4.position-done": "「いちの あらわしかた」（{level}）{n}問中{score}問正解",
+  "r4.build": [{ "where": { "detail.valid": true }, "text": "展開図をつくって組み立て成功（{name} No.{id}）" }, { "where": {}, "text": "並べた形が箱にならないことを確かめました" }],
+  "r4.dice": [{ "where": { "correct": true }, "text": "向かい合う目の和が7のさいころを作りました" }, { "where": {}, "text": "さいころの目の置き方を確かめました" }],
+  "r4.paper": "展開図を紙で作るために印刷画面を開きました（{name} No.{id}）",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  { "d": 2, "h": 18.5, "kind": "miru", "detail": { "mode": "kinds" }, "stage": "miru" },
+  { "d": 4, "h": 18, "kind": "net-quiz", "correct": true, "hints": 0, "level": "normal", "detail": { "type": "valid?", "valid": true }, "stage": "tamesu" },
+  { "d": 4, "h": 18.1, "kind": "net-quiz", "correct": false, "hints": 1, "level": "normal", "detail": { "type": "valid?", "valid": false } },
+  { "d": 6, "h": 19, "kind": "build", "correct": true, "detail": { "valid": true, "id": 3, "solid": "cuboid" }, "stage": "tsukuru" },
+  { "d": 8, "h": 17.5, "kind": "position", "correct": false, "hints": 0, "level": "normal", "detail": { "type": "plane-read" } },
+  { "d": 8, "h": 17.6, "kind": "position", "correct": false, "hints": 0, "level": "normal", "detail": { "type": "space-read" } }
+ ],
+ "demoZukan": { "cuboid": [3] }
+}

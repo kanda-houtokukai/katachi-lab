@@ -27,7 +27,15 @@ const SIG = () => {
 };
 const LIST = () => {
   const vis = el => { if (el.disabled) return false; const r = el.getBoundingClientRect(); if (r.width < 2 || r.height < 2) return false; let e = el; while (e) { if (e.hidden) return false; const cs = getComputedStyle(e); if (cs.display === 'none' || cs.visibility === 'hidden' || +cs.opacity === 0) return false; e = e.parentElement; } return true; };
-  const bid = window.__bid = window.__bid || (b => { const GEN = ['data-no', 'data-pid', 'data-ch']; const at = [...b.attributes].filter(a => a.name.startsWith('data-') || a.name === 'id' || a.name === 'for'); const d = at.map(a => (GEN.includes(a.name) ? a.name : a.name + '=' + a.value)).join('&'); return d ? d + '|' : '|' + b.textContent.trim().replace(/\s+/g, ' ').slice(0, 30); });
+  // 見分け方：id か data-* があればそれだけで（数字の表示が変わっても同じボタン）。一覧の番号の類は種類で1つ。
+  // 棚（#panel）の中のボタンは、どの単元・タブ・活動のものかを頭につける（同じ名前でも別の部品のボタン）
+  const bid = window.__bid = window.__bid || (b => {
+    const GEN = ['data-no', 'data-pid', 'data-ch']; const at = [...b.attributes].filter(a => a.name.startsWith('data-') || a.name === 'id' || a.name === 'for');
+    const d = at.map(a => (GEN.includes(a.name) ? a.name : a.name + '=' + a.value)).join('&');
+    const A = window.__katachi && window.__katachi.A, inPanel = b.closest('#panel');
+    const pre = inPanel && A && A.unit ? `${A.unit.id}:${A.mode}:${A.act[A.unit.id + ':' + A.mode] || 0}:` : '';
+    return pre + (d ? d + '|' : '|' + b.textContent.trim().replace(/\s+/g, ' ').slice(0, 30));
+  });
   // 前面のシートが開いていれば、その中だけを見る
   const sheets = [...document.querySelectorAll('.sheet')].filter(s => !s.hidden);
   const scope = sheets.length ? sheets[sheets.length - 1] : document.getElementById('app');
@@ -80,6 +88,8 @@ export async function openPage(env, vp, { query = '', speed = 0.25, name = 'page
       await h.look();
       return changed;
     },
+    async clickNth(prefix, n, opts) { let k = -1; return h.click(id => id.replace(/^[a-z0-9]+:[a-z]+:\d+:/, '').startsWith(prefix) && ++k === n, opts); },
+    async visible(match) { const list = await page.evaluate(LIST); return list.some(x => x.id.includes(match)); },
     // 3D の上を実際にタップする（位置はテスト用ののぞき口から求める）
     async tapAt(fnSrc, ...args) {
       const p = await page.evaluate(([src, args]) => { const f = new Function('K', 'T', ...args.map((a, i) => 'a' + i), 'return (' + src + ')'); return f(window.__katachi, window.__katachi.test(), ...args); }, [fnSrc, args]);

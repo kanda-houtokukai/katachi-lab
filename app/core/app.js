@@ -21,10 +21,8 @@ export async function startApp() {
   if (!okGL) $('app').insertAdjacentHTML('beforeend', '<div class="nogl">この たんまつでは 3Dを ひょうじ できませんでした。</div>');
   const idx = await (await fetch(new URL('../units/index.json', import.meta.url))).json();
   A.units = idx.units;
-  await Promise.all(A.units.filter(u => u.ready).map(async u => {
-    const j = await (await fetch(new URL('../units/' + u.file, import.meta.url))).json();
-    A.byId.set(u.id, Object.assign({}, u, j));
-  }));
+  const loaded = await Promise.all(A.units.filter(u => u.ready).map(async u => Object.assign({}, u, await (await fetch(new URL('../units/' + u.file, import.meta.url))).json())));
+  loaded.forEach(u => A.byId.set(u.id, u));
   setupSoundBtn();
   setupZukan(ctxBase); setupPaper(); setupMission(A); setupParent(A); setupBreak(() => { if (A.unit) setMode(A.lastMain); });
   $('homeBtn').addEventListener('click', () => { sfx.tap(); goHome(); });
@@ -138,7 +136,7 @@ function renderActSeg(acts, ai, m) {
   const row = $('actRow'), seg = $('actSeg');
   row.hidden = acts.length < 2;
   seg.innerHTML = acts.map((a, i) => `<button type="button" data-act="${i}" aria-pressed="${i === ai}">${a.label}${a.grade && a.grade !== A.unit.grade ? ` <span class="g">${gradeLabel(a.grade)}</span>` : ''}</button>`).join('');
-  seg.querySelectorAll('[data-act]').forEach(b => b.addEventListener('click', () => { if (+b.dataset.act === ai) return; sfx.tap(); setMode(m, { act: +b.dataset.act }); }));
+  seg.querySelectorAll('[data-act]').forEach(b => b.addEventListener('click', () => { if (+b.dataset.act === ai) { sfx.tap(); toast('', `いまは「${b.textContent.trim()}」だよ`, 1.6); return; } sfx.tap(); setMode(m, { act: +b.dataset.act }); }));
 }
 async function loadPart(name) {
   if (!A.partCache.has(name)) A.partCache.set(name, import(`../parts/${name}.js`));

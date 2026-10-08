@@ -3,6 +3,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { startAll, openPage } from './harness.mjs';
+import { crawlUnit } from './crawl.mjs';
 
 let env;
 test.before(async () => { env = await startAll(); });
@@ -238,10 +239,22 @@ test('R2 の全ボタンを押すと、すべて状態が変わる（iPad横 118
     const rep = h.report();
     console.log('R2 ボタン', JSON.stringify(rep));
     assert.deepEqual(rep.dead, [], '押しても何も起きないボタン');
-    assert.deepEqual(rep.never, [], '見えたのに押していないボタン');
+    // 棚の中のボタンの押しもれは、下の「巡回」のテストで確かめる。ここでは棚の外（地図・帯・シート）を見る
+    assert.deepEqual(rep.never.filter(id => !/^r\d\w*:/.test(id) && !id.startsWith('data-unit=')), [], '見えたのに押していないボタン');
     assert.ok(rep.clicked >= 60, 'ボタンの数');
     assert.deepEqual(h.errors, [], 'コンソールのエラー');
   } finally { await h.shot('r2-last'); await h.context.close(); }
+});
+
+test('R2 の棚のボタンを汎用の巡回で全部押す（iPad横）', { timeout: 900000 }, async () => {
+  const h = await openPage(env, 'ipad', { speed: 0.25 });
+  try {
+    await crawlUnit(h, 'r2');
+    const rep = h.report();
+    const never = rep.never.filter(id => id.startsWith('r2:'));
+    console.log('R2 巡回', JSON.stringify({ clicked: rep.clicked, changed: rep.changed, dead: rep.dead, never }));
+    assert.deepEqual(rep.dead, []); assert.deepEqual(never, []); assert.deepEqual(h.errors, []);
+  } finally { await h.context.close(); }
 });
 
 for (const vp of ['ipad', 'phone']) {

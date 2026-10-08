@@ -27,8 +27,10 @@ export function mount(ctx) {
       ${solids.length > 1 ? `<div class="seg" role="group" aria-label="かたちの しゅるい">${solids.map(s => `<button type="button" data-solid="${s.key}" aria-pressed="${s.key === st.key}">${s.label}</button>`).join('')}</div>` : ''}
       ${tools.includes('count') ? `<button class="chip" type="button" data-count="face"><span class="dot" style="background:${tok('face-1')}"></span>めん</button><button class="chip" type="button" data-count="edge"><span class="dot" style="background:${tok('face-2')}"></span>へん</button><button class="chip" type="button" data-count="vertex"><span class="dot" style="background:${tok('face-4')}"></span>ちょうてん</button>` : ''}
       ${tools.includes('next') ? `<button class="chip" type="button" data-k="next">${ctx.ICONS_UI.again}べつの ひらきかた</button>` : ''}
+      ${tools.includes('paper') ? `<button class="chip" type="button" data-k="paper">${ctx.ICONS_UI.scissors}かみで つくる</button>` : ''}
+      <span class="status" data-k="no"></span>
     </div>
-    ${toolSeg.length ? `<div class="row"><div class="seg" role="group" aria-label="どうぐ">${toolSeg.map(t => `<button type="button" data-tool="${t}" aria-pressed="${t === st.tool}">${R4.TOOLS[t].label}</button>`).join('')}</div></div>` : ''}`;
+    ${toolSeg.length > 1 ? `<div class="row"><div class="seg" role="group" aria-label="どうぐ">${toolSeg.map(t => `<button type="button" data-tool="${t}" aria-pressed="${t === st.tool}">${R4.TOOLS[t].label}</button>`).join('')}</div></div>` : ''}`;
   const slider = $p(panel, '#foldSlider');
   let net = null, countTag = null, tool = null;
   const syncSlider = p => setSlider(slider, Math.round((1 - p) * 100));
@@ -40,7 +42,10 @@ export function mount(ctx) {
     const cat = await loadCatalog(s.solid), no = (((i % cat.count) + cat.count) % cat.count) + 1;
     return { L: cat.layout(no), snap: false, count: cat.count, no, cat };
   }
-  function nextBtnVisible() { const b = $p(panel, '[data-k="next"]'); if (b) b.hidden = cur().src === 'box'; }
+  function nextBtnVisible() {
+    const b = $p(panel, '[data-k="next"]'); if (b) b.hidden = cur().src === 'box';
+    const s = $p(panel, '[data-k="no"]'); if (s) s.innerHTML = net && net.info.cat ? `No.<b>${net.info.no}</b> / ${net.info.count}` : '';
+  }
 
   async function show(progress = 0.35, play = false) {
     const tag = S.token, s = cur();
@@ -188,13 +193,13 @@ export function mount(ctx) {
   on(slider, 'change', () => sfx.tap());
   $$p(panel, '[data-count]').forEach(b => on(b, 'click', () => { sfx.tap(); onUserTouch(); setGrade(unit.grade); runCount(b.dataset.count); }));
   $$p(panel, '[data-solid]').forEach(b => on(b, 'click', () => {
-    if (st.key === b.dataset.solid) return;
+    if (st.key === b.dataset.solid) { sfx.tap(); ctx.toast('', `いまは「${b.textContent.trim()}」だよ`, 1.6); return; }
     sfx.tap(); st.key = b.dataset.solid;
     $$p(panel, '[data-solid]').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.solid === st.key)));
     clearCountings(); ctx.hideHud(); show(net ? net.progress : 0.35);
   }));
   $$p(panel, '[data-tool]').forEach(b => on(b, 'click', () => {
-    if (st.tool === b.dataset.tool) return;
+    if (st.tool === b.dataset.tool) { sfx.tap(); ctx.toast('', `いまは「${b.textContent.trim()}」だよ`, 1.6); return; }
     sfx.tap(); st.tool = b.dataset.tool;
     $$p(panel, '[data-tool]').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.tool === st.tool)));
     clearCountings(); stopGlows(); ctx.hideHud();
@@ -219,6 +224,12 @@ export function mount(ctx) {
     if (net.info.cat) toast('', `No.${net.info.no} / ${net.info.count}`, 1.6);
   });
 
+  on($p(panel, '[data-k="paper"]'), 'click', () => {
+    if (!net) return; sfx.tap();
+    const s = cur(), title = (s.paperTitle || s.label) + ' の てんかいず';
+    ctx.openPaper({ layout: net.L, colors: net.colors, title, sub: net.info.cat ? `No.${net.info.no} / ${net.info.count}` : '', unitText: s.src === 'grid' ? '1マス' : 'へんの ながさ 1', foot: ctx.unit.plain, file: `tenkaizu-${s.key}-${net.info.no}` });
+    ctx.log('paper', { detail: { solid: s.key, name: s.paperTitle || s.label, id: net.info.no } });
+  });
   show(opts.progress != null ? opts.progress : 0.35, !!opts.play);
   return {
     onTap(e) {
@@ -229,6 +240,16 @@ export function mount(ctx) {
     onResize() { if (net) { if (net.progress > 0.99) frameBox(net, S.goal.phi, S.goal.theta, 2.1); else frameFlat(net, S.goal.phi, S.goal.theta); } },
     dispose() { if (tool && tool.leave) tool.leave(); },
     test: {
+      auto() {
+        if (!net) return { wait: 300 };
+        const t = tool && tool.test;
+        if (st.tool === 'opposite' || !t) { if (!this._opp) { this._opp = 1; return { tap: this.facePoint(0) }; } return { done: true }; }
+        if (st.tool === 'paraperp' && !t.ready()) return { wait: 400 };
+        if (t.edgePoint && !this['_' + st.tool]) { this['_' + st.tool] = 1; return { tap: st.tool === 'paraperp' ? t.edgePoint(0, 0) : t.edgePoint(0) }; }
+        if (t.vertexPoint && !this._v) { this._v = 1; return { tap: t.vertexPoint(0) }; }
+        if (t.facePoint && !this._pf) { if (!t.ready()) return { wait: 400 }; this._pf = 1; return { tap: t.facePoint(0) }; }
+        return { done: true };
+      },
       net: () => net && { progress: net.progress, faces: net.L.faces.length, opposite: net.analysis.opposite, no: net.info.no, count: net.info.count },
       facePoint: i => objScreen(net.nodes[i].mesh, new THREE.Vector3(net.nodes[i].center[0], 0.03, net.nodes[i].center[1])),
       tool: () => tool && tool.test,
