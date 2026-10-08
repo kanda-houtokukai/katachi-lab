@@ -1,0 +1,590 @@
+{
+ "note": "3年「時こくと時間のもとめ方」。設計書 §3 T3。文面はすべて下書き（reviewed:false）。教科書の用語は漢字＋ルビ、子ども向けはひらがなの分かち書き。",
+ "school": "3年 C(2) 時刻と時間の求め方・秒",
+ "tabs": {
+  "miru": [
+   {
+    "part": "jikan-obi",
+    "label": "みる",
+    "opts": {
+     "mode": "miru"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "jikan-obi",
+    "label": "くぎって たす",
+    "opts": {
+     "mode": "split"
+    }
+   },
+   {
+    "part": "byou",
+    "label": "びょう",
+    "opts": {
+     "mode": "sec"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "tokei-quiz",
+    "label": "じこくを もとめる",
+    "opts": {
+     "type": "afterx"
+    }
+   },
+   {
+    "part": "tokei-quiz",
+    "label": "じかんを もとめる",
+    "opts": {
+     "type": "durx"
+    }
+   },
+   {
+    "part": "tokei-quiz",
+    "label": "しょうごを またぐ",
+    "opts": {
+     "type": "noon"
+    }
+   },
+   {
+    "part": "tokei-quiz",
+    "label": "びょう",
+    "opts": {
+     "type": "sec"
+    }
+   },
+   {
+    "part": "mitoshi",
+    "label": "みとおし",
+    "opts": {
+     "items": [
+      {
+       "q": "ボールが ころがった じかんは なんびょう？",
+       "qty": "time",
+       "unit": "びょう",
+       "range": [
+        4,
+        20
+       ],
+       "max": 30,
+       "step": 1,
+       "major": 5,
+       "minor": 1
+      },
+      {
+       "q": "ボールが はしった じかんは なんびょう？ よく みてね",
+       "qty": "time",
+       "unit": "びょう",
+       "range": [
+        6,
+        25
+       ],
+       "max": 30,
+       "step": 1,
+       "major": 5,
+       "minor": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "byou",
+    "label": "1ぷんを あてよう",
+    "opts": {
+     "mode": "guess",
+     "target": 60
+    }
+   },
+   {
+    "part": "jikan-obi",
+    "label": "えんそくの けいかく",
+    "opts": {
+     "mode": "plan"
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "guess",
+   "kind": "log",
+   "label": "1ぷん あての きろく",
+   "title": "1ぷん あての きろく",
+   "fmt": "めあて {1}びょう → {2}びょう",
+   "fig": "bar:{2}:{1}",
+   "note": "「1ぷんを あてよう」を すると、ここに きろくが のこるよ",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "goLabel": "「1ぷんを あてよう」を する"
+  }
+ ],
+ "mission": [
+  {
+   "key": "guess",
+   "label": "1ぷんを あてる",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  },
+  {
+   "key": "plan",
+   "label": "えんそくの けいかくを たてる",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 1
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "t3-sec60",
+   "q": "1ぷんは なんびょう？",
+   "ch": [
+    "60びょう",
+    "100びょう"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "t3-90",
+   "q": "90びょうは？",
+   "ch": [
+    "1ぷん 30びょう",
+    "9ぷん"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "t3-80",
+   "q": "1ぷん 20びょうは なんびょう？",
+   "ch": [
+    "80びょう",
+    "120びょう"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "t3-after",
+   "q": "8じ 40ぷんの 30ぷんごは？",
+   "ch": [
+    "9じ 10ぷん",
+    "8じ 10ぷん"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "clock:8:40"
+  },
+  {
+   "id": "t3-before",
+   "q": "9じ 15ふんの 30ぷんまえは？",
+   "ch": [
+    "8じ 45ふん",
+    "9じ 45ふん"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "clock:9:15"
+  },
+  {
+   "id": "t3-dur",
+   "q": "8じ 40ぷんから 9じ 15ふんまで なんぷん？",
+   "ch": [
+    "35ふん",
+    "25ふん"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "t3-noon",
+   "q": "ごぜん 11じ から ごご 2じ まで なんじかん？",
+   "ch": [
+    "3じかん",
+    "9じかん"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "t3-cut",
+   "q": "じかんを もとめる とき、どこで くぎると わかりやすい？",
+   "ch": [
+    "ちょうどの じ",
+    "5ふんごと"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "t3-sense",
+   "q": "1ぷんで できる ことは どれ？",
+   "ch": [
+    "てを あらう",
+    "えいがを みる"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "t3-10s",
+   "q": "10びょうは どれくらい？",
+   "ch": [
+    "10まで ゆっくり かぞえる",
+    "100まで かぞえる"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "t3-dur2",
+   "q": "10じ 50ぷんから 11じ 20ぷんまで なんぷん？",
+   "ch": [
+    "30ぷん",
+    "70ぷん"
+   ],
+   "a": 0,
+   "reviewed": false
+  }
+ ],
+ "insights": [
+  {
+   "key": "t3-60",
+   "type": "T5",
+   "title": "60進法でまちがえる",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "t3.after",
+      "t3.duration",
+      "t3.noon",
+      "t3.sec",
+      "t3.plan-step"
+     ],
+     "detail.mistake": "T5"
+    },
+    "min": 2
+   },
+   "obs": "1分＝60秒・1時間＝60分の繰り上がりで、100や10を使ってしまうまちがいが{n}回ありました。",
+   "body": "時間の単位は60で次の単位に繰り上がります。10ずつ繰り上がる数の計算と区別する段階です。",
+   "home": "「90秒って何分何秒？」のように、日常の短い時間を一緒に言いかえてみてください。",
+   "tag": "3年の内容"
+  },
+  {
+   "key": "t3-cross",
+   "type": "T7",
+   "title": "ちょうどの時（正時・正午）をまたぐ計算でまちがえる",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "t3.after",
+      "t3.duration",
+      "t3.noon",
+      "t3.sec",
+      "t3.plan-step"
+     ],
+     "detail.mistake": "T7"
+    },
+    "min": 2
+   },
+   "obs": "ちょうどの時や正午をまたぐ時刻・時間の問題で、{n}回まちがえました。",
+   "body": "8時40分から9時15分のように時をまたぐときは、9時で区切って「20分と15分」に分けると求めやすくなります。区切って考える方法を身につけている段階です。",
+   "home": "出発と到着の時刻を言うときに「9時までに何分？9時から何分？」と区切って一緒に数えてみてください。",
+   "tag": "3年の内容"
+  },
+  {
+   "key": "t3-sense",
+   "type": "T8",
+   "title": "秒・分の長さの感覚（量感）が育ち途中",
+   "reviewed": false,
+   "test": {
+    "type": "estErr",
+    "where": {
+     "kind": "t3.estimate"
+    },
+    "minN": 3,
+    "gte": 30
+   },
+   "obs": "「1ぷんを あてよう」や「みとおし」で、見当と実際の時間のずれが平均{err}%ありました（{n}回）。",
+   "body": "1秒・10秒・1分の長さを、体で感じる経験を重ねている段階です。ずれが小さくなっていくのが成長の印です。",
+   "home": "電子レンジの1分や、お風呂で10数える時間などで「どれくらいかな？」と当てっこをしてみてください。",
+   "tag": "3年の内容"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "t3.plan",
+      "correct": true
+     }
+    ]
+   },
+   "text": "「えんそくの けいかく」で、ちょうどの時をまたぐ時刻を正しく求めて計画を立てました。"
+  },
+  {
+   "test": {
+    "type": "estErr",
+    "where": {
+     "kind": "t3.estimate"
+    },
+    "minN": 3,
+    "lte": 15
+   },
+   "text": "時間の見当が、平均{err}%のずれまで近づいています。"
+  },
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "t3.after"
+    },
+    "min": 3
+   },
+   "text": "時刻を求める問題で、ヒントなしで{best}問続けて正解しました。"
+  }
+ ],
+ "map": [
+  {
+   "school": "3年 C(2) 秒（1分＝60秒）",
+   "activity": "びょう・1ぷんを あてよう",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "t3.sec"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "t3.sec"
+     },
+     {
+      "kind": "t3.guess-minute"
+     }
+    ]
+   }
+  },
+  {
+   "school": "3年 C(2) 時刻を求める",
+   "activity": "じこくを もとめる（またぐ）",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "t3.after"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "t3.after"
+     }
+    ]
+   }
+  },
+  {
+   "school": "3年 C(2) 時間を求める",
+   "activity": "じかんを もとめる・くぎって たす",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "t3.duration"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "t3.duration"
+     },
+     {
+      "kind": "t3.split"
+     }
+    ]
+   }
+  },
+  {
+   "school": "3年 C(2) 日常生活に生かす",
+   "activity": "しょうごを またぐ・えんそくの けいかく",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "t3.plan",
+      "correct": true
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "t3.noon"
+     },
+     {
+      "kind": "t3.plan-step"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "t3.miru": "ちょうどの時で区切って時間を求める動きを見ました",
+  "t3.split": "帯に区切りを置いて時間を求めました",
+  "t3.sec": [
+   {
+    "where": {
+     "detail.type": "sec"
+    },
+    "text": "秒の問題：{ok}{hints}"
+   },
+   {
+    "where": {},
+    "text": "1秒・10秒・1分の長さを確かめました"
+   }
+  ],
+  "t3.clap": "手拍子で1秒の長さを感じました（{n}回中{good}回ぴったり）",
+  "t3.after": "時刻を求める：{ok}{hints}",
+  "t3.after-done": "時刻を求める（{level}）{n}問中{score}問正解",
+  "t3.duration": "時間を求める：{ok}{hints}",
+  "t3.duration-done": "時間を求める（{level}）{n}問中{score}問正解",
+  "t3.noon": "正午をまたぐ時間：{ok}{hints}",
+  "t3.noon-done": "正午をまたぐ（{level}）{n}問中{score}問正解",
+  "t3.sec-done": "秒の問題（{level}）{n}問中{score}問正解",
+  "t3.estimate": "時間の見当：{guess}{unit}と見当、実際は{actual}{unit}",
+  "t3.estimate-done": "時間の見当（{level}）{n}問中{score}問が近い",
+  "t3.guess-minute": "目をつぶって{target}秒を当てる：{got}秒",
+  "t3.plan": "「えんそくの けいかく」を立てました（まちがい{miss}回）",
+  "t3.plan-step": "計画の時刻を求める：{ok}",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 17,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 1,
+   "h": 17,
+   "kind": "after",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "afterx",
+    "mistake": "T7",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 1,
+   "h": 17.1,
+   "kind": "duration",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "durx",
+    "mistake": "T7",
+    "miss": 2
+   }
+  },
+  {
+   "d": 2,
+   "h": 17,
+   "kind": "estimate",
+   "correct": false,
+   "detail": {
+    "q": "1ぷんあて",
+    "guess": 42,
+    "actual": 60,
+    "unit": "びょう",
+    "qty": "time"
+   },
+   "stage": "tsukuru"
+  },
+  {
+   "d": 4,
+   "h": 17,
+   "kind": "estimate",
+   "correct": false,
+   "detail": {
+    "q": "1ぷんあて",
+    "guess": 49,
+    "actual": 60,
+    "unit": "びょう",
+    "qty": "time"
+   }
+  },
+  {
+   "d": 6,
+   "h": 17,
+   "kind": "estimate",
+   "correct": true,
+   "detail": {
+    "q": "1ぷんあて",
+    "guess": 56,
+    "actual": 60,
+    "unit": "びょう",
+    "qty": "time"
+   }
+  },
+  {
+   "d": 7,
+   "h": 17,
+   "kind": "estimate",
+   "correct": true,
+   "detail": {
+    "q": "ボール",
+    "guess": 11,
+    "actual": 12,
+    "unit": "びょう",
+    "qty": "time"
+   }
+  },
+  {
+   "d": 7,
+   "h": 17.2,
+   "kind": "plan",
+   "correct": true,
+   "detail": {
+    "total": 255,
+    "miss": 0
+   }
+  }
+ ],
+ "demoZukan": {
+  "guess": [
+   "1:60:42",
+   "2:60:49",
+   "3:60:56"
+  ]
+ }
+}

@@ -1,0 +1,586 @@
+{
+ "note": "2年「時こくと時間」。設計書 §3 T2。文面はすべて下書き（reviewed:false）。教科書の用語は漢字＋ルビ、子ども向けはひらがなの分かち書き。",
+ "school": "2年 C(2) 時刻と時間",
+ "tabs": {
+  "miru": [
+   {
+    "part": "tokei",
+    "label": "みる",
+    "opts": {
+     "mode": "miru",
+     "script": "t2"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "tokei",
+    "label": "たった じかん",
+    "opts": {
+     "mode": "elapse"
+    }
+   },
+   {
+    "part": "tokei",
+    "label": "1じかん＝60ぷん",
+    "opts": {
+     "mode": "hour60"
+    }
+   },
+   {
+    "part": "jikan-obi",
+    "label": "ごぜん・ごご",
+    "opts": {
+     "mode": "ampm"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "tokei-quiz",
+    "label": "じこく？ じかん？",
+    "opts": {
+     "type": "words",
+     "n": 6
+    }
+   },
+   {
+    "part": "tokei-quiz",
+    "label": "なんぷんかん",
+    "opts": {
+     "type": "dur"
+    }
+   },
+   {
+    "part": "tokei-quiz",
+    "label": "なんぷんご・まえ",
+    "opts": {
+     "type": "after"
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "tokei",
+    "label": "わたしの 1にち",
+    "opts": {
+     "mode": "day",
+     "ampm": true
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "day",
+   "kind": "list",
+   "label": "1にちの ばめん",
+   "title": "1にちの ばめん（24じかんの おび）",
+   "items": [
+    {
+     "id": "wake",
+     "label": "おきる",
+     "fig": "scene:wake",
+     "hint": "？"
+    },
+    {
+     "id": "breakfast",
+     "label": "あさごはん",
+     "fig": "scene:breakfast",
+     "hint": "？"
+    },
+    {
+     "id": "school",
+     "label": "がっこうへ",
+     "fig": "scene:school",
+     "hint": "？"
+    },
+    {
+     "id": "lunch",
+     "label": "きゅうしょく",
+     "fig": "scene:lunch",
+     "hint": "？"
+    },
+    {
+     "id": "snack",
+     "label": "おやつ",
+     "fig": "scene:snack",
+     "hint": "？"
+    },
+    {
+     "id": "dinner",
+     "label": "ゆうごはん",
+     "fig": "scene:dinner",
+     "hint": "？"
+    },
+    {
+     "id": "bath",
+     "label": "おふろ",
+     "fig": "scene:bath",
+     "hint": "？"
+    },
+    {
+     "id": "sleep",
+     "label": "ねる",
+     "fig": "scene:sleep",
+     "hint": "？"
+    }
+   ],
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "goLabel": "「わたしの 1にち」で あつめよう"
+  }
+ ],
+ "mission": [
+  {
+   "key": "day",
+   "label": "わたしの 1にちを つくる",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "t2-hour",
+   "q": "1じかんは なんぷん？",
+   "ch": [
+    "60ぷん",
+    "100ぷん",
+    "10ぷん"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "clock:8:0"
+  },
+  {
+   "id": "t2-day",
+   "q": "1にちは なんじかん？",
+   "ch": [
+    "24じかん",
+    "12じかん"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "t2-kind1",
+   "q": "「8じに いえを でる」の 8じは？",
+   "ch": [
+    "じこく",
+    "じかん"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "t2-kind2",
+   "q": "「がっこうまで 20ぷん かかる」の 20ぷんは？",
+   "ch": [
+    "じかん",
+    "じこく"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "t2-noon",
+   "q": "おひるの 12じを なんと いう？",
+   "ch": [
+    "しょうご",
+    "ごぜん 12じ"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "clock:12:0"
+  },
+  {
+   "id": "t2-am",
+   "q": "あさの 7じは？",
+   "ch": [
+    "ごぜん 7じ",
+    "ごご 7じ"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "clock:7:0"
+  },
+  {
+   "id": "t2-pm",
+   "q": "よるの 9じは？",
+   "ch": [
+    "ごご 9じ",
+    "ごぜん 9じ"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "clock:9:0"
+  },
+  {
+   "id": "t2-dur",
+   "q": "8じ から 8じ 40ぷん まで なんぷんかん？",
+   "ch": [
+    "40ぷんかん",
+    "8ぷんかん"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "clock:8:40"
+  },
+  {
+   "id": "t2-after",
+   "q": "9じ 10ぷんの 30ぷんごは？",
+   "ch": [
+    "9じ 40ぷん",
+    "8じ 40ぷん"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "clock:9:10"
+  },
+  {
+   "id": "t2-before",
+   "q": "3じ 50ぷんの 20ぷんまえは？",
+   "ch": [
+    "3じ 30ぷん",
+    "4じ 10ぷん"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "clock:3:50"
+  },
+  {
+   "id": "t2-90",
+   "q": "1じかん 30ぷんは なんぷん？",
+   "ch": [
+    "90ぷん",
+    "130ぷん"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "t2-short",
+   "q": "みじかい はりは 1にちに なんかい まわる？",
+   "ch": [
+    "2かい",
+    "1かい"
+   ],
+   "a": 0,
+   "reviewed": false
+  }
+ ],
+ "insights": [
+  {
+   "key": "t2-kind",
+   "type": "T4",
+   "title": "時刻と時間を区別していない",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "t2.kind",
+      "t2.duration",
+      "t2.after"
+     ],
+     "detail.mistake": "T4"
+    },
+    "min": 2
+   },
+   "obs": "「時刻（何時）」と「時間（どれだけ）」を取り違える答えが{n}回ありました。",
+   "body": "時刻は時計の針の「位置」（ある一点）、時間は二つの時刻の「あいだの長さ」です。どちらも「〇分」と言うため混ざりやすい段階です。",
+   "home": "出かけるときに「何時に出る？」（時刻）と「何分かかった？」（時間）を言い分けて、お子さんにも聞いてみてください。",
+   "tag": "2年の内容"
+  },
+  {
+   "key": "t2-60",
+   "type": "T5",
+   "title": "1時間＝60分の換算でまちがえる",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "t2.kind",
+      "t2.duration",
+      "t2.after"
+     ],
+     "detail.mistake": "T5"
+    },
+    "min": 2
+   },
+   "obs": "1時間を100分や10分と考えるなど、60でひとまとまりになる考え方でのまちがいが{n}回ありました。",
+   "body": "時間は60分で1時間、10や100で繰り上がる数とは違います。長い針がひとまわりで60分という感覚をつけている段階です。",
+   "home": "キッチンタイマーやアナログ時計で、長い針がひとまわりする（1時間）のを一緒に見る機会をつくってみてください。",
+   "tag": "2年の内容"
+  },
+  {
+   "key": "t2-ampm",
+   "type": "T6",
+   "title": "午前・午後・正午があいまい",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "t2.kind",
+      "t2.duration",
+      "t2.after"
+     ],
+     "detail.mistake": "T6"
+    },
+    "min": 2
+   },
+   "obs": "午前・午後や正午の問題でのまちがいが{n}回ありました。",
+   "body": "同じ「7時」でも朝と夜があり、昼の12時（正午）で午前と午後が入れかわります。1日に短い針が2回まわることとつながっていく段階です。",
+   "home": "夕方や夜に時計を見たとき「いまは午前？午後？」と聞いてみてください。",
+   "tag": "2年の内容"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "t2.duration"
+    },
+    "min": 3
+   },
+   "text": "「何分間」の問題で、ヒントなしで{best}問続けて正解しました。"
+  },
+  {
+   "test": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "t2.day",
+      "correct": true
+     }
+    ]
+   },
+   "text": "「わたしの 1にち」で、午前・午後の帯に1日の場面を並べました。"
+  },
+  {
+   "test": {
+    "type": "rate",
+    "where": {
+     "kind": "t2.kind"
+    },
+    "minN": 5,
+    "min": 0.8
+   },
+   "text": "時刻と時間の言葉の区別が、{k}問中正しくできています。"
+  }
+ ],
+ "map": [
+  {
+   "school": "2年 C(2) 時刻と時間の区別",
+   "activity": "じこく？ じかん？・たった じかん",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "t2.kind",
+     "detail.type": "kind"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "t2.kind"
+     },
+     {
+      "kind": "t2.turn"
+     }
+    ]
+   }
+  },
+  {
+   "school": "2年 C(2) 1時間＝60分",
+   "activity": "1じかん＝60ぷん・なんぷんかん",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "t2.duration"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "t2.duration"
+     },
+     {
+      "kind": "t2.turn",
+      "detail.hour": true
+     }
+    ]
+   }
+  },
+  {
+   "school": "2年 C(2) 1日＝24時間、午前・午後・正午",
+   "activity": "ごぜん・ごご・わたしの 1にち",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "t2.day",
+      "correct": true
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "t2.band"
+     },
+     {
+      "kind": "t2.day-card"
+     }
+    ]
+   }
+  },
+  {
+   "school": "2年 C(2) 〇分後・〇分前の時刻（日常生活）",
+   "activity": "なんぷんご・まえ",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "t2.after"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "t2.after"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "t2.miru": "時刻と時間、1時間＝60分、1日＝24時間の動きを見ました",
+  "t2.turn": "時計の針を進めて、たった時間を確かめました",
+  "t2.band": "24時間の帯で午前・午後の時刻を確かめました",
+  "t2.kind": [
+   {
+    "where": {
+     "detail.type": "ampm"
+    },
+    "text": "午前・午後：{ok}{hints}"
+   },
+   {
+    "where": {
+     "detail.type": "hour"
+    },
+    "text": "1時間＝60分・1日＝24時間：{ok}{hints}"
+   },
+   {
+    "where": {},
+    "text": "時刻か時間か：{ok}{hints}"
+   }
+  ],
+  "t2.kind-done": "時刻と時間のことば（{level}）{n}問中{score}問正解",
+  "t2.duration": "何分間：{ok}{hints}",
+  "t2.duration-done": "何分間（{level}）{n}問中{score}問正解",
+  "t2.after": "〇分後・〇分前の時刻：{ok}{hints}",
+  "t2.after-done": "〇分後・前（{level}）{n}問中{score}問正解",
+  "t2.day": "「わたしの 1にち」を午前・午後の帯に並べました",
+  "t2.day-card": "1日の場面の時刻を合わせました",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 17,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 2,
+   "h": 17,
+   "kind": "kind",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "kind",
+    "mistake": "T4",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 2,
+   "h": 17.1,
+   "kind": "duration",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "dur",
+    "mistake": "T4",
+    "miss": 2
+   }
+  },
+  {
+   "d": 4,
+   "h": 17,
+   "kind": "duration",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "type": "dur"
+   }
+  },
+  {
+   "d": 4,
+   "h": 17.1,
+   "kind": "duration",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "type": "dur"
+   }
+  },
+  {
+   "d": 4,
+   "h": 17.2,
+   "kind": "duration",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "type": "dur"
+   }
+  },
+  {
+   "d": 6,
+   "h": 18,
+   "kind": "day",
+   "correct": true,
+   "detail": {
+    "n": 8,
+    "ampm": true
+   },
+   "stage": "tsukuru"
+  }
+ ],
+ "demoZukan": {
+  "day": [
+   "wake",
+   "school",
+   "sleep"
+  ]
+ }
+}

@@ -6,7 +6,7 @@
 
 ## 現在地サマリ
 
-- **今どこ**：**量の自走（D18・`docs/run-02-hakaru.md`）H1 まで完了**（H0 一式の配置・H1 統合の骨格）。以下は前の段階：P1 の夜間自走が完了（2026-10-08 夜）。N0〜N7 すべて完了。2026-10-09 に公開済み：ユーザーが push と Pages を実行し、`https://kanda-houtokukai.github.io/katachi-lab/` で地図が開くこと、noindex・robots.txt（Disallow: /）・service worker が効くこと、地図の図鑑の総数（4年94・5年610・中1 73）を Chat で確認。
+- **今どこ**：**量の自走（D18・`docs/run-02-hakaru.md`）H2 まで完了**（H0 一式の配置・H1 統合の骨格・H2 じかん T1〜T3）。以下は前の段階：P1 の夜間自走が完了（2026-10-08 夜）。N0〜N7 すべて完了。2026-10-09 に公開済み：ユーザーが push と Pages を実行し、`https://kanda-houtokukai.github.io/katachi-lab/` で地図が開くこと、noindex・robots.txt（Disallow: /）・service worker が効くこと、地図の図鑑の総数（4年94・5年610・中1 73）を Chat で確認。
 - **直近の決定**：
   - [DECISION] D9 内容の種類と数もすべて網羅する（立体は小1〜中1。展開図の数は計算で確定）
   - [DECISION] D10 kanda-houtokukai に公開リポジトリ `katachi-lab`、GitHub Pages、正式公開まで検索除け
@@ -149,13 +149,20 @@
 
 ## 記録
 
+### 記録 2026-10-09 H2 じかん T1・T2・T3（Code・量の自走）
+- 部品：`tokei`（長針を指で回す・短針は歯車で連動・へや・5とび・デジタル・なかを みる・たった時間の扇形・空・1じかん＝60ぷん・わたしの いちにち）、`tokei-quiz`（よむ・あわせる・せいかつ・じこく？じかん？・何分間・午前午後・○分後前・正時/正午をまたぐ・秒）、`jikan-obi`（午前午後の帯・くぎって たす・えんそくの けいかく）、`byou`（1秒・10秒・1分・てびょうし・1ぷんを あてよう）、`mitoshi`（全量共通のみとおし）。共通：`_clock.js`（時計・空・帯）、`_quiz2d.js`（ためすの進め方）、`_gen.js`（問題の計算）。見本 v1 の 20-clock を移した。
+- 単元：t1・t2・t3（思い出し 12・12・11問、見立て T1・T2・T3・pun／T4・T5・T6／T5・T7・T8、ずかん：とけい24・ふん60／1日の場面8／1ぷん あての記録）。
+- テスト：単体 29/29（時刻の範囲・全720の選択肢で正解1つ・T1〜T3 の誤答・ずかんの数）。E2E：t1 71・t2 68・t3 82 のボタンすべてで状態が変化（dead 0・never 0）、iPad横・スマホ縦で全活動が収まる（9/9）。
+- 直したもの：スマホ縦で時計の場面が横ならびになる、棚が育ったあと舞台を測り直さない、帯の数字が下にはみ出す、tween の負の幅でコンソールのエラー。
+- SHA：（この commit）
+
 ### 記録 2026-10-09 H1 統合の骨格（Code・量の自走）
 - 2D の舞台 `app/stage/flat.js`（#flat の SVG。上の帯と下の棚のあいだ。`F.cap` は字幕の余白）と共通の小道具 `app/parts/_flat.js`。棚の中身が変わったら測り直す（MutationObserver）。
 - 地図を「入口6つ → 単元」の2段に（`app/units/areas.json`・`app/core/areas.js`）。`index.json` の全26単元に areas・owner。図形側の E2E を新しい地図に合わせた（入口「かたち」経由）。
 - 実寸合わせ `app/core/calibrate.js`・`calibui.js`（設定から）、基準物 `data/benchmarks.json`（46件・硬貨4種は造幣局で確認）、読みの道具 `app/core/yomi.js`、見当の記録 `rules.js` の `estErr`・`estSeries`、保護者画面「見当の力」、設定（時計の数字・5とび）、ずかんの量の図（figs.js：clock・masu・scale・ruler・rect・route・angle・sector・bar・scene）と記録の一覧（kind:log）。量の部品の入口 `kurabe.js`・`ikutsubun.js`（opts.qty で読み分け）。
 - テスト：単体 26/26（骨格6件を追加）。E2E 28/28（入口から全26単元に届く・2D の舞台が収まる を追加）。全ボタン 553＝押した 553＝変化 553（差0）。
 - ★ SVG 要素は `.hidden` が効かない。ResizeObserver だけでは棚の変化を取りこぼすので、中身の変化でも測り直す。
-- SHA：（この commit）
+- SHA：3132a42（push 済み）
 
 ### 記録 2026-10-09 H0 量の自走の準備（Code）
 - 一式を配置：`docs/hakaru-design.md`・`hakaru-coverage.md`・`hakaru-research.md`・`run-02-hakaru.md`、`reference/hakaru-mock-v1.html`、`reference/hakaru-mock-src/`（同名なし・上書きなし）。
@@ -211,13 +218,4 @@
 - E2E：R4 の棚のボタン109個をすべて押し、109個すべてで状態が変化（dead 0・未押下 0）。iPad横・スマホ縦で全活動が収まる。R2 も再確認（scripted 91個・巡回55個、すべて変化）。
 - 直したもの：奥の辺のタップが手前の辺に吸われる、底の面を選べない、選択中の項目の再タップが無反応。
 - SHA：f74bd1e（push なし）
-
-### 記録 2026-10-08 N1 骨格と R2（Code・夜の自走）
-- 骨格：`app/core`（記録 schema:1・ミッション・思い出し・保護者画面・設定・休けい・印刷/PDF）、`app/stage`（見本v2 の3Dの土台＋汎用の折れる展開図）、`app/parts`（8部品）、`app/units/r2.json`。
-- R2 は見本v2 の機能をすべて移した（みる・さわる・ためす3段とヒント3段と★・うつしとる・ほねぐみ・てんかいず・ずかん・ミッション・読み上げ・保護者画面・設定）。設計書の追加2つ（6まいで はこ？・はこを えらぶ）も入れた。
-- 地図：R2 のみ「ひらく」、ほかは「じゅんび中」（押すと「つぎに できるよ」）。
-- テスト：単体11件 PASS（凍結値14件一致を含む）。E2E 3件 PASS：R2 の見えたボタン80個をすべて押し、80個すべてで状態が変化（dead 0・未押下 0）、iPad横 1180×820・スマホ縦 390×844 で全タブが収まる、コンソールのエラー0。スクショは `test-results/`。
-- 踏んだもの：片づけ済みの展開図のアニメで例外→描画ループ停止（修正）、古い棚の高さで枠どり（修正）、`.home` のクラス衝突（修正）。
-- 未検証：iPad 実機の手触り・読み上げの声・印刷の実寸（手元の Chrome でのみ確認）。
-- SHA：84beb49（push なし）
 

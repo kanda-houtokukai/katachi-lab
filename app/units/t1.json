@@ -1,0 +1,1095 @@
+{
+ "note": "1年「とけい」。設計書 hakaru-design.md §3 T1。文面はすべて下書き（reviewed:false）。教科書の用語は漢字＋ルビ、子ども向けはひらがなの分かち書き。",
+ "school": "1年 C(2) 時刻の読み",
+ "tabs": {
+  "miru": [
+   {
+    "part": "tokei",
+    "label": "みる",
+    "opts": {
+     "mode": "miru",
+     "script": "t1"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "tokei",
+    "label": "はりを まわす",
+    "opts": {
+     "mode": "hand"
+    }
+   },
+   {
+    "part": "tokei",
+    "label": "みじかい はりの へや",
+    "opts": {
+     "mode": "room"
+    }
+   },
+   {
+    "part": "tokei",
+    "label": "5とびの カード",
+    "opts": {
+     "mode": "five"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "tokei-quiz",
+    "label": "よむ・あわせる",
+    "opts": {
+     "type": "mix",
+     "n": 6
+    }
+   },
+   {
+    "part": "tokei-quiz",
+    "label": "あわせる",
+    "opts": {
+     "type": "set"
+    }
+   },
+   {
+    "part": "tokei-quiz",
+    "label": "せいかつ",
+    "opts": {
+     "type": "life"
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "tokei",
+    "label": "わたしの いちにち",
+    "opts": {
+     "mode": "day"
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "tokei",
+   "kind": "list",
+   "label": "とけい ずかん",
+   "title": "とけい ずかん（ちょうど・はん）",
+   "items": [
+    {
+     "id": "1:00",
+     "label": "1じ",
+     "fig": "clock:1:0",
+     "hint": "ちょうど"
+    },
+    {
+     "id": "2:00",
+     "label": "2じ",
+     "fig": "clock:2:0",
+     "hint": "ちょうど"
+    },
+    {
+     "id": "3:00",
+     "label": "3じ",
+     "fig": "clock:3:0",
+     "hint": "ちょうど"
+    },
+    {
+     "id": "4:00",
+     "label": "4じ",
+     "fig": "clock:4:0",
+     "hint": "ちょうど"
+    },
+    {
+     "id": "5:00",
+     "label": "5じ",
+     "fig": "clock:5:0",
+     "hint": "ちょうど"
+    },
+    {
+     "id": "6:00",
+     "label": "6じ",
+     "fig": "clock:6:0",
+     "hint": "ちょうど"
+    },
+    {
+     "id": "7:00",
+     "label": "7じ",
+     "fig": "clock:7:0",
+     "hint": "ちょうど"
+    },
+    {
+     "id": "8:00",
+     "label": "8じ",
+     "fig": "clock:8:0",
+     "hint": "ちょうど"
+    },
+    {
+     "id": "9:00",
+     "label": "9じ",
+     "fig": "clock:9:0",
+     "hint": "ちょうど"
+    },
+    {
+     "id": "10:00",
+     "label": "10じ",
+     "fig": "clock:10:0",
+     "hint": "ちょうど"
+    },
+    {
+     "id": "11:00",
+     "label": "11じ",
+     "fig": "clock:11:0",
+     "hint": "ちょうど"
+    },
+    {
+     "id": "12:00",
+     "label": "12じ",
+     "fig": "clock:12:0",
+     "hint": "ちょうど"
+    },
+    {
+     "id": "1:30",
+     "label": "1じはん",
+     "fig": "clock:1:30",
+     "hint": "はん"
+    },
+    {
+     "id": "2:30",
+     "label": "2じはん",
+     "fig": "clock:2:30",
+     "hint": "はん"
+    },
+    {
+     "id": "3:30",
+     "label": "3じはん",
+     "fig": "clock:3:30",
+     "hint": "はん"
+    },
+    {
+     "id": "4:30",
+     "label": "4じはん",
+     "fig": "clock:4:30",
+     "hint": "はん"
+    },
+    {
+     "id": "5:30",
+     "label": "5じはん",
+     "fig": "clock:5:30",
+     "hint": "はん"
+    },
+    {
+     "id": "6:30",
+     "label": "6じはん",
+     "fig": "clock:6:30",
+     "hint": "はん"
+    },
+    {
+     "id": "7:30",
+     "label": "7じはん",
+     "fig": "clock:7:30",
+     "hint": "はん"
+    },
+    {
+     "id": "8:30",
+     "label": "8じはん",
+     "fig": "clock:8:30",
+     "hint": "はん"
+    },
+    {
+     "id": "9:30",
+     "label": "9じはん",
+     "fig": "clock:9:30",
+     "hint": "はん"
+    },
+    {
+     "id": "10:30",
+     "label": "10じはん",
+     "fig": "clock:10:30",
+     "hint": "はん"
+    },
+    {
+     "id": "11:30",
+     "label": "11じはん",
+     "fig": "clock:11:30",
+     "hint": "はん"
+    },
+    {
+     "id": "12:30",
+     "label": "12じはん",
+     "fig": "clock:12:30",
+     "hint": "はん"
+    }
+   ],
+   "go": {
+    "mode": "sawaru",
+    "act": 0
+   },
+   "goLabel": "「はりを まわす」で あつめよう"
+  },
+  {
+   "id": "fun",
+   "kind": "list",
+   "label": "ふん ずかん",
+   "title": "ふん ずかん（0〜59ふん）",
+   "items": [
+    {
+     "id": "m0",
+     "label": "ちょうど（0ぷん）",
+     "fig": "clock:12:0",
+     "hint": "0"
+    },
+    {
+     "id": "m1",
+     "label": "1ぷん",
+     "fig": "clock:12:1",
+     "hint": "1"
+    },
+    {
+     "id": "m2",
+     "label": "2ふん",
+     "fig": "clock:12:2",
+     "hint": "2"
+    },
+    {
+     "id": "m3",
+     "label": "3ぷん",
+     "fig": "clock:12:3",
+     "hint": "3"
+    },
+    {
+     "id": "m4",
+     "label": "4ぷん",
+     "fig": "clock:12:4",
+     "hint": "4"
+    },
+    {
+     "id": "m5",
+     "label": "5ふん",
+     "fig": "clock:12:5",
+     "hint": "5"
+    },
+    {
+     "id": "m6",
+     "label": "6ぷん",
+     "fig": "clock:12:6",
+     "hint": "6"
+    },
+    {
+     "id": "m7",
+     "label": "7ふん",
+     "fig": "clock:12:7",
+     "hint": "7"
+    },
+    {
+     "id": "m8",
+     "label": "8ぷん",
+     "fig": "clock:12:8",
+     "hint": "8"
+    },
+    {
+     "id": "m9",
+     "label": "9ふん",
+     "fig": "clock:12:9",
+     "hint": "9"
+    },
+    {
+     "id": "m10",
+     "label": "10ぷん",
+     "fig": "clock:12:10",
+     "hint": "10"
+    },
+    {
+     "id": "m11",
+     "label": "11ぷん",
+     "fig": "clock:12:11",
+     "hint": "11"
+    },
+    {
+     "id": "m12",
+     "label": "12ふん",
+     "fig": "clock:12:12",
+     "hint": "12"
+    },
+    {
+     "id": "m13",
+     "label": "13ぷん",
+     "fig": "clock:12:13",
+     "hint": "13"
+    },
+    {
+     "id": "m14",
+     "label": "14ぷん",
+     "fig": "clock:12:14",
+     "hint": "14"
+    },
+    {
+     "id": "m15",
+     "label": "15ふん",
+     "fig": "clock:12:15",
+     "hint": "15"
+    },
+    {
+     "id": "m16",
+     "label": "16ぷん",
+     "fig": "clock:12:16",
+     "hint": "16"
+    },
+    {
+     "id": "m17",
+     "label": "17ふん",
+     "fig": "clock:12:17",
+     "hint": "17"
+    },
+    {
+     "id": "m18",
+     "label": "18ぷん",
+     "fig": "clock:12:18",
+     "hint": "18"
+    },
+    {
+     "id": "m19",
+     "label": "19ふん",
+     "fig": "clock:12:19",
+     "hint": "19"
+    },
+    {
+     "id": "m20",
+     "label": "20ぷん",
+     "fig": "clock:12:20",
+     "hint": "20"
+    },
+    {
+     "id": "m21",
+     "label": "21ぷん",
+     "fig": "clock:12:21",
+     "hint": "21"
+    },
+    {
+     "id": "m22",
+     "label": "22ふん",
+     "fig": "clock:12:22",
+     "hint": "22"
+    },
+    {
+     "id": "m23",
+     "label": "23ぷん",
+     "fig": "clock:12:23",
+     "hint": "23"
+    },
+    {
+     "id": "m24",
+     "label": "24ぷん",
+     "fig": "clock:12:24",
+     "hint": "24"
+    },
+    {
+     "id": "m25",
+     "label": "25ふん",
+     "fig": "clock:12:25",
+     "hint": "25"
+    },
+    {
+     "id": "m26",
+     "label": "26ぷん",
+     "fig": "clock:12:26",
+     "hint": "26"
+    },
+    {
+     "id": "m27",
+     "label": "27ふん",
+     "fig": "clock:12:27",
+     "hint": "27"
+    },
+    {
+     "id": "m28",
+     "label": "28ぷん",
+     "fig": "clock:12:28",
+     "hint": "28"
+    },
+    {
+     "id": "m29",
+     "label": "29ふん",
+     "fig": "clock:12:29",
+     "hint": "29"
+    },
+    {
+     "id": "m30",
+     "label": "30ぷん",
+     "fig": "clock:12:30",
+     "hint": "30"
+    },
+    {
+     "id": "m31",
+     "label": "31ぷん",
+     "fig": "clock:12:31",
+     "hint": "31"
+    },
+    {
+     "id": "m32",
+     "label": "32ふん",
+     "fig": "clock:12:32",
+     "hint": "32"
+    },
+    {
+     "id": "m33",
+     "label": "33ぷん",
+     "fig": "clock:12:33",
+     "hint": "33"
+    },
+    {
+     "id": "m34",
+     "label": "34ぷん",
+     "fig": "clock:12:34",
+     "hint": "34"
+    },
+    {
+     "id": "m35",
+     "label": "35ふん",
+     "fig": "clock:12:35",
+     "hint": "35"
+    },
+    {
+     "id": "m36",
+     "label": "36ぷん",
+     "fig": "clock:12:36",
+     "hint": "36"
+    },
+    {
+     "id": "m37",
+     "label": "37ふん",
+     "fig": "clock:12:37",
+     "hint": "37"
+    },
+    {
+     "id": "m38",
+     "label": "38ぷん",
+     "fig": "clock:12:38",
+     "hint": "38"
+    },
+    {
+     "id": "m39",
+     "label": "39ふん",
+     "fig": "clock:12:39",
+     "hint": "39"
+    },
+    {
+     "id": "m40",
+     "label": "40ぷん",
+     "fig": "clock:12:40",
+     "hint": "40"
+    },
+    {
+     "id": "m41",
+     "label": "41ぷん",
+     "fig": "clock:12:41",
+     "hint": "41"
+    },
+    {
+     "id": "m42",
+     "label": "42ふん",
+     "fig": "clock:12:42",
+     "hint": "42"
+    },
+    {
+     "id": "m43",
+     "label": "43ぷん",
+     "fig": "clock:12:43",
+     "hint": "43"
+    },
+    {
+     "id": "m44",
+     "label": "44ぷん",
+     "fig": "clock:12:44",
+     "hint": "44"
+    },
+    {
+     "id": "m45",
+     "label": "45ふん",
+     "fig": "clock:12:45",
+     "hint": "45"
+    },
+    {
+     "id": "m46",
+     "label": "46ぷん",
+     "fig": "clock:12:46",
+     "hint": "46"
+    },
+    {
+     "id": "m47",
+     "label": "47ふん",
+     "fig": "clock:12:47",
+     "hint": "47"
+    },
+    {
+     "id": "m48",
+     "label": "48ぷん",
+     "fig": "clock:12:48",
+     "hint": "48"
+    },
+    {
+     "id": "m49",
+     "label": "49ふん",
+     "fig": "clock:12:49",
+     "hint": "49"
+    },
+    {
+     "id": "m50",
+     "label": "50ぷん",
+     "fig": "clock:12:50",
+     "hint": "50"
+    },
+    {
+     "id": "m51",
+     "label": "51ぷん",
+     "fig": "clock:12:51",
+     "hint": "51"
+    },
+    {
+     "id": "m52",
+     "label": "52ふん",
+     "fig": "clock:12:52",
+     "hint": "52"
+    },
+    {
+     "id": "m53",
+     "label": "53ぷん",
+     "fig": "clock:12:53",
+     "hint": "53"
+    },
+    {
+     "id": "m54",
+     "label": "54ぷん",
+     "fig": "clock:12:54",
+     "hint": "54"
+    },
+    {
+     "id": "m55",
+     "label": "55ふん",
+     "fig": "clock:12:55",
+     "hint": "55"
+    },
+    {
+     "id": "m56",
+     "label": "56ぷん",
+     "fig": "clock:12:56",
+     "hint": "56"
+    },
+    {
+     "id": "m57",
+     "label": "57ふん",
+     "fig": "clock:12:57",
+     "hint": "57"
+    },
+    {
+     "id": "m58",
+     "label": "58ぷん",
+     "fig": "clock:12:58",
+     "hint": "58"
+    },
+    {
+     "id": "m59",
+     "label": "59ふん",
+     "fig": "clock:12:59",
+     "hint": "59"
+    }
+   ],
+   "go": {
+    "mode": "sawaru",
+    "act": 0
+   },
+   "goLabel": "「はりを まわす」で あつめよう"
+  }
+ ],
+ "mission": [
+  {
+   "key": "day",
+   "label": "わたしの いちにちを つくる",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "t1-3",
+   "q": "なんじ？",
+   "ch": [
+    "3じ",
+    "12じ 15ふん"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "clock:3:0"
+  },
+  {
+   "id": "t1-830",
+   "q": "なんじ？",
+   "ch": [
+    "8じはん",
+    "9じはん"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "clock:8:30"
+  },
+  {
+   "id": "t1-755",
+   "q": "なんじ なんぷん？",
+   "ch": [
+    "7じ 55ふん",
+    "8じ 55ふん",
+    "7じ 11ぷん"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "clock:7:55"
+  },
+  {
+   "id": "t1-155",
+   "q": "なんじ なんぷん？",
+   "ch": [
+    "1じ 55ふん",
+    "2じ 55ふん"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "clock:1:55"
+  },
+  {
+   "id": "t1-long6",
+   "q": "ながい はりが 6の ときは なんぷん？",
+   "ch": [
+    "30ぷん",
+    "6ぷん"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "clock:4:30"
+  },
+  {
+   "id": "t1-room",
+   "q": "みじかい はりが 4と 5の あいだ。なんじ？",
+   "ch": [
+    "4じ",
+    "5じ"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "clock:4:20"
+  },
+  {
+   "id": "t1-12",
+   "q": "ながい はりが 12の ときは？",
+   "ch": [
+    "ちょうど",
+    "はん"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "clock:10:0"
+  },
+  {
+   "id": "t1-pun6",
+   "q": "6ぷんの よみかたは？",
+   "ch": [
+    "ろっぷん",
+    "ろくふん"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "t1-pun10",
+   "q": "10ぷんの よみかたは？",
+   "ch": [
+    "じゅっぷん",
+    "じゅうふん"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "t1-lap",
+   "q": "ながい はりが ひとまわり すると、みじかい はりは？",
+   "ch": [
+    "つぎの かずへ すすむ",
+    "ひとまわり する"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "clock:8:0"
+  },
+  {
+   "id": "t1-1240",
+   "q": "なんじ なんぷん？",
+   "ch": [
+    "12じ 40ぷん",
+    "1じ 40ぷん"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "clock:12:40"
+  },
+  {
+   "id": "t1-life",
+   "q": "あさごはんの ころの とけいは？",
+   "ch": [
+    "7じはん",
+    "2じはん"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "clock:7:30"
+  }
+ ],
+ "insights": [
+  {
+   "key": "t1-near",
+   "type": "T1",
+   "title": "短い針が近い数字を読んでいる",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "t1.read",
+      "t1.set"
+     ],
+     "detail.mistake": "T1"
+    },
+    "min": 2
+   },
+   "obs": "時計の問題で、短い針が次の数字に近いとき、次の時刻を読む間違いが{n}回ありました。",
+   "body": "短い針が数字と数字のあいだにあるときは、小さいほうの数字を読みます（例：7時55分を8時55分と読む）。短い針の「へや」で考える段階です。",
+   "home": "朝の支度のときに、短い針がどの数字とどの数字のあいだにいるかを一緒に見て、「7と8のあいだだから7時」と声に出してみてください。",
+   "tag": "1年の内容"
+  },
+  {
+   "key": "t1-swap",
+   "type": "T2",
+   "title": "長い針と短い針を取り違えている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "t1.read",
+      "t1.set"
+     ],
+     "detail.mistake": "T2"
+    },
+    "min": 2
+   },
+   "obs": "長い針と短い針の役わりを取り違える間違いが{n}回ありました。",
+   "body": "短い針は「何時」、長い針は「何分」を表します。2本の針の長さと役わりが、まだ結びついていない段階です。",
+   "home": "家の時計で「短い針はどこ？」「長い針はどこ？」と1本ずつ指さして確かめるのがおすすめです。",
+   "tag": "1年の内容"
+  },
+  {
+   "key": "t1-num",
+   "type": "T3",
+   "title": "長い針の数字をそのまま分と読んでいる",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "t1.read",
+      "t1.set"
+     ],
+     "detail.mistake": "T3"
+    },
+    "min": 2
+   },
+   "obs": "長い針が指す数字をそのまま「分」と読む間違い（例：11を指していて11分）が{n}回ありました。",
+   "body": "長い針は5とびで数えます（1→5分、2→10分…）。文字盤の数字と分の目もりが、まだ別のものだと分かっていない段階です。",
+   "home": "時計の外側に5・10・15…と書いた紙を貼って、長い針で5とびに数える遊びをしてみてください。",
+   "tag": "1年の内容"
+  },
+  {
+   "key": "t1-pun",
+   "type": "pun",
+   "title": "「ふん」と「ぷん」の読み分け",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "t1.read",
+      "t1.set"
+     ],
+     "detail.mistake": "pun"
+    },
+    "min": 1
+   },
+   "obs": "「〇ふん／〇ぷん」の読み分けを{n}回まちがえました。",
+   "body": "1・3・4・6・8・10分は「ぷん」、2・5・7・9分は「ふん」と読みます。数え方の音の変化に慣れていく段階です。",
+   "home": "時刻を言うときに、おうちの人がゆっくり正しく読んで聞かせ、まねして言ってもらうだけで十分です。",
+   "tag": "1年の内容"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "t1.read"
+    },
+    "min": 3
+   },
+   "text": "時計の問題で、ヒントを使わずに{best}問続けて正解しました。"
+  },
+  {
+   "test": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "t1.day",
+      "correct": true
+     }
+    ]
+   },
+   "text": "「わたしの いちにち」で、生活の8つの場面の時刻を時計で合わせて並べました。"
+  },
+  {
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "t1.set",
+     "correct": true
+    },
+    "min": 4
+   },
+   "text": "言われた時刻に時計の針を{n}回合わせられました。"
+  }
+ ],
+ "map": [
+  {
+   "school": "1年 C(2) 何時・何時半を読む",
+   "activity": "時計を読む（ちょうど・はん）",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "t1.read",
+     "level": "easy"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "t1.read"
+     },
+     {
+      "kind": "t1.turn"
+     }
+    ]
+   }
+  },
+  {
+   "school": "1年 C(2) 何時何分を読む",
+   "activity": "時計を読む（5分・1分刻み）",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "t1.read",
+     "level": [
+      "normal",
+      "challenge"
+     ],
+     "detail.type": "read"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "t1.read",
+      "level": "normal"
+     },
+     {
+      "kind": "t1.read",
+      "level": "challenge"
+     }
+    ]
+   }
+  },
+  {
+   "school": "1年 C(2) 時計の針を合わせる",
+   "activity": "言われた時刻に針を合わせる",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "t1.set"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "t1.set"
+     },
+     {
+      "kind": "t1.read",
+      "detail.type": "set"
+     }
+    ]
+   }
+  },
+  {
+   "school": "1年 C(2) 時刻と日常生活を結びつける",
+   "activity": "わたしの いちにち・せいかつの問題",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "t1.day",
+      "correct": true
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "t1.day-card"
+     },
+     {
+      "kind": "t1.life"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "t1.miru": "長い針がひとまわりすると短い針が次の数字へ進む様子を見ました",
+  "t1.turn": "時計の針を回して時刻を確かめました",
+  "t1.read": [
+   {
+    "where": {
+     "detail.type": "set"
+    },
+    "text": "時計の針を合わせる：{ok}{hints}"
+   },
+   {
+    "where": {
+     "detail.type": "pun"
+    },
+    "text": "「ふん」「ぷん」の読み方：{ok}"
+   },
+   {
+    "where": {},
+    "text": "時刻を読む：{ok}{hints}"
+   }
+  ],
+  "t1.read-done": "時計の問題（{level}）{n}問中{score}問正解",
+  "t1.set": "時計の針を合わせる：{ok}{hints}",
+  "t1.set-done": "針を合わせる問題（{level}）{n}問中{score}問正解",
+  "t1.life": "生活の場面と時刻：{ok}{hints}",
+  "t1.life-done": "生活の場面と時刻（{level}）{n}問中{score}問正解",
+  "t1.day": "「わたしの いちにち」で、生活の場面を時計で合わせて並べました",
+  "t1.day-card": "生活の場面の時刻を合わせました",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 16.5,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 1,
+   "h": 17,
+   "kind": "read",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "read",
+    "t": 475,
+    "mistake": "T1",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 1,
+   "h": 17.1,
+   "kind": "read",
+   "correct": true,
+   "hints": 1,
+   "level": "normal",
+   "detail": {
+    "type": "set",
+    "t": 115,
+    "mistake": "T1",
+    "miss": 1
+   }
+  },
+  {
+   "d": 3,
+   "h": 17,
+   "kind": "read",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "type": "read",
+    "t": 200
+   }
+  },
+  {
+   "d": 3,
+   "h": 17.1,
+   "kind": "read",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "type": "read",
+    "t": 410
+   }
+  },
+  {
+   "d": 3,
+   "h": 17.2,
+   "kind": "read",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "type": "read",
+    "t": 650
+   }
+  },
+  {
+   "d": 5,
+   "h": 18,
+   "kind": "day",
+   "correct": true,
+   "detail": {
+    "n": 8
+   },
+   "stage": "tsukuru"
+  }
+ ],
+ "demoZukan": {
+  "tokei": [
+   "7:00",
+   "8:30",
+   "12:00"
+  ],
+  "fun": [
+   "m0",
+   "m30",
+   "m55",
+   "m15"
+  ]
+ }
+}
