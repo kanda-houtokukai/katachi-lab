@@ -1,0 +1,36 @@
+/* デザイン用の変数（D12）。色・字体・角丸・影・余白はここだけに置く。
+   いまの値は見本v2の見た目を仮に使っている。方向性が決まったら、この1ファイルを差し替えれば全画面が変わる。
+   3D の色も JS がここから読む（app/core/theme.js）。 */
+:root{
+  /* 部屋と紙 */
+  --room:#e4e8e2; --room-edge:#d3d9d1;
+  --paper:#fbfbf7; --paper-2:#f3f5f0; --paper-print:#ffffff;
+  --ink:#1f2b27; --ink-soft:#5e6b66; --line:#d6dcd5;
+  /* カッターマット */
+  --mat:#2f6b57; --mat-deep:#1f4f3f; --mat-press:#163b2f; --mat-side:#24543f;
+  /* 意味の色 */
+  --ok:#d9452f; --yamabuki:#f2b833; --sora:#3f6aa0; --hint:#b8860b;
+  --ok-soft:#e3a79c; --sora-soft:#9fb3c9; --ok-pale:#f3b3a8;
+  --done-bg:#fff7df; --done-line:#ecd38f; --done-icon:#ffeec2;
+  --hint-bg:#fffaf0; --hint-line:#e0c36a; --hint-ink:#7a5b00;
+  --pick-bg:#eef6f1; --home-bg:#f6f9f4; --banner-bg:#fff4d6;
+  --warn-bg:#fff1ee; --warn-line:#f0c2b8; --parent-bg:#fdfdfb;
+  --scrim:rgba(31,43,39,.42); --shadow-paper:0 6px 18px rgba(31,43,39,.18);
+  /* 面の色（6色）と、問題用の白い紙 */
+  --face-1:#e5654b; --face-2:#f2b833; --face-3:#8cc152; --face-4:#4f9bd9; --face-5:#9a77cf; --face-6:#f19bb5;
+  --quiz-paper:#f4f2ea; --sheet-paper:#fbfaf5; --gray-face:#a9b3ad;
+  /* 3D の光と強調 */
+  --light-sky:#ffffff; --light-ground:#a9bdb0; --light-sun:#fff4e6; --light-fill:#e3ecff;
+  --glow-white:#ffffff; --glow-red:#ff3b2f; --glow-blue:#4f9bd9; --flat-blue:#4f9bd9; --curve-yellow:#f2b833;
+  --wood:#c9a06b; --water:#7fb8e6; --cutline:#d9452f;
+  /* きょうだいの色 */
+  --av-1:#e5654b; --av-2:#4f9bd9; --av-3:#8cc152; --av-4:#9a77cf;
+  /* 字体 */
+  --font-display:"Klee One","Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;
+  --font-ui:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;
+  /* 角丸・余白・大きさ */
+  --r-s:11px; --r-m:14px; --r-l:16px; --r-xl:20px; --r-sheet:24px;
+  --gap-s:6px; --gap-m:10px; --gap-l:16px;
+  --btn-h:56px; --btn-h-s:46px; --btn-h-l:68px; --icon-btn:48px;
+  color-scheme:light;
+}

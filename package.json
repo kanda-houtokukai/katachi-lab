@@ -1,0 +1,14 @@
+{
+  "name": "katachi-lab",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "うごかして わかる 学習アプリ（試作）。ビルドなしで動く。Node はカタログ生成とテストにだけ使う。",
+  "scripts": {
+    "catalog": "node tools/build-catalog.mjs",
+    "precache": "node tools/build-precache.mjs",
+    "serve": "node tools/serve.mjs",
+    "test": "node --test \"tests/unit/*.test.mjs\"",
+    "e2e": "node --test --test-concurrency=1 \"tests/e2e/*.test.mjs\""
+  }
+}

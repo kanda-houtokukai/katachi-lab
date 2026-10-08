@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "katachi-lab", "runtimeExecutable": "node", "runtimeArgs": ["tools/serve.mjs", "5310"], "port": 5310 }
+  ]
+}
