@@ -4,6 +4,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { startAll, openPage } from './harness.mjs';
 import { crawlUnit } from './crawl.mjs';
+import { calibFlow } from './global.mjs';
 
 let env;
 test.before(async () => { env = await startAll(); });
@@ -18,6 +19,7 @@ const longPress = async (h, sel) => {
 export async function r2Flow(h) {
   const { page } = h;
   await h.look();
+  await h.click('data-area=katachi|');
   for (const u of ['r1', 'r4', 'r5a', 'r5b', 'r6', 'rj']) if (await page.locator(`[data-unit="${u}"].soon`).count()) await h.click(`data-unit=${u}|`);   // じゅんび中 → 「つぎに できるよ」
   await h.click('id=homeMissionBtn|'); await h.click('id=msClose|');
   // ミッションの「やる」から単元へ（日がわりの つくる・ためす）
@@ -212,6 +214,12 @@ export async function r2Flow(h) {
   await h.click('data-motion=less|'); await h.click('data-motion=full|');
   await h.click('data-ahead=0|'); await h.click('data-ahead=1|');
   await page.selectOption('#sLimit', '15'); await page.selectOption('#sLevel', 'easy');
+  // 量の単元で足した設定（時計の表示・がめんの ながさ あわせ）
+  await h.click('data-cnum=0|'); await h.click('data-cnum=1|'); await h.click('data-cfive=1|'); await h.click('data-cfive=0|');
+  await h.click('id=sCalib|');
+  await calibFlow(h, async () => { await h.until(() => !document.getElementById('parentSheet').hidden); await h.page.waitForTimeout(700); await h.click('id=sCalib|'); });
+  await h.until(() => !document.getElementById('parentSheet').hidden);
+  await h.page.waitForTimeout(700);   // シートがせり上がるのを待つ
   await h.click('id=nAdd|');                    // 名前なし → 入力欄の案内
   await page.fill('#nName', 'たろう'); await h.click('id=nAdd|');
   const dl2 = h.page.waitForEvent('download', { timeout: 15000 });
@@ -240,7 +248,7 @@ test('R2 の全ボタンを押すと、すべて状態が変わる（iPad横 118
     console.log('R2 ボタン', JSON.stringify(rep));
     assert.deepEqual(rep.dead, [], '押しても何も起きないボタン');
     // 棚の中のボタンの押しもれは、下の「巡回」のテストで確かめる。ここでは棚の外（地図・帯・シート）を見る
-    assert.deepEqual(rep.never.filter(id => !/^r\d\w*:/.test(id) && !id.startsWith('data-unit=')), [], '見えたのに押していないボタン');
+    assert.deepEqual(rep.never.filter(id => !/^r\d\w*:/.test(id) && !id.startsWith('data-unit=') && !id.startsWith('data-area=') && id !== 'id=areaBack|'), [], '見えたのに押していないボタン');
     assert.ok(rep.clicked >= 60, 'ボタンの数');
     assert.deepEqual(h.errors, [], 'コンソールのエラー');
   } finally { await h.shot('r2-last'); await h.context.close(); }

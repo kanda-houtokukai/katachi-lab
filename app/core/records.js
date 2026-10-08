@@ -5,7 +5,7 @@ import { today, addDays } from './dates.js';
 import { avColors } from './theme.js';
 
 export const SCHEMA = 1;
-export const SETTINGS_DEF = { readAuto: true, limitMin: 0, startLevel: 'normal', motion: 'full', ahead: true };
+export const SETTINGS_DEF = { readAuto: true, limitMin: 0, startLevel: 'normal', motion: 'full', ahead: true, clockNums: true, clockFive: false };
 const listeners = new Set();
 export const onChange = fn => listeners.add(fn);
 const emit = () => listeners.forEach(f => { try { f(); } catch (e) { console.error(e); } });

@@ -23,6 +23,20 @@
   --light-sky:#ffffff; --light-ground:#a9bdb0; --light-sun:#fff4e6; --light-fill:#e3ecff;
   --glow-white:#ffffff; --glow-red:#ff3b2f; --glow-blue:#4f9bd9; --flat-blue:#4f9bd9; --curve-yellow:#f2b833;
   --wood:#c9a06b; --water:#7fb8e6; --cutline:#d9452f;
+  /* はかる（量の部品・2D の舞台）。見本 v1「量をはかる」の色を仮に使う */
+  --water-deep:#4f8fc6; --glass:#f7fbff; --glass-line:#9fb7c9; --wood-pale:#f1dfb8; --wood-deep:#8a6d3b; --wood-dark:#5a4220;
+  --metal:#c7cdd0; --metal-deep:#8e979b; --metal-dark:#4d5659; --metal-pale:#dfe3e6;
+  --tape:#f4dc9f; --tape-line:#c9a06b; --ruler:#f8f6ef; --ruler-line:#3b3b3b; --ruler-edge:#e9edf0;
+  --coin:#d7dce0; --coin-line:#8e979b; --clay:#f08a24; --leaf:#5a9a3a; --soil:#9c7642;
+  --gear-1:#5c86c4; --gear-2:#c8a24a; --gear-2b:#8d7330; --gear-3:#b3463a; --gear-bg:#2b3733; --gear-ink-1:#cfe0ff; --gear-ink-3:#ffd5cf;
+  --band-am:#fbf1d9; --band-pm:#e9e6f3; --sun:#ffd25a; --moon:#f4f1df; --grass:#5d8a5a; --house:#efe3cf; --house-win:#7a8a8f; --house-light:#ffd56a; --sky-ink-day:#1f3b5a; --sky-ink-night:#ffffff;
+  /* 空の色（時刻→上・下）。0〜24時の11の点 */
+  --sky-0-t:#16213d; --sky-0-b:#2b3a63; --sky-1-t:#1c2a4d; --sky-1-b:#3a4a78; --sky-2-t:#3b4f86; --sky-2-b:#e7a37c; --sky-3-t:#6fa7da; --sky-3-b:#f6d6a8;
+  --sky-4-t:#7fc0ec; --sky-4-b:#d6eefc; --sky-5-t:#6db6ea; --sky-5-b:#cfeafb; --sky-6-t:#7cbbe6; --sky-6-b:#e2f1fb; --sky-7-t:#e8a06e; --sky-7-b:#f8d9a6;
+  --sky-8-t:#59558e; --sky-8-b:#e48f6b; --sky-9-t:#22305a; --sky-9-b:#46497a; --sky-10-t:#16213d; --sky-10-b:#2b3a63;
+  /* 入口（地図の1段目）の色 */
+  --area-katachi:#e9f3ee; --area-nagasa:#fdf1e2; --area-kasa:#e6f1fa; --area-omosa:#eef3e6; --area-jikan:#fff4dc; --area-hirosa:#f6eefb;
+  --grid-line:#cfc6dc; --cell-a:#9a77cf; --cell-b:#f2b833; --tile:#dfe6ee;
   /* きょうだいの色 */
   --av-1:#e5654b; --av-2:#4f9bd9; --av-3:#8cc152; --av-4:#9a77cf;
   /* 字体 */

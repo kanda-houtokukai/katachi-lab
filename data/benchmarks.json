@@ -1,0 +1,386 @@
+{
+ "note": "基準物（hakaru-design.md §1-2）。全単元で使い回す値はここだけに置き、画面に直接書かない。approx:true は画面で「やく」を付ける。verified:false の値は正式公開の前に確かめる。商品名・商標は使わない。",
+ "items": [
+  {
+   "id": "coin1",
+   "name": "1えんだま",
+   "len_mm": 20,
+   "mass_g": 1,
+   "approx": false,
+   "verified": true,
+   "src": "https://www.mint.go.jp/operations/production/operations_coin_presently-minted.html"
+  },
+  {
+   "id": "coin10",
+   "name": "10えんだま",
+   "len_mm": 23.5,
+   "mass_g": 4.5,
+   "approx": false,
+   "verified": true,
+   "src": "https://www.mint.go.jp/operations/production/operations_coin_presently-minted.html"
+  },
+  {
+   "id": "coin100",
+   "name": "100えんだま",
+   "len_mm": 22.6,
+   "mass_g": 4.8,
+   "approx": false,
+   "verified": true,
+   "src": "https://www.mint.go.jp/operations/production/operations_coin_presently-minted.html"
+  },
+  {
+   "id": "coin500",
+   "name": "500えんだま",
+   "len_mm": 26.5,
+   "mass_g": 7.1,
+   "approx": false,
+   "verified": true,
+   "src": "https://www.mint.go.jp/operations/production/operations_coin_presently-minted.html"
+  },
+  {
+   "id": "card",
+   "name": "カード（よこ）",
+   "len_mm": 85.6,
+   "len2_mm": 53.98,
+   "approx": false,
+   "verified": false,
+   "src": "ISO/IEC 7810 ID-1（85.60×53.98mm）。ウィキペディア「ISO/IEC 7810」で確認。規格の原本は未確認"
+  },
+  {
+   "id": "hagaki",
+   "name": "はがき（たて）",
+   "len_mm": 148,
+   "approx": false,
+   "src": "通常はがきの大きさ（148×100mm）。原本は未確認",
+   "verified": false
+  },
+  {
+   "id": "hagaki-w",
+   "name": "はがき（よこ）",
+   "len_mm": 100,
+   "approx": false,
+   "src": "通常はがきの大きさ（148×100mm）。原本は未確認",
+   "verified": false
+  },
+  {
+   "id": "notebook",
+   "name": "ノート（たて）",
+   "len_mm": 250,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "pencil",
+   "name": "えんぴつ",
+   "len_mm": 180,
+   "mass_g": 5,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "eraser",
+   "name": "けしごむ",
+   "len_mm": 50,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "clip",
+   "name": "クリップ",
+   "len_mm": 30,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "ruler30",
+   "name": "30cmものさし",
+   "len_mm": 300,
+   "approx": false,
+   "verified": true,
+   "src": "ものさしの目もりの長さ（定義）"
+  },
+  {
+   "id": "ruler1m",
+   "name": "1mものさし",
+   "len_mm": 1000,
+   "approx": false,
+   "verified": true,
+   "src": "ものさしの目もりの長さ（定義）"
+  },
+  {
+   "id": "desk",
+   "name": "つくえ（よこ）",
+   "len_mm": 600,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "door",
+   "name": "きょうしつの とびら（たかさ）",
+   "len_mm": 2000,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "blackboard",
+   "name": "こくばん（よこ）",
+   "len_mm": 3600,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "tissue",
+   "name": "ティッシュの はこ（よこ）",
+   "len_mm": 240,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "milk1L",
+   "name": "ぎゅうにゅうパック（1L）",
+   "vol_ml": 1000,
+   "approx": false,
+   "src": "パックの表示（1L）",
+   "verified": false
+  },
+  {
+   "id": "milk200",
+   "name": "ぎゅうにゅうパック（200mL）",
+   "vol_ml": 200,
+   "mass_g": 200,
+   "approx": false,
+   "src": "パックの表示（200mL）。重さは教科書の例（およその値）",
+   "verified": false
+  },
+  {
+   "id": "pet500",
+   "name": "ペットボトル（500mL）",
+   "vol_ml": 500,
+   "approx": false,
+   "src": "ボトルの表示（500mL）",
+   "verified": false
+  },
+  {
+   "id": "pet2L",
+   "name": "ペットボトル（2L）",
+   "vol_ml": 2000,
+   "approx": false,
+   "src": "ボトルの表示（2L）",
+   "verified": false
+  },
+  {
+   "id": "cup",
+   "name": "コップ",
+   "vol_ml": 200,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "donburi",
+   "name": "どんぶり",
+   "vol_ml": 600,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "suito",
+   "name": "すいとう",
+   "vol_ml": 500,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "yakan",
+   "name": "やかん",
+   "vol_ml": 2000,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "nabe",
+   "name": "なべ",
+   "vol_ml": 3000,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "bucket",
+   "name": "バケツ",
+   "vol_ml": 8000,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "bath",
+   "name": "おふろ",
+   "vol_ml": 200000,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "water1L",
+   "name": "1Lの みず",
+   "vol_ml": 1000,
+   "mass_g": 1000,
+   "src": "教科書の例（1Lの水の重さは約1kg）",
+   "approx": true,
+   "verified": false
+  },
+  {
+   "id": "apple",
+   "name": "りんご",
+   "mass_g": 300,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "orange",
+   "name": "みかん",
+   "mass_g": 100,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "egg",
+   "name": "たまご",
+   "mass_g": 60,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "banana",
+   "name": "バナナ",
+   "mass_g": 150,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "potato",
+   "name": "じゃがいも",
+   "mass_g": 150,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "carrot",
+   "name": "にんじん",
+   "mass_g": 200,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "pumpkin",
+   "name": "かぼちゃ",
+   "mass_g": 1500,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "cabbage",
+   "name": "キャベツ",
+   "mass_g": 1200,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "textbook",
+   "name": "きょうかしょ",
+   "mass_g": 250,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "clay",
+   "name": "ねんど",
+   "mass_g": 200,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "randoseru",
+   "name": "ランドセル",
+   "mass_g": 1200,
+   "massRef": false,
+   "note": "重さの基準には使わない（中身で大きく変わるため。hakaru-design.md §1-2）",
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "bicycle",
+   "name": "じてんしゃ",
+   "mass_g": 15000,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "keicar",
+   "name": "けいじどうしゃ",
+   "mass_g": 1000000,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "classroom",
+   "name": "きょうしつ",
+   "len_mm": 8000,
+   "area_cm2": 640000,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "pool",
+   "name": "プール（25m）",
+   "len_mm": 25000,
+   "area_cm2": 3000000,
+   "vol_ml": 360000000,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "schoolyard",
+   "name": "こうてい",
+   "area_cm2": 60000000,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（およその値）"
+  },
+  {
+   "id": "road1km",
+   "name": "1kmの みち",
+   "len_mm": 1000000,
+   "approx": false,
+   "verified": true,
+   "src": "1km＝1000m（定義）"
+  }
+ ]
+}

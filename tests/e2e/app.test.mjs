@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { startAll, openPage } from './harness.mjs';
 import { crawlUnit } from './crawl.mjs';
-import { missionFlow, parentFlow, longPress } from './global.mjs';
+import { missionFlow, parentFlow, longPress, doorsFlow } from './global.mjs';
 
 const idx = JSON.parse(readFileSync(new URL('../../app/units/index.json', import.meta.url)));
 const UNITS = idx.units.filter(u => u.ready).map(u => u.id);
@@ -27,6 +27,7 @@ test('全単元・全タブ・全ボタン：見えたボタン＝押したボ�
       }
       await h.click('id=homeBtn|');
     }
+    await doorsFlow(h);
     await missionFlow(h, 'homeMissionBtn');
     await parentFlow(h, 'homeParentBtn');
     await h.look();

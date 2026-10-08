@@ -23,6 +23,8 @@ export async function crawlActivity(h, { maxSteps = 160, skip = [] } = {}) {
     if (!fresh) { const close = await page.evaluate(() => { const s = [...document.querySelectorAll('.sheet')].filter(x => !x.hidden).pop(); const b = s && s.querySelector('.sheet-head .icon-btn'); return b ? b.id : null; }); if (close) { await h.click(`id=${close}|`, { expectChange: false }); continue; } }
     if (fresh) {
       if (fresh.id.startsWith('for=')) { h.clicked.set(fresh.id, true); continue; }
+      // 画面を切りかえるボタンは、部品の動き（組み立てて確かめる など）の最中は受け付けない作りのものがある → 終わるまで待つ
+      if (later(fresh.id)) for (let k = 0; k < 40; k++) { const ph = await h.test('T && T.state ? (T.state() || {}).phase : null').catch(() => null); if (!['fold', 'busy', 'anim'].includes(ph)) break; await page.waitForTimeout(250); }
       try { await h.click(fresh.id); }
       catch (e) { if (!/ボタンが見つからない/.test(e.message)) throw e; }   // 押す直前に消えた（自動で消えるお知らせ）
       continue;
@@ -41,6 +43,14 @@ export async function crawlActivity(h, { maxSteps = 160, skip = [] } = {}) {
     if (a.click) { if (!(await h.visible(a.click))) { await page.waitForTimeout(300); continue; } await h.click(a.click, { expectChange: false }); }
     else if (a.clickNth) await h.clickNth(a.clickNth[0], a.clickNth[1], { expectChange: false });
     else if (a.tap) { await page.mouse.click(a.tap.x, a.tap.y); await page.waitForTimeout(80); }
+    else if (a.path) {
+      // 2D の舞台の上を指でなぞる（点の列。hold は押したまま待つ秒）
+      const [p0, ...rest] = a.path;
+      await page.mouse.move(p0[0], p0[1]); await page.mouse.down();
+      if (a.hold) await page.waitForTimeout(a.hold * 1000);
+      for (const p of rest) await page.mouse.move(p[0], p[1], { steps: 2 });
+      await page.mouse.up(); await page.waitForTimeout(250);
+    }
     else if (a.slider) { await page.locator(a.slider[0]).fill(String(a.slider[1])); await page.waitForTimeout(150); }
     else if (a.drag) {
       // 指で回す（マットの上をなぞる）
@@ -52,10 +62,21 @@ export async function crawlActivity(h, { maxSteps = 160, skip = [] } = {}) {
   }
 }
 
+// 地図（入口 → 単元）から単元を開く。入口の一覧なら単元の入口を開き、別の入口なら戻ってから開く
+export async function openFromMap(h, unitId) {
+  const { page } = h;
+  if (!(await page.locator('#home').isVisible())) return;
+  if (!(await page.locator(`[data-unit="${unitId}"]`).count())) {
+    if (await page.locator('#areaBack').isVisible()) await h.click('id=areaBack|');
+    const area = await page.evaluate(u => (window.__katachi.A.units.find(x => x.id === u).areas || ['katachi'])[0], unitId);
+    await h.click(`data-area=${area}|`);
+  }
+  await h.click(`data-unit=${unitId}|`);
+}
 // 単元を地図から開き、全タブ・全活動・ずかんを巡回する
 export async function crawlUnit(h, unitId) {
   const { page } = h;
-  if (await page.locator('#home').isVisible()) await h.click(`data-unit=${unitId}|`);
+  await openFromMap(h, unitId);
   const tabs = await page.evaluate(u => Object.fromEntries(Object.entries(window.__katachi.A.byId.get(u).tabs).map(([k, v]) => [k, v.length])), unitId);
   for (const mode of ['miru', 'sawaru', 'tamesu', 'tsukuru']) {
     const n = tabs[mode] || 0; if (!n) continue;

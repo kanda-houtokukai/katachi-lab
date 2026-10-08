@@ -32,7 +32,7 @@ test('試しの単元を JSON 1つと地図の1行で足すと、部品の新設
     writeFileSync(idxPath, JSON.stringify(idx, null, 1));
     const h = await openPage(env, 'ipad', { speed: 0.25 });
     try {
-      await h.page.waitForSelector('[data-unit="rx"]');
+      await h.page.waitForSelector('[data-area="katachi"]');
       await crawlUnit(h, 'rx');
       const rep = h.report(), never = rep.never.filter(id => id.startsWith('rx:'));
       console.log('試しの単元', JSON.stringify({ clicked: rep.clicked, changed: rep.changed, dead: rep.dead, never }));

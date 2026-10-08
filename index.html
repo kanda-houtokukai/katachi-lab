@@ -20,6 +20,7 @@
 <body>
 <div id="app">
   <canvas id="stage" aria-label="カッターマットの うえの かたち"></canvas>
+  <svg id="flat" hidden aria-label="はかる ばしょ"></svg>
 
   <header class="top app-screen" id="topBar" hidden>
     <div class="unit">
@@ -120,6 +121,25 @@
         <button class="icon-btn" type="button" id="prClose" aria-label="とじる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       </div>
       <div id="prBody"></div>
+    </div>
+  </div>
+
+  <!-- がめんの ながさ あわせ（実寸合わせ） -->
+  <div class="sheet" id="calibSheet" hidden>
+    <div class="sheet-card" role="dialog" aria-labelledby="cTitle">
+      <div class="sheet-head">
+        <h2 id="cTitle">がめんの ながさ あわせ</h2>
+        <button class="icon-btn" type="button" id="cClose" aria-label="とじる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <div class="row"><div class="seg" role="group" id="cMode" aria-label="なにで あわせる？"><button type="button" data-cmode="coin" aria-pressed="true">1えんだま</button><button type="button" data-cmode="card" aria-pressed="false">カード</button></div></div>
+      <p class="note" id="cNote"></p>
+      <div class="calib-wrap"><svg id="cSvg" aria-hidden="true"></svg></div>
+      <div class="fold-row"><button class="btn sub small" type="button" id="cMinus" aria-label="ちいさく">−</button><input type="range" id="cSlider" min="200" max="800" value="378" aria-label="おおきさ"><button class="btn sub small" type="button" id="cPlus" aria-label="おおきく">＋</button></div>
+      <div class="row">
+        <button class="btn" type="button" id="cSave">これで きめる</button>
+        <button class="btn sub small" type="button" id="cReset">はじめの おおきさに もどす</button>
+      </div>
+      <p class="note" id="cState"></p>
     </div>
   </div>
 

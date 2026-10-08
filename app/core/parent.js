@@ -6,7 +6,10 @@ import { R, prof, loadData, saveSettings, addProfile, exportAll, replaceAll, cle
 import { today, addDays, fmtTime, dayKey } from './dates.js';
 import { sfx, hush, speech } from './sound.js';
 import { hideHud, toast } from './hud.js';
-import { evaluate, fill, labelOf } from './rules.js';
+import { evaluate, fill, labelOf, estSeries, QTY } from './rules.js';
+import { tok } from './theme.js';
+import { openCalib } from './calibui.js';
+import { calibrated } from './calibrate.js';
 import { renderWho, renderMissionBtns } from './mission.js';
 import { breakState } from './breaktime.js';
 import { avColors } from './theme.js';
@@ -75,6 +78,7 @@ function renderParent() {
     <div class="ptile"><b>${zf}<small style="font-size:14px">/${zt}</small></b><span>展開図ずかん</span></div>
     <div class="ptile"><b>${rvRate}</b><span>思い出し問題の正答率</span></div>
   </div>
+  ${estHTML(L)}
   <div><h3>つまずきの見立て</h3>${ins.length ? ins.map(o => `<div class="pcard"><div class="tt">${esc(o.x.title)}<span class="tag">${esc(o.x.tag || unitLabel(o.u.id))}</span>${o.x.reviewed ? '' : '<span class="draft">下書き</span>'}</div><p>${esc(o.obs)}${esc(o.x.body)}</p><div class="home"><b>おうちでできること</b>　${esc(o.x.home)}</div></div>`).join('<div style="height:8px"></div>') : '<p>目立ったつまずきは、まだ見えていません。「ためす」や「つくる」を何回か遊ぶと、間違え方の傾向からここに見立てが出ます。</p>'}</div>
   <div><h3>ほめどころ</h3>${prs.length ? `<ul class="plist">${prs.map(s => `<li>${esc(s)}</li>`).join('')}</ul>` : '<p>まだ記録が少ないため、これから表示されます。</p>'}</div>
   <div><h3>学校の学習との対応</h3><div style="overflow-x:auto"><table class="pmap">
@@ -87,6 +91,8 @@ function renderParent() {
     <div><label class="lab">文字の読み上げ</label><div class="seg" role="group"><button type="button" data-read="1" aria-pressed="${S.readAuto}">じどうで読む</button><button type="button" data-read="0" aria-pressed="${!S.readAuto}">スピーカーを押したときだけ</button></div>${speech.available ? '' : '<p class="note" style="text-align:left;margin-top:6px">この端末のブラウザには日本語の読み上げの声がないため、読み上げボタンを隠しています。</p>'}</div>
     <div><label class="lab" for="sLevel">「ためす」のはじめの難しさ</label><div class="prof-edit"><select id="sLevel">${opt([['easy', 'やさしい'], ['normal', 'ふつう'], ['challenge', 'チャレンジ']], S.startLevel)}</select></div></div>
     <div><label class="lab">動きの量</label><div class="seg" role="group"><button type="button" data-motion="full" aria-pressed="${S.motion !== 'less'}">ふつう</button><button type="button" data-motion="less" aria-pressed="${S.motion === 'less'}">すくなめ（ゆっくり・紙ふぶきなし）</button></div></div>
+    <div><label class="lab">画面の長さ合わせ（ものさしを実物と同じ長さにする）</label><div class="row" style="justify-content:flex-start"><button class="btn small sub" type="button" id="sCalib">がめんの ながさ あわせ</button><span class="note" style="text-align:left">${calibrated() ? '合わせてあります' : 'まだ合わせていません'}</span></div></div>
+    <div><label class="lab">時計の表示</label><div class="seg" role="group"><button type="button" data-cnum="1" aria-pressed="${S.clockNums !== false}">数字あり</button><button type="button" data-cnum="0" aria-pressed="${S.clockNums === false}">数字なし</button></div> <div class="seg" role="group"><button type="button" data-cfive="0" aria-pressed="${!S.clockFive}">5とびは押したときだけ</button><button type="button" data-cfive="1" aria-pressed="${!!S.clockFive}">5とびをはじめから出す</button></div></div>
     <div><label class="lab">「ちょっと先」（4年〜中学）の単元</label><div class="seg" role="group"><button type="button" data-ahead="1" aria-pressed="${S.ahead}">ひらく</button><button type="button" data-ahead="0" aria-pressed="${!S.ahead}">とじる</button></div></div>
     <div><label class="lab">きょうだいの登録</label><div class="prof-edit"><input id="nName" maxlength="6" placeholder="よびな（6文字まで）" aria-label="よびな"><select id="nGrade" aria-label="学年"><option value="1">1年</option><option value="2" selected>2年</option><option value="3">3年</option></select><button class="btn small" type="button" id="nAdd"${R.profiles.length >= 4 ? ' disabled' : ''}>追加する</button></div>${R.profiles.length >= 4 ? '<p class="note" style="text-align:left">登録できるのは4人までです。</p>' : ''}</div>
     <div><label class="lab">記録</label><div class="row" style="justify-content:flex-start">
@@ -106,6 +112,9 @@ function renderParent() {
   $('sLevel').addEventListener('change', e => { S.startLevel = e.target.value; saveSettings(); });
   $('prBody').querySelectorAll('[data-read]').forEach(b => b.addEventListener('click', () => { S.readAuto = b.dataset.read === '1'; saveSettings(); renderParent(); }));
   $('prBody').querySelectorAll('[data-motion]').forEach(b => b.addEventListener('click', () => { S.motion = b.dataset.motion; saveSettings(); renderParent(); }));
+  $('sCalib').addEventListener('click', () => { sheet().hidden = true; openCalib(() => { renderParent(); sheet().hidden = false; }); });
+  $('prBody').querySelectorAll('[data-cnum]').forEach(b => b.addEventListener('click', () => { S.clockNums = b.dataset.cnum === '1'; saveSettings(); renderParent(); }));
+  $('prBody').querySelectorAll('[data-cfive]').forEach(b => b.addEventListener('click', () => { S.clockFive = b.dataset.cfive === '1'; saveSettings(); renderParent(); }));
   $('prBody').querySelectorAll('[data-ahead]').forEach(b => b.addEventListener('click', () => { S.ahead = b.dataset.ahead === '1'; saveSettings(); renderParent(); emitChange(); }));
   $('nAdd').addEventListener('click', () => {
     const name = $('nName').value.trim().slice(0, 6); if (!name) { $('nName').focus(); $('nName').placeholder = 'よびなを入れてください'; return; }
@@ -137,6 +146,24 @@ function renderParent() {
     $('dYes').addEventListener('click', () => { clearProfile(pid); prView = R.profiles.find(x => x.id === pid) ? pid : R.activeId; renderParent(); renderMissionBtns(); });
     $('dNo').addEventListener('click', () => { $('xConfirm').innerHTML = ''; });
   });
+}
+
+// 見当の力：量ごとに、見当と実測のずれ（％）を小さな折れ線で出す。件数が3未満の量は「まだ記録が少ない」
+function spark(pts) {
+  const W = 140, H = 46, n = pts.length, mx = Math.max(50, ...pts);
+  const xy = pts.map((v, i) => [n < 2 ? W / 2 : 6 + (W - 12) * i / (n - 1), H - 6 - (H - 12) * Math.min(v, mx) / mx]);
+  return `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true"><line x1="0" y1="${H - 6}" x2="${W}" y2="${H - 6}" stroke="${tok('line')}" stroke-width="1.5"/><polyline points="${xy.map(p => p.map(v => v.toFixed(1)).join(',')).join(' ')}" fill="none" stroke="${tok('sora')}" stroke-width="2.5" stroke-linejoin="round"/>${xy.map(([x, y]) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="${tok('sora')}"/>`).join('')}</svg>`;
+}
+function estHTML(L) {
+  const ser = estSeries(L);
+  const box = ([k, name]) => {
+    const s = ser[k].slice(-10);
+    if (s.length < 3) return `<div class="estbox"><b>${name}</b><small>まだ記録が少ない（${s.length}件）</small></div>`;
+    const first = s.slice(0, Math.ceil(s.length / 2)), last = s.slice(-Math.floor(s.length / 2));
+    const avg = a => Math.round(a.reduce((x, y) => x + y.err, 0) / a.length);
+    return `<div class="estbox"><b>${name}</b>${spark(s.map(x => x.err))}<small>ずれ ${avg(first)}% → ${avg(last)}%（${s.length}件）</small></div>`;
+  };
+  return `<div><h3>見当の力</h3><p class="note" style="text-align:left;margin:0 0 6px">「みとおし」の問題で、見当と実際の量のずれ（％）です。小さいほど量の感覚が育っています。</p><div class="ptiles est">${QTY.map(box).join('')}</div></div>`;
 }
 
 // 見本の記録：各単元の demo（日・時刻・記録）を並べる。実際のお子さんの記録ではないことを画面に出す

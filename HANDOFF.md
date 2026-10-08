@@ -6,7 +6,7 @@
 
 ## 現在地サマリ
 
-- **今どこ**：**量の自走（D18・`docs/run-02-hakaru.md`）H0**。一式を `docs/`・`reference/` に置き、決定事項 D13〜D16・D18〜D20 と P10〜P13 を `docs/decisions.md` に足した。以下は前の段階：P1 の夜間自走が完了（2026-10-08 夜）。N0〜N7 すべて完了。2026-10-09 に公開済み：ユーザーが push と Pages を実行し、`https://kanda-houtokukai.github.io/katachi-lab/` で地図が開くこと、noindex・robots.txt（Disallow: /）・service worker が効くこと、地図の図鑑の総数（4年94・5年610・中1 73）を Chat で確認。
+- **今どこ**：**量の自走（D18・`docs/run-02-hakaru.md`）H1 まで完了**（H0 一式の配置・H1 統合の骨格）。以下は前の段階：P1 の夜間自走が完了（2026-10-08 夜）。N0〜N7 すべて完了。2026-10-09 に公開済み：ユーザーが push と Pages を実行し、`https://kanda-houtokukai.github.io/katachi-lab/` で地図が開くこと、noindex・robots.txt（Disallow: /）・service worker が効くこと、地図の図鑑の総数（4年94・5年610・中1 73）を Chat で確認。
 - **直近の決定**：
   - [DECISION] D9 内容の種類と数もすべて網羅する（立体は小1〜中1。展開図の数は計算で確定）
   - [DECISION] D10 kanda-houtokukai に公開リポジトリ `katachi-lab`、GitHub Pages、正式公開まで検索除け
@@ -64,6 +64,22 @@
 - **H0 一式のコピー**：同名のファイルはなく、上書きなしで `docs/`・`reference/hakaru-mock-v1.html`・`reference/hakaru-mock-src/` に置いた。`docs/decisions-hakaru.md` は `docs/decisions.md` に足し、リポジトリには入れていない。
 - **H0 変更前の main の基準（SHA af06fe8）**：単体 20件 PASS。E2E は 25件中 23件 PASS、2件が失敗（全ボタン・R2 の巡回）。2件とも同じ原因：R2「ためす」の「はこに なるかな」で、答えたあとの組み立ての動きの最中（`app/parts/net-quiz.js` の `phase === 'fold'`）は難しさのボタンを受け付けない作りで、巡回がちょうどその最中に押すと「押しても何も起きない」になる（たまに起きる）。図形側の部品は変えない決まりなので、巡回（`tests/e2e/crawl.mjs`）の側で「動きの最中は待ってから押す」ようにした。**子どもが組み立ての途中で難しさを押すと何も起きない**のは図形側に残っている（直すなら net-quiz.js の該当行。直すかどうかはユーザーが決める）。
 - **H0 基準物の出典**：指示書の造幣局の URL（`…/operations_coin_presently.html`）は 404。同じ造幣局の「現在製造している貨幣」は `https://www.mint.go.jp/operations/production/operations_coin_presently-minted.html` にあり、そこで 1円 20mm・1g、10円 23.5mm・4.5g、100円 22.6mm・4.8g、500円 26.5mm・7.1g を確かめて `data/benchmarks.json` に `verified:true` と出典を書いた。カード（85.60×53.98mm）はウィキペディアでのみ確認（`verified:false`）。ほかの身の回りの物は「教科書の例（およその値）」で `verified:false`。
+
+- **H1 2D の舞台**：`#flat`（SVG）を #stage の上・字幕の下に置き、部品は `ctx.openFlat()` で開く。上の帯のすぐ下 52px（`F.cap`）は字幕が重なるので、大事な絵はその下に描く。開いている間は 3D のマットを隠す。★ SVG 要素は `.hidden` プロパティが効かない（属性で切りかえる）。
+- **H1 地図の2段化**：1段目に入口6つ（絵・名前・単元の数・「うごく n」）、2段目は入口の中を学年の帯（いまの がくねん／ちょっと さき）で並べ、左上の「＜」で入口へ戻る。単元から地図に戻ると、その単元の入口が開く（URL `?area=` でも開ける）。入口の絵は見本 v1 の絵を `app/core/areas.js` に移し、色は tokens.css の `--area-*`。
+- **H1 量の単元カードのずかんの数**：量の単元（owner:hakaru）は、物の一覧（list）のずかんも地図の「ずかん n / m」に数える（図形側の表示は変えない）。
+- **H1 実寸合わせ**：設定（おうちのひとへ）に「がめんの ながさ あわせ」。1円玉（20mm）かカード（85.60mm）の輪郭をスライダーと±で合わせる（1mm あたり 2.00〜8.00 点）。端末の見分けは「画面の短い辺×長い辺＠devicePixelRatio」。変わったら一度だけ案内を出す。値は `katachi-calib`（端末の保存。記録の書き出しに入らない）。
+- **H1 設定に足した2つ**：「時計の表示（数字あり／なし）」「5とびの初期表示（押したときだけ／はじめから）」（`R.settings.clockNums`・`clockFive`）。
+- **H1 見当の力**：保護者画面の「つまずきの見立て」の前に置いた。量（長さ・かさ・重さ・時間・広さ）ごとに最近10件のずれ（％）の折れ線と「前半の平均→後半の平均」。3件未満は「まだ記録が少ない」。
+
+- **H2 時計の場面の並べ方**：幅 640 以上の横長は「時計が左・空のまどと24時間の帯が右」、それ以外（スマホ縦）は縦に積む。高さが足りないときは空のまどを省く（`app/parts/_clock.js` の clockScene）。
+- **H2 T1 の活動**：さわる3つ（はりを まわす／みじかい はりの へや／5とびの カード）、ためす3つ（よむ・あわせる（交互6問。ふつう以上は5問目に「ふん・ぷん」）／あわせる／せいかつ）、つくる「わたしの いちにち」（8場面：おきる 7:00・あさごはん 7:30・がっこうへ 8:00・きゅうしょく 12:20・おやつ 15:00・ゆうごはん 18:30・おふろ 19:30・ねる 21:00。T1 は午前午後を教えないので、場面で帯の段を決める）。場面と時刻は `_clock.js` の SCENES。
+- **H2 T1 の「せいかつ」**：場面の絵に合う時計を3つの小さな時計から選ぶ。誤答は2時間半以上離れた場面の時刻（迷わない差にした）。
+- **H2 T1・T2 の「みとおし」は入れていない**：時間の見当（量感）は秒・分が出てくる T3 から（`docs/hakaru-design.md` §0-4 の原則2の例外）。T3 に「なんびょう だった？」（ボールの動きを見て秒の見当→ストップウォッチ）と「1ぷんを あてよう」を入れ、どちらも見当の記録（time）にした。入れるなら T1・T2 の tamesu に mitoshi を足す。
+- **H2 T2 の「ことば」**：「じこく？ じかん？」「ごぜん？ ごご？」「1じかん＝60ぷん・1にち＝24じかん」を1つの「ためす」にまぜた（6問）。記録の種類は `t2.kind`（detail.type で見分け）。
+- **H2 T3 の「えんそくの けいかく」**：出発 8:40／9:10／9:30 から、あるく・あそんで おべんとう・やすむ・あるく の4区間（35〜130分）。子どもが着く時刻を時計で合わせて「おく」。まちがえると、ちょうどの時で区切った帯をヒントに出す。
+- **H2 T3 の「1ぷんを あてよう」**：10びょう・30びょう・1ぷん を選べる（既定は1ぷん）。実際の秒で測る（画面の動きの量の設定には合わせない）。ずかんは記録の一覧（めあて→実際の秒）。
+- **H2 時計の読み（既定）**：「ちょうど」は「7じ」、30分は「7じはん」（設定で変えない）。読み上げは「7時」「7時半」「7時55分」。
 
 ### 図形の自走（2026-10-08）
 
@@ -133,6 +149,14 @@
 
 ## 記録
 
+### 記録 2026-10-09 H1 統合の骨格（Code・量の自走）
+- 2D の舞台 `app/stage/flat.js`（#flat の SVG。上の帯と下の棚のあいだ。`F.cap` は字幕の余白）と共通の小道具 `app/parts/_flat.js`。棚の中身が変わったら測り直す（MutationObserver）。
+- 地図を「入口6つ → 単元」の2段に（`app/units/areas.json`・`app/core/areas.js`）。`index.json` の全26単元に areas・owner。図形側の E2E を新しい地図に合わせた（入口「かたち」経由）。
+- 実寸合わせ `app/core/calibrate.js`・`calibui.js`（設定から）、基準物 `data/benchmarks.json`（46件・硬貨4種は造幣局で確認）、読みの道具 `app/core/yomi.js`、見当の記録 `rules.js` の `estErr`・`estSeries`、保護者画面「見当の力」、設定（時計の数字・5とび）、ずかんの量の図（figs.js：clock・masu・scale・ruler・rect・route・angle・sector・bar・scene）と記録の一覧（kind:log）。量の部品の入口 `kurabe.js`・`ikutsubun.js`（opts.qty で読み分け）。
+- テスト：単体 26/26（骨格6件を追加）。E2E 28/28（入口から全26単元に届く・2D の舞台が収まる を追加）。全ボタン 553＝押した 553＝変化 553（差0）。
+- ★ SVG 要素は `.hidden` が効かない。ResizeObserver だけでは棚の変化を取りこぼすので、中身の変化でも測り直す。
+- SHA：（この commit）
+
 ### 記録 2026-10-09 H0 量の自走の準備（Code）
 - 一式を配置：`docs/hakaru-design.md`・`hakaru-coverage.md`・`hakaru-research.md`・`run-02-hakaru.md`、`reference/hakaru-mock-v1.html`、`reference/hakaru-mock-src/`（同名なし・上書きなし）。
 - `docs/decisions.md` に D13〜D16・D18〜D20 と P10〜P13、ユーザーが決めること（量）を足した。`docs/decisions-hakaru.md` はリポジトリに入れない。
@@ -140,7 +164,7 @@
 - 基準（変更前の main・SHA af06fe8）：単体 20/20 PASS、E2E 23/25 PASS（失敗2件は R2 の組み立て中に難しさを押すとき。確認事項に記載）。
 - 基準物：造幣局の「現在製造している貨幣」で 1・10・100・500円の直径と量目を確認（指示書の URL は 404、正しい URL を確認事項に記載）。値は H1 で `data/benchmarks.json` に入れる。
 - 台帳の記録が10件になるため、最も古い「立ち上げ（Chat）」を `katachi-lab-archive-2026-10.md` へ原文のまま移した（「数は計算で決める」を生きている注意事項へ昇格）。
-- SHA：（この commit）
+- SHA：2d2421a（push 済み）
 
 ### 記録 2026-10-09 公開済みの反映・D17・Playwright を自前に（Code）
 - 公開：ユーザーが push と Pages を実行。本番で地図・noindex・robots.txt・service worker・図鑑の総数（4年94・5年610・中1 73）を Chat で確認済み。Code からも robots.txt・noindex・sw.js（200）を取得して一致を確認。
@@ -197,12 +221,3 @@
 - 未検証：iPad 実機の手触り・読み上げの声・印刷の実寸（手元の Chrome でのみ確認）。
 - SHA：84beb49（push なし）
 
-### 記録 2026-10-08 N0 準備（Code・夜の自走）
-- `git init -b main` と最初の commit（f67514f）。`gh repo create --public` は自動判定で止められたため、手元だけで進める（朝の確認事項の先頭に1行の操作を記載）。
-- 殻：`index.html`（地図と単元画面）、`app/ui/tokens.css`（デザインの値を1か所に・D12）、`app/ui/base.css`。
-- PWA：`manifest.webmanifest`、`sw.js`（版番号つきキャッシュ・全ファイルを事前キャッシュ。版と一覧は `tools/build-precache.mjs` が作る）、仮アイコン（`tools/make-icons.mjs` で Canvas から PNG）。
-- 検索除け：`robots.txt` Disallow、全ページ `noindex,nofollow`、`.nojekyll`。
-- 汎用エンジン（`app/engine/`）と展開図カタログ（`data/nets/`）を先に作り、凍結値14件と一致（全域木の数・重なり0も一致）。
-- テスト：単体 9件 PASS（凍結値・数え直し・折りたたみ・合同キー・のりしろ・立方体の番号・検索除け・外部読み込み・事前キャッシュ）。
-- 公開 URL の確認：未検証（push 前のため）。手元 `http://localhost:5310/?nosw` で地図の表示と「じゅんび中」の反応を確認。
-- SHA：a0a09d9（push なし）

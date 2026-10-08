@@ -289,3 +289,34 @@ input[type=range]:focus-visible{outline:3px solid var(--yamabuki);outline-offset
   #printArea{display:block}
   #printArea img{display:block;width:210mm;height:297mm}
 }
+
+/* ---------- はかる：2D の舞台（app/stage/flat.js）・入口の地図・実寸合わせ ---------- */
+#flat{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;outline:none;z-index:1;-webkit-user-select:none;user-select:none}
+#flat[hidden]{display:none}
+#flat text{font-family:var(--font-display);font-weight:600}
+#flat .ui{font-family:var(--font-ui);font-weight:900}
+#flat .grab{cursor:grab}
+.hud,.counter{z-index:3}
+.doors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-width:980px;margin:0 auto}
+@media (max-width:640px){.doors{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.door{appearance:none;position:relative;border:2px solid var(--line);background:var(--paper);border-radius:22px;padding:14px 12px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;box-shadow:0 4px 0 var(--line);color:var(--ink);min-width:0;font-family:var(--font-ui)}
+.door:active{transform:translateY(4px);box-shadow:none}
+.door:focus-visible{outline:3px solid var(--yamabuki);outline-offset:3px}
+.door svg{width:min(120px,80%);height:auto;aspect-ratio:1/1;max-width:100%}
+.door b{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,3.2vw,24px);letter-spacing:.08em}
+.door .n{font-size:12px;font-weight:700;color:var(--ink-soft)}
+.door .tag{position:absolute;top:10px;right:10px;font-size:11px;font-weight:900;border-radius:7px;padding:3px 7px;background:var(--mat-deep);color:var(--paper)}
+.area-head{display:flex;align-items:center;gap:12px;max-width:980px;margin:0 auto 14px}
+.area-head svg.ic{width:56px;height:56px;flex:none}
+.area-head h2{margin:0;font-family:var(--font-display);font-weight:600;font-size:28px;letter-spacing:.08em;flex:1;min-width:0}
+.home-unit .sub{font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--ink-soft);margin-top:-6px}
+.home-unit .other-tag{font-size:11px;font-weight:900;border-radius:7px;padding:2px 7px;background:var(--banner-bg);color:var(--hint-ink)}
+.calib-wrap{display:flex;justify-content:center;align-items:center;min-height:220px;background:var(--paper-2);border-radius:var(--r-l);overflow:hidden}
+.calib-wrap svg{display:block}
+.ptiles.est{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.estbox{border:1.5px solid var(--line);border-radius:var(--r-m);padding:8px 10px;background:var(--paper);display:flex;flex-direction:column;gap:4px}
+.estbox b{font-size:14px}
+.estbox svg{width:100%;height:46px}
+.estbox small{color:var(--ink-soft);font-weight:700}
+.numline{display:flex;flex-direction:column;gap:6px;width:100%;max-width:640px}
+.zcard .val{font-family:var(--font-ui);font-weight:900;font-size:13px;color:var(--mat-deep)}

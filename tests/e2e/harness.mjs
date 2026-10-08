@@ -17,7 +17,7 @@ export async function startAll() {
 const SIG = () => {
   const K = window.__katachi, app = document.getElementById('app');
   const hash = str => { let x = 0; for (let i = 0; i < str.length; i++) x = (Math.imul(x, 31) + str.charCodeAt(i)) | 0; return x; };
-  const dom = [...app.querySelectorAll('.top,.dock,.hud,.counter,.sheet,#home')].map(e => e.hidden + ':' + hash(e.outerHTML)).join('|');
+  const dom = [...app.querySelectorAll('.top,.dock,.hud,.counter,.sheet,#home,#flat')].map(e => e.hidden + ':' + hash(e.outerHTML)).join('|');
   const S = K.S;
   let h = 0, n = 0;
   S.stage.traverse(o => { n++; h += o.position.x * 3.1 + o.position.y * 7.7 + o.position.z * 1.3 + (o.visible ? 1 : 0) + o.scale.x * 0.37 + o.quaternion.x * 2.9 + (o.matrixAutoUpdate ? 0 : o.matrix.elements[13] * 5.3 + o.matrix.elements[12] * 1.7); if (o.material && o.material.color) h += o.material.color.r * 0.11 + (o.material.emissive ? o.material.emissive.r * 0.13 : 0); if (o.geometry) { if (!o.geometry.boundingSphere) o.geometry.computeBoundingSphere(); h += o.geometry.boundingSphere.radius * 0.19; } });

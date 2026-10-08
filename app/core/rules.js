@@ -35,6 +35,12 @@ export function evaluate(c, L, D = { days: {} }) {
       q.forEach(l => { if (l.correct && !l.hints) { run++; best = Math.max(best, run); } else run = 0; });
       return { ok: best >= (c.min ?? 3), vars: { best } };
     }
+    case 'estErr': {
+      // 見当の記録（detail: { guess, actual }）の相対誤差の平均（％）と件数。gte/lte で「ずれが大きい／小さい」を判定する
+      const es = q.filter(l => l.detail && isFinite(+l.detail.guess) && +l.detail.actual > 0).map(l => Math.abs(+l.detail.guess - +l.detail.actual) / +l.detail.actual);
+      const n = es.length, err = n ? Math.round(es.reduce((a, b) => a + b, 0) / n * 100) : 0;
+      return { ok: n >= (c.minN ?? 3) && (c.gte == null || err >= c.gte) && (c.lte == null || err <= c.lte), vars: { n, err } };
+    }
     case 'days': { const n = Object.keys(D.days || {}).filter(k => D.days[k].act > 0).length; return { ok: n >= (c.min ?? 3), vars: { n } }; }
     default: return { ok: false, vars: {} };
   }
@@ -52,4 +58,17 @@ export function labelOf(l, labels = {}) {
     level: { easy: 'やさしい', normal: 'ふつう', challenge: 'チャレンジ' }[l.level] || '',
   });
   return fill(spec, vars);
+}
+
+// 見当のずれ（％）の並び（保護者画面の「見当の力」）。量ごとに古い順
+export const QTY = [['length', '長さ'], ['volume', 'かさ'], ['mass', '重さ'], ['time', '時間'], ['area', '広さ']];
+export function estSeries(L) {
+  const out = Object.fromEntries(QTY.map(([k]) => [k, []]));
+  for (const l of L) {
+    if (!/\.estimate$/.test(l.kind) || !l.detail || !out[l.detail.qty]) continue;
+    const g = +l.detail.guess, a = +l.detail.actual; if (!isFinite(g) || !(a > 0)) continue;
+    out[l.detail.qty].push({ t: l.t, err: Math.round(Math.abs(g - a) / a * 100) });
+  }
+  for (const k in out) out[k].sort((x, y) => x.t - y.t);
+  return out;
 }

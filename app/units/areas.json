@@ -1,0 +1,41 @@
+{
+ "note": "入口（地図の1段目）の定義。入口を足すときはここに1行足す（id・名前・絵・色）。並びはこの順。色は tokens.css の変数名。",
+ "areas": [
+  {
+   "id": "katachi",
+   "name": "かたち",
+   "icon": "katachi",
+   "color": "area-katachi"
+  },
+  {
+   "id": "nagasa",
+   "name": "ながさ",
+   "icon": "nagasa",
+   "color": "area-nagasa"
+  },
+  {
+   "id": "kasa",
+   "name": "かさ・たいせき",
+   "icon": "kasa",
+   "color": "area-kasa"
+  },
+  {
+   "id": "omosa",
+   "name": "おもさ",
+   "icon": "omosa",
+   "color": "area-omosa"
+  },
+  {
+   "id": "jikan",
+   "name": "じかん",
+   "icon": "jikan",
+   "color": "area-jikan"
+  },
+  {
+   "id": "hirosa",
+   "name": "ひろさ",
+   "icon": "hirosa",
+   "color": "area-hirosa"
+  }
+ ]
+}

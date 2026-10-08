@@ -6,21 +6,24 @@ import { tok } from './theme.js';
 const captionEl = () => $('caption'), toastEl = () => $('toast'), counterEl = () => $('counter');
 let captionTimer = 0, toastTimer = 0;
 
-export function caption(text, hold = 0) {
+// sp：読み上げの文（画面の文と分けるとき。量の単元の「7じ 55ふん」→「7時55分」など）
+export function caption(text, hold = 0, sp = null) {
   clearTimeout(captionTimer);
   const c = captionEl();
   if (!text) { c.classList.add('off'); return; }
   toastEl().hidden = true; counterEl().hidden = true;
   c.querySelector('.txt').innerHTML = text; c.classList.remove('off');
-  say(text);
+  c.dataset.sp = sp || '';
+  say(sp || text);
   if (hold) captionTimer = setTimeout(() => c.classList.add('off'), hold * 1000);
 }
-export function toast(mark, html, hold = 2.6) {
+export function toast(mark, html, hold = 2.6, sp = null) {
   clearTimeout(toastTimer);
   captionEl().classList.add('off'); counterEl().hidden = true;
   const t = toastEl();
   t.querySelector('.mk').innerHTML = mark || ''; t.querySelector('.txt').innerHTML = html; t.hidden = false;
-  say(html);
+  t.dataset.sp = sp || '';
+  say(sp || html);
   if (hold) toastTimer = setTimeout(() => { t.hidden = true; }, hold * 1000);
 }
 export function hideHud() { clearTimeout(toastTimer); clearTimeout(captionTimer); toastEl().hidden = true; counterEl().hidden = true; captionEl().classList.add('off'); }
@@ -38,8 +41,8 @@ export function setGrade(g) {
 export const gradeLabel = g => (g >= 7 ? 'ちゅう1' : g + 'ねん');
 
 export function setupHud() {
-  $('caption').querySelector('.say').addEventListener('click', () => say($('caption').querySelector('.txt').innerHTML, true));
-  $('toast').querySelector('.say').addEventListener('click', () => say($('toast').querySelector('.txt').innerHTML, true));
+  $('caption').querySelector('.say').addEventListener('click', () => say($('caption').dataset.sp || $('caption').querySelector('.txt').innerHTML, true));
+  $('toast').querySelector('.say').addEventListener('click', () => say($('toast').dataset.sp || $('toast').querySelector('.txt').innerHTML, true));
 }
 
 // しるし（はなまる・ばつ・箱・ヒント）

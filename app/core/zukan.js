@@ -62,11 +62,16 @@ async function renderBody() {
     const n = zukanList(z.id).length;
     $('zCount').textContent = `${n} / ${Number(z.total).toLocaleString('ja-JP')}`;
     body.innerHTML = `<p class="note" style="font-size:16px">みつけた ひらきかた <b style="font-family:var(--font-display);font-size:26px;color:var(--mat-deep)">${n}</b> / ${Number(z.total).toLocaleString('ja-JP')}</p><p class="note">${z.note || ''}</p>${goBtn}`;
+  } else if (z.kind === 'log') {
+    // 記録の一覧（1ぷん あて など）。登録した id は「番号:値」。新しい順に、図と文を出す
+    const L = zukanList(z.id).slice().reverse();
+    $('zCount').textContent = `${L.length}`;
+    body.innerHTML = L.length ? `<div class="zgrid">${L.slice(0, 60).map(id => { const ps = String(id).split(':'), v = ps.slice(1).join(':'), sub = s => s.replace(/\{v\}/g, v).replace(/\{(\d)\}/g, (m, k) => ps[+k] ?? ''); return `<div class="zcard${newlyFound.has(z.id + ':' + id) ? ' new' : ''}">${z.fig ? figSVG(sub(z.fig)) : ''}<span class="lbl">${esc(sub(z.fmt || '{v}'))}</span></div>`; }).join('')}</div>${goBtn}` : `<p class="note">${z.note || 'まだ きろくが ありません'}</p>${goBtn}`;
   } else {
     const items = z.items || [];
     $('zCount').textContent = `${items.filter(it => found.has(it.id)).length} / ${items.length}`;
     body.innerHTML = `<div class="zgrid">${items.map(it => found.has(it.id)
-      ? `<div class="zcard${newlyFound.has(z.id + ':' + it.id) ? ' new' : ''}">${it.svg || (it.fig ? figSVG(it.fig) : '')}<span class="lbl">${it.label}</span></div>`
+      ? `<div class="zcard${newlyFound.has(z.id + ':' + it.id) ? ' new' : ''}">${it.svg || (it.fig ? figSVG(it.fig) : '')}<span class="lbl">${it.label}</span>${it.val ? `<span class="val">${it.val}</span>` : ''}</div>`
       : `<div class="zcard none"><span class="q2">？</span><span class="lbl" style="color:${tok('ink-soft')}">${it.hint || ''}</span></div>`).join('')}</div>${goBtn}`;
   }
   [...newlyFound].filter(k => k.startsWith(z.id + ':')).forEach(k => newlyFound.delete(k));

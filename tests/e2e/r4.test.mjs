@@ -13,7 +13,7 @@ test('R4 の全ボタンを押すと、すべて状態が変わる（iPad横）'
   try {
     await crawlUnit(h, 'r4');
     const rep = h.report();
-    const mine = { ...rep, never: rep.never.filter(id => !id.startsWith('data-unit=') && !/^id=(home|homeMission|homeParent|mission|parent|sound)Btn/.test(id)) };
+    const mine = { ...rep, never: rep.never.filter(id => !id.startsWith('data-unit=') && !id.startsWith('data-area=') && id !== 'id=areaBack|' && !/^id=(home|homeMission|homeParent|mission|parent|sound)Btn/.test(id)) };
     console.log('R4 ボタン', JSON.stringify({ seen: rep.seen, clicked: rep.clicked, changed: rep.changed, dead: rep.dead, never: mine.never }));
     assert.deepEqual(rep.dead, []);
     assert.deepEqual(mine.never, []);
