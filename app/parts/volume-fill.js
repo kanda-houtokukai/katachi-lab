@@ -25,7 +25,8 @@ function frameBlocks(B, extraY = 0.8) { const b = B.box(); b.max.y += extraY; b.
 function fill(ctx, add, clearObjs) {
   const { panel, sfx, caption } = ctx;
   panel.innerHTML = `<button class="btn sub" type="button" data-k="again">${ctx.ICONS_UI.again}べつの はこで みる</button><span class="status" data-k="st"></span>`;
-  on($p(panel, '[data-k="again"]'), 'click', () => { sfx.tap(); mem.dims = [[2, 3, 2], [3, 4, 2], [2, 5, 3], [4, 4, 2], [3, 3, 3]][Math.floor(Math.random() * 5)]; ctx.restart(); });
+  const SETS = [[2, 3, 2], [3, 4, 2], [2, 5, 3], [4, 4, 2], [3, 3, 3]];
+  on($p(panel, '[data-k="again"]'), 'click', () => { sfx.tap(); const i = SETS.findIndex(s => s.join() === mem.dims.join()); mem.dims = SETS[(i + 1) % SETS.length]; ctx.restart(); });
   const [d, w, h] = mem.dims, B = makeBlocks(200);
   const origin = new THREE.Vector3(-w * U / 2, 0, -0.5 + d * U / 2);
   add(B.mesh); B.set(mem.dims, 0, origin);

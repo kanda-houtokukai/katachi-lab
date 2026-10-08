@@ -79,10 +79,12 @@ export function makeFoldNet(L, colors, opts = {}) {
 }
 
 // マットに置く。base は平面座標の原点のワールド位置。holder は折りあがった立体の中心で回る
-export function mountNet(net, base) {
+export function mountNet(net, base, scale = 1) {
   const holder = new THREE.Group();
+  net.baseScale = scale;
   const c = net.c3.clone();
-  holder.position.copy(base).add(c);
+  holder.position.copy(base).add(c.clone().multiplyScalar(scale));
+  holder.scale.setScalar(scale);
   net.group.position.copy(c).multiplyScalar(-1);
   holder.add(net.group); S.stage.add(holder);
   net.holder = holder; net.base = base.clone(); net.home = holder.position.clone();
@@ -106,15 +108,16 @@ export function netBox(net) { net.holder.updateMatrixWorld(true); return new THR
 export function foldTo(net, to, dur) { const from = net.progress; if (Math.abs(to - from) < 1e-3) return Promise.resolve(); return tween(dur * Math.abs(to - from), k => net.setProgress(from + (to - from) * k)); }
 export function frameFlat(net, phi = 0.42, theta = 0.25, pad = 1.08) { const p = net.progress; net.setProgress(0); const b = netBox(net); net.setProgress(p); b.max.y += 0.2; fitBox(b, phi, theta, pad); }
 export function frameBox(net, phi = 0.98, theta = 0.62, pad = 1.6) {
-  const c = net.home.clone(), h = net.half.clone().addScalar(0.12);
+  const c = net.home.clone(), h = net.half.clone().multiplyScalar(net.baseScale || 1).addScalar(0.12);
   fitBox(new THREE.Box3(c.clone().sub(h), c.clone().add(h)), phi, theta, pad);
 }
 export async function hop(net, height = 0.5) {
   const h = net.holder, y0 = net.home.y;
-  await tween(0.22, k => { h.position.y = y0 + height * Math.sin(k * Math.PI / 2); h.scale.set(1 - 0.06 * (1 - k), 1 + 0.08 * (1 - k), 1 - 0.06 * (1 - k)); });
-  await tween(0.34, k => { h.position.y = y0 + height * (1 - easeOutBounce(k)); h.scale.set(1, 1, 1); });
+  const b = net.baseScale || 1;
+  await tween(0.22, k => { h.position.y = y0 + height * Math.sin(k * Math.PI / 2); h.scale.set(b * (1 - 0.06 * (1 - k)), b * (1 + 0.08 * (1 - k)), b * (1 - 0.06 * (1 - k))); });
+  await tween(0.34, k => { h.position.y = y0 + height * (1 - easeOutBounce(k)); h.scale.setScalar(b); });
   sfx.land();
-  await tween(0.18, k => { const s = Math.sin(k * Math.PI) * 0.07; h.scale.set(1 + s, 1 - s, 1 + s); });
+  await tween(0.18, k => { const s = Math.sin(k * Math.PI) * 0.07; h.scale.set(b * (1 + s), b * (1 - s), b * (1 + s)); });
 }
 export function wobble(net, faces) {
   const base = faces.map(f => net.nodes[f].mesh.rotation.clone());

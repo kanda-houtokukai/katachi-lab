@@ -70,10 +70,11 @@ export function mount(ctx) {
     const set = [['ball', 'up', 'ボールは ころがる'], ['can', 'side', 'よこに おいた つつは ころがる'], ['can', 'up', 'たてに おいた つつは すべる'], ['snack', 'up', 'はこは すべる']];
     const items = set.map(([id, o], i) => { const m = add(thingMesh(byId(id), o)); placeOnSlope(m, SLOPE.zc - 1.15 + i * 0.95); return m; });
     (async () => {
+      const tag = S.token;
       caption(mem.slow > 1 ? 'ゆっくり みて みよう' : 'さかの うえから はなすと どうなるかな');
       if (!(await wait(1.2))) return;
       for (let i = 0; i < items.length; i++) {
-        caption(set[i][2]); await release(items[i], mem.slow, sfx); if (!alive(S.token)) return;
+        caption(set[i][2]); await release(items[i], mem.slow, sfx); if (!alive(tag)) return;
         sfx.land(); if (!(await wait(0.6))) return;
       }
       caption('ころがる かたちと、すべる かたちが あるね', 4);

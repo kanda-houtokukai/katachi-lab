@@ -42,7 +42,7 @@ const LIST = () => {
   return [...scope.querySelectorAll('button, label.btn')].filter(vis).map(b => ({ id: bid(b), t: b.textContent.trim().replace(/\s+/g, ' ') }));
 };
 
-export async function openPage(env, vp, { query = '', speed = 0.25, name = 'page' } = {}) {
+export async function openPage(env, vp, { query = '', speed = 0.25, name = 'page', sw = false } = {}) {
   const context = await env.browser.newContext({ viewport: VIEWPORTS[vp] || vp, deviceScaleFactor: 1, hasTouch: false, acceptDownloads: true });
   const page = await context.newPage();
   const errors = [];
@@ -50,7 +50,7 @@ export async function openPage(env, vp, { query = '', speed = 0.25, name = 'page
   page.on('pageerror', e => errors.push('pageerror: ' + e.message + ' @ ' + String(e.stack || '').split('\n').slice(1, 4).join(' | ')));
   page.on('response', r => { if (r.status() >= 400 && !/favicon/.test(r.url())) errors.push(`${r.status()} ${r.url()}`); });
   await page.addInitScript(() => { window.print = () => { window.__printed = (window.__printed || 0) + 1; }; });
-  await page.goto(`${env.base}?nosw&speed=${speed}${query ? '&' + query : ''}`);
+  await page.goto(`${env.base}?${sw ? '' : 'nosw&'}speed=${speed}${query ? '&' + query : ''}`);
   await page.waitForFunction(() => window.__katachi && window.__katachi.A);
   const seen = new Set(), clicked = new Map();
   const h = {

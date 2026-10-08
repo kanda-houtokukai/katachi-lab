@@ -23,7 +23,8 @@ export async function crawlActivity(h, { maxSteps = 160, skip = [] } = {}) {
     if (!fresh) { const close = await page.evaluate(() => { const s = [...document.querySelectorAll('.sheet')].filter(x => !x.hidden).pop(); const b = s && s.querySelector('.sheet-head .icon-btn'); return b ? b.id : null; }); if (close) { await h.click(`id=${close}|`, { expectChange: false }); continue; } }
     if (fresh) {
       if (fresh.id.startsWith('for=')) { h.clicked.set(fresh.id, true); continue; }
-      await h.click(fresh.id);
+      try { await h.click(fresh.id); }
+      catch (e) { if (!/ボタンが見つからない/.test(e.message)) throw e; }   // 押す直前に消えた（自動で消えるお知らせ）
       continue;
     }
     const a = await h.test('T && T.auto ? T.auto() : { done: true }').catch(e => ({ error: String(e) }));

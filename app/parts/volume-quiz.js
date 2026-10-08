@@ -114,7 +114,7 @@ export function mount(ctx) {
     } else if (q.type === 'compose') {
       if (quiz.hints === 1) toast(ICON.HINT, '2つの はこに わけて かんがえよう', 2.6);
       else if (quiz.hints === 2) { q.Bb.mesh.material.color.set(tok('face-1')).convertSRGBToLinear(); toast(ICON.HINT, 'あおい はこと あかい はこに わけたよ', 2.6); }
-      else toast(ICON.HINT, `あおは ${q.d}×${q.w1}×${q.h1}、あかは ${q.d}×${q.w2}×${q.h2}`, 3.2);
+      else toast(ICON.HINT, `あおは ${q.d}×${q.w1}×${q.h1}、あかは ${q.d}×${q.w2}×${q.h2}。おおきな はこから かけた ぶんを ひいても いいよ`, 3.8);
     } else if (q.type === 'cone') {
       toast(ICON.HINT, quiz.hints === 1 ? 'えんすいは おなじ そこと たかさの えんちゅうの 3ぶんの1' : quiz.hints === 2 ? `えんちゅうなら ${q.r} × ${q.r} × 3.14 × ${q.h}` : 'それを 3で わろう', 3.2);
     } else if (q.type === 'cyl') {

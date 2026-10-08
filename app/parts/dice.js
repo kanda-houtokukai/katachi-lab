@@ -17,7 +17,7 @@ function pipTexture(n) {
 
 export function mount(ctx) {
   const { panel, sfx, toast, caption, ICON, ICONS_UI } = ctx;
-  let L = null, net = null, nums = [], sel = 1, mode = 'edit', hints = 0, pips = [];
+  let L = null, net = null, nums = [], sel = 1, mode = 'edit', hints = 0, pips = [], netNo = -1;
   panel.innerHTML = `
     <div class="row" data-k="edit">
       <div class="tray">${[1, 2, 3, 4, 5, 6].map(n => `<button class="stick" type="button" data-n="${n}" aria-pressed="${n === 1}">${pipSvg(n)}<small>${n}</small></button>`).join('')}</div>
@@ -32,7 +32,9 @@ export function mount(ctx) {
   const q$ = k => $p(panel, `[data-k="${k}"]`);
   function newNet() {
     if (net) { disposeNet(net); net = null; }
-    L = fitLayout(cellsToLayout(randomOrient(NETS11[Math.floor(Math.random() * 11)])), ctx.portrait());
+    // 前と ちがう 展開図にする
+    netNo = netNo < 0 ? Math.floor(Math.random() * 11) : (netNo + 1 + Math.floor(Math.random() * 10)) % 11;
+    L = fitLayout(cellsToLayout(randomOrient(NETS11[netNo])), ctx.portrait());
     net = mountNet(makeFoldNet(L, L.faces.map(() => tok('paper'))), centerBase(L, -0.5, true));
     net.setProgress(0); nums = Array(6).fill(0); pips = []; mode = 'edit'; hints = 0;
     S.allowRotate = false; frameFlat(net, 0.2, 0, 1.15);

@@ -21,6 +21,8 @@ export function setupBreak(resume) {
     breakState.next = day().sec + R.settings.limitMin * 60; resume();
   });
 }
+// テスト用：利用時間を進める（休けいの合図の確認に使う）
+export function addUsage(sec) { const d = day(); d.sec = (d.sec || 0) + sec; if (R.settings.limitMin && !breakState.on && d.sec >= breakState.next) startBreak(); }
 function startBreak() {
   breakState.on = true; hush(); newToken(); killTweens();
   $('breakSheet').hidden = false; $('bkGo').hidden = true;

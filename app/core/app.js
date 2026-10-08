@@ -9,7 +9,7 @@ import { openZukanSheet, setupZukan } from './zukan.js';
 import { openPaper, setupPaper } from './paper.js';
 import { setupMission, missionDone, renderMissionBtns } from './mission.js';
 import { setupParent } from './parent.js';
-import { setupBreak } from './breaktime.js';
+import { setupBreak, addUsage } from './breaktime.js';
 
 export const A = { units: [], byId: new Map(), unit: null, mode: null, lastMain: 'miru', act: {}, current: null, partCache: new Map() };
 const TABS = () => [...document.querySelectorAll('.tab')];
@@ -40,7 +40,7 @@ export async function startApp() {
   const q = new URLSearchParams(location.search);
   if (q.get('unit') && A.byId.has(q.get('unit'))) openUnit(q.get('unit'), q.get('mode') || 'miru');
   else goHome();
-  window.__katachi = { A, S, R, speech, setMode, openUnit, goHome, toScreen, objScreen, fitCheck, test: () => (A.current && A.current.test) || null };
+  window.__katachi = { A, S, R, speech, addUsage, setMode, openUnit, goHome, toScreen, objScreen, fitCheck, test: () => (A.current && A.current.test) || null };
 }
 
 /* ---------------- 地図 ---------------- */
@@ -56,7 +56,8 @@ function unitProgress(u) {
   const st = (R.data.units[u.id] || {}).stages || {};
   const unit = A.byId.get(u.id);
   let found = 0, total = 0;
-  if (unit && unit.zukan) for (const z of unit.zukan) { if (z.total) { total += z.total; found += Math.min(z.total, zukanList(z.id).length); } }
+  // ランダムに生む正十二面体・正二十面体（counter）は「見つけた数」だけなので、合計には入れない
+  if (unit && unit.zukan) for (const z of unit.zukan) { if (z.total && z.kind === 'catalog') { total += z.total; found += Math.min(z.total, new Set([...(z.initial || []), ...zukanList(z.id)]).size); } }
   return { st, found, total };
 }
 export function renderMap() {

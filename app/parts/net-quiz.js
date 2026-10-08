@@ -5,7 +5,7 @@ import { objScreen } from '../stage/stage.js';
 import { S, THREE, tween, wait, alive, easeOutBack, easeOutBounce, glow, holdGlow, stopGlows, burst, rayFrom, groundPoint, fitBox, spinCamera, col, badge, growSprite, disposeObject, plainMaterial } from '../stage/stage.js';
 import { makeFoldNet, mountNet, centerBase, fitLayout, frameBox, frameFlat, foldTo, hop, showOverlap, netBox, disposeNet, T } from '../stage/foldnet.js';
 import { cellsToLayout, NETS11, INVALID_CANDIDATES, randomOrient, netId } from '../engine/grid.js';
-import { foldedFaces, overlappingFaces, edgePairs, vertexGroups, outerEdges, edgeId } from '../engine/fold.js';
+import { foldedFaces, overlappingFaces, edgePairs, vertexGroups, outerEdges, edgeId, layoutBounds } from '../engine/fold.js';
 import { loadCatalog } from '../engine/catalog.js';
 import { shuffle } from '../core/text.js';
 import { tok } from '../core/theme.js';
@@ -79,11 +79,13 @@ export function mount(ctx) {
     renderDots();
     const L = fitLayout(q.L, ctx.portrait());
     q.Lshown = L;
-    const net = quiz.net = mountNet(makeFoldNet(L, Array(L.faces.length).fill(tok('quiz-paper')), { id: q.no }), centerBase(L, -0.5, false));
+    const bb = layoutBounds(L), big = Math.max(bb.w, bb.h), sc = S.view.W < 600 && big > 5.2 ? 5.2 / big : 1;
+    const base = centerBase(L, -0.5, false).multiplyScalar(sc).setZ(-0.5 - ((bb.y0 + bb.y1) / 2) * sc);
+    const net = quiz.net = mountNet(makeFoldNet(L, Array(L.faces.length).fill(tok('quiz-paper')), { id: q.no }), base, sc);
     if (q.valid === false) net.analysis.valid = false;
     net.setProgress(0); frameFlat(net, 0.18, 0); S.allowRotate = false;
-    net.holder.position.y = net.home.y + 0.3; net.holder.scale.setScalar(0.85);
-    tween(0.4, k => { net.holder.position.y = net.home.y + 0.3 * (1 - k); net.holder.scale.setScalar(0.85 + 0.15 * easeOutBack(k)); });
+    net.holder.position.y = net.home.y + 0.3; net.holder.scale.setScalar(0.85 * sc);
+    tween(0.4, k => { net.holder.position.y = net.home.y + 0.3 * (1 - k); net.holder.scale.setScalar(sc * (0.85 + 0.15 * easeOutBack(k))); });
     if (q.type === 'opp') {
       const cands = L.faces.map((f, i) => i).filter(i => net.analysis.opposite[i] >= 0);
       quiz.star = cands[Math.floor(Math.random() * cands.length)];
@@ -231,7 +233,7 @@ export function mount(ctx) {
 
   function nearestOuter(e, q) {
     const p = groundPoint(e, T); if (!p) return null;
-    const net = quiz.net, lp = [p.x - net.base.x, p.z - net.base.z];
+    const net = quiz.net, s = net.baseScale || 1, lp = [(p.x - net.base.x) / s, (p.z - net.base.z) / s];
     let best = null, bd = 0.28;
     for (const ed of q.outer) {
       const ax = ed.a[0], ay = ed.a[1], bx = ed.b[0], by = ed.b[1], dx = bx - ax, dy = by - ay, l2 = dx * dx + dy * dy;
@@ -242,7 +244,7 @@ export function mount(ctx) {
   }
   function nearestVertex(e, q) {
     const p = groundPoint(e, T); if (!p) return null;
-    const net = quiz.net, lp = [p.x - net.base.x, p.z - net.base.z];
+    const net = quiz.net, s = net.baseScale || 1, lp = [(p.x - net.base.x) / s, (p.z - net.base.z) / s];
     let best = null, bd = 0.3;
     for (const g of vertexGroups(q.Lshown, net.folded)) for (const v of g) { const d = Math.hypot(v[0] - lp[0], v[1] - lp[1]); if (d < bd) { bd = d; best = v; } }
     return best;
