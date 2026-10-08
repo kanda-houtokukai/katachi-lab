@@ -9,6 +9,8 @@ import { tok } from '../core/theme.js';
 import { on, $p, $$p, hintDots, quizDots, levelSeg, starsHTML } from './_common.js';
 
 const ri = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+// 縦長の画面ではテンキーで棚が高くなるので、3D は小さめに映す
+const PAD = x => (S.view.W < 600 ? Math.max(x, 1.75) : x);
 export function mount(ctx) {
   const { panel, sfx, toast, ICON, opts } = ctx;
   const quiz = { list: [], i: 0, results: [], level: ctx.level(), hints: 0, phase: 'ask' };
@@ -34,6 +36,7 @@ export function mount(ctx) {
       return { type, d, w1, w2, h1, h2, ans: d * w1 * h1 + d * w2 * h2 };
     }
     if (type === 'prism') { const B = ri(3, 8) * 2, h = ri(2, 6); return { type, B, h, ans: B * h }; }
+    if (type === 'cone') { const r = ri(1, 4), h = [3, 6, 9][ri(0, 2)]; return { type, r, h, ans: Math.round(3.14 * r * r * h / 3 * 100) / 100, wrongT: Math.round(3.14 * r * r * h * 100) / 100 }; }
     if (type === 'cyl') { const r = ri(1, 4), h = ri(2, 6); return { type, r, h, ans: Math.round(3.14 * r * r * h * 100) / 100, wrongD: Math.round(3.14 * 4 * r * r * h * 100) / 100 }; }
     const u = (opts.units || [])[Math.floor(Math.random() * (opts.units || []).length)];
     return Object.assign({ type: 'unit' }, u, { order: shuffle(u.ch.map((c, i) => i)) });
@@ -55,25 +58,29 @@ export function mount(ctx) {
       const [d, w, h] = q.dims, B = makeBlocks(80); add(B.mesh); B.set(q.dims, null, new THREE.Vector3(-w * U / 2, 0, -0.5 + d * U / 2)); q.B = B;
       const f = add(wireBox(w * U, h * U, d * U, tok('ink-soft'), 0.012)); f.position.copy(B.origin);
       [['たて', d, new THREE.Vector3(B.origin.x - 0.35, 0, -0.5)], ['よこ', w, new THREE.Vector3(0, 0, B.origin.z + 0.35)], ['たかさ', h, new THREE.Vector3(B.origin.x + w * U + 0.4, h * U / 2, B.origin.z)]].forEach(([n, v, p]) => { const s = add(labelSprite(`${n} ${v}cm`, { h: 0.3 })); s.position.copy(p); });
-      fitBox(new THREE.Box3(new THREE.Vector3(-3, 0, -2.4), new THREE.Vector3(3, 2.2, 1.2)), 0.95, 0.55, 1.05);
+      fitBox(new THREE.Box3(new THREE.Vector3(-3, 0, -2.4), new THREE.Vector3(3, 2.2, 1.2)), 0.95, 0.55, PAD(1.05));
       text = 'この はこの たいせきは なんcm³？';
     } else if (q.type === 'compose') {
       const { d, w1, w2, h1, h2 } = q, o = new THREE.Vector3(-(w1 + w2) * U / 2, 0, -0.5 + d * U / 2);
       const A = makeBlocks(60, tok('face-4')), Bb = makeBlocks(60, tok('face-4')); add(A.mesh); add(Bb.mesh);
       A.set([d, w1, h1], null, o); Bb.set([d, w2, h2], null, o.clone().add(new THREE.Vector3(w1 * U, 0, 0))); q.A = A; q.Bb = Bb;
-      fitBox(new THREE.Box3(new THREE.Vector3(-3, 0, -2.4), new THREE.Vector3(3, 2.2, 1.2)), 0.95, 0.55, 1.05);
+      fitBox(new THREE.Box3(new THREE.Vector3(-3, 0, -2.4), new THREE.Vector3(3, 2.2, 1.2)), 0.95, 0.55, PAD(1.05));
       text = 'この かたちの たいせきは なんcm³？';
+    } else if (q.type === 'cone') {
+      text = `はんけい ${q.r}cm、たかさ ${q.h}cm の えんすいの たいせきは？（えんしゅうりつは 3.14）`;
+      const m = add(new THREE.Mesh(new THREE.ConeGeometry(q.r * 0.3, q.h * 0.3, 48), new THREE.MeshStandardMaterial({ color: tok('face-4') }))); m.position.set(0, q.h * 0.15, -0.5);
+      fitBox(new THREE.Box3(new THREE.Vector3(-1.6, 0, -2.1), new THREE.Vector3(1.6, q.h * 0.3 + 0.8, 1.1)), 0.95, 0.55, PAD(1.15));
     } else if (q.type === 'cyl') {
       text = `はんけい ${q.r}cm、たかさ ${q.h}cm の えんちゅうの たいせきは？（えんしゅうりつは 3.14）`;
-      import('./volume-slice.js').then(({ plateStack, baseShape, CM }) => { if (quiz.list[quiz.i] !== q) return; const st = add(plateStack(baseShape('circle', q.r), q.h, tok('face-4'))); st.position.set(0, 0, -0.5); st.userData.show(q.h); fitBox(new THREE.Box3(new THREE.Vector3(-1.6, 0, -2.1), new THREE.Vector3(1.6, q.h * CM + 0.8, 1.1)), 0.95, 0.55, S.view.W < 600 ? 1.4 : 1.15); });
+      import('./volume-slice.js').then(({ plateStack, baseShape, CM }) => { if (quiz.list[quiz.i] !== q) return; const st = add(plateStack(baseShape('circle', q.r), q.h, tok('face-4'))); st.position.set(0, 0, -0.5); st.userData.show(q.h); fitBox(new THREE.Box3(new THREE.Vector3(-1.6, 0, -2.1), new THREE.Vector3(1.6, q.h * CM + 0.8, 1.1)), 0.95, 0.55, PAD(1.15)); });
     } else if (q.type === 'prism') {
       text = `そこの めんせきが ${q.B}cm²、たかさが ${q.h}cm の かくちゅうの たいせきは？`;
-      fitBox(new THREE.Box3(new THREE.Vector3(-2, 0, -2), new THREE.Vector3(2, 1, 1)), 0.95, 0.55, 1.05);
+      fitBox(new THREE.Box3(new THREE.Vector3(-1, 0, -1.2), new THREE.Vector3(1, 0.3, 0.2)), 0.95, 0.55, PAD(1.05));
     } else {
       text = q.q;
       q$('choices').innerHTML = q.order.map(i => `<button class="btn sub" type="button" data-ch="${i}">${q.ch[i]}</button>`).join('');
       $$p(panel, '[data-ch]').forEach(b => on(b, 'click', () => answer(+b.dataset.ch)));
-      fitBox(new THREE.Box3(new THREE.Vector3(-2, 0, -2), new THREE.Vector3(2, 1, 1)), 0.95, 0.55, 1.05);
+      fitBox(new THREE.Box3(new THREE.Vector3(-1, 0, -1.2), new THREE.Vector3(1, 0.3, 0.2)), 0.95, 0.55, PAD(1.05));
     }
     q$('qTxt').innerHTML = text; ctx.say(text);
   }
@@ -87,11 +94,11 @@ export function mount(ctx) {
     if (correct) { sfx.good(); burst(new THREE.Vector3(0, 1, -0.5)); toast(ICON.HANAMARU, `せいかい！ ${right}`, 3); }
     else {
       sfx.bad();
-      const why = q.type === 'cyl' ? (Math.abs(v - q.wrongD) < 0.005 ? `ちょっけいで けいさん したかな？ はんけいを つかって ${q.r} × ${q.r} × 3.14 × ${q.h} ＝ ${q.ans}cm³` : `${q.r} × ${q.r} × 3.14 × ${q.h} ＝ ${q.ans}cm³`) : q.type === 'box' ? `1だんに ${q.dims[0] * q.dims[1]}こ、${q.dims[2]}だんで ${q.ans}cm³` : q.type === 'compose' ? `2つの はこに わけて ${q.d * q.w1 * q.h1} ＋ ${q.d * q.w2 * q.h2} ＝ ${q.ans}cm³` : q.type === 'prism' ? `そこの めんせき × たかさ ＝ ${q.B} × ${q.h} ＝ ${q.ans}cm³` : `こたえは「${right}」`;
+      const why = q.type === 'cone' ? (Math.abs(v - q.wrongT) < 0.005 ? `3ぶんの1を わすれて いないかな？ ${q.r} × ${q.r} × 3.14 × ${q.h} ÷ 3 ＝ ${q.ans}cm³` : `${q.r} × ${q.r} × 3.14 × ${q.h} ÷ 3 ＝ ${q.ans}cm³`) : q.type === 'cyl' ? (Math.abs(v - q.wrongD) < 0.005 ? `ちょっけいで けいさん したかな？ はんけいを つかって ${q.r} × ${q.r} × 3.14 × ${q.h} ＝ ${q.ans}cm³` : `${q.r} × ${q.r} × 3.14 × ${q.h} ＝ ${q.ans}cm³`) : q.type === 'box' ? `1だんに ${q.dims[0] * q.dims[1]}こ、${q.dims[2]}だんで ${q.ans}cm³` : q.type === 'compose' ? `2つの はこに わけて ${q.d * q.w1 * q.h1} ＋ ${q.d * q.w2 * q.h2} ＝ ${q.ans}cm³` : q.type === 'prism' ? `そこの めんせき × たかさ ＝ ${q.B} × ${q.h} ＝ ${q.ans}cm³` : `こたえは「${right}」`;
       toast(ICON.X, why, 4);
     }
     if (q.type !== 'unit') spinCamera(2.2, Math.PI * 0.4);
-    ctx.log(opts.kind || 'volume', { correct, hints: quiz.hints, level: quiz.level, detail: { type: q.type, ans: q.type === 'unit' ? q.id : q.ans, said: v, mistake: q.type === 'cyl' && Math.abs(v - q.wrongD) < 0.005 ? 'diameter' : '' } });
+    ctx.log(opts.kind || 'volume', { correct, hints: quiz.hints, level: quiz.level, detail: { type: q.type, ans: q.type === 'unit' ? q.id : q.ans, said: v, mistake: q.type === 'cyl' && Math.abs(v - q.wrongD) < 0.005 ? 'diameter' : q.type === 'cone' && Math.abs(v - q.wrongT) < 0.005 ? 'third' : '' } });
     q$('q').hidden = true; q$('hint').hidden = true; q$('pad').hidden = true; q$('choices').hidden = true;
     q$('next').textContent = quiz.i < quiz.list.length - 1 ? 'つぎの もんだい' : 'けっかを みる'; q$('nextRow').hidden = false;
   }
@@ -108,6 +115,8 @@ export function mount(ctx) {
       if (quiz.hints === 1) toast(ICON.HINT, '2つの はこに わけて かんがえよう', 2.6);
       else if (quiz.hints === 2) { q.Bb.mesh.material.color.set(tok('face-1')).convertSRGBToLinear(); toast(ICON.HINT, 'あおい はこと あかい はこに わけたよ', 2.6); }
       else toast(ICON.HINT, `あおは ${q.d}×${q.w1}×${q.h1}、あかは ${q.d}×${q.w2}×${q.h2}`, 3.2);
+    } else if (q.type === 'cone') {
+      toast(ICON.HINT, quiz.hints === 1 ? 'えんすいは おなじ そこと たかさの えんちゅうの 3ぶんの1' : quiz.hints === 2 ? `えんちゅうなら ${q.r} × ${q.r} × 3.14 × ${q.h}` : 'それを 3で わろう', 3.2);
     } else if (q.type === 'cyl') {
       toast(ICON.HINT, quiz.hints === 1 ? 'そこの えんの めんせきは はんけい × はんけい × 3.14' : quiz.hints === 2 ? `そこの めんせきは ${q.r} × ${q.r} × 3.14 ＝ ${Math.round(q.r * q.r * 314) / 100}` : `それに たかさ ${q.h} を かけよう`, 3.2);
     } else if (q.type === 'prism') {

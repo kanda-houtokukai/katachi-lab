@@ -1,6 +1,7 @@
 // 部品が使う展開図の出どころ（立方体の方眼・箱の十字形・カタログ）。
 import { box } from '../engine/solids.js';
 import { faceEdges, layoutFromTree } from '../engine/nets.js';
+export { faceEdges };
 import { NETS11, cellsToLayout, normalize } from '../engine/grid.js';
 import { loadCatalog } from '../engine/catalog.js';
 
@@ -23,8 +24,13 @@ export async function catalogLayout(solid, no) { const c = await loadCatalog(sol
 export { NETS11 };
 
 // その場で作る立体（カタログのない n角柱・n角錐）の展開図。側面を1列に並べ、底面を真ん中の側面につける
-import { prism as prismSolid, pyramid as pyramidSolid } from '../engine/solids.js';
+import { prism as prismSolid, pyramid as pyramidSolid, solid as solidOf } from '../engine/solids.js';
+import { wilsonTree } from '../engine/nets.js';
 const genCache = new Map();
+export function randomLayout(solidId) {
+  const P = solidOf(solidId), E = faceEdges(P);
+  return layoutFromTree(P, E, wilsonTree(P.F.length, E));
+}
 export function genLayout(gen) {
   const key = JSON.stringify(gen);
   if (genCache.has(key)) return genCache.get(key);

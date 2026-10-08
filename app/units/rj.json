@@ -1,0 +1,952 @@
+{
+ "note": "中1「空間図形」（ちょっと先・中学）。設計書 RJ。文面はすべて下書き（reviewed:false）。正十二面体・正二十面体はカタログを作らず、ひらくたびに Wilson のアルゴリズムで一様に選ぶ。",
+ "school": "中1「空間図形」",
+ "tabs": {
+  "miru": [
+   {
+    "part": "platonic-vertex",
+    "label": "せいためんたい"
+   },
+   {
+    "part": "revolve",
+    "label": "かいてんたい"
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "fold-explore",
+    "label": "かずを しらべる",
+    "opts": {
+     "table": true,
+     "countKind": "platonic-count",
+     "progress": 1,
+     "solids": [
+      {
+       "key": "tetra",
+       "label": "せいしめんたい",
+       "short": "4",
+       "src": "catalog",
+       "solid": "tetra"
+      },
+      {
+       "key": "cube",
+       "label": "りっぽうたい",
+       "short": "6",
+       "src": "catalog",
+       "solid": "cube"
+      },
+      {
+       "key": "octa",
+       "label": "せいはちめんたい",
+       "short": "8",
+       "src": "catalog",
+       "solid": "octa"
+      },
+      {
+       "key": "dodeca",
+       "label": "せいじゅうにめんたい",
+       "short": "12",
+       "src": "random",
+       "solid": "dodeca"
+      },
+      {
+       "key": "icosa",
+       "label": "せいにじゅうめんたい",
+       "short": "20",
+       "src": "random",
+       "solid": "icosa"
+      }
+     ],
+     "tools": [
+      "count",
+      "next"
+     ]
+    }
+   },
+   {
+    "part": "fold-explore",
+    "label": "ひらく",
+    "opts": {
+     "solids": [
+      {
+       "key": "tri-pyramid",
+       "label": "さんかくすい",
+       "src": "catalog",
+       "solid": "tri-pyramid",
+       "paperTitle": "さんかくすい"
+      },
+      {
+       "key": "sq-pyramid",
+       "label": "しかくすい",
+       "src": "catalog",
+       "solid": "sq-pyramid",
+       "paperTitle": "しかくすい"
+      },
+      {
+       "key": "pent-pyramid",
+       "label": "ごかくすい",
+       "src": "catalog",
+       "solid": "pent-pyramid",
+       "paperTitle": "ごかくすい"
+      },
+      {
+       "key": "hex-pyramid",
+       "label": "ろっかくすい",
+       "src": "catalog",
+       "solid": "hex-pyramid",
+       "paperTitle": "ろっかくすい"
+      },
+      {
+       "key": "tetra",
+       "label": "せいしめんたい",
+       "src": "catalog",
+       "solid": "tetra",
+       "paperTitle": "せいしめんたい"
+      },
+      {
+       "key": "octa",
+       "label": "せいはちめんたい",
+       "src": "catalog",
+       "solid": "octa",
+       "paperTitle": "せいはちめんたい"
+      }
+     ],
+     "tools": [
+      "next",
+      "paper",
+      "edge",
+      "vertex"
+     ]
+    }
+   },
+   {
+    "part": "cone",
+    "label": "えんすいを ひらく",
+    "opts": {
+     "mode": "open"
+    }
+   },
+   {
+    "part": "projection",
+    "label": "とうえいず",
+    "opts": {
+     "mode": "view"
+    }
+   },
+   {
+    "part": "pour",
+    "label": "たいせきを くらべる"
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "net-quiz",
+    "label": "てんかいず",
+    "opts": {
+     "kinds": {
+      "valid?": "net-quiz"
+     },
+     "question": "この てんかいずで りったいが できる？",
+     "yes": "できる",
+     "no": "できない",
+     "okText": "りったいが できたね",
+     "wrongValid": "ほんとうは できるよ",
+     "levels": {
+      "easy": [
+       {
+        "type": "valid?",
+        "src": "catalog",
+        "solid": "sq-pyramid",
+        "valid": true,
+        "n": 2,
+        "coll": "sq-pyramid"
+       },
+       {
+        "type": "valid?",
+        "src": "catalog",
+        "solid": "sq-pyramid",
+        "valid": false,
+        "n": 2
+       }
+      ],
+      "normal": [
+       {
+        "type": "valid?",
+        "src": "catalog",
+        "solid": "tetra",
+        "valid": true,
+        "n": 1,
+        "coll": "tetra"
+       },
+       {
+        "type": "valid?",
+        "src": "catalog",
+        "solid": "tri-pyramid",
+        "valid": true,
+        "n": 1,
+        "coll": "tri-pyramid"
+       },
+       {
+        "type": "valid?",
+        "src": "catalog",
+        "solid": "tri-pyramid",
+        "valid": false,
+        "n": 1
+       },
+       {
+        "type": "valid?",
+        "src": "catalog",
+        "solid": "octa",
+        "valid": false,
+        "n": 1
+       }
+      ],
+      "challenge": [
+       {
+        "type": "valid?",
+        "src": "catalog",
+        "solid": "octa",
+        "valid": true,
+        "n": 2,
+        "coll": "octa"
+       },
+       {
+        "type": "valid?",
+        "src": "catalog",
+        "solid": "octa",
+        "valid": false,
+        "n": 2
+       },
+       {
+        "type": "valid?",
+        "src": "catalog",
+        "solid": "hex-pyramid",
+        "valid": true,
+        "n": 1,
+        "coll": "hex-pyramid"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "part": "projection",
+    "label": "とうえいずから あてる",
+    "opts": {
+     "mode": "quiz"
+    }
+   },
+   {
+    "part": "volume-quiz",
+    "label": "すいたいと きゅう",
+    "opts": {
+     "kind": "volume",
+     "decimal": true,
+     "levels": {
+      "easy": [
+       "unit",
+       "unit",
+       "cone"
+      ],
+      "normal": [
+       "cone",
+       "unit",
+       "cone",
+       "unit"
+      ],
+      "challenge": [
+       "cone",
+       "cone",
+       "unit",
+       "cone"
+      ]
+     },
+     "units": [
+      {
+       "id": "cone13",
+       "q": "えんすいの たいせきは、そこと たかさが おなじ えんちゅうの なんばい？",
+       "ch": [
+        "2ぶんの1",
+        "3ぶんの1",
+        "3ぶんの2"
+       ],
+       "a": 1,
+       "hint": "えんすい 3ばいぶんで えんちゅうが いっぱい",
+       "reviewed": false
+      },
+      {
+       "id": "sphere23",
+       "q": "きゅうの たいせきは、きゅうが ちょうど はいる えんちゅうの なんばい？",
+       "ch": [
+        "2ぶんの1",
+        "3ぶんの1",
+        "3ぶんの2"
+       ],
+       "a": 2,
+       "hint": "みずに すると えんちゅうの 3ぶんの2 まで",
+       "reviewed": false
+      },
+      {
+       "id": "pyr13",
+       "q": "かくすいの たいせきは、そこと たかさが おなじ かくちゅうの なんばい？",
+       "ch": [
+        "2ぶんの1",
+        "3ぶんの1",
+        "3ぶんの2"
+       ],
+       "a": 1,
+       "hint": "えんすいと おなじ きまり",
+       "reviewed": false
+      },
+      {
+       "id": "plat5",
+       "q": "せいためんたいは ぜんぶで なんしゅるい？",
+       "ch": [
+        "4しゅるい",
+        "5しゅるい",
+        "6しゅるい"
+       ],
+       "a": 1,
+       "hint": "せいしめんたい・りっぽうたい・せいはちめんたい・せいじゅうにめんたい・せいにじゅうめんたい",
+       "reviewed": false
+      }
+     ]
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "net-build-cards",
+    "label": "てんかいず（すい・せいためんたい）",
+    "opts": {
+     "solids": [
+      {
+       "key": "tri-pyramid",
+       "label": "さんかくすい",
+       "solid": "tri-pyramid",
+       "made": "さんかくすいが できた",
+       "paperTitle": "さんかくすい"
+      },
+      {
+       "key": "sq-pyramid",
+       "label": "しかくすい",
+       "solid": "sq-pyramid",
+       "made": "しかくすいが できた",
+       "paperTitle": "しかくすい"
+      },
+      {
+       "key": "pent-pyramid",
+       "label": "ごかくすい",
+       "solid": "pent-pyramid",
+       "made": "ごかくすいが できた",
+       "paperTitle": "ごかくすい"
+      },
+      {
+       "key": "hex-pyramid",
+       "label": "ろっかくすい",
+       "solid": "hex-pyramid",
+       "made": "ろっかくすいが できた",
+       "paperTitle": "ろっかくすい"
+      },
+      {
+       "key": "tetra",
+       "label": "せいしめんたい",
+       "solid": "tetra",
+       "made": "せいしめんたいが できた",
+       "paperTitle": "せいしめんたい"
+      },
+      {
+       "key": "octa",
+       "label": "せいはちめんたい",
+       "solid": "octa",
+       "made": "せいはちめんたいが できた",
+       "paperTitle": "せいはちめんたい"
+      }
+     ]
+    }
+   },
+   {
+    "part": "random-net",
+    "label": "せいじゅうに・にじゅうめんたい"
+   },
+   {
+    "part": "cone",
+    "label": "えんすいを つくる",
+    "opts": {
+     "mode": "build"
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "tetra",
+   "kind": "catalog",
+   "solid": "tetra",
+   "total": 2,
+   "label": "せいしめんたい",
+   "title": "<ruby>正四面体<rt>せいしめんたい</rt></ruby>",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "play": {
+    "mode": "sawaru",
+    "act": 1
+   }
+  },
+  {
+   "id": "tri-pyramid",
+   "kind": "catalog",
+   "solid": "tri-pyramid",
+   "total": 4,
+   "label": "さんかくすい",
+   "title": "<ruby>正三角錐<rt>せいさんかくすい</rt></ruby>",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "play": {
+    "mode": "sawaru",
+    "act": 1
+   }
+  },
+  {
+   "id": "sq-pyramid",
+   "kind": "catalog",
+   "solid": "sq-pyramid",
+   "total": 8,
+   "label": "しかくすい",
+   "title": "<ruby>正四角錐<rt>せいしかくすい</rt></ruby>",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "play": {
+    "mode": "sawaru",
+    "act": 1
+   }
+  },
+  {
+   "id": "pent-pyramid",
+   "kind": "catalog",
+   "solid": "pent-pyramid",
+   "total": 15,
+   "label": "ごかくすい",
+   "title": "<ruby>正五角錐<rt>せいごかくすい</rt></ruby>",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "play": {
+    "mode": "sawaru",
+    "act": 1
+   }
+  },
+  {
+   "id": "hex-pyramid",
+   "kind": "catalog",
+   "solid": "hex-pyramid",
+   "total": 33,
+   "label": "ろっかくすい",
+   "title": "<ruby>正六角錐<rt>せいろっかくすい</rt></ruby>",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "play": {
+    "mode": "sawaru",
+    "act": 1
+   }
+  },
+  {
+   "id": "octa",
+   "kind": "catalog",
+   "solid": "octa",
+   "total": 11,
+   "label": "せいはちめんたい",
+   "title": "<ruby>正八面体<rt>せいはちめんたい</rt></ruby>",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "play": {
+    "mode": "sawaru",
+    "act": 1
+   }
+  },
+  {
+   "id": "dodeca",
+   "kind": "counter",
+   "solid": "dodeca",
+   "total": 43380,
+   "label": "せいじゅうにめんたい",
+   "title": "<ruby>正十二面体<rt>せいじゅうにめんたい</rt></ruby>",
+   "note": "「ひらく」を おすたびに ちがう てんかいずが うまれるよ",
+   "go": {
+    "mode": "tsukuru",
+    "act": 1
+   },
+   "goLabel": "「つくる」で ひらこう"
+  },
+  {
+   "id": "icosa",
+   "kind": "counter",
+   "solid": "icosa",
+   "total": 43380,
+   "label": "せいにじゅうめんたい",
+   "title": "<ruby>正二十面体<rt>せいにじゅうめんたい</rt></ruby>",
+   "note": "「ひらく」を おすたびに ちがう てんかいずが うまれるよ",
+   "go": {
+    "mode": "tsukuru",
+    "act": 1
+   },
+   "goLabel": "「つくる」で ひらこう"
+  }
+ ],
+ "mission": [
+  {
+   "key": "build",
+   "label": "すい・せいためんたいの ずかんを 1つ ふやす",
+   "icon": "zukan",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  },
+  {
+   "key": "random-net",
+   "label": "せいじゅうにめんたいを ひらく",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 1
+   }
+  },
+  {
+   "key": "cone",
+   "label": "えんすいを つくる",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 2
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "rj-plat",
+   "q": "せいためんたいは ぜんぶで なんしゅるい？",
+   "ch": [
+    "4しゅるい",
+    "5しゅるい",
+    "6しゅるい"
+   ],
+   "a": 1,
+   "fig": "octa",
+   "reviewed": false
+  },
+  {
+   "id": "rj-cone",
+   "q": "えんすいの たいせきは、おなじ そこと たかさの えんちゅうの？",
+   "ch": [
+    "2ぶんの1",
+    "3ぶんの1"
+   ],
+   "a": 1,
+   "fig": "cone",
+   "reviewed": false
+  },
+  {
+   "id": "rj-sphere",
+   "q": "きゅうの たいせきは、ちょうど はいる えんちゅうの？",
+   "ch": [
+    "3ぶんの1",
+    "3ぶんの2"
+   ],
+   "a": 1,
+   "fig": "sphere",
+   "reviewed": false
+  },
+  {
+   "id": "rj-rev",
+   "q": "ちょっかくさんかくけいを 1つの へんの まわりに まわすと？",
+   "ch": [
+    "えんすい",
+    "えんちゅう",
+    "きゅう"
+   ],
+   "a": 0,
+   "fig": "cone",
+   "reviewed": false
+  },
+  {
+   "id": "rj-rev2",
+   "q": "はんえんを まわすと？",
+   "ch": [
+    "きゅう",
+    "えんちゅう"
+   ],
+   "a": 0,
+   "fig": "sphere",
+   "reviewed": false
+  },
+  {
+   "id": "rj-proj",
+   "q": "まえから みると さんかく、うえから みると まる。なに？",
+   "ch": [
+    "えんすい",
+    "えんちゅう",
+    "さんかくちゅう"
+   ],
+   "a": 0,
+   "fig": "cone",
+   "reviewed": false
+  },
+  {
+   "id": "rj-tri6",
+   "q": "1つの ちょうてんに せいさんかくけいを 6まい あつめると？",
+   "ch": [
+    "たいらに なる",
+    "りったいに なる"
+   ],
+   "a": 0,
+   "fig": "octa",
+   "reviewed": false
+  },
+  {
+   "id": "rj-pyr",
+   "q": "しかくすいの めんの かずは？",
+   "ch": [
+    "4つ",
+    "5つ",
+    "6つ"
+   ],
+   "a": 1,
+   "fig": "pyramid",
+   "reviewed": false
+  }
+ ],
+ "insights": [
+  {
+   "key": "third",
+   "title": "錐体の体積で 1/3 を忘れる",
+   "tag": "中1の内容",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "rj.volume",
+     "detail.mistake": "third"
+    },
+    "min": 2
+   },
+   "obs": "円錐の体積で、3でわるのを忘れた答えが {n}回ありました。",
+   "body": "錐体は、底面と高さが同じ柱の 1/3 の体積です。柱の公式のまま計算している段階です。",
+   "home": "とんがり帽子の形の紙コップと、同じ底・高さの筒を作り、砂や米を移してみてください。3杯でいっぱいになる様子が実感につながります。"
+  },
+  {
+   "key": "arc",
+   "title": "円錐の展開図で、おうぎ形の弧と底面の円周が結びついていない",
+   "tag": "中1の内容",
+   "reviewed": false,
+   "test": {
+    "type": "wrongRate",
+    "where": {
+     "kind": "rj.cone",
+     "detail.mode": "build"
+    },
+    "minN": 2,
+    "minWrong": 2
+   },
+   "obs": "円錐の展開図づくりで {n}回中{w}回、角度が合いませんでした。",
+   "body": "おうぎ形の曲がった辺の長さが、底面の円のまわりの長さと同じになることが、まだ結びついていない段階です。",
+   "home": "紙でおうぎ形を作って丸め、底の円の大きさが中心角でどう変わるかを一緒に試してみてください。"
+  },
+  {
+   "key": "proj",
+   "title": "投影図の取り違え",
+   "tag": "中1の内容",
+   "reviewed": false,
+   "test": {
+    "type": "wrongRate",
+    "where": {
+     "kind": "rj.projection"
+    },
+    "minN": 3,
+    "minWrong": 2,
+    "ratio": 0.5
+   },
+   "obs": "投影図の問題で {n}問中{w}問がまちがいでした。",
+   "body": "前から見た形（立面図）と上から見た形（平面図）を、組み合わせて立体を思い浮かべるのが、まだ難しい段階です。",
+   "home": "缶やコップ、三角のお菓子の箱を、真横と真上から一緒に見て、見える形を言い合ってみてください。"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "rj.random-net",
+     "detail.isNew": true
+    },
+    "min": 3
+   },
+   "text": "正十二面体・正二十面体の展開図を{n}種類見つけました。"
+  },
+  {
+   "test": {
+    "type": "distinct",
+    "where": {
+     "kind": "rj.build",
+     "detail.valid": true
+    },
+    "field": "detail.id",
+    "min": 2
+   },
+   "text": "角錐や正多面体の展開図を、カードをつないで{u}種類つくりました。"
+  },
+  {
+   "test": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "rj.cone",
+      "correct": true
+     }
+    ]
+   },
+   "text": "円錐の展開図で、おうぎ形の角度を底面の円にぴったり合わせられました。"
+  },
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "rj.projection"
+    },
+    "min": 3
+   },
+   "text": "投影図の問題で、ヒントを使わずに{best}問続けて正解しました。"
+  }
+ ],
+ "map": [
+  {
+   "activity": "正多面体（5種類しかないこと）",
+   "done": {
+    "type": "count",
+    "where": {
+     "kind": "rj.platonic",
+     "detail.flat": true
+    },
+    "min": 1
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "rj.platonic"
+     }
+    ]
+   }
+  },
+  {
+   "activity": "回転体",
+   "done": {
+    "type": "distinct",
+    "where": {
+     "kind": "rj.revolve"
+    },
+    "field": "detail.shape",
+    "min": 3
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "rj.revolve"
+     }
+    ]
+   }
+  },
+  {
+   "activity": "角錐・円錐・正多面体の展開図",
+   "done": {
+    "type": "distinct",
+    "where": {
+     "kind": "rj.build",
+     "detail.valid": true
+    },
+    "field": "detail.id",
+    "min": 2
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "rj.build"
+     },
+     {
+      "kind": "rj.net-quiz"
+     }
+    ]
+   }
+  },
+  {
+   "activity": "円錐の展開図（おうぎ形の中心角）",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "rj.cone",
+      "correct": true
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "rj.cone"
+     }
+    ]
+   }
+  },
+  {
+   "activity": "投影図",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "rj.projection"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "rj.projection"
+     },
+     {
+      "kind": "rj.projection-look"
+     }
+    ]
+   }
+  },
+  {
+   "activity": "錐体と球の体積",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "rj.volume"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "rj.pour"
+     },
+     {
+      "kind": "rj.volume"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "rj.platonic": [
+   {
+    "where": {
+     "detail.flat": true
+    },
+    "text": "頂点に集める面が多すぎると平らになることを確かめました"
+   },
+   {
+    "where": {},
+    "text": "頂点に面を集めて正多面体ができる様子を見ました"
+   }
+  ],
+  "rj.revolve": "平面図形を回して回転体ができる様子を見ました",
+  "rj.cone": [
+   {
+    "where": {
+     "detail.mode": "build",
+     "correct": true
+    },
+    "text": "円錐の展開図で中心角を合わせました"
+   },
+   {
+    "where": {
+     "detail.mode": "build"
+    },
+    "text": "円錐の展開図の中心角を調べました"
+   },
+   {
+    "where": {},
+    "text": "円錐の母線と半径を変えて展開図を見ました"
+   }
+  ],
+  "rj.projection-look": "立体を前・上から見て投影図と比べました",
+  "rj.projection": "投影図から立体を当てる：{ok}{hints}",
+  "rj.projection-done": "「とうえいずから あてる」（{level}）{n}問中{score}問正解",
+  "rj.pour": "水を使って錐体・球の体積を確かめました",
+  "rj.volume": "錐体と球の体積：{ok}{hints}",
+  "rj.volume-done": "「すいたいと きゅう」（{level}）{n}問中{score}問正解",
+  "rj.net-quiz": [
+   {
+    "where": {
+     "detail.valid": true
+    },
+    "text": "立体になる展開図：{ok}{hints}"
+   },
+   {
+    "where": {},
+    "text": "立体にならない形：{ok}{hints}"
+   }
+  ],
+  "rj.build": [
+   {
+    "where": {
+     "detail.valid": true
+    },
+    "text": "展開図をつくって組み立て成功（{name} No.{id}）"
+   },
+   {
+    "where": {},
+    "text": "並べた形が立体にならないことを確かめました"
+   }
+  ],
+  "rj.random-net": "正多面体のランダムな展開図をひらきました",
+  "rj.platonic-count": "正多面体の{what}を数えて表に書きました（{n}）",
+  "rj.paper": "展開図を紙で作るために印刷画面を開きました（{name}）",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 8,
+   "h": 20,
+   "kind": "volume",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "cone",
+    "mistake": "third"
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 8,
+   "h": 20.1,
+   "kind": "volume",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "cone",
+    "mistake": "third"
+   }
+  }
+ ]
+}

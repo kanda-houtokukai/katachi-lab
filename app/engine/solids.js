@@ -61,32 +61,24 @@ function icosaVerts() {
   for (const s1 of [-1, 1]) for (const s2 of [-1, 1]) { V.push([0, s1, s2 * PHI]); V.push([s1, s2 * PHI, 0]); V.push([s2 * PHI, 0, s1]); }
   return V;
 }
-// 頂点の集合から、与えた向きの面（最も外側の頂点の組）を角度順に並べる
-function faceAround(V, dir, k) {
-  const ds = V.map((v, i) => [dot(v, dir), i]).sort((a, b) => b[0] - a[0]).slice(0, k).map(x => x[1]);
-  const c = scale(ds.reduce((s, i) => add(s, V[i]), [0, 0, 0]), 1 / k);
-  const n = norm(dir);
-  const u = norm(sub(V[ds[0]], c)), w = cross(n, u);
-  return ds.sort((a, b) => {
-    const pa = sub(V[a], c), pb = sub(V[b], c);
-    return Math.atan2(dot(pa, w), dot(pa, u)) - Math.atan2(dot(pb, w), dot(pb, u));
-  });
-}
+// 正二十面体：互いの距離が辺の長さ（2）になる3頂点が面
 function icosa() {
-  const V = icosaVerts();
-  // 正二十面体の面は、正十二面体の頂点の向きにある3頂点
-  const D = dodecaVerts();
-  return makePoly(V, D.map(d => faceAround(V, d, 3)));
+  const V = icosaVerts(), F = [], d = (a, b) => len(sub(V[a], V[b]));
+  for (let i = 0; i < 12; i++) for (let j = i + 1; j < 12; j++) for (let k = j + 1; k < 12; k++)
+    if (Math.abs(d(i, j) - 2) < 1e-6 && Math.abs(d(j, k) - 2) < 1e-6 && Math.abs(d(i, k) - 2) < 1e-6) F.push([i, j, k]);
+  return makePoly(V, F);
 }
-function dodecaVerts() {
-  const V = [];
-  for (const a of [-1, 1]) for (const b of [-1, 1]) for (const c of [-1, 1]) V.push([a, b, c]);
-  for (const s1 of [-1, 1]) for (const s2 of [-1, 1]) { V.push([0, s1 / PHI, s2 * PHI]); V.push([s1 / PHI, s2 * PHI, 0]); V.push([s2 * PHI, 0, s1 / PHI]); }
-  return V;
-}
+// 正十二面体：正二十面体の双対（面の重心が頂点、頂点のまわりの5つの面が1つの面）
 function dodeca() {
-  const V = dodecaVerts();
-  return makePoly(V, icosaVerts().map(d => faceAround(V, d, 5)));
+  const I = icosa();
+  const V = I.F.map(f => scale(f.reduce((s, i) => add(s, I.V[i]), [0, 0, 0]), 1 / 3));
+  const F = I.V.map((v, vi) => {
+    const around = I.F.map((f, fi) => (f.includes(vi) ? fi : -1)).filter(x => x >= 0);
+    const n = norm(v), c = scale(around.reduce((s, fi) => add(s, V[fi]), [0, 0, 0]), 1 / around.length);
+    const u = norm(sub(V[around[0]], c)), w = cross(n, u);
+    return around.sort((a, b) => { const pa = sub(V[a], c), pb = sub(V[b], c); return Math.atan2(dot(pa, w), dot(pa, u)) - Math.atan2(dot(pb, w), dot(pb, u)); });
+  });
+  return makePoly(V, F);
 }
 function cube() { const p = box(1, 1, 1); return p; }
 

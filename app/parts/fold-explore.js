@@ -6,7 +6,7 @@ import { makeFoldNet, mountNet, centerBase, fitLayout, frameBox, frameFlat, fold
 import { cellsToLayout, NETS11 } from '../engine/grid.js';
 import { loadCatalog } from '../engine/catalog.js';
 import { edgePairs, vertexGroups, outerEdges } from '../engine/fold.js';
-import { boxCrossLayout, genLayout } from './_nets.js';
+import { boxCrossLayout, genLayout, randomLayout } from './_nets.js';
 import { tok } from '../core/theme.js';
 import { PAL, on, $p, $$p, sliderRow, setSlider } from './_common.js';
 import * as R4 from './_explore-tools.js';
@@ -41,11 +41,13 @@ export function mount(ctx) {
     if (s.src === 'grid') return { L: cellsToLayout(NETS11[((i % 11) + 11) % 11]), snap: true, count: 11, no: (((i % 11) + 11) % 11) + 1 };
     if (s.src === 'box') return { L: boxCrossLayout(...s.dims), snap: false, count: 1, no: 0 };
     if (s.src === 'gen') return { L: genLayout(s.gen), snap: false, count: 1, no: 0 };
+    if (s.src === 'random') return { L: randomLayout(s.solid), snap: false, count: 1, no: 0, random: true };
     const cat = await loadCatalog(s.solid), no = (((i % cat.count) + cat.count) % cat.count) + 1;
     return { L: cat.layout(no), snap: false, count: cat.count, no, cat };
   }
   function nextBtnVisible() {
     const b = $p(panel, '[data-k="next"]'); if (b) b.hidden = cur().src === 'box' || cur().src === 'gen';
+    if (b) b.innerHTML = cur().src === 'random' ? `${ctx.ICONS_UI.again}べつの ひらきかた（ランダム）` : `${ctx.ICONS_UI.again}べつの ひらきかた`;
     const s = $p(panel, '[data-k="no"]'); if (s) s.innerHTML = net && net.info.cat ? `No.<b>${net.info.no}</b> / ${net.info.count}` : '';
   }
 

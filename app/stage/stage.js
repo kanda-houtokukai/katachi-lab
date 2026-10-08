@@ -72,6 +72,11 @@ export function fitBox(box, phi, theta, pad = 1.12, refit = false) {
   }
   goal.target.copy(tgt); goal.phi = phi; goal.theta = theta; goal.radius = Math.min(34, d * pad);
 }
+// カメラが回っても収まるよう、横と奥行きをそろえた枠にする
+export function squareBox(box) {
+  const c = box.getCenter(new THREE.Vector3()), s = box.getSize(new THREE.Vector3()), m = Math.max(s.x, s.z) / 2;
+  return new THREE.Box3(new THREE.Vector3(c.x - m, box.min.y, c.z - m), new THREE.Vector3(c.x + m, box.max.y, c.z + m));
+}
 export function snapCamera() { S.rig.theta = S.goal.theta; S.rig.phi = S.goal.phi; S.rig.radius = S.goal.radius; S.rig.target.copy(S.goal.target); }
 const raycaster = new THREE.Raycaster();
 export function rayFrom(e) {
