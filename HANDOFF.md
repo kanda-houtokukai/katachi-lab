@@ -161,7 +161,7 @@
 - 並行作業（worktree）で作り、本体に取り込んで自分でテストし直した。部品：kurabe（ながさ）・utsusu・ikutsubun（ながさ）・monosashi（実寸・cm/mm と m・まきじゃく）・karada（からだものさし）・chizu（道のりときょり・1km さんぽ）・nagasa-quiz。凍結：1km の道 21本（routes.json）・1m の組 57組（onem.json）。
 - U3 は tani-zoom と同じ担当（かさ・おもさ）にしたので H4 で入れる（指示書 §1 の段の割りふりと違う）。
 - テスト：単体 36/36。E2E：n1 83・n2 97・n2m 80・n3 67 のボタンすべてで変化（dead 0・never 0）、iPad横・スマホ縦で収まる。H2 は本番 URL で開くことを確認済み。
-- 進行中（未取り込み）：かさ・おもさ（K1・K2・O3・U3）は作業中。ひろさ（H1・H4・H5・H6）とちょっと先（A4・E5・S5・EJ）は完成済みで worktree（`.claude/worktrees/agent-*`）に置いてあり、H5〜H7 で取り込む。H8 の保護者画面の注記は `scratchpad` に退避中（未コミット）。
+- 進行中（未取り込み）：かさ・おもさ（K1・K2・O3・U3）も完成（作業場所の報告で単体36・E2E 12 PASS）。取り込みは、共有ファイル（tokens.css・figs.js・benchmarks.json）の差分を当てる。figs.js は H3 の segs と同じ場所なので手で合わせる。mitoshi.js の修正は H3 で入れた同じ内容があるので不要。ひろさ（H1・H4・H5・H6）とちょっと先（A4・E5・S5・EJ）は完成済みで worktree（`.claude/worktrees/agent-*`）に置いてあり、H5〜H7 で取り込む。H8 の保護者画面の注記は `scratchpad` に退避中（未コミット）。
 - SHA：（この commit）
 
 ### 記録 2026-10-09 H2 じかん T1・T2・T3（Code・量の自走）
