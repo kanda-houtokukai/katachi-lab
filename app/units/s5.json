@@ -1,0 +1,576 @@
+{
+ "note": "5年「単位量あたりの大きさ・速さ」（ちょっと先）。設計書 hakaru-design.md §3 S5。こみぐあい・速さ（時間をそろえる／道のりをそろえる）・時速・分速・秒速。部品 kakekko（こみぐあいも同じ部品のモード）。走る物の速さは およその値（下書き・要確認）。文面はすべて下書き（reviewed:false）。",
+ "school": "5年 C(2) 単位量あたりの大きさ・速さ",
+ "tabs": {
+  "miru": [
+   {
+    "part": "kakekko",
+    "label": "みる",
+    "opts": {
+     "mode": "miru"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "kakekko",
+    "label": "こみぐあい",
+    "opts": {
+     "mode": "komi"
+    }
+   },
+   {
+    "part": "kakekko",
+    "label": "かけっこ",
+    "opts": {
+     "mode": "race"
+    }
+   },
+   {
+    "part": "kakekko",
+    "label": "じそく・ふんそく・びょうそく",
+    "opts": {
+     "mode": "convert"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "kakekko-quiz",
+    "label": "こみぐあい・はやさくらべ",
+    "opts": {
+     "type": "compare"
+    }
+   },
+   {
+    "part": "kakekko-quiz",
+    "label": "はやさの けいさん",
+    "opts": {
+     "type": "calc"
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "kakekko",
+    "label": "おなじ はやさを つくろう",
+    "opts": {
+     "mode": "derby"
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "hayasa",
+   "kind": "list",
+   "label": "はやさ ずかん",
+   "title": "はやさ ずかん（じそく・ふんそく・びょうそく）",
+   "items": [
+    {
+     "id": "aruku",
+     "label": "あるく ひと",
+     "fig": "racer:aruku",
+     "val": "じそく やく 4.8km・ふんそく やく 80m・びょうそく やく 1.3m",
+     "hint": "かけっこで くらべると わかる"
+    },
+    {
+     "id": "hashiru",
+     "label": "はしる こども",
+     "fig": "racer:hashiru",
+     "val": "じそく やく 14.4km・ふんそく やく 240m・びょうそく やく 4m",
+     "hint": "かけっこで くらべると わかる"
+    },
+    {
+     "id": "jitensha",
+     "label": "じてんしゃ",
+     "fig": "racer:jitensha",
+     "val": "じそく やく 18km・ふんそく やく 300m・びょうそく やく 5m",
+     "hint": "かけっこで くらべると わかる"
+    },
+    {
+     "id": "uma",
+     "label": "うま",
+     "fig": "racer:uma",
+     "val": "じそく やく 54km・ふんそく やく 900m・びょうそく やく 15m",
+     "hint": "かけっこで くらべると わかる"
+    },
+    {
+     "id": "kuruma",
+     "label": "じどうしゃ",
+     "fig": "racer:kuruma",
+     "val": "じそく やく 60km・ふんそく やく 1000m・びょうそく やく 16.7m",
+     "hint": "かけっこで くらべると わかる"
+    },
+    {
+     "id": "densha",
+     "label": "でんしゃ",
+     "fig": "racer:densha",
+     "val": "じそく やく 72km・ふんそく やく 1200m・びょうそく やく 20m",
+     "hint": "かけっこで くらべると わかる"
+    },
+    {
+     "id": "cheetah",
+     "label": "チーター",
+     "fig": "racer:cheetah",
+     "val": "じそく やく 108km・ふんそく やく 1800m・びょうそく やく 30m",
+     "hint": "かけっこで くらべると わかる"
+    },
+    {
+     "id": "hikouki",
+     "label": "ひこうき",
+     "fig": "racer:hikouki",
+     "val": "じそく やく 900km・ふんそく やく 15000m・びょうそく やく 250m",
+     "hint": "かけっこで くらべると わかる"
+    }
+   ],
+   "go": {
+    "mode": "sawaru",
+    "act": 1
+   },
+   "goLabel": "「かけっこ」で あつめよう"
+  }
+ ],
+ "mission": [
+  {
+   "key": "derby",
+   "label": "おなじ はやさを つくる",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "s5-same-mat",
+   "q": "マットの かずが おなじ とき、こんで いるのは？",
+   "ch": [
+    "ひとが おおい ほう",
+    "ひとが すくない ほう"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "s5-same-people",
+   "q": "ひとの かずが おなじ とき、こんで いるのは？",
+   "ch": [
+    "マットが すくない ほう",
+    "マットが おおい ほう"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "s5-per",
+   "q": "マット 6まいに 9にん。1まい あたりは？",
+   "ch": [
+    "1.5にん",
+    "0.67にん",
+    "15にん"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "s5-same-time",
+   "q": "おなじ じかんで くらべると、はやいのは？",
+   "ch": [
+    "ながく すすんだ ほう",
+    "みじかく すすんだ ほう"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "racer:jitensha"
+  },
+  {
+   "id": "s5-same-dist",
+   "q": "おなじ みちのりで くらべると、はやいのは？",
+   "ch": [
+    "じかんが みじかい ほう",
+    "じかんが ながい ほう"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "racer:hashiru"
+  },
+  {
+   "id": "s5-formula",
+   "q": "はやさ ＝ ？",
+   "ch": [
+    "みちのり ÷ じかん",
+    "じかん ÷ みちのり",
+    "みちのり × じかん"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "s5-mps",
+   "q": "びょうそく 5mは ふんそく なんm？",
+   "ch": [
+    "300m",
+    "5m",
+    "0.08m"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "racer:jitensha"
+  },
+  {
+   "id": "s5-kmh",
+   "q": "ふんそく 1200mは じそく なんkm？",
+   "ch": [
+    "72km",
+    "20km",
+    "72000km"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "racer:densha"
+  }
+ ],
+ "insights": [
+  {
+   "key": "s5-total",
+   "type": "total",
+   "title": "人数だけ・道のりだけで比べている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "s5.compare"
+     ],
+     "detail.mistake": "total"
+    },
+    "min": 2
+   },
+   "obs": "こみぐあいや速さの比べで、人数（または道のり）が多いほうを選ぶまちがいが{n}回ありました。",
+   "body": "広さ（または時間）もちがうときは、1枚あたり・1秒あたりの量にそろえて比べます。2つの量を組にして考える段階です。",
+   "home": "「6人で2部屋」と「8人で4部屋」はどちらが混んでいる？のように、身近な例で「1つあたり」を一緒に考えてみてください。",
+   "tag": "5年の内容"
+  },
+  {
+   "key": "s5-inverse",
+   "type": "inverse",
+   "title": "わる数とわられる数を逆にしている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "s5.calc"
+     ],
+     "detail.mistake": "inverse"
+    },
+    "min": 2
+   },
+   "obs": "速さ・道のり・時間を求める問題で、わる向き（かける・わる）を取りちがえるまちがいが{n}回ありました。",
+   "body": "速さ＝道のり÷時間、道のり＝速さ×時間、時間＝道のり÷速さ です。図（線分図）にかいて、何が「1あたり」かを確かめる段階です。",
+   "home": "車の移動のときに「1時間に40km進むと、2時間では？」と、短い問いを一緒に考えてみてください。",
+   "tag": "5年の内容"
+  },
+  {
+   "key": "s5-conv",
+   "type": "conv",
+   "title": "時速・分速・秒速の直し方（×60・÷60）を取りちがえている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "s5.calc",
+      "s5.derby"
+     ],
+     "detail.mistake": [
+      "conv",
+      "unit"
+     ]
+    },
+    "min": 2
+   },
+   "obs": "時速・分速・秒速を直す問題で、×60と÷60（または km と m）を取りちがえるまちがいが{n}回ありました。",
+   "body": "長い時間に直すと進む道のりは増える（×60）、短い時間に直すと減る（÷60）。単位の大きさの関係を確かめる段階です。",
+   "home": "「1秒に5m歩く人は、1分（60秒）では？」と、答えが大きくなるか小さくなるかを先に話してみてください。",
+   "tag": "5年の内容"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "s5.compare"
+    },
+    "min": 3
+   },
+   "text": "こみぐあい・速さの比べで、ヒントを使わずに{best}問続けて正解しました。"
+  },
+  {
+   "test": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "s5.derby",
+      "correct": true
+     }
+    ]
+   },
+   "text": "時速で示された速さと同じになるよう、秒速を自分で決めて走らせました。"
+  },
+  {
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "s5.race"
+    },
+    "min": 3
+   },
+   "text": "時間や道のりをそろえて、速さを{n}回比べました。"
+  }
+ ],
+ "map": [
+  {
+   "school": "5年 C(2) 単位量あたりの大きさ（こみぐあい）",
+   "activity": "こみぐあい・くらべる",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "s5.compare",
+     "detail.type": "komi"
+    },
+    "minN": 2,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "s5.komi"
+     },
+     {
+      "kind": "s5.compare",
+      "detail.type": "komi"
+     }
+    ]
+   }
+  },
+  {
+   "school": "5年 C(2) 速さの比べ方（時間・道のりをそろえる）",
+   "activity": "かけっこ・はやさくらべ",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "s5.compare",
+     "detail.type": "spd"
+    },
+    "minN": 2,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "s5.race"
+     },
+     {
+      "kind": "s5.compare",
+      "detail.type": "spd"
+     }
+    ]
+   }
+  },
+  {
+   "school": "5年 C(2) 速さ・道のり・時間を求める",
+   "activity": "はやさの けいさん",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "s5.calc",
+     "detail.type": "calc"
+    },
+    "minN": 2,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "s5.calc",
+      "detail.type": "calc"
+     }
+    ]
+   }
+  },
+  {
+   "school": "5年 C(2) 時速・分速・秒速",
+   "activity": "じそく・ふんそく・びょうそく・おなじ はやさを つくろう",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "s5.derby",
+      "correct": true
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "s5.convert"
+     },
+     {
+      "kind": "s5.calc",
+      "detail.type": "conv"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "s5.miru": "こみぐあい・速さの比べ方と、時速・分速・秒速の関係を見ました",
+  "s5.komi": "マットの枚数と人数を変えて、1枚あたりの人数で混みぐあいを比べました",
+  "s5.race": "時間や道のりをそろえて速さを比べました",
+  "s5.convert": "時速・分速・秒速を60倍ずつ並べて直しました",
+  "s5.derby": "時速と同じ速さを秒速で作る：{ok}（秒速{v}m・めあて{want}m）",
+  "s5.compare": [
+   {
+    "where": {
+     "detail.type": "komi"
+    },
+    "text": "こみぐあい比べ：{ok}{hints}"
+   },
+   {
+    "where": {},
+    "text": "速さ比べ：{ok}{hints}"
+   }
+  ],
+  "s5.compare-done": "こみぐあい・速さ比べ（{level}）{n}問中{score}問正解",
+  "s5.calc": [
+   {
+    "where": {
+     "detail.type": "conv"
+    },
+    "text": "時速・分速・秒速：{ok}{hints}"
+   },
+   {
+    "where": {},
+    "text": "速さ・道のり・時間：{ok}{hints}"
+   }
+  ],
+  "s5.calc-done": "速さの計算（{level}）{n}問中{score}問正解",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 17,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 0,
+   "h": 17.2,
+   "kind": "race",
+   "detail": {
+    "ids": [
+     "hashiru",
+     "jitensha"
+    ],
+    "how": "T"
+   },
+   "stage": "sawaru"
+  },
+  {
+   "d": 1,
+   "h": 17,
+   "kind": "compare",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "komi",
+    "mistake": "total",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 1,
+   "h": 17.1,
+   "kind": "compare",
+   "correct": true,
+   "hints": 1,
+   "level": "normal",
+   "detail": {
+    "type": "spd",
+    "kind": "diff",
+    "mistake": "total",
+    "miss": 1
+   }
+  },
+  {
+   "d": 3,
+   "h": 17,
+   "kind": "calc",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "conv",
+    "from": "mps",
+    "to": "mpm",
+    "mistake": "conv",
+    "miss": 2
+   }
+  },
+  {
+   "d": 3,
+   "h": 17.1,
+   "kind": "calc",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "calc",
+    "kind": "time",
+    "mistake": "inverse",
+    "miss": 2
+   }
+  },
+  {
+   "d": 5,
+   "h": 17,
+   "kind": "calc",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "type": "conv",
+    "from": "kmh",
+    "to": "mpm",
+    "mistake": "unit",
+    "miss": 1
+   }
+  },
+  {
+   "d": 6,
+   "h": 17,
+   "kind": "derby",
+   "correct": true,
+   "detail": {
+    "id": "jitensha",
+    "v": 5,
+    "want": 5
+   },
+   "stage": "tsukuru"
+  }
+ ],
+ "demoZukan": {
+  "hayasa": [
+   "hashiru",
+   "jitensha",
+   "densha"
+  ]
+ }
+}

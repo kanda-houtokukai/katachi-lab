@@ -1,0 +1,708 @@
+{
+ "note": "4年「角の大きさ」（ちょっと先）。設計書 hakaru-design.md §3 A4。前提は図形側 R4。入口は「かたち」（owner は hakaru）。文面はすべて下書き（reviewed:false）。図鑑の items は tools/hakaru-ahead.mjs が data/hakaru/ahead.json から作る。",
+ "school": "4年 B(5) 角の大きさ",
+ "tabs": {
+  "miru": [
+   {
+    "part": "bundoki",
+    "label": "みる",
+    "opts": {
+     "mode": "miru",
+     "script": "a4"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "bundoki",
+    "label": "かどを ひらく",
+    "opts": {
+     "mode": "open"
+    }
+   },
+   {
+    "part": "bundoki",
+    "label": "ぶんどきで はかる",
+    "opts": {
+     "mode": "measure"
+    }
+   },
+   {
+    "part": "bundoki",
+    "label": "さんかくじょうぎ",
+    "opts": {
+     "mode": "sankaku"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "bundoki-quiz",
+    "label": "ぶんどきで よむ",
+    "opts": {
+     "type": "read"
+    }
+   },
+   {
+    "part": "bundoki-quiz",
+    "label": "くらべる・つくる",
+    "opts": {
+     "type": "cmpset"
+    }
+   },
+   {
+    "part": "bundoki-quiz",
+    "label": "さんかくじょうぎ",
+    "opts": {
+     "type": "ruler"
+    }
+   },
+   {
+    "part": "bundoki-quiz",
+    "label": "みとおし",
+    "opts": {
+     "type": "est"
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "bundoki",
+    "label": "かどを つくろう",
+    "opts": {
+     "mode": "sankaku",
+     "goal": true
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "sankaku",
+   "kind": "list",
+   "label": "さんかくじょうぎの かど",
+   "title": "さんかくじょうぎで できる かど",
+   "items": [
+    {
+     "id": "a15",
+     "label": "15°",
+     "fig": "angle:15",
+     "val": "30° − 45°、60° − 45°",
+     "hint": "さんかくじょうぎで つくろう"
+    },
+    {
+     "id": "a75",
+     "label": "75°",
+     "fig": "angle:75",
+     "val": "30° ＋ 45°",
+     "hint": "さんかくじょうぎで つくろう"
+    },
+    {
+     "id": "a105",
+     "label": "105°",
+     "fig": "angle:105",
+     "val": "60° ＋ 45°",
+     "hint": "さんかくじょうぎで つくろう"
+    },
+    {
+     "id": "a120",
+     "label": "120°",
+     "fig": "angle:120",
+     "val": "30° ＋ 90°",
+     "hint": "さんかくじょうぎで つくろう"
+    },
+    {
+     "id": "a135",
+     "label": "135°",
+     "fig": "angle:135",
+     "val": "90° ＋ 45°",
+     "hint": "さんかくじょうぎで つくろう"
+    },
+    {
+     "id": "a150",
+     "label": "150°",
+     "fig": "angle:150",
+     "val": "60° ＋ 90°",
+     "hint": "さんかくじょうぎで つくろう"
+    },
+    {
+     "id": "a180",
+     "label": "180°",
+     "fig": "angle:180",
+     "val": "90° ＋ 90°",
+     "hint": "さんかくじょうぎで つくろう"
+    }
+   ],
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "goLabel": "「かどを つくろう」で あつめよう"
+  }
+ ],
+ "mission": [
+  {
+   "key": "sankaku",
+   "label": "さんかくじょうぎで かどを ぜんぶ つくる",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "a4-90",
+   "q": "まっすぐ たてまで まわした 90°の かどを なんと いう？",
+   "ch": [
+    "ちょっかく",
+    "いっちょくせん"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "angle:90"
+  },
+  {
+   "id": "a4-180",
+   "q": "いっちょくせんの かどは なんど？",
+   "ch": [
+    "180°",
+    "90°",
+    "360°"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "angle:180"
+  },
+  {
+   "id": "a4-360",
+   "q": "ひとまわり（1かいてん）の かどは なんど？",
+   "ch": [
+    "360°",
+    "180°",
+    "100°"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "a4-zero",
+   "q": "ぶんどきで よむのは どちらの めもり？",
+   "ch": [
+    "0から はじまる ほう",
+    "かずが おおきい ほう"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "a4-side",
+   "q": "へんが ながい かどの ほうが、いつも おおきい？",
+   "ch": [
+    "そうとは かぎらない",
+    "いつも おおきい"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "angle:40"
+  },
+  {
+   "id": "a4-75",
+   "q": "30°と 45°を あわせると なんど？",
+   "ch": [
+    "75°",
+    "15°",
+    "105°"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "angle:75"
+  },
+  {
+   "id": "a4-15",
+   "q": "60°に 45°を かさねて できる かどは？",
+   "ch": [
+    "15°",
+    "105°"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "angle:15"
+  },
+  {
+   "id": "a4-270",
+   "q": "270°は ちょっかく いくつぶん？",
+   "ch": [
+    "3つぶん",
+    "2つぶん",
+    "4つぶん"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "angle:270"
+  },
+  {
+   "id": "a4-reflex",
+   "q": "250°の かどは、180°と なんど？",
+   "ch": [
+    "70°",
+    "110°"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "angle:250"
+  }
+ ],
+ "insights": [
+  {
+   "key": "a4-side",
+   "type": "side",
+   "title": "辺の長さで角の大きさを決めている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "a4.make"
+     ],
+     "detail.mistake": "side"
+    },
+    "min": 2
+   },
+   "obs": "辺の長さがちがう2つの角を比べる問題で、辺の長いほうを大きいと答えるまちがいが{n}回ありました。",
+   "body": "角の大きさは、辺の長さではなく、2本の辺の開きぐあい（回転の大きさ）で決まります。辺を長く描くと大きく見えるため、見た目で判断している段階です。",
+   "home": "紙を2枚重ねて開き、「長い紙でも短い紙でも、開きぐあいが同じなら同じ角」と一緒に確かめてみてください。",
+   "tag": "4年の内容"
+  },
+  {
+   "key": "a4-scale",
+   "type": "scale",
+   "title": "分度器の内側と外側の目もりを読みちがえている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "a4.read",
+      "a4.make"
+     ],
+     "detail.mistake": "scale"
+    },
+    "min": 2
+   },
+   "obs": "分度器で角を読む・作る問題で、もう一方の目もり（180°から引いた値）を答えるまちがいが{n}回ありました。",
+   "body": "分度器には内側と外側に2つの目もりがあります。0の線を辺に合わせたあと、その辺の側で0から始まる目もりを読みます。どちらの目もりかを選ぶ段階です。",
+   "home": "「この角は直角より大きい？小さい？」と先に見当をつけてから読むと、読みちがいに自分で気づけます。",
+   "tag": "4年の内容"
+  },
+  {
+   "key": "a4-reflex",
+   "type": "reflex",
+   "title": "180°より大きい角で、小さいほうの角を答えている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "a4.read"
+     ],
+     "detail.mistake": "reflex"
+    },
+    "min": 1
+   },
+   "obs": "180°より大きい角の問題で、残りの小さいほうの角を答えるまちがいが{n}回ありました。",
+   "body": "180°より大きい角は、360°から小さいほうの角を引くか、180°にたして求めます。どこからどこまでの角かを見分ける段階です。",
+   "home": "時計の長い針で「ひとまわりは360°」を確かめ、「半分より多く回ったね」と言葉にしてみてください。",
+   "tag": "4年の内容"
+  },
+  {
+   "key": "a4-est",
+   "type": "est",
+   "title": "角の大きさの見当（量感）が育ち途中",
+   "reviewed": false,
+   "test": {
+    "type": "estErr",
+    "where": {
+     "kind": "a4.estimate"
+    },
+    "minN": 3,
+    "gte": 20
+   },
+   "obs": "分度器を使わずに角を作る「みとおし」で、めあてとのずれが平均{err}%ありました（{n}回）。",
+   "body": "直角（90°）・一直線（180°）を手がかりに、角の大きさの見当をつける力を育てている段階です。ずれが小さくなっていくのが成長の印です。",
+   "home": "腕を時計の針にして「45°くらい」「120°くらい」と当てっこをしてみてください。",
+   "tag": "4年の内容"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "a4.read"
+    },
+    "min": 3
+   },
+   "text": "分度器を読む問題で、ヒントを使わずに{best}問続けて正解しました。"
+  },
+  {
+   "test": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "a4.ruler-all",
+      "correct": true
+     }
+    ]
+   },
+   "text": "三角定規を組み合わせて、できる角をすべて作りました。"
+  },
+  {
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "a4.measure"
+    },
+    "min": 2
+   },
+   "text": "分度器の中心と0の線を自分で合わせて、角を{n}回測りました。"
+  }
+ ],
+ "map": [
+  {
+   "school": "4年 B(5) 角の大きさを回転の大きさとしてとらえる",
+   "activity": "かどを ひらく・くらべる",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "a4.make",
+     "detail.type": "cmp"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "a4.turn"
+     },
+     {
+      "kind": "a4.make"
+     }
+    ]
+   }
+  },
+  {
+   "school": "4年 B(5) 角の大きさの単位（度・直角・180°・360°）",
+   "activity": "みる・かどを ひらく",
+   "done": {
+    "type": "all",
+    "of": [
+     {
+      "kind": "a4.miru"
+     },
+     {
+      "kind": "a4.turn"
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "a4.miru"
+     },
+     {
+      "kind": "a4.turn"
+     }
+    ]
+   }
+  },
+  {
+   "school": "4年 B(5) 分度器を用いた角の測定",
+   "activity": "ぶんどきで はかる・よむ",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "a4.read"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "a4.measure"
+     },
+     {
+      "kind": "a4.read"
+     }
+    ]
+   }
+  },
+  {
+   "school": "4年 B(5) 分度器を用いた角の作図",
+   "activity": "分度器で かどを つくる",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "a4.make",
+     "detail.type": "set"
+    },
+    "minN": 2,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "a4.make",
+      "detail.type": "set"
+     }
+    ]
+   }
+  },
+  {
+   "school": "4年 B(5) 三角定規の角の組み合わせ",
+   "activity": "さんかくじょうぎ・かどを つくろう",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "a4.ruler-all",
+      "correct": true
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "a4.ruler-try"
+     },
+     {
+      "kind": "a4.make-step"
+     },
+     {
+      "kind": "a4.ruler"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "a4.miru": "角が回転の大きさであること、分度器の使い方を見ました",
+  "a4.turn": "辺を回して角を開き、大きさを確かめました",
+  "a4.measure": "分度器の中心と0の線を合わせて角を測りました（{th}°）",
+  "a4.ruler-try": "三角定規を組み合わせて角を作りました（{deg}°）",
+  "a4.make-step": "三角定規で角を作る：{ok}（{deg}°）",
+  "a4.ruler-all": "三角定規の組み合わせで、できる角をすべて作りました",
+  "a4.read": [
+   {
+    "where": {
+     "detail.type": "reflex"
+    },
+    "text": "180°より大きい角：{ok}{hints}"
+   },
+   {
+    "where": {},
+    "text": "分度器を読む：{ok}{hints}"
+   }
+  ],
+  "a4.read-done": "分度器を読む（{level}）{n}問中{score}問正解",
+  "a4.make": [
+   {
+    "where": {
+     "detail.type": "cmp"
+    },
+    "text": "角の大きさ比べ：{ok}{hints}"
+   },
+   {
+    "where": {},
+    "text": "分度器で角を作る：{ok}{hints}"
+   }
+  ],
+  "a4.make-done": "角を比べる・作る（{level}）{n}問中{score}問正解",
+  "a4.ruler": "三角定規の角：{ok}{hints}",
+  "a4.ruler-done": "三角定規の角（{level}）{n}問中{score}問正解",
+  "a4.est": "見当で角を作る：{ok}",
+  "a4.est-done": "角のみとおし（{level}）{n}問中{score}問が近い",
+  "a4.estimate": "角の見当：{guess}{unit}と見当、めあては{actual}{unit}",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 17,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 0,
+   "h": 17.1,
+   "kind": "turn",
+   "detail": {
+    "th": 90
+   }
+  },
+  {
+   "d": 0,
+   "h": 17.2,
+   "kind": "measure",
+   "correct": true,
+   "detail": {
+    "th": 50,
+    "scale": "inner"
+   },
+   "stage": "sawaru"
+  },
+  {
+   "d": 1,
+   "h": 17,
+   "kind": "read",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "read",
+    "th": 125,
+    "scale": "outer",
+    "mistake": "scale",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 1,
+   "h": 17.1,
+   "kind": "read",
+   "correct": true,
+   "hints": 1,
+   "level": "normal",
+   "detail": {
+    "type": "read",
+    "th": 65,
+    "scale": "outer",
+    "mistake": "scale",
+    "miss": 1
+   }
+  },
+  {
+   "d": 2,
+   "h": 17,
+   "kind": "make",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "cmp",
+    "a": 70,
+    "b": 55,
+    "trap": true,
+    "mistake": "side",
+    "miss": 2
+   }
+  },
+  {
+   "d": 2,
+   "h": 17.1,
+   "kind": "make",
+   "correct": true,
+   "hints": 1,
+   "level": "normal",
+   "detail": {
+    "type": "cmp",
+    "a": 40,
+    "b": 60,
+    "trap": true,
+    "mistake": "side",
+    "miss": 1
+   }
+  },
+  {
+   "d": 2,
+   "h": 17.2,
+   "kind": "make",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "type": "set",
+    "th": 75
+   }
+  },
+  {
+   "d": 3,
+   "h": 17,
+   "kind": "estimate",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "q": "70°くらいに ひらく",
+    "guess": 95,
+    "actual": 70,
+    "unit": "°",
+    "qty": "angle"
+   }
+  },
+  {
+   "d": 4,
+   "h": 17,
+   "kind": "estimate",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "q": "130°くらいに ひらく",
+    "guess": 140,
+    "actual": 130,
+    "unit": "°",
+    "qty": "angle"
+   }
+  },
+  {
+   "d": 5,
+   "h": 17,
+   "kind": "estimate",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "q": "40°くらいに ひらく",
+    "guess": 48,
+    "actual": 40,
+    "unit": "°",
+    "qty": "angle"
+   }
+  },
+  {
+   "d": 6,
+   "h": 17,
+   "kind": "read",
+   "correct": false,
+   "level": "challenge",
+   "detail": {
+    "type": "reflex",
+    "th": 235,
+    "mistake": "reflex",
+    "miss": 2
+   }
+  },
+  {
+   "d": 7,
+   "h": 17,
+   "kind": "ruler-all",
+   "correct": true,
+   "detail": {
+    "n": 7
+   },
+   "stage": "tsukuru"
+  }
+ ],
+ "demoZukan": {
+  "sankaku": [
+   "a75",
+   "a105",
+   "a15",
+   "a135"
+  ]
+ }
+}

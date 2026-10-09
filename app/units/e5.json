@@ -1,0 +1,569 @@
+{
+ "note": "5年「円周と円周率」（ちょっと先）。設計書 hakaru-design.md §3 E5。円を転がす動きは 2D の部品 korogasu（図形側の cylinder-roll は 3D なので代わりにならない）。文面はすべて下書き（reviewed:false）。図鑑の items は tools/hakaru-ahead.mjs が data/hakaru/ahead.json から作る。",
+ "school": "5年 B(1) 円周率",
+ "tabs": {
+  "miru": [
+   {
+    "part": "korogasu",
+    "label": "みる",
+    "opts": {
+     "mode": "miru"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "korogasu",
+    "label": "ころがして はかる",
+    "opts": {
+     "mode": "roll"
+    }
+   },
+   {
+    "part": "korogasu",
+    "label": "はさんで みる",
+    "opts": {
+     "mode": "hasamu"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "korogasu-quiz",
+    "label": "えんしゅうを もとめる",
+    "opts": {
+     "type": "calc"
+    }
+   },
+   {
+    "part": "korogasu-quiz",
+    "label": "みとおし",
+    "opts": {
+     "type": "est"
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "korogasu",
+    "label": "えんしゅうりつを みつけよう",
+    "opts": {
+     "mode": "ratio"
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "en",
+   "kind": "list",
+   "label": "えんしゅう ずかん",
+   "title": "ころがして はかった えん",
+   "items": [
+    {
+     "id": "coin",
+     "label": "1えんだま",
+     "fig": "en:2",
+     "val": "ちょっけい 2cm → えんしゅう やく 6.3cm",
+     "hint": "ころがすと わかる"
+    },
+    {
+     "id": "cup",
+     "label": "コップの くち",
+     "fig": "en:7",
+     "val": "ちょっけい 7cm → えんしゅう やく 22cm",
+     "hint": "ころがすと わかる"
+    },
+    {
+     "id": "plate",
+     "label": "まるい おさら",
+     "fig": "en:20",
+     "val": "ちょっけい 20cm → えんしゅう やく 62.8cm",
+     "hint": "ころがすと わかる"
+    },
+    {
+     "id": "clock",
+     "label": "かべの とけい",
+     "fig": "en:30",
+     "val": "ちょっけい 30cm → えんしゅう やく 94.2cm",
+     "hint": "ころがすと わかる"
+    },
+    {
+     "id": "tire",
+     "label": "じてんしゃの タイヤ",
+     "fig": "en:60",
+     "val": "ちょっけい 60cm → えんしゅう やく 1.89m",
+     "hint": "ころがすと わかる"
+    },
+    {
+     "id": "ring",
+     "label": "おおきな わ",
+     "fig": "en:80",
+     "val": "ちょっけい 80cm → えんしゅう やく 2.51m",
+     "hint": "ころがすと わかる"
+    },
+    {
+     "id": "pond",
+     "label": "まるい いけ",
+     "fig": "en:1000",
+     "val": "ちょっけい 10m → えんしゅう やく 31.42m",
+     "hint": "ころがすと わかる"
+    },
+    {
+     "id": "wheel",
+     "label": "かんらんしゃ",
+     "fig": "en:5000",
+     "val": "ちょっけい 50m → えんしゅう やく 157.08m",
+     "hint": "ころがすと わかる"
+    }
+   ],
+   "go": {
+    "mode": "sawaru",
+    "act": 0
+   },
+   "goLabel": "「ころがして はかる」で あつめよう"
+  }
+ ],
+ "mission": [
+  {
+   "key": "ratio",
+   "label": "えんしゅうりつを みつける",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "e5-times",
+   "q": "えんしゅうは ちょっけいの なんばい くらい？",
+   "ch": [
+    "やく 3.14ばい",
+    "やく 2ばい",
+    "やく 4ばい"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "en:10"
+  },
+  {
+   "id": "e5-c10",
+   "q": "ちょっけい 10cmの えんの えんしゅうは？",
+   "ch": [
+    "31.4cm",
+    "15.7cm",
+    "30cm"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "en:10"
+  },
+  {
+   "id": "e5-r5",
+   "q": "はんけい 5cmの えんの えんしゅうは？",
+   "ch": [
+    "31.4cm",
+    "15.7cm"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "en:10"
+  },
+  {
+   "id": "e5-name",
+   "q": "えんしゅう ÷ ちょっけい の あたいを なんと いう？",
+   "ch": [
+    "えんしゅうりつ",
+    "はんけい",
+    "ちょっけい"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "e5-hex",
+   "q": "えんの うちがわの せいろっかっけいの まわりは、ちょっけいの なんばい？",
+   "ch": [
+    "3ばい",
+    "4ばい",
+    "6ばい"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "e5-sq",
+   "q": "えんの そとがわの せいほうけいの まわりは、ちょっけいの なんばい？",
+   "ch": [
+    "4ばい",
+    "3ばい",
+    "2ばい"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "e5-d",
+   "q": "えんしゅうが 62.8cmの えんの ちょっけいは？",
+   "ch": [
+    "20cm",
+    "10cm",
+    "197.2cm"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "en:20"
+  },
+  {
+   "id": "e5-big",
+   "q": "おおきな えんほど、えんしゅう ÷ ちょっけい は おおきく なる？",
+   "ch": [
+    "かわらない（やく 3.14）",
+    "おおきく なる"
+   ],
+   "a": 0,
+   "reviewed": false
+  }
+ ],
+ "insights": [
+  {
+   "key": "e5-radius",
+   "type": "radius",
+   "title": "半径と直径を取りちがえている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "e5.calc"
+     ],
+     "detail.mistake": "radius"
+    },
+    "min": 2
+   },
+   "obs": "円周を求める問題で、半径と直径を取りちがえた答え（半分・2倍）を選ぶまちがいが{n}回ありました。",
+   "body": "円周は「直径×3.14」です。半径が分かっているときは、先に2倍して直径にします。半径と直径のどちらが分かっているかを確かめる段階です。",
+   "home": "お皿やコップの口で「端から端まで（直径）」と「まん中から端まで（半径）」を指でなぞって比べてみてください。",
+   "tag": "5年の内容"
+  },
+  {
+   "key": "e5-inverse",
+   "type": "inverse",
+   "title": "かけ算とわり算を取りちがえている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "e5.calc"
+     ],
+     "detail.mistake": "inverse"
+    },
+    "min": 2
+   },
+   "obs": "円周から直径を求めるとき（または直径から円周を求めるとき）、かけるとわるを取りちがえるまちがいが{n}回ありました。",
+   "body": "円周は直径より長い（約3倍）ので、直径→円周はかけ算、円周→直径はわり算です。答えの大きさを見当でたしかめる段階です。",
+   "home": "「円周は直径の3倍くらいだから、答えは大きくなる？小さくなる？」と先に見当をつける声かけが効果的です。",
+   "tag": "5年の内容"
+  },
+  {
+   "key": "e5-sense",
+   "type": "sense",
+   "title": "円周の長さの見当（約3倍の感覚）が育ち途中",
+   "reviewed": false,
+   "test": {
+    "type": "estErr",
+    "where": {
+     "kind": "e5.estimate"
+    },
+    "minN": 3,
+    "gte": 15
+   },
+   "obs": "円周の長さをテープで見当をつける「みとおし」で、実際とのずれが平均{err}%ありました（{n}回）。",
+   "body": "円周は直径の3倍より少し長いという量の感覚を育てている段階です。ずれが小さくなっていくのが成長の印です。",
+   "home": "缶やお皿にひもを巻いてから、直径のいくつ分になるかを一緒に確かめてみてください。",
+   "tag": "5年の内容"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "e5.calc"
+    },
+    "min": 3
+   },
+   "text": "円周を求める問題で、ヒントを使わずに{best}問続けて正解しました。"
+  },
+  {
+   "test": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "e5.ratio",
+      "correct": true
+     }
+    ]
+   },
+   "text": "いろいろな円を転がして、円周÷直径がいつも約3.14になることを見つけました。"
+  },
+  {
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "e5.roll"
+    },
+    "min": 3
+   },
+   "text": "円を自分で転がして、円周を{n}回測りました。"
+  }
+ ],
+ "map": [
+  {
+   "school": "5年 B(1) 円周と直径の関係（円周÷直径は一定）",
+   "activity": "ころがして はかる・えんしゅうりつを みつけよう",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "e5.ratio",
+      "correct": true
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "e5.roll"
+     },
+     {
+      "kind": "e5.ratio-step"
+     }
+    ]
+   }
+  },
+  {
+   "school": "5年 B(1) 円周率の意味（3倍より大きく4倍より小さい）",
+   "activity": "みる・はさんで みる",
+   "done": {
+    "type": "all",
+    "of": [
+     {
+      "kind": "e5.miru"
+     },
+     {
+      "kind": "e5.compare"
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "e5.miru"
+     },
+     {
+      "kind": "e5.compare"
+     }
+    ]
+   }
+  },
+  {
+   "school": "5年 B(1) 円周率を用いて円周や直径を求める",
+   "activity": "えんしゅうを もとめる",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "e5.calc"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "e5.calc"
+     }
+    ]
+   }
+  },
+  {
+   "school": "5年 B(1) 円周の見当",
+   "activity": "みとおし（テープで円周）",
+   "done": {
+    "type": "estErr",
+    "where": {
+     "kind": "e5.estimate"
+    },
+    "minN": 3,
+    "lte": 15
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "e5.estimate"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "e5.miru": "円を転がして円周を直線にのばし、円周率を見つける様子を見ました",
+  "e5.roll": "直径{d}cmの円を転がして、円周およそ{c}cmを測りました",
+  "e5.lay": "円周に直径を並べて、直径の3つ分と少しであることを確かめました",
+  "e5.compare": "円を内側の正六角形と外側の正方形ではさんで比べました",
+  "e5.ratio-step": "円周÷直径を求めました（{ratio}）",
+  "e5.ratio": "いろいろな円で、円周÷直径がいつも約3.14になることを見つけました",
+  "e5.calc": "円周・直径を求める：{ok}{hints}",
+  "e5.calc-done": "円周を求める（{level}）{n}問中{score}問正解",
+  "e5.est": "円周の見当：{ok}",
+  "e5.est-done": "円周のみとおし（{level}）{n}問中{score}問が近い",
+  "e5.estimate": "円周の見当：{guess}{unit}と見当、実際は{actual}{unit}",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 17,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 0,
+   "h": 17.2,
+   "kind": "roll",
+   "correct": true,
+   "detail": {
+    "id": "plate",
+    "d": 20,
+    "c": 62.8
+   },
+   "stage": "sawaru"
+  },
+  {
+   "d": 1,
+   "h": 17,
+   "kind": "calc",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "calc",
+    "kind": "cr",
+    "d": 12,
+    "mistake": "radius",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 1,
+   "h": 17.1,
+   "kind": "calc",
+   "correct": true,
+   "hints": 1,
+   "level": "normal",
+   "detail": {
+    "type": "calc",
+    "kind": "c",
+    "d": 8,
+    "mistake": "radius",
+    "miss": 1
+   }
+  },
+  {
+   "d": 3,
+   "h": 17,
+   "kind": "calc",
+   "correct": false,
+   "level": "challenge",
+   "detail": {
+    "type": "calc",
+    "kind": "d",
+    "d": 16,
+    "mistake": "inverse",
+    "miss": 2
+   }
+  },
+  {
+   "d": 3,
+   "h": 17.1,
+   "kind": "calc",
+   "correct": true,
+   "hints": 1,
+   "level": "challenge",
+   "detail": {
+    "type": "calc",
+    "kind": "d",
+    "d": 25,
+    "mistake": "inverse",
+    "miss": 1
+   }
+  },
+  {
+   "d": 2,
+   "h": 17,
+   "kind": "estimate",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "q": "ちょっけい 10cmの えんしゅう",
+    "guess": 22,
+    "actual": 31.4,
+    "unit": "cm",
+    "qty": "length"
+   }
+  },
+  {
+   "d": 4,
+   "h": 17,
+   "kind": "estimate",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "q": "ちょっけい 20cmの えんしゅう",
+    "guess": 58,
+    "actual": 62.8,
+    "unit": "cm",
+    "qty": "length"
+   }
+  },
+  {
+   "d": 6,
+   "h": 17,
+   "kind": "estimate",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "q": "ちょっけい 6cmの えんしゅう",
+    "guess": 19,
+    "actual": 18.84,
+    "unit": "cm",
+    "qty": "length"
+   }
+  },
+  {
+   "d": 7,
+   "h": 17,
+   "kind": "ratio",
+   "correct": true,
+   "detail": {
+    "n": 4
+   },
+   "stage": "tsukuru"
+  }
+ ],
+ "demoZukan": {
+  "en": [
+   "plate",
+   "tire",
+   "coin",
+   "cup"
+  ]
+ }
+}

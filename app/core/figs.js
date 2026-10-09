@@ -48,6 +48,23 @@ export function sceneIcon(id) {
   return `<svg viewBox="0 0 40 40" aria-hidden="true">${body}</svg>`;
 }
 
+// 走る物の小さな絵（S5 かけっこ・はやさ ずかん）。右向き。人は顔のない簡単な形（run-02 §5）
+export function racerIcon(id) {
+  const k = n => tok(n), I = k('ink');
+  const wheel = (x, y, r) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${k('paper')}" stroke="${I}" stroke-width="2"/><circle cx="${x}" cy="${y}" r="1.4" fill="${I}"/>`;
+  const body = {
+    aruku: `<circle cx="20" cy="8" r="4.5" fill="${k('face-4')}"/><path d="M20 13v13" stroke="${k('face-4')}" stroke-width="6" stroke-linecap="round"/><path d="M19 26l-5 10M21 26l5 10M20 17l-6 6M20 17l6 5" stroke="${I}" stroke-width="2.6" stroke-linecap="round"/>`,
+    hashiru: `<circle cx="24" cy="8" r="4.5" fill="${k('face-1')}"/><path d="M22 13l-4 12" stroke="${k('face-1')}" stroke-width="6" stroke-linecap="round"/><path d="M18 25l-9 6M18 25l8 4 2 7M21 16l-9 2M21 16l7 5" stroke="${I}" stroke-width="2.6" stroke-linecap="round" fill="none"/>`,
+    jitensha: `${wheel(9, 29, 7)}${wheel(31, 29, 7)}<path d="M9 29l8-11h11l3 11M17 18l4 11h-12M28 18l-1-4h4" fill="none" stroke="${k('face-3')}" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="20" cy="8" r="3.6" fill="${k('face-4')}"/><path d="M19 12l-2 6" stroke="${k('face-4')}" stroke-width="4" stroke-linecap="round"/>`,
+    uma: `<ellipse cx="18" cy="20" rx="12" ry="6" fill="${k('wood')}" stroke="${I}" stroke-width="1.6"/><path d="M27 17l6-9 4 2-3 6" fill="${k('wood')}" stroke="${I}" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 25l-2 11M15 25l1 11M23 25l-1 11M27 24l3 11" stroke="${k('wood-deep')}" stroke-width="2.4" stroke-linecap="round"/><path d="M6 18q-4 2-3 9" stroke="${k('wood-dark')}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`,
+    kuruma: `<path d="M3 26v-6l5-1 5-7h13l6 7 5 1v6z" fill="${k('face-1')}" stroke="${I}" stroke-width="1.8" stroke-linejoin="round"/><path d="M15 14h10l4 5H12z" fill="${k('glass')}"/>${wheel(11, 28, 5)}${wheel(30, 28, 5)}`,
+    densha: `<rect x="2" y="10" width="36" height="18" rx="5" fill="${k('face-3')}" stroke="${I}" stroke-width="1.8"/><rect x="6" y="14" width="7" height="6" rx="1.5" fill="${k('glass')}"/><rect x="16" y="14" width="7" height="6" rx="1.5" fill="${k('glass')}"/><rect x="26" y="14" width="8" height="6" rx="1.5" fill="${k('glass')}"/><path d="M16 10l4-5h4" stroke="${I}" stroke-width="1.6" fill="none"/>${wheel(10, 30, 3.5)}${wheel(30, 30, 3.5)}`,
+    cheetah: `<ellipse cx="19" cy="20" rx="13" ry="5" fill="${k('yamabuki')}" stroke="${I}" stroke-width="1.6"/><circle cx="33" cy="16" r="4.5" fill="${k('yamabuki')}" stroke="${I}" stroke-width="1.6"/><path d="M9 24l-5 9M14 24l2 10M24 24l-2 10M28 23l5 9" stroke="${k('wood-deep')}" stroke-width="2.2" stroke-linecap="round"/><path d="M6 19q-5-1-5-8" stroke="${k('yamabuki')}" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="14" cy="19" r="1.3" fill="${I}"/><circle cx="20" cy="21" r="1.3" fill="${I}"/><circle cx="25" cy="18" r="1.3" fill="${I}"/>`,
+    hikouki: `<path d="M3 21q0-4 6-4h22q7 0 7 4t-7 4H9q-6 0-6-4z" fill="${k('paper')}" stroke="${I}" stroke-width="1.8"/><path d="M16 17l6-10h4l-3 10zM16 25l6 9h4l-3-9zM4 18l-1-8h4l4 7" fill="${k('face-4')}" stroke="${I}" stroke-width="1.4" stroke-linejoin="round"/><circle cx="33" cy="20" r="1.4" fill="${k('glass-line')}"/>`,
+  }[id] || '';
+  return `<svg viewBox="0 0 40 40" aria-hidden="true">${body}</svg>`;
+}
+
 // 量の図（ずかん・思い出し問題）。clock:H:M ／ masu:dL ／ scale:g:秤量 ／ ruler:mm ／ rect:たて:よこ ／ route:[[x,y],...] ／ angle:度 ／ sector:度 ／ bar:値:最大
 const pol = (cx, cy, r, deg) => { const a = deg * Math.PI / 180; return [cx + r * Math.sin(a), cy - r * Math.cos(a)]; };
 const QFIGS = {
@@ -105,6 +122,15 @@ const QFIGS = {
     return `<svg viewBox="0 0 100 100"><circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="${tok('line')}" stroke-width="2" stroke-dasharray="3 3"/><path d="M${cx} ${cy}L${x1.toFixed(1)} ${y1.toFixed(1)}A${R} ${R} 0 ${deg > 180 ? 1 : 0} 1 ${x2.toFixed(1)} ${y2.toFixed(1)}Z" fill="${tok('face-2')}" stroke="${ink()}" stroke-width="2"/></svg>`;
   },
   scene(id) { return sceneIcon(id); },
+  // en:直径(cm)：円と直径、その下に のばした円周（直径の3つ分と すこし）
+  en(d) {
+    const I = ink(), R = 24, cx = 30, cy = 30, L = Math.PI * 2 * R / 3.2;
+    let s = `<svg viewBox="0 0 130 74"><circle cx="${cx}" cy="${cy}" r="${R}" fill="${tok('face-4')}" fill-opacity=".25" stroke="${I}" stroke-width="2"/><line x1="${cx - R}" y1="${cy}" x2="${cx + R}" y2="${cy}" stroke="${tok('ok')}" stroke-width="2.5"/>`;
+    s += `<rect x="62" y="22" width="${(L).toFixed(1)}" height="6" rx="3" fill="${tok('face-4')}"/>`;
+    for (let k = 0; k < 3; k++) s += `<rect x="${(62 + k * 2 * R / 3.2).toFixed(1)}" y="32" width="${(2 * R / 3.2 - 1.5).toFixed(1)}" height="5" rx="2" fill="${tok('ok')}"/>`;
+    return s + `<text x="96" y="58" text-anchor="middle" font-size="11" font-weight="700" fill="${I}" font-family="Zen Maru Gothic,sans-serif">${+d >= 100 ? (+d / 100) + 'm' : d + 'cm'}</text></svg>`;
+  },
+  racer(id) { return racerIcon(id); },
   // H4：物の絵（mono:apple*2+carrot ・ mono:cont:suito）・1Lます x かい＋1dLます y かい（pour:x:y）
   mono: (...a) => monoFig(a.join(':')),
   pour: (x, y) => pourFig(x, y),

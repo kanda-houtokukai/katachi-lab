@@ -1,0 +1,518 @@
+{
+ "note": "中1「おうぎ形の弧の長さと面積」（ちょっと先・中学）。設計書 hakaru-design.md §3 EJ。部品は bundoki の おうぎ形モード（新しい部品を増やさない）。図形側 RJ の円錐の展開図へは文で道をつなぐ（RJ は変えない）。文面はすべて下書き（reviewed:false）。図鑑の items は tools/hakaru-ahead.mjs が data/hakaru/ahead.json から作る。",
+ "school": "中1 B(1) おうぎ形の弧の長さと面積",
+ "tabs": {
+  "miru": [
+   {
+    "part": "bundoki",
+    "label": "みる",
+    "opts": {
+     "mode": "miru",
+     "script": "ej"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "bundoki",
+    "label": "おうぎがたを うごかす",
+    "opts": {
+     "mode": "ogi"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "bundoki-quiz",
+    "label": "こと めんせき",
+    "opts": {
+     "type": "ogi"
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "bundoki",
+    "label": "えんすいの てんかいず",
+    "opts": {
+     "mode": "cone"
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "cone",
+   "kind": "list",
+   "label": "えんすいの おうぎがた",
+   "title": "ぼせん 12cmの えんすいの てんかいず（おうぎがた）",
+   "items": [
+    {
+     "id": "r1",
+     "label": "ちゅうしんかく 30°",
+     "fig": "sector:30",
+     "val": "そこの はんけい 1cm",
+     "hint": "そこの はんけい 1cm"
+    },
+    {
+     "id": "r2",
+     "label": "ちゅうしんかく 60°",
+     "fig": "sector:60",
+     "val": "そこの はんけい 2cm",
+     "hint": "そこの はんけい 2cm"
+    },
+    {
+     "id": "r3",
+     "label": "ちゅうしんかく 90°",
+     "fig": "sector:90",
+     "val": "そこの はんけい 3cm",
+     "hint": "そこの はんけい 3cm"
+    },
+    {
+     "id": "r4",
+     "label": "ちゅうしんかく 120°",
+     "fig": "sector:120",
+     "val": "そこの はんけい 4cm",
+     "hint": "そこの はんけい 4cm"
+    },
+    {
+     "id": "r5",
+     "label": "ちゅうしんかく 150°",
+     "fig": "sector:150",
+     "val": "そこの はんけい 5cm",
+     "hint": "そこの はんけい 5cm"
+    },
+    {
+     "id": "r6",
+     "label": "ちゅうしんかく 180°",
+     "fig": "sector:180",
+     "val": "そこの はんけい 6cm",
+     "hint": "そこの はんけい 6cm"
+    },
+    {
+     "id": "r7",
+     "label": "ちゅうしんかく 210°",
+     "fig": "sector:210",
+     "val": "そこの はんけい 7cm",
+     "hint": "そこの はんけい 7cm"
+    },
+    {
+     "id": "r8",
+     "label": "ちゅうしんかく 240°",
+     "fig": "sector:240",
+     "val": "そこの はんけい 8cm",
+     "hint": "そこの はんけい 8cm"
+    },
+    {
+     "id": "r9",
+     "label": "ちゅうしんかく 270°",
+     "fig": "sector:270",
+     "val": "そこの はんけい 9cm",
+     "hint": "そこの はんけい 9cm"
+    },
+    {
+     "id": "r10",
+     "label": "ちゅうしんかく 300°",
+     "fig": "sector:300",
+     "val": "そこの はんけい 10cm",
+     "hint": "そこの はんけい 10cm"
+    },
+    {
+     "id": "r11",
+     "label": "ちゅうしんかく 330°",
+     "fig": "sector:330",
+     "val": "そこの はんけい 11cm",
+     "hint": "そこの はんけい 11cm"
+    }
+   ],
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "goLabel": "「えんすいの てんかいず」で あつめよう"
+  }
+ ],
+ "mission": [
+  {
+   "key": "cone",
+   "label": "えんすいの てんかいずを つくる",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "ej-90",
+   "q": "ちゅうしんかく 90°の おうぎがたは、えんの なんぶんの いくつ？",
+   "ch": [
+    "1/4",
+    "1/2",
+    "1/3"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "sector:90"
+  },
+  {
+   "id": "ej-double",
+   "q": "ちゅうしんかくを 2ばいに すると、この ながさは？",
+   "ch": [
+    "2ばいに なる",
+    "4ばいに なる",
+    "かわらない"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "sector:120"
+  },
+  {
+   "id": "ej-arc",
+   "q": "はんけい 6cm、ちゅうしんかく 60°の おうぎがたの この ながさは？",
+   "ch": [
+    "2πcm",
+    "12πcm",
+    "6πcm"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "sector:60"
+  },
+  {
+   "id": "ej-area",
+   "q": "はんけい 6cm、ちゅうしんかく 60°の おうぎがたの めんせきは？",
+   "ch": [
+    "6πcm²",
+    "36πcm²",
+    "2πcm²"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "sector:60"
+  },
+  {
+   "id": "ej-180",
+   "q": "ちゅうしんかく 180°の おうぎがたの この ながさは、えんしゅうの？",
+   "ch": [
+    "はんぶん",
+    "おなじ",
+    "4ぶんの1"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "sector:180"
+  },
+  {
+   "id": "ej-cone",
+   "q": "ぼせん 12cm、そこの はんけい 3cmの えんすい。てんかいずの ちゅうしんかくは？",
+   "ch": [
+    "90°",
+    "120°",
+    "36°"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "sector:90"
+  },
+  {
+   "id": "ej-formula",
+   "q": "おうぎがたの めんせき ＝ π × はんけい² × ？",
+   "ch": [
+    "ちゅうしんかく/360",
+    "ちゅうしんかく/180",
+    "ちゅうしんかく"
+   ],
+   "a": 0,
+   "reviewed": false
+  }
+ ],
+ "insights": [
+  {
+   "key": "ej-ratio",
+   "type": "ratio",
+   "title": "中心角の割合（a/360）をかけ忘れている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "ej.ogi"
+     ],
+     "detail.mistake": "ratio"
+    },
+    "min": 2
+   },
+   "obs": "おうぎ形の問題で、中心角の割合をかけずに円全体の弧や面積を答える（または割合をまちがえる）ことが{n}回ありました。",
+   "body": "おうぎ形の弧の長さと面積は、中心角に比例します。円全体に「中心角/360」をかけて求める段階です。",
+   "home": "ピザやケーキを切るときに「4つに切った1切れは、全体の何分の1？」と、角と割合を結びつけて話してみてください。",
+   "tag": "中1の内容"
+  },
+  {
+   "key": "ej-radius",
+   "type": "radius",
+   "title": "半径と直径を取りちがえている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "ej.ogi"
+     ],
+     "detail.mistake": "radius"
+    },
+    "min": 2
+   },
+   "obs": "おうぎ形の問題で、半径のかわりに直径（2倍の長さ）を使うまちがいが{n}回ありました。",
+   "body": "円周は2π×半径、面積はπ×半径²です。式に入れる長さが半径かどうかを確かめる段階です。",
+   "home": "式を書く前に「半径はいくつ？」と口に出してから計算する習慣をつけると、まちがいが減ります。",
+   "tag": "中1の内容"
+  },
+  {
+   "key": "ej-arcarea",
+   "type": "arcarea",
+   "title": "弧の長さの式と面積の式を取りちがえている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "ej.ogi"
+     ],
+     "detail.mistake": "arcarea"
+    },
+    "min": 1
+   },
+   "obs": "弧の長さと面積の式を取りちがえるまちがいが{n}回ありました。",
+   "body": "弧の長さは「長さ」（cm）、面積は「広さ」（cm²）です。単位で見分けると、式の取りちがいに気づけます。",
+   "home": "答えの単位を声に出して確かめる（cm か cm² か）だけで、取りちがいはぐっと減ります。",
+   "tag": "中1の内容"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "ej.ogi"
+    },
+    "min": 3
+   },
+   "text": "おうぎ形の弧と面積の問題で、ヒントを使わずに{best}問続けて正解しました。"
+  },
+  {
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "ej.cone",
+     "correct": true
+    },
+    "min": 2
+   },
+   "text": "円錐の展開図になるおうぎ形の中心角を、自分で計算して{n}回作りました。"
+  }
+ ],
+ "map": [
+  {
+   "school": "中1 B(1) おうぎ形の弧の長さと面積は中心角に比例する",
+   "activity": "みる・おうぎがたを うごかす",
+   "done": {
+    "type": "all",
+    "of": [
+     {
+      "kind": "ej.miru"
+     },
+     {
+      "kind": "ej.turn"
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "ej.miru"
+     },
+     {
+      "kind": "ej.turn"
+     }
+    ]
+   }
+  },
+  {
+   "school": "中1 B(1) おうぎ形の弧の長さと面積を求める",
+   "activity": "こと めんせき",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "ej.ogi"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "ej.ogi"
+     }
+    ]
+   }
+  },
+  {
+   "school": "中1 B(2) 円錐の展開図（空間図形との関連）",
+   "activity": "えんすいの てんかいず",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "ej.cone",
+      "correct": true
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "ej.cone"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "ej.miru": "中心角を広げると弧の長さと面積が比例して変わる様子と、円錐の展開図へのつながりを見ました",
+  "ej.turn": "中心角や半径を変えて、弧の長さと面積の変わり方を確かめました",
+  "ej.ogi": "おうぎ形の弧と面積：{ok}{hints}",
+  "ej.ogi-done": "おうぎ形の弧と面積（{level}）{n}問中{score}問正解",
+  "ej.cone": "円錐の展開図の中心角：{ok}（{th}°・底面の半径{rb}cm）",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 19,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 0,
+   "h": 19.2,
+   "kind": "turn",
+   "detail": {
+    "th": 120,
+    "r": 6
+   },
+   "stage": "sawaru"
+  },
+  {
+   "d": 1,
+   "h": 19,
+   "kind": "ogi",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "ogi",
+    "kind": "arc",
+    "r": 6,
+    "a": 120,
+    "mistake": "ratio",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 1,
+   "h": 19.1,
+   "kind": "ogi",
+   "correct": true,
+   "hints": 1,
+   "level": "normal",
+   "detail": {
+    "type": "ogi",
+    "kind": "area",
+    "r": 4,
+    "a": 90,
+    "mistake": "ratio",
+    "miss": 1
+   }
+  },
+  {
+   "d": 3,
+   "h": 19,
+   "kind": "ogi",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "ogi",
+    "kind": "area",
+    "r": 6,
+    "a": 60,
+    "mistake": "radius",
+    "miss": 2
+   }
+  },
+  {
+   "d": 3,
+   "h": 19.1,
+   "kind": "ogi",
+   "correct": true,
+   "hints": 1,
+   "level": "normal",
+   "detail": {
+    "type": "ogi",
+    "kind": "arc",
+    "r": 8,
+    "a": 90,
+    "mistake": "radius",
+    "miss": 1
+   }
+  },
+  {
+   "d": 3,
+   "h": 19.2,
+   "kind": "ogi",
+   "correct": false,
+   "level": "challenge",
+   "detail": {
+    "type": "ogi",
+    "kind": "area",
+    "r": 6,
+    "a": 120,
+    "mistake": "arcarea",
+    "miss": 2
+   }
+  },
+  {
+   "d": 4,
+   "h": 19,
+   "kind": "cone",
+   "correct": true,
+   "detail": {
+    "th": 180,
+    "rb": 6,
+    "got": 6
+   },
+   "stage": "tsukuru"
+  },
+  {
+   "d": 5,
+   "h": 19,
+   "kind": "cone",
+   "correct": true,
+   "detail": {
+    "th": 90,
+    "rb": 3,
+    "got": 3
+   }
+  }
+ ],
+ "demoZukan": {
+  "cone": [
+   "r6",
+   "r3"
+  ]
+ }
+}
