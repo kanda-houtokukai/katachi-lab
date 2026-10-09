@@ -1,6 +1,6 @@
 // オフラインで動かすための service worker。版番号つきのキャッシュに全ファイルを事前に入れる。
 // VERSION と precache.json は tools/build-precache.mjs が作る（手で書き換えない）。
-const VERSION = '80f1bf292433';
+const VERSION = '9fff93e1bc09';
 const CACHE = 'katachi-' + VERSION;
 const FONTS = 'katachi-fonts';
 

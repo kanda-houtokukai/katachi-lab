@@ -81,7 +81,7 @@ function renderParent() {
   ${estHTML(L)}
   <div><h3>つまずきの見立て</h3>${ins.length ? ins.map(o => `<div class="pcard"><div class="tt">${esc(o.x.title)}<span class="tag">${esc(o.x.tag || unitLabel(o.u.id))}</span>${o.x.reviewed ? '' : '<span class="draft">下書き</span>'}</div><p>${esc(o.obs)}${esc(o.x.body)}</p><div class="home"><b>おうちでできること</b>　${esc(o.x.home)}</div></div>`).join('<div style="height:8px"></div>') : '<p>目立ったつまずきは、まだ見えていません。「ためす」や「つくる」を何回か遊ぶと、間違え方の傾向からここに見立てが出ます。</p>'}</div>
   <div><h3>ほめどころ</h3>${prs.length ? `<ul class="plist">${prs.map(s => `<li>${esc(s)}</li>`).join('')}</ul>` : '<p>まだ記録が少ないため、これから表示されます。</p>'}</div>
-  <div><h3>学校の学習との対応</h3><div style="overflow-x:auto"><table class="pmap">
+  <div><h3>学校の学習との対応</h3>${rows.some(r => r.u.owner === 'hakaru') ? '<p class="note" style="text-align:left;margin:0 0 6px">量（長さ・かさ・重さ・時間・広さ）の単元は、教科書会社によって学ぶ時期が違います。</p>' : ''}<div style="overflow-x:auto"><table class="pmap">
     <tr><th>学年・内容</th><th>このアプリでの活動</th><th>ようす</th></tr>
     ${rows.map(r => `<tr><td>${esc(r.m.school || r.u.school || r.u.plain)}</td><td>${esc(r.m.activity)}</td><td>${st(r.done, r.mid)} ${r.note ? `<small>${esc(r.note)}</small>` : ''}</td></tr>`).join('')}
   </table></div></div>

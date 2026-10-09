@@ -362,6 +362,17 @@
    ],
    "a": 0,
    "reviewed": false
+  },
+  {
+   "id": "n1-est",
+   "q": "えんぴつと つくえの よこ、ながそうなのは？",
+   "ch": [
+    "つくえの よこ",
+    "えんぴつ"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "est": true
   }
  ],
  "insights": [

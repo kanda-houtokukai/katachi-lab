@@ -385,6 +385,17 @@
    ],
    "a": 0,
    "reviewed": false
+  },
+  {
+   "id": "h1-est",
+   "q": "ノートと つくえ、ひろそうなのは？",
+   "ch": [
+    "つくえ",
+    "ノート"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "est": true
   }
  ],
  "insights": [

@@ -659,6 +659,18 @@
    ],
    "a": 0,
    "reviewed": false
+  },
+  {
+   "id": "n2m-est",
+   "q": "きょうしつの とびらの たかさは やく どれくらい？",
+   "ch": [
+    "やく 2m",
+    "やく 20cm",
+    "やく 20m"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "est": true
   }
  ],
  "insights": [

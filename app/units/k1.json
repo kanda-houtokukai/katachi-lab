@@ -363,6 +363,17 @@
    "a": 0,
    "reviewed": false,
    "fig": "mono:cont:bucket"
+  },
+  {
+   "id": "k1-est",
+   "q": "コップと バケツ、みずが おおく はいりそうなのは？",
+   "ch": [
+    "バケツ",
+    "コップ"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "est": true
   }
  ],
  "insights": [

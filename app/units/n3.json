@@ -409,6 +409,18 @@
    ],
    "a": 0,
    "reviewed": false
+  },
+  {
+   "id": "n3-est",
+   "q": "1km あるくと やく どれくらい かかる？",
+   "ch": [
+    "やく 15ふん",
+    "やく 1ぷん",
+    "やく 3じかん"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "est": true
   }
  ],
  "insights": [
