@@ -1,0 +1,768 @@
+{
+ "note": "1年「ながさくらべ」。設計書 hakaru-design.md §3 N1。直接比較（端をそろえる・まっすぐにのばす）→間接比較（テープに写す）→任意単位（○こぶん）。文面はすべて下書き（reviewed:false）。1年なので画面に cm などの単位は出さない。",
+ "school": "1年 C(1) 長さの比べ方（直接比較・間接比較・任意単位）",
+ "tabs": {
+  "miru": [
+   {
+    "part": "kurabe",
+    "label": "みる",
+    "opts": {
+     "qty": "nagasa",
+     "mode": "miru"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "kurabe",
+    "label": "ならべて くらべる",
+    "opts": {
+     "qty": "nagasa",
+     "mode": "align"
+    }
+   },
+   {
+    "part": "utsusu",
+    "label": "うつして くらべる",
+    "opts": {
+     "pair": "desk"
+    }
+   },
+   {
+    "part": "ikutsubun",
+    "label": "いくつぶん",
+    "opts": {
+     "qty": "nagasa",
+     "mode": "lay"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "kurabe",
+    "label": "どちらが ながい",
+    "opts": {
+     "qty": "nagasa",
+     "mode": "quiz"
+    }
+   },
+   {
+    "part": "ikutsubun",
+    "label": "なんこぶん",
+    "opts": {
+     "qty": "nagasa",
+     "mode": "count"
+    }
+   },
+   {
+    "part": "ikutsubun",
+    "label": "ちがう もので",
+    "opts": {
+     "qty": "nagasa",
+     "mode": "diff"
+    }
+   },
+   {
+    "part": "ikutsubun",
+    "label": "みとおし",
+    "opts": {
+     "qty": "nagasa",
+     "mode": "mitoshi"
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "kurabe",
+    "label": "ながさ ならべ",
+    "opts": {
+     "qty": "nagasa",
+     "mode": "order"
+    }
+   },
+   {
+    "part": "ikutsubun",
+    "label": "じぶんの たんい",
+    "opts": {
+     "qty": "nagasa",
+     "mode": "unit"
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "ikutsu",
+   "kind": "list",
+   "label": "いくつぶん ずかん",
+   "title": "いくつぶん ずかん（ブロック・えんぴつ・ゆび）",
+   "items": [
+    {
+     "id": "notebook@block",
+     "label": "ノート",
+     "val": "ブロック 6こと すこし",
+     "fig": "bar:250:600",
+     "hint": "ブロックで"
+    },
+    {
+     "id": "notebook@pencil",
+     "label": "ノート",
+     "val": "えんぴつ 1こと すこし",
+     "fig": "bar:250:600",
+     "hint": "えんぴつで"
+    },
+    {
+     "id": "notebook@finger",
+     "label": "ノート",
+     "val": "ゆび 15こと すこし",
+     "fig": "bar:250:600",
+     "hint": "ゆびで"
+    },
+    {
+     "id": "tissue@block",
+     "label": "ティッシュの はこ",
+     "val": "ブロック 6こ",
+     "fig": "bar:240:600",
+     "hint": "ブロックで"
+    },
+    {
+     "id": "tissue@pencil",
+     "label": "ティッシュの はこ",
+     "val": "えんぴつ 1こと すこし",
+     "fig": "bar:240:600",
+     "hint": "えんぴつで"
+    },
+    {
+     "id": "tissue@finger",
+     "label": "ティッシュの はこ",
+     "val": "ゆび 15こ",
+     "fig": "bar:240:600",
+     "hint": "ゆびで"
+    },
+    {
+     "id": "hagaki@block",
+     "label": "はがき たて",
+     "val": "ブロック 3こと すこし",
+     "fig": "bar:148:600",
+     "hint": "ブロックで"
+    },
+    {
+     "id": "hagaki@pencil",
+     "label": "はがき たて",
+     "val": "えんぴつ 0こと すこし",
+     "fig": "bar:148:600",
+     "hint": "えんぴつで"
+    },
+    {
+     "id": "hagaki@finger",
+     "label": "はがき たて",
+     "val": "ゆび 9こと すこし",
+     "fig": "bar:148:600",
+     "hint": "ゆびで"
+    },
+    {
+     "id": "card@block",
+     "label": "カード",
+     "val": "ブロック 2こと すこし",
+     "fig": "bar:85.6:600",
+     "hint": "ブロックで"
+    },
+    {
+     "id": "card@pencil",
+     "label": "カード",
+     "val": "えんぴつ 0こと すこし",
+     "fig": "bar:85.6:600",
+     "hint": "えんぴつで"
+    },
+    {
+     "id": "card@finger",
+     "label": "カード",
+     "val": "ゆび 5こと すこし",
+     "fig": "bar:85.6:600",
+     "hint": "ゆびで"
+    },
+    {
+     "id": "ruler30@block",
+     "label": "30cmものさし",
+     "val": "ブロック 7こと すこし",
+     "fig": "bar:300:600",
+     "hint": "ブロックで"
+    },
+    {
+     "id": "ruler30@pencil",
+     "label": "30cmものさし",
+     "val": "えんぴつ 1こと すこし",
+     "fig": "bar:300:600",
+     "hint": "えんぴつで"
+    },
+    {
+     "id": "ruler30@finger",
+     "label": "30cmものさし",
+     "val": "ゆび 18こと すこし",
+     "fig": "bar:300:600",
+     "hint": "ゆびで"
+    },
+    {
+     "id": "desk@block",
+     "label": "つくえ",
+     "val": "ブロック 15こ",
+     "fig": "bar:600:600",
+     "hint": "ブロックで"
+    },
+    {
+     "id": "desk@pencil",
+     "label": "つくえ",
+     "val": "えんぴつ 3こと すこし",
+     "fig": "bar:600:600",
+     "hint": "えんぴつで"
+    },
+    {
+     "id": "desk@finger",
+     "label": "つくえ",
+     "val": "ゆび 37こと すこし",
+     "fig": "bar:600:600",
+     "hint": "ゆびで"
+    }
+   ],
+   "go": {
+    "mode": "tsukuru",
+    "act": 1
+   },
+   "goLabel": "「じぶんの たんい」で はかろう"
+  }
+ ],
+ "mission": [
+  {
+   "key": "order",
+   "label": "ながさ ならべを する",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  },
+  {
+   "key": "unit",
+   "label": "じぶんの たんいで はかる",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 1
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "n1-edge",
+   "q": "ながさを くらべる とき、さいしょに そろえるのは？",
+   "ch": [
+    "はし",
+    "まんなか"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n1-shift",
+   "q": "はしが ずれて いる 2ほんの えんぴつ。みた だけで きめて いい？",
+   "ch": [
+    "はしを そろえて くらべる",
+    "みた だけで きめる"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n1-string",
+   "q": "まがった ひもと ぼう。どうやって くらべる？",
+   "ch": [
+    "ひもを まっすぐ のばす",
+    "まがった まま くらべる"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n1-thick",
+   "q": "ふとい クレヨンと ほそい ストロー。ふとい ほうが ながい？",
+   "ch": [
+    "はしから はしまでで くらべる",
+    "ふとい ほうが ながい"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n1-tape",
+   "q": "うごかせない つくえの ながさを くらべるには？",
+   "ch": [
+    "テープに うつして はこぶ",
+    "みた だけで きめる"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n1-gap",
+   "q": "クリップを ならべて はかる とき",
+   "ch": [
+    "すきまを あけない",
+    "すきまを あける"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n1-gapn",
+   "q": "すきまを あけて ならべると、かずは？",
+   "ch": [
+    "へる",
+    "ふえる"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n1-over",
+   "q": "かさねて ならべると、かずは？",
+   "ch": [
+    "ふえる",
+    "へる"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n1-unit",
+   "q": "クリップ 5こぶんと けしごむ 5こぶん。おなじ ながさ？",
+   "ch": [
+    "ちがう（けしごむの ほうが ながい）",
+    "おなじ ながさ"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n1-more",
+   "q": "ブロック 4こぶんと ブロック 6こぶん。ながいのは？",
+   "ch": [
+    "6こぶん",
+    "4こぶん"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "bar:6:8"
+  },
+  {
+   "id": "n1-half",
+   "q": "えんぴつは クリップ 6こぶん。クリップ 3こぶんの ものは？",
+   "ch": [
+    "えんぴつより みじかい",
+    "えんぴつより ながい"
+   ],
+   "a": 0,
+   "reviewed": false
+  }
+ ],
+ "insights": [
+  {
+   "key": "n1-edge",
+   "type": "L2",
+   "title": "端をそろえずに比べている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "n1.direct",
+     "detail.mistake": "L2"
+    },
+    "min": 2
+   },
+   "obs": "「どちらが ながい」の問題で、端のずれや曲がりに引っぱられて答える間違いが{n}回ありました。",
+   "body": "長さは「端をそろえて、まっすぐにして」比べます。見た目の右はしの位置だけで決めたり、曲がったひもをそのまま比べたりする段階です。",
+   "home": "鉛筆や靴を並べるときに「はしを そろえると どっちかな」と声をかけて、端を指でそろえてから比べてみてください。",
+   "tag": "1年の内容"
+  },
+  {
+   "key": "n1-gap",
+   "type": "L3",
+   "title": "すき間・重なり・大きさの違う単位で数えている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "n1.iterate",
+     "detail.mistake": "L3"
+    },
+    "min": 2
+   },
+   "obs": "「いくつぶん」の問題で、すき間や重なりのある並べ方、または大きさの違う単位の数をそのまま比べる間違いが{n}回ありました。",
+   "body": "同じ単位を、すき間なく重ならずに並べて初めて「いくつ分」になります。単位の大きさが違えば、数だけでは比べられません。並べる数が7こを超えると間違いが増えることも知られています。",
+   "home": "クリップや積み木を一緒に並べて、「すきまが あったら どうなる？」と試してみてください。",
+   "tag": "1年の内容"
+  },
+  {
+   "key": "n1-thick",
+   "type": "thick",
+   "title": "長さと太さ（大きさ）を混同している",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "n1.direct",
+     "detail.mistake": "thick"
+    },
+    "min": 1
+   },
+   "obs": "太くて短い物を「長い」と選ぶ間違いが{n}回ありました。",
+   "body": "「長い・太い・大きい」の言葉の区別がまだあいまいな段階です。長さは端から端までの1つの向きだけを見ます。",
+   "home": "太いクレヨンと細い鉛筆を並べて、「ながいのは どっち？」「ふといのは どっち？」と言葉を分けて聞いてみてください。",
+   "tag": "1年の内容"
+  },
+  {
+   "key": "n1-est",
+   "type": "est",
+   "title": "「いくつぶん」の見当が大きくずれる",
+   "reviewed": false,
+   "test": {
+    "type": "estErr",
+    "where": {
+     "kind": "n1.estimate"
+    },
+    "minN": 3,
+    "gte": 30
+   },
+   "obs": "「いくつぶん」の見当と実際の数のずれが、平均で{err}％ありました（{n}回）。",
+   "body": "量の見当は、身の回りの物で何度も確かめるうちに育ちます。ずれが大きいのは自然なことで、見当をつけてから確かめる経験が大切です。",
+   "home": "「この本は えんぴつ なんぼんぶん？」と、先に見当を言ってから並べて確かめる遊びをしてみてください。",
+   "tag": "1年の内容"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "n1.order",
+      "correct": true
+     }
+    ]
+   },
+   "text": "「ながさ ならべ」で、8つの物を短い順にまちがえずに並べました。"
+  },
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "n1.direct"
+    },
+    "min": 3
+   },
+   "text": "「どちらが ながい」で、ヒントを使わずに{best}問続けて正解しました。"
+  },
+  {
+   "test": {
+    "type": "distinct",
+    "where": {
+     "kind": "n1.unit"
+    },
+    "field": "detail.obj",
+    "min": 3
+   },
+   "text": "「じぶんの たんい」で、{u}種類の物の長さを「いくつぶん」で調べました。"
+  }
+ ],
+ "map": [
+  {
+   "school": "1年 C(1)ア(ア) 長さを直接比べる（端をそろえる・まっすぐにする）",
+   "activity": "ならべて くらべる・どちらが ながい",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "n1.direct"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "n1.align"
+     },
+     {
+      "kind": "n1.direct"
+     }
+    ]
+   }
+  },
+  {
+   "school": "1年 C(1)ア(ア) 他のものを用いて比べる（間接比較）",
+   "activity": "うつして くらべる（テープ）",
+   "done": {
+    "type": "count",
+    "where": {
+     "kind": "n1.tape"
+    },
+    "min": 2
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "n1.tape"
+     }
+    ]
+   }
+  },
+  {
+   "school": "1年 C(1)ア(イ) 身の回りのものの幾つ分で比べる（任意単位）",
+   "activity": "いくつぶん・なんこぶん・ちがう もので",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "n1.iterate"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "n1.lay"
+     },
+     {
+      "kind": "n1.iterate"
+     },
+     {
+      "kind": "n1.unit"
+     }
+    ]
+   }
+  },
+  {
+   "school": "1年 C(1)イ(ア) 量の比べ方を見いだす",
+   "activity": "ながさ ならべ・じぶんの たんい・みとおし",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "n1.order",
+      "correct": true
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "n1.order"
+     },
+     {
+      "kind": "n1.unit"
+     },
+     {
+      "kind": "n1.estimate"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "n1.miru": "端をそろえる・まっすぐにのばす・太さにまどわされない比べ方を見ました",
+  "n1.align": "2つの物を動かして端をそろえ、長さを比べました",
+  "n1.tape": "動かせない物の長さを紙テープに写して比べました",
+  "n1.lay": "クリップなどを並べて「いくつ分」かを調べました",
+  "n1.direct": "どちらが長いか：{ok}{hints}",
+  "n1.direct-done": "どちらが長いかの問題（{level}）{n}問中{score}問正解",
+  "n1.iterate": [
+   {
+    "where": {
+     "detail.type": "diff"
+    },
+    "text": "違う単位で測った長さ比べ：{ok}{hints}"
+   },
+   {
+    "where": {
+     "detail.type": "which"
+    },
+    "text": "正しい並べ方を選ぶ：{ok}{hints}"
+   },
+   {
+    "where": {},
+    "text": "いくつ分かを数える：{ok}{hints}"
+   }
+  ],
+  "n1.iterate-done": "「いくつぶん」の問題（{level}）{n}問中{score}問正解",
+  "n1.estimate": "見当（{q}）：見当{guess}こ → 実際{actual}こ",
+  "n1.estimate-done": "「いくつぶん」の見当（{level}）{n}問中{score}問が近かった",
+  "n1.order": "8つの物を短い順に並べました",
+  "n1.unit": "自分で選んだ単位で、身の回りの物の長さを調べました",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 16.5,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 0,
+   "h": 16.6,
+   "kind": "align",
+   "detail": {
+    "pair": "pencil"
+   },
+   "stage": "sawaru"
+  },
+  {
+   "d": 1,
+   "h": 17,
+   "kind": "direct",
+   "correct": false,
+   "level": "easy",
+   "detail": {
+    "type": "offset",
+    "mistake": "L2",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 1,
+   "h": 17.1,
+   "kind": "direct",
+   "correct": true,
+   "hints": 1,
+   "level": "easy",
+   "detail": {
+    "type": "string",
+    "mistake": "L2",
+    "miss": 1
+   }
+  },
+  {
+   "d": 1,
+   "h": 17.2,
+   "kind": "direct",
+   "correct": false,
+   "level": "easy",
+   "detail": {
+    "type": "thick",
+    "mistake": "thick",
+    "miss": 2
+   }
+  },
+  {
+   "d": 2,
+   "h": 17,
+   "kind": "tape",
+   "correct": true,
+   "detail": {
+    "pair": "desk",
+    "longer": "dst"
+   }
+  },
+  {
+   "d": 2,
+   "h": 17.1,
+   "kind": "iterate",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "gap",
+    "n": 6,
+    "shown": 5,
+    "mistake": "L3",
+    "miss": 2
+   }
+  },
+  {
+   "d": 2,
+   "h": 17.2,
+   "kind": "iterate",
+   "correct": true,
+   "hints": 1,
+   "level": "normal",
+   "detail": {
+    "type": "diff",
+    "mistake": "L3",
+    "miss": 1
+   }
+  },
+  {
+   "d": 3,
+   "h": 17,
+   "kind": "estimate",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "q": "えんぴつは クリップ なんこぶんくらい？",
+    "guess": 10,
+    "actual": 6,
+    "unit": "こ",
+    "qty": "length"
+   }
+  },
+  {
+   "d": 3,
+   "h": 17.1,
+   "kind": "estimate",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "q": "ノートは けしごむ なんこぶんくらい？",
+    "guess": 4,
+    "actual": 5,
+    "unit": "こ",
+    "qty": "length"
+   }
+  },
+  {
+   "d": 3,
+   "h": 17.2,
+   "kind": "estimate",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "q": "ティッシュの はこは クリップ なんこぶんくらい？",
+    "guess": 4,
+    "actual": 8,
+    "unit": "こ",
+    "qty": "length"
+   }
+  },
+  {
+   "d": 5,
+   "h": 18,
+   "kind": "order",
+   "correct": true,
+   "detail": {
+    "n": 8,
+    "miss": 0
+   },
+   "stage": "tsukuru"
+  },
+  {
+   "d": 5,
+   "h": 18.2,
+   "kind": "unit",
+   "correct": true,
+   "detail": {
+    "obj": "notebook",
+    "unit": "block",
+    "n": 6
+   }
+  }
+ ],
+ "demoZukan": {
+  "ikutsu": [
+   "notebook@block",
+   "desk@pencil",
+   "card@finger"
+  ]
+ }
+}

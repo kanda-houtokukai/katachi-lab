@@ -104,6 +104,8 @@ const QFIGS = {
     return `<svg viewBox="0 0 100 100"><circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="${tok('line')}" stroke-width="2" stroke-dasharray="3 3"/><path d="M${cx} ${cy}L${x1.toFixed(1)} ${y1.toFixed(1)}A${R} ${R} 0 ${deg > 180 ? 1 : 0} 1 ${x2.toFixed(1)} ${y2.toFixed(1)}Z" fill="${tok('face-2')}" stroke="${ink()}" stroke-width="2"/></svg>`;
   },
   scene(id) { return sceneIcon(id); },
+  // 長さの組（N2m「1m を つくる」）：segs:300,300,300,100 → 合計を はばいっぱいに、色をかえて ならべる
+  segs(list) { const v = String(list).split(',').map(Number).filter(x => x > 0), tot = v.reduce((a, b) => a + b, 0) || 1, cols = ['face-1', 'face-2', 'face-3', 'face-4', 'face-5', 'face-6']; let x = 4; return `<svg viewBox="0 0 120 30"><rect x="3" y="8" width="114" height="14" rx="3" fill="${tok('paper-2')}" stroke="${tok('line')}"/>${v.map((w, i) => { const ww = 112 * w / tot, s = `<rect x="${x.toFixed(1)}" y="9" width="${Math.max(0.5, ww - 0.6).toFixed(1)}" height="12" rx="1.5" fill="${tok(cols[i % 6])}"/>`; x += ww; return s; }).join('')}</svg>`; },
   bar(v, mx) { v = +v; mx = +mx || 100; return `<svg viewBox="0 0 120 30"><rect x="4" y="9" width="112" height="12" rx="6" fill="${tok('paper-2')}" stroke="${tok('line')}"/><rect x="4" y="9" width="${(112 * Math.min(1, v / mx)).toFixed(1)}" height="12" rx="6" fill="${tok('sora')}"/></svg>`; },
 };
 export function figSVG(name) {

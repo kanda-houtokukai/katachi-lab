@@ -1,0 +1,1040 @@
+{
+ "note": "2年「長いものの長さ」（m）。設計書 hakaru-design.md §3 N2m。長い物は ちぢめた絵で はかる（実寸ではない）。「1m を つくる」の組の数は tools/hakaru-nagasa.mjs が計算して data/hakaru/onem.json に凍結。文面はすべて下書き（reviewed:false）。",
+ "school": "2年 C(1) 長さの単位（m）と測定",
+ "tabs": {
+  "miru": [
+   {
+    "part": "monosashi",
+    "label": "みる",
+    "opts": {
+     "mode": "miru-m"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "monosashi",
+    "label": "1mものさしで はかる",
+    "opts": {
+     "mode": "m1"
+    }
+   },
+   {
+    "part": "monosashi",
+    "label": "120cmの テープ",
+    "opts": {
+     "mode": "fold"
+    }
+   },
+   {
+    "part": "karada",
+    "label": "りょうてを ひろげる",
+    "opts": {
+     "mode": "arms"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "nagasa-quiz",
+    "label": "たんいえらび",
+    "opts": {
+     "type": "choose"
+    }
+   },
+   {
+    "part": "nagasa-quiz",
+    "label": "m と cm",
+    "opts": {
+     "type": "mconv"
+    }
+   },
+   {
+    "part": "nagasa-quiz",
+    "label": "けいさん",
+    "opts": {
+     "type": "mcalc"
+    }
+   },
+   {
+    "part": "mitoshi",
+    "label": "みとおし",
+    "opts": {
+     "items": [
+      {
+       "q": "とびらの たかさは なんcmくらい？",
+       "qty": "length",
+       "unit": "cm",
+       "bench": "door",
+       "field": "len_mm",
+       "div": 10,
+       "max": 400,
+       "step": 10,
+       "major": 100,
+       "minor": 10
+      },
+      {
+       "q": "つくえの よこは なんcmくらい？",
+       "qty": "length",
+       "unit": "cm",
+       "bench": "desk",
+       "field": "len_mm",
+       "div": 10,
+       "max": 150,
+       "step": 5,
+       "major": 50,
+       "minor": 10
+      },
+      {
+       "q": "ノートの たては なんcmくらい？",
+       "qty": "length",
+       "unit": "cm",
+       "bench": "notebook",
+       "field": "len_mm",
+       "div": 10,
+       "max": 60,
+       "step": 1,
+       "major": 10,
+       "minor": 5
+      },
+      {
+       "q": "きょうしつの よこは なんmくらい？",
+       "qty": "length",
+       "unit": "m",
+       "bench": "classroom",
+       "field": "len_mm",
+       "div": 1000,
+       "max": 20,
+       "step": 1,
+       "major": 5,
+       "minor": 1
+      },
+      {
+       "q": "こくばんの よこは なんcmくらい？",
+       "qty": "length",
+       "unit": "cm",
+       "bench": "blackboard",
+       "field": "len_mm",
+       "div": 10,
+       "max": 800,
+       "step": 10,
+       "major": 100,
+       "minor": 50
+      }
+     ]
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "monosashi",
+    "label": "1mを つくる",
+    "opts": {
+     "mode": "make1m"
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "onem",
+   "kind": "list",
+   "label": "1mの くみあわせ",
+   "title": "1mの くみあわせ（ちょうど 100cm）",
+   "items": [
+    {
+     "id": "pencil*3+hagaki-w*3+eraser*2+clip*2",
+     "label": "えんぴつ×3・はがき よこ×3・けしごむ×2・クリップ×2",
+     "fig": "segs:180,180,180,100,100,100,50,50,30,30",
+     "hint": "No.1"
+    },
+    {
+     "id": "tissue*1+pencil*2+hagaki-w*3+eraser*2",
+     "label": "ティッシュの はこ×1・えんぴつ×2・はがき よこ×3・けしごむ×2",
+     "fig": "segs:240,180,180,100,100,100,50,50",
+     "hint": "No.2"
+    },
+    {
+     "id": "tissue*2+pencil*1+hagaki-w*1+eraser*3+clip*3",
+     "label": "ティッシュの はこ×2・えんぴつ×1・はがき よこ×1・けしごむ×3・クリップ×3",
+     "fig": "segs:240,240,180,100,50,50,50,30,30,30",
+     "hint": "No.3"
+    },
+    {
+     "id": "tissue*2+pencil*1+hagaki-w*2+eraser*1+clip*3",
+     "label": "ティッシュの はこ×2・えんぴつ×1・はがき よこ×2・けしごむ×1・クリップ×3",
+     "fig": "segs:240,240,180,100,100,50,30,30,30",
+     "hint": "No.4"
+    },
+    {
+     "id": "tissue*2+pencil*2+eraser*2+clip*2",
+     "label": "ティッシュの はこ×2・えんぴつ×2・けしごむ×2・クリップ×2",
+     "fig": "segs:240,240,180,180,50,50,30,30",
+     "hint": "No.5"
+    },
+    {
+     "id": "tissue*2+pencil*2+hagaki-w*1+clip*2",
+     "label": "ティッシュの はこ×2・えんぴつ×2・はがき よこ×1・クリップ×2",
+     "fig": "segs:240,240,180,180,100,30,30",
+     "hint": "No.6"
+    },
+    {
+     "id": "tissue*3+hagaki-w*1+eraser*3+clip*1",
+     "label": "ティッシュの はこ×3・はがき よこ×1・けしごむ×3・クリップ×1",
+     "fig": "segs:240,240,240,100,50,50,50,30",
+     "hint": "No.7"
+    },
+    {
+     "id": "tissue*3+hagaki-w*2+eraser*1+clip*1",
+     "label": "ティッシュの はこ×3・はがき よこ×2・けしごむ×1・クリップ×1",
+     "fig": "segs:240,240,240,100,100,50,30",
+     "hint": "No.8"
+    },
+    {
+     "id": "tissue*3+pencil*1+eraser*2",
+     "label": "ティッシュの はこ×3・えんぴつ×1・けしごむ×2",
+     "fig": "segs:240,240,240,180,50,50",
+     "hint": "No.9"
+    },
+    {
+     "id": "tissue*3+pencil*1+hagaki-w*1",
+     "label": "ティッシュの はこ×3・えんぴつ×1・はがき よこ×1",
+     "fig": "segs:240,240,240,180,100",
+     "hint": "No.10"
+    },
+    {
+     "id": "notebook*1+pencil*2+hagaki-w*2+eraser*2+clip*3",
+     "label": "ノート×1・えんぴつ×2・はがき よこ×2・けしごむ×2・クリップ×3",
+     "fig": "segs:250,180,180,100,100,50,50,30,30,30",
+     "hint": "No.11"
+    },
+    {
+     "id": "notebook*1+pencil*2+hagaki-w*3+clip*3",
+     "label": "ノート×1・えんぴつ×2・はがき よこ×3・クリップ×3",
+     "fig": "segs:250,180,180,100,100,100,30,30,30",
+     "hint": "No.12"
+    },
+    {
+     "id": "notebook*1+pencil*3+eraser*3+clip*2",
+     "label": "ノート×1・えんぴつ×3・けしごむ×3・クリップ×2",
+     "fig": "segs:250,180,180,180,50,50,50,30,30",
+     "hint": "No.13"
+    },
+    {
+     "id": "notebook*1+pencil*3+hagaki-w*1+eraser*1+clip*2",
+     "label": "ノート×1・えんぴつ×3・はがき よこ×1・けしごむ×1・クリップ×2",
+     "fig": "segs:250,180,180,180,100,50,30,30",
+     "hint": "No.14"
+    },
+    {
+     "id": "notebook*1+tissue*1+hagaki-w*3+eraser*3+clip*2",
+     "label": "ノート×1・ティッシュの はこ×1・はがき よこ×3・けしごむ×3・クリップ×2",
+     "fig": "segs:250,240,100,100,100,50,50,50,30,30",
+     "hint": "No.15"
+    },
+    {
+     "id": "notebook*1+tissue*1+pencil*1+hagaki-w*2+eraser*2+clip*1",
+     "label": "ノート×1・ティッシュの はこ×1・えんぴつ×1・はがき よこ×2・けしごむ×2・クリップ×1",
+     "fig": "segs:250,240,180,100,100,50,50,30",
+     "hint": "No.16"
+    },
+    {
+     "id": "notebook*1+tissue*1+pencil*1+hagaki-w*3+clip*1",
+     "label": "ノート×1・ティッシュの はこ×1・えんぴつ×1・はがき よこ×3・クリップ×1",
+     "fig": "segs:250,240,180,100,100,100,30",
+     "hint": "No.17"
+    },
+    {
+     "id": "notebook*1+tissue*1+pencil*2+eraser*3",
+     "label": "ノート×1・ティッシュの はこ×1・えんぴつ×2・けしごむ×3",
+     "fig": "segs:250,240,180,180,50,50,50",
+     "hint": "No.18"
+    },
+    {
+     "id": "notebook*1+tissue*1+pencil*2+hagaki-w*1+eraser*1",
+     "label": "ノート×1・ティッシュの はこ×1・えんぴつ×2・はがき よこ×1・けしごむ×1",
+     "fig": "segs:250,240,180,180,100,50",
+     "hint": "No.19"
+    },
+    {
+     "id": "notebook*1+tissue*2+pencil*1+clip*3",
+     "label": "ノート×1・ティッシュの はこ×2・えんぴつ×1・クリップ×3",
+     "fig": "segs:250,240,240,180,30,30,30",
+     "hint": "No.20"
+    },
+    {
+     "id": "notebook*1+tissue*3+clip*1",
+     "label": "ノート×1・ティッシュの はこ×3・クリップ×1",
+     "fig": "segs:250,240,240,240,30",
+     "hint": "No.21"
+    },
+    {
+     "id": "notebook*2+pencil*2+eraser*1+clip*3",
+     "label": "ノート×2・えんぴつ×2・けしごむ×1・クリップ×3",
+     "fig": "segs:250,250,180,180,50,30,30,30",
+     "hint": "No.22"
+    },
+    {
+     "id": "notebook*2+tissue*1+hagaki-w*1+eraser*2+clip*2",
+     "label": "ノート×2・ティッシュの はこ×1・はがき よこ×1・けしごむ×2・クリップ×2",
+     "fig": "segs:250,250,240,100,50,50,30,30",
+     "hint": "No.23"
+    },
+    {
+     "id": "notebook*2+tissue*1+hagaki-w*2+clip*2",
+     "label": "ノート×2・ティッシュの はこ×1・はがき よこ×2・クリップ×2",
+     "fig": "segs:250,250,240,100,100,30,30",
+     "hint": "No.24"
+    },
+    {
+     "id": "notebook*2+tissue*1+pencil*1+eraser*1+clip*1",
+     "label": "ノート×2・ティッシュの はこ×1・えんぴつ×1・けしごむ×1・クリップ×1",
+     "fig": "segs:250,250,240,180,50,30",
+     "hint": "No.25"
+    },
+    {
+     "id": "notebook*3+hagaki-w*1+eraser*3",
+     "label": "ノート×3・はがき よこ×1・けしごむ×3",
+     "fig": "segs:250,250,250,100,50,50,50",
+     "hint": "No.26"
+    },
+    {
+     "id": "notebook*3+hagaki-w*2+eraser*1",
+     "label": "ノート×3・はがき よこ×2・けしごむ×1",
+     "fig": "segs:250,250,250,100,100,50",
+     "hint": "No.27"
+    },
+    {
+     "id": "ruler30*1+pencil*2+hagaki-w*1+eraser*3+clip*3",
+     "label": "30cmものさし×1・えんぴつ×2・はがき よこ×1・けしごむ×3・クリップ×3",
+     "fig": "segs:300,180,180,100,50,50,50,30,30,30",
+     "hint": "No.28"
+    },
+    {
+     "id": "ruler30*1+pencil*2+hagaki-w*2+eraser*1+clip*3",
+     "label": "30cmものさし×1・えんぴつ×2・はがき よこ×2・けしごむ×1・クリップ×3",
+     "fig": "segs:300,180,180,100,100,50,30,30,30",
+     "hint": "No.29"
+    },
+    {
+     "id": "ruler30*1+pencil*3+eraser*2+clip*2",
+     "label": "30cmものさし×1・えんぴつ×3・けしごむ×2・クリップ×2",
+     "fig": "segs:300,180,180,180,50,50,30,30",
+     "hint": "No.30"
+    },
+    {
+     "id": "ruler30*1+pencil*3+hagaki-w*1+clip*2",
+     "label": "30cmものさし×1・えんぴつ×3・はがき よこ×1・クリップ×2",
+     "fig": "segs:300,180,180,180,100,30,30",
+     "hint": "No.31"
+    },
+    {
+     "id": "ruler30*1+tissue*1+hagaki-w*3+eraser*2+clip*2",
+     "label": "30cmものさし×1・ティッシュの はこ×1・はがき よこ×3・けしごむ×2・クリップ×2",
+     "fig": "segs:300,240,100,100,100,50,50,30,30",
+     "hint": "No.32"
+    },
+    {
+     "id": "ruler30*1+tissue*1+pencil*1+hagaki-w*1+eraser*3+clip*1",
+     "label": "30cmものさし×1・ティッシュの はこ×1・えんぴつ×1・はがき よこ×1・けしごむ×3・クリップ×1",
+     "fig": "segs:300,240,180,100,50,50,50,30",
+     "hint": "No.33"
+    },
+    {
+     "id": "ruler30*1+tissue*1+pencil*1+hagaki-w*2+eraser*1+clip*1",
+     "label": "30cmものさし×1・ティッシュの はこ×1・えんぴつ×1・はがき よこ×2・けしごむ×1・クリップ×1",
+     "fig": "segs:300,240,180,100,100,50,30",
+     "hint": "No.34"
+    },
+    {
+     "id": "ruler30*1+tissue*1+pencil*2+eraser*2",
+     "label": "30cmものさし×1・ティッシュの はこ×1・えんぴつ×2・けしごむ×2",
+     "fig": "segs:300,240,180,180,50,50",
+     "hint": "No.35"
+    },
+    {
+     "id": "ruler30*1+tissue*1+pencil*2+hagaki-w*1",
+     "label": "30cmものさし×1・ティッシュの はこ×1・えんぴつ×2・はがき よこ×1",
+     "fig": "segs:300,240,180,180,100",
+     "hint": "No.36"
+    },
+    {
+     "id": "ruler30*1+notebook*1+hagaki-w*3+eraser*3",
+     "label": "30cmものさし×1・ノート×1・はがき よこ×3・けしごむ×3",
+     "fig": "segs:300,250,100,100,100,50,50,50",
+     "hint": "No.37"
+    },
+    {
+     "id": "ruler30*1+notebook*1+pencil*2+clip*3",
+     "label": "30cmものさし×1・ノート×1・えんぴつ×2・クリップ×3",
+     "fig": "segs:300,250,180,180,30,30,30",
+     "hint": "No.38"
+    },
+    {
+     "id": "ruler30*1+notebook*1+tissue*1+eraser*3+clip*2",
+     "label": "30cmものさし×1・ノート×1・ティッシュの はこ×1・けしごむ×3・クリップ×2",
+     "fig": "segs:300,250,240,50,50,50,30,30",
+     "hint": "No.39"
+    },
+    {
+     "id": "ruler30*1+notebook*1+tissue*1+hagaki-w*1+eraser*1+clip*2",
+     "label": "30cmものさし×1・ノート×1・ティッシュの はこ×1・はがき よこ×1・けしごむ×1・クリップ×2",
+     "fig": "segs:300,250,240,100,50,30,30",
+     "hint": "No.40"
+    },
+    {
+     "id": "ruler30*1+notebook*1+tissue*1+pencil*1+clip*1",
+     "label": "30cmものさし×1・ノート×1・ティッシュの はこ×1・えんぴつ×1・クリップ×1",
+     "fig": "segs:300,250,240,180,30",
+     "hint": "No.41"
+    },
+    {
+     "id": "ruler30*1+notebook*2+hagaki-w*1+eraser*2",
+     "label": "30cmものさし×1・ノート×2・はがき よこ×1・けしごむ×2",
+     "fig": "segs:300,250,250,100,50,50",
+     "hint": "No.42"
+    },
+    {
+     "id": "ruler30*1+notebook*2+hagaki-w*2",
+     "label": "30cmものさし×1・ノート×2・はがき よこ×2",
+     "fig": "segs:300,250,250,100,100",
+     "hint": "No.43"
+    },
+    {
+     "id": "ruler30*2+hagaki-w*3+eraser*2",
+     "label": "30cmものさし×2・はがき よこ×3・けしごむ×2",
+     "fig": "segs:300,300,100,100,100,50,50",
+     "hint": "No.44"
+    },
+    {
+     "id": "ruler30*2+tissue*1+eraser*2+clip*2",
+     "label": "30cmものさし×2・ティッシュの はこ×1・けしごむ×2・クリップ×2",
+     "fig": "segs:300,300,240,50,50,30,30",
+     "hint": "No.45"
+    },
+    {
+     "id": "ruler30*2+tissue*1+hagaki-w*1+clip*2",
+     "label": "30cmものさし×2・ティッシュの はこ×1・はがき よこ×1・クリップ×2",
+     "fig": "segs:300,300,240,100,30,30",
+     "hint": "No.46"
+    },
+    {
+     "id": "ruler30*2+notebook*1+eraser*3",
+     "label": "30cmものさし×2・ノート×1・けしごむ×3",
+     "fig": "segs:300,300,250,50,50,50",
+     "hint": "No.47"
+    },
+    {
+     "id": "ruler30*2+notebook*1+hagaki-w*1+eraser*1",
+     "label": "30cmものさし×2・ノート×1・はがき よこ×1・けしごむ×1",
+     "fig": "segs:300,300,250,100,50",
+     "hint": "No.48"
+    },
+    {
+     "id": "ruler30*3+eraser*2",
+     "label": "30cmものさし×3・けしごむ×2",
+     "fig": "segs:300,300,300,50,50",
+     "hint": "No.49"
+    },
+    {
+     "id": "ruler30*3+hagaki-w*1",
+     "label": "30cmものさし×3・はがき よこ×1",
+     "fig": "segs:300,300,300,100",
+     "hint": "No.50"
+    },
+    {
+     "id": "desk*1+hagaki-w*3+eraser*2",
+     "label": "つくえ×1・はがき よこ×3・けしごむ×2",
+     "fig": "segs:600,100,100,100,50,50",
+     "hint": "No.51"
+    },
+    {
+     "id": "desk*1+tissue*1+eraser*2+clip*2",
+     "label": "つくえ×1・ティッシュの はこ×1・けしごむ×2・クリップ×2",
+     "fig": "segs:600,240,50,50,30,30",
+     "hint": "No.52"
+    },
+    {
+     "id": "desk*1+tissue*1+hagaki-w*1+clip*2",
+     "label": "つくえ×1・ティッシュの はこ×1・はがき よこ×1・クリップ×2",
+     "fig": "segs:600,240,100,30,30",
+     "hint": "No.53"
+    },
+    {
+     "id": "desk*1+notebook*1+eraser*3",
+     "label": "つくえ×1・ノート×1・けしごむ×3",
+     "fig": "segs:600,250,50,50,50",
+     "hint": "No.54"
+    },
+    {
+     "id": "desk*1+notebook*1+hagaki-w*1+eraser*1",
+     "label": "つくえ×1・ノート×1・はがき よこ×1・けしごむ×1",
+     "fig": "segs:600,250,100,50",
+     "hint": "No.55"
+    },
+    {
+     "id": "desk*1+ruler30*1+eraser*2",
+     "label": "つくえ×1・30cmものさし×1・けしごむ×2",
+     "fig": "segs:600,300,50,50",
+     "hint": "No.56"
+    },
+    {
+     "id": "desk*1+ruler30*1+hagaki-w*1",
+     "label": "つくえ×1・30cmものさし×1・はがき よこ×1",
+     "fig": "segs:600,300,100",
+     "hint": "No.57"
+    }
+   ],
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "goLabel": "「1mを つくる」で さがそう"
+  },
+  {
+   "id": "nagai",
+   "kind": "list",
+   "label": "はかった ながい もの",
+   "title": "1mものさしで はかった もの",
+   "items": [
+    {
+     "id": "desk",
+     "label": "つくえの よこ",
+     "val": "やく 60cm",
+     "fig": "bar:600:8000",
+     "hint": "1mものさしで"
+    },
+    {
+     "id": "blackboard",
+     "label": "こくばんの よこ",
+     "val": "やく 3m 60cm",
+     "fig": "bar:3600:8000",
+     "hint": "1mものさしで"
+    },
+    {
+     "id": "door",
+     "label": "とびらの たかさ",
+     "val": "やく 2m",
+     "fig": "bar:2000:8000",
+     "hint": "1mものさしで"
+    },
+    {
+     "id": "classroom",
+     "label": "きょうしつの よこ",
+     "val": "やく 8m",
+     "fig": "bar:8000:8000",
+     "hint": "1mものさしで"
+    }
+   ],
+   "go": {
+    "mode": "sawaru",
+    "act": 0
+   },
+   "goLabel": "「1mものさしで はかる」を する"
+  }
+ ],
+ "mission": [
+  {
+   "key": "make1m",
+   "label": "ぴったり 1mを つくる",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "n2m-100",
+   "q": "1mは なんcm？",
+   "ch": [
+    "100cm",
+    "10cm",
+    "1000cm"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n2m-120",
+   "q": "120cmは？",
+   "ch": [
+    "1m 20cm",
+    "12m",
+    "1m 2cm"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "bar:120:200"
+  },
+  {
+   "id": "n2m-1m5",
+   "q": "1m 5cmは なんcm？",
+   "ch": [
+    "105cm",
+    "15cm",
+    "150cm"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n2m-room",
+   "q": "きょうしつの よこの ながさを あらわすと？",
+   "ch": [
+    "やく 8m",
+    "やく 8cm"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n2m-pencil",
+   "q": "えんぴつの ながさを あらわすと？",
+   "ch": [
+    "やく 18cm",
+    "やく 18m"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n2m-add",
+   "q": "1m 80cm ＋ 40cm は？",
+   "ch": [
+    "2m 20cm",
+    "1m 120cm"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n2m-sub",
+   "q": "2m − 30cm は？",
+   "ch": [
+    "1m 70cm",
+    "2m 70cm"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n2m-tool",
+   "q": "こくばんの よこを はかるのに べんりなのは？",
+   "ch": [
+    "1mものさし",
+    "30cmものさし"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n2m-arms",
+   "q": "りょうてを ひろげた ながさは だいたい？",
+   "ch": [
+    "しんちょうと おなじ くらい",
+    "しんちょうの はんぶん"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n2m-10",
+   "q": "10cmが いくつで 1m？",
+   "ch": [
+    "10こ",
+    "100こ"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n2m-door",
+   "q": "とびらの たかさは だいたい？",
+   "ch": [
+    "2m",
+    "20cm",
+    "20m"
+   ],
+   "a": 0,
+   "reviewed": false
+  }
+ ],
+ "insights": [
+  {
+   "key": "n2m-100",
+   "type": "L5",
+   "title": "1m＝100cm の換算や繰り上がりでつまずいている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "n2m.convert",
+      "n2m.calc"
+     ],
+     "detail.mistake": "L5"
+    },
+    "min": 2
+   },
+   "obs": "mとcmの問題で、1m＝100cmを使わずに数字だけで書き直したり、100cmを1mに繰り上げなかったりする間違いが{n}回ありました（例：1m80cm＋40cmを1m120cm）。",
+   "body": "1m＝100cmの関係を「10cmが10こ」で実感すると、換算や繰り上がりが分かりやすくなります。単位をそろえずに計算してしまうのは、よく見られる段階です。",
+   "home": "1mのひもやテープを作って、家の中の物を「1mと 何cm」で測ってみてください。",
+   "tag": "2年の内容"
+  },
+  {
+   "key": "n2m-choose",
+   "type": "choose",
+   "title": "長さに合う単位を選べていない",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "n2m.choose",
+     "detail.mistake": "choose"
+    },
+    "min": 2
+   },
+   "obs": "物の長さに合う単位（m・cm・mm）を選ぶ問題で、{n}回単位を取り違えました。",
+   "body": "1cm（指の幅）・1m（両手を広げたくらい）のような基準の長さと結びつくと、単位を選べるようになります。",
+   "home": "「この部屋の横は何m？」「この本は何cm？」と、単位を言い分ける会話をしてみてください。",
+   "tag": "2年の内容"
+  },
+  {
+   "key": "n2m-est",
+   "type": "est",
+   "title": "長い物の長さの見当が大きくずれる",
+   "reviewed": false,
+   "test": {
+    "type": "estErr",
+    "where": {
+     "kind": "n2m.estimate"
+    },
+    "minN": 3,
+    "gte": 30
+   },
+   "obs": "長い物の長さの見当と実際の長さのずれが、平均で{err}％ありました（{n}回）。",
+   "body": "1mや自分の身長を基準にすると、長い物の見当がつけやすくなります。",
+   "home": "両手を広げた長さ（身長とほぼ同じ）で、ベッドや廊下の長さを測ってみてください。",
+   "tag": "2年の内容"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "distinct",
+    "where": {
+     "kind": "n2m.make",
+     "correct": true
+    },
+    "field": "detail.key",
+    "min": 2
+   },
+   "text": "「1mを つくる」で、{u}通りの組み合わせでぴったり1mを作りました。"
+  },
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "n2m.convert"
+    },
+    "min": 3
+   },
+   "text": "mとcmの問題で、ヒントなしで{best}問続けて正解しました。"
+  },
+  {
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "n2m.measure"
+    },
+    "min": 2
+   },
+   "text": "1mものさしで、教室の長い物を{n}回測りました。"
+  }
+ ],
+ "map": [
+  {
+   "school": "2年 C(1)ア(ア) 長さの単位 m と 1m＝100cm",
+   "activity": "みる・120cmの テープ・m と cm",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "n2m.convert"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "n2m.fold"
+     },
+     {
+      "kind": "n2m.convert"
+     }
+    ]
+   }
+  },
+  {
+   "school": "2年 C(1)ア(ア) 長い物の長さを測る（1mものさし）",
+   "activity": "1mものさしで はかる・1mを つくる",
+   "done": {
+    "type": "count",
+    "where": {
+     "kind": "n2m.measure"
+    },
+    "min": 2
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "n2m.measure"
+     },
+     {
+      "kind": "n2m.make"
+     }
+    ]
+   }
+  },
+  {
+   "school": "2年 C(1)ア(イ) 見当を付け、単位を適切に選んで測定する",
+   "activity": "たんいえらび・みとおし・りょうてを ひろげる",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "n2m.choose"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "n2m.choose"
+     },
+     {
+      "kind": "n2m.estimate"
+     },
+     {
+      "kind": "n2m.arms"
+     }
+    ]
+   }
+  },
+  {
+   "school": "2年 C(1) m・cm のたし算・ひき算",
+   "activity": "けいさん",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "n2m.calc"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "n2m.calc"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "n2m.miru": "30cmものさしと1mものさしで黒板を測る様子と、1m＝100cmを見ました",
+  "n2m.measure": "1mものさし・30cmものさしで長い物を測りました（{obj}・{cm}cm）",
+  "n2m.fold": "{T}cmのテープを1mで折って「1m と ○cm」を確かめました",
+  "n2m.arms": "両手を広げた長さが身長とほぼ同じことを確かめました",
+  "n2m.choose": "長さに合う単位を選ぶ：{ok}{hints}",
+  "n2m.choose-done": "単位えらび（{level}）{n}問中{score}問正解",
+  "n2m.convert": "mとcmの書きかえ：{ok}{hints}",
+  "n2m.convert-done": "mとcmの問題（{level}）{n}問中{score}問正解",
+  "n2m.calc": "m・cmのたし算・ひき算：{ok}{hints}",
+  "n2m.calc-done": "m・cmの計算（{level}）{n}問中{score}問正解",
+  "n2m.estimate": "見当（{q}）：見当{guess}{unit} → 実際{actual}{unit}",
+  "n2m.estimate-done": "長い物の見当（{level}）{n}問中{score}問が近かった",
+  "n2m.make": [
+   {
+    "where": {
+     "correct": true
+    },
+    "text": "身の回りの物を並べて、ぴったり1mを作りました"
+   },
+   {
+    "where": {},
+    "text": "1mを作ろうとして、はみ出しました（{over}mm）"
+   }
+  ],
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 16.5,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 0,
+   "h": 16.6,
+   "kind": "measure",
+   "detail": {
+    "obj": "blackboard",
+    "tool": "ruler1m",
+    "n": 4,
+    "cm": 360
+   },
+   "stage": "sawaru"
+  },
+  {
+   "d": 0,
+   "h": 16.7,
+   "kind": "measure",
+   "detail": {
+    "obj": "desk",
+    "tool": "ruler30",
+    "n": 2,
+    "cm": 60
+   }
+  },
+  {
+   "d": 1,
+   "h": 17,
+   "kind": "convert",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "mconv",
+    "total": 120,
+    "mistake": "L5",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 1,
+   "h": 17.1,
+   "kind": "calc",
+   "correct": true,
+   "hints": 1,
+   "level": "normal",
+   "detail": {
+    "type": "mcalc",
+    "a": 180,
+    "b": 40,
+    "op": "+",
+    "mistake": "L5",
+    "miss": 1
+   }
+  },
+  {
+   "d": 2,
+   "h": 17,
+   "kind": "choose",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "choose",
+    "obj": "classroom",
+    "unit": "m",
+    "mistake": "choose",
+    "miss": 2
+   }
+  },
+  {
+   "d": 2,
+   "h": 17.1,
+   "kind": "choose",
+   "correct": true,
+   "hints": 1,
+   "level": "normal",
+   "detail": {
+    "type": "choose",
+    "obj": "desk",
+    "unit": "cm",
+    "mistake": "choose",
+    "miss": 1
+   }
+  },
+  {
+   "d": 3,
+   "h": 17,
+   "kind": "estimate",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "q": "とびらの たかさは なんcmくらい？",
+    "guess": 120,
+    "actual": 200,
+    "unit": "cm",
+    "qty": "length"
+   }
+  },
+  {
+   "d": 3,
+   "h": 17.1,
+   "kind": "estimate",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "q": "つくえの よこは なんcmくらい？",
+    "guess": 55,
+    "actual": 60,
+    "unit": "cm",
+    "qty": "length"
+   }
+  },
+  {
+   "d": 3,
+   "h": 17.2,
+   "kind": "estimate",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "q": "きょうしつの よこは なんmくらい？",
+    "guess": 15,
+    "actual": 8,
+    "unit": "m",
+    "qty": "length"
+   }
+  },
+  {
+   "d": 4,
+   "h": 18,
+   "kind": "make",
+   "correct": true,
+   "detail": {
+    "key": "ruler30*3+hagaki-w*1",
+    "n": 4
+   },
+   "stage": "tsukuru"
+  },
+  {
+   "d": 4,
+   "h": 18.2,
+   "kind": "make",
+   "correct": true,
+   "detail": {
+    "key": "desk*1+ruler30*1+hagaki-w*1",
+    "n": 3
+   }
+  }
+ ],
+ "demoZukan": {
+  "onem": [
+   "ruler30*3+hagaki-w*1",
+   "desk*1+ruler30*1+hagaki-w*1"
+  ],
+  "nagai": [
+   "blackboard",
+   "desk"
+  ]
+ }
+}

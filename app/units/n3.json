@@ -1,0 +1,854 @@
+{
+ "note": "3年「長い長さ」（km・まきじゃく・道のりときょり）。設計書 hakaru-design.md §3 N3。地図の道は app/parts/_nagasa-gen.js の NODES・EDGES（9地点・14区間）。「1km さんぽ」の道の数は tools/hakaru-nagasa.mjs が計算して data/hakaru/routes.json に凍結。文面はすべて下書き（reviewed:false）。",
+ "school": "3年 C(1) 長さの単位（km）と測定（まきじゃく・道のりときょり）",
+ "tabs": {
+  "miru": [
+   {
+    "part": "chizu",
+    "label": "みる",
+    "opts": {
+     "mode": "miru"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "monosashi",
+    "label": "まきじゃく",
+    "opts": {
+     "mode": "maki"
+    }
+   },
+   {
+    "part": "chizu",
+    "label": "ちずの みち",
+    "opts": {
+     "mode": "route"
+    }
+   },
+   {
+    "part": "chizu",
+    "label": "1kmの ながさ",
+    "opts": {
+     "mode": "km"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "chizu",
+    "label": "みちのりと きょり",
+    "opts": {
+     "mode": "quiz"
+    }
+   },
+   {
+    "part": "nagasa-quiz",
+    "label": "km と m",
+    "opts": {
+     "type": "kconv"
+    }
+   },
+   {
+    "part": "nagasa-quiz",
+    "label": "どうぐえらび",
+    "opts": {
+     "type": "tool"
+    }
+   },
+   {
+    "part": "mitoshi",
+    "label": "みとおし",
+    "opts": {
+     "items": [
+      {
+       "q": "プールの たての ながさは なんmくらい？",
+       "qty": "length",
+       "unit": "m",
+       "bench": "pool",
+       "field": "len_mm",
+       "div": 1000,
+       "max": 60,
+       "step": 1,
+       "major": 10,
+       "minor": 5
+      },
+      {
+       "q": "きょうしつの よこは なんmくらい？",
+       "qty": "length",
+       "unit": "m",
+       "bench": "classroom",
+       "field": "len_mm",
+       "div": 1000,
+       "max": 20,
+       "step": 1,
+       "major": 5,
+       "minor": 1
+      },
+      {
+       "q": "とびらの たかさは なんmくらい？",
+       "qty": "length",
+       "unit": "m",
+       "bench": "door",
+       "field": "len_mm",
+       "div": 1000,
+       "max": 6,
+       "step": 1,
+       "major": 1,
+       "minor": 1
+      },
+      {
+       "q": "1kmの みちは なんmくらい？",
+       "qty": "length",
+       "unit": "m",
+       "bench": "road1km",
+       "field": "len_mm",
+       "div": 1000,
+       "max": 2000,
+       "step": 100,
+       "major": 500,
+       "minor": 100
+      }
+     ]
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "chizu",
+    "label": "1km さんぽ",
+    "opts": {
+     "mode": "walk"
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "walk",
+   "kind": "list",
+   "label": "1kmの みち",
+   "title": "1km さんぽ ずかん（ちょうど 1000m）",
+   "items": [
+    {
+     "id": "0-3-5-12-13",
+     "label": "No.1 えきまで",
+     "val": "5くかん",
+     "fig": "route:[[45,234],[59,81],[212,59],[180,194],[342,72],[419,234]]",
+     "hint": "No.1"
+    },
+    {
+     "id": "0-3-8-12-1",
+     "label": "No.2 いえまで",
+     "val": "5くかん",
+     "fig": "route:[[45,234],[59,81],[212,59],[342,72],[180,194],[45,234]]",
+     "hint": "No.2"
+    },
+    {
+     "id": "0-3-8-12-4",
+     "label": "No.3 おみせまで",
+     "val": "5くかん",
+     "fig": "route:[[45,234],[59,81],[212,59],[342,72],[180,194],[59,81]]",
+     "hint": "No.3"
+    },
+    {
+     "id": "0-3-8-12-6",
+     "label": "No.4 じんじゃまで",
+     "val": "5くかん",
+     "fig": "route:[[45,234],[59,81],[212,59],[342,72],[180,194],[297,288]]",
+     "hint": "No.4"
+    },
+    {
+     "id": "0-4-12-13-11",
+     "label": "No.5 じんじゃまで",
+     "val": "5くかん",
+     "fig": "route:[[45,234],[59,81],[180,194],[342,72],[419,234],[297,288]]",
+     "hint": "No.5"
+    },
+    {
+     "id": "0-4-12-8-3",
+     "label": "No.6 おみせまで",
+     "val": "5くかん",
+     "fig": "route:[[45,234],[59,81],[180,194],[342,72],[212,59],[59,81]]",
+     "hint": "No.6"
+    },
+    {
+     "id": "0-4-12-9-10",
+     "label": "No.7 えきまで",
+     "val": "5くかん",
+     "fig": "route:[[45,234],[59,81],[180,194],[342,72],[441,81],[419,234]]",
+     "hint": "No.7"
+    },
+    {
+     "id": "1-12-13-10-9",
+     "label": "No.8 がっこうまで",
+     "val": "5くかん",
+     "fig": "route:[[45,234],[180,194],[342,72],[419,234],[441,81],[342,72]]",
+     "hint": "No.8"
+    },
+    {
+     "id": "1-12-13-11-6",
+     "label": "No.9 こうえんまで",
+     "val": "5くかん",
+     "fig": "route:[[45,234],[180,194],[342,72],[419,234],[297,288],[180,194]]",
+     "hint": "No.9"
+    },
+    {
+     "id": "1-12-13-11-7",
+     "label": "No.10 ゆうびんきょくまで",
+     "val": "5くかん",
+     "fig": "route:[[45,234],[180,194],[342,72],[419,234],[297,288],[149,324]]",
+     "hint": "No.10"
+    },
+    {
+     "id": "1-12-8-3-4",
+     "label": "No.11 こうえんまで",
+     "val": "5くかん",
+     "fig": "route:[[45,234],[180,194],[342,72],[212,59],[59,81],[180,194]]",
+     "hint": "No.11"
+    },
+    {
+     "id": "1-12-9-10-13",
+     "label": "No.12 がっこうまで",
+     "val": "5くかん",
+     "fig": "route:[[45,234],[180,194],[342,72],[441,81],[419,234],[342,72]]",
+     "hint": "No.12"
+    },
+    {
+     "id": "1-4-3-5-12",
+     "label": "No.13 がっこうまで",
+     "val": "5くかん",
+     "fig": "route:[[45,234],[180,194],[59,81],[212,59],[180,194],[342,72]]",
+     "hint": "No.13"
+    },
+    {
+     "id": "1-4-3-8-12",
+     "label": "No.14 こうえんまで",
+     "val": "5くかん",
+     "fig": "route:[[45,234],[180,194],[59,81],[212,59],[342,72],[180,194]]",
+     "hint": "No.14"
+    },
+    {
+     "id": "1-5-3-4-12",
+     "label": "No.15 がっこうまで",
+     "val": "5くかん",
+     "fig": "route:[[45,234],[180,194],[212,59],[59,81],[180,194],[342,72]]",
+     "hint": "No.15"
+    },
+    {
+     "id": "1-6-11-13-12",
+     "label": "No.16 こうえんまで",
+     "val": "5くかん",
+     "fig": "route:[[45,234],[180,194],[297,288],[419,234],[342,72],[180,194]]",
+     "hint": "No.16"
+    },
+    {
+     "id": "2-7-6-12-13",
+     "label": "No.17 えきまで",
+     "val": "5くかん",
+     "fig": "route:[[45,234],[149,324],[297,288],[180,194],[342,72],[419,234]]",
+     "hint": "No.17"
+    },
+    {
+     "id": "1-5-8-9-10-11",
+     "label": "No.18 じんじゃまで",
+     "val": "6くかん",
+     "fig": "route:[[45,234],[180,194],[212,59],[342,72],[441,81],[419,234],[297,288]]",
+     "hint": "No.18"
+    },
+    {
+     "id": "2-7-11-10-9-8",
+     "label": "No.19 としょかんまで",
+     "val": "6くかん",
+     "fig": "route:[[45,234],[149,324],[297,288],[419,234],[441,81],[342,72],[212,59]]",
+     "hint": "No.19"
+    },
+    {
+     "id": "2-7-11-13-8-5",
+     "label": "No.20 こうえんまで",
+     "val": "6くかん",
+     "fig": "route:[[45,234],[149,324],[297,288],[419,234],[342,72],[212,59],[180,194]]",
+     "hint": "No.20"
+    },
+    {
+     "id": "2-7-6-5-8-9",
+     "label": "No.21 プールまで",
+     "val": "6くかん",
+     "fig": "route:[[45,234],[149,324],[297,288],[180,194],[212,59],[342,72],[441,81]]",
+     "hint": "No.21"
+    }
+   ],
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "goLabel": "「1km さんぽ」で さがそう"
+  }
+ ],
+ "mission": [
+  {
+   "key": "walk",
+   "label": "1km さんぽの みちを つくる",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "n3-1000",
+   "q": "1kmは なんm？",
+   "ch": [
+    "1000m",
+    "100m",
+    "10m"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n3-1030",
+   "q": "1km 30mは なんm？",
+   "ch": [
+    "1030m",
+    "130m",
+    "1300m"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n3-2500",
+   "q": "2500mは？",
+   "ch": [
+    "2km 500m",
+    "25km",
+    "2km 50m"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n3-sub",
+   "q": "1km 30m − 50m は？",
+   "ch": [
+    "980m",
+    "1km 20m"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n3-route",
+   "q": "みちに そって はかった ながさを なんと いう？",
+   "ch": [
+    "みちのり",
+    "きょり"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n3-dist",
+   "q": "まっすぐ はかった ながさを なんと いう？",
+   "ch": [
+    "きょり",
+    "みちのり"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n3-tree",
+   "q": "きの みきの まわりを はかるには？",
+   "ch": [
+    "まきじゃく",
+    "30cmものさし"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n3-zero",
+   "q": "まきじゃくの 0は どこ？",
+   "ch": [
+    "かなぐの はし",
+    "1の めもり"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n3-100",
+   "q": "1kmは 100mが いくつ？",
+   "ch": [
+    "10こ",
+    "100こ"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n3-which",
+   "q": "みちのりと きょり、ながいのは ふつう どっち？",
+   "ch": [
+    "みちのり",
+    "きょり"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n3-pool",
+   "q": "25mの プール 4つぶんは？",
+   "ch": [
+    "100m",
+    "1km"
+   ],
+   "a": 0,
+   "reviewed": false
+  }
+ ],
+ "insights": [
+  {
+   "key": "n3-km",
+   "type": "L5",
+   "title": "1km＝1000m の換算でつまずいている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "n3.convert",
+     "detail.mistake": "L5"
+    },
+    "min": 2
+   },
+   "obs": "kmとmの問題で、1km＝1000mを使わずに数字をつなげたり、単位をそろえずに計算したりする間違いが{n}回ありました（例：1km30mを130m）。",
+   "body": "1kmは100mの10こ分、1000mです。kmとmが混ざった長さは、mにそろえてから計算するとまちがいが減ります。",
+   "home": "近所の1kmを一緒に歩いて、かかった時間や歩数を数えてみてください。「1kmは こんなに 長い」という実感が助けになります。",
+   "tag": "3年の内容"
+  },
+  {
+   "key": "n3-curve",
+   "type": "L6",
+   "title": "曲がった物の長さの測り方",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "n3.tool",
+     "detail.mistake": "L6"
+    },
+    "min": 1
+   },
+   "obs": "木の幹のまわりなど曲がった所を、まっすぐのものさしで測ろうとする選び方が{n}回ありました。",
+   "body": "曲がった物の長さは、まきじゃくを沿わせて測ります。まっすぐにのばすと、まわりの長さが直線の長さになることも見ておくと分かりやすくなります。",
+   "home": "まきじゃくやひもで、頭のまわりやびんのまわりを測ってみてください。",
+   "tag": "3年の内容"
+  },
+  {
+   "key": "n3-zero",
+   "type": "L7",
+   "title": "まきじゃくの0の位置を取り違えている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "n3.tool",
+     "detail.mistake": "L7"
+    },
+    "min": 1
+   },
+   "obs": "まきじゃくの0の位置（先の金具の端）を取り違える答えが{n}回ありました。",
+   "body": "道具によって目もりのつくりが違います。まきじゃくは先の金具も長さに含まれ、金具の端が0です。",
+   "home": "家にまきじゃくがあれば、先の金具を一緒に見て「0は どこかな」と確かめてみてください。",
+   "tag": "3年の内容"
+  },
+  {
+   "key": "n3-route",
+   "type": "route",
+   "title": "道のりときょりを混同している",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "n3.route",
+     "detail.mistake": "route"
+    },
+    "min": 2
+   },
+   "obs": "地図の問題で、道のり（道に沿った長さ）ときょり（まっすぐの長さ）を取り違える間違いが{n}回ありました。",
+   "body": "道のりは道に沿って区間の長さを足したもの、きょりは2つの地点をまっすぐ結んだ長さです。ふつう、道のりのほうが長くなります。",
+   "home": "地図アプリや紙の地図で、家から学校までの道のりと、まっすぐの長さを比べてみてください。",
+   "tag": "3年の内容"
+  },
+  {
+   "key": "n3-est",
+   "type": "est",
+   "title": "長い長さの見当が大きくずれる",
+   "reviewed": false,
+   "test": {
+    "type": "estErr",
+    "where": {
+     "kind": "n3.estimate"
+    },
+    "minN": 3,
+    "gte": 30
+   },
+   "obs": "長い長さ（10m・100m）の見当と実際のずれが、平均で{err}％ありました（{n}回）。",
+   "body": "25mのプールや教室の横の長さなど、知っている長さを基準にすると見当がつけやすくなります。",
+   "home": "散歩のときに「電柱から電柱まで何mくらい？」と見当を言い合ってみてください。",
+   "tag": "3年の内容"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "distinct",
+    "where": {
+     "kind": "n3.make",
+     "correct": true
+    },
+    "field": "detail.key",
+    "min": 2
+   },
+   "text": "「1km さんぽ」で、ちょうど1kmになる道を{u}通り見つけました。"
+  },
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "n3.route"
+    },
+    "min": 3
+   },
+   "text": "道のりときょりの問題で、ヒントなしで{best}問続けて正解しました。"
+  },
+  {
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "n3.maki"
+    },
+    "min": 2
+   },
+   "text": "まきじゃくを引き出したり、木のまわりに巻いたりして{n}回測りました。"
+  }
+ ],
+ "map": [
+  {
+   "school": "3年 C(1)ア(ア) 長さの単位 km（1km＝1000m）",
+   "activity": "1kmの ながさ・km と m",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "n3.convert"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "n3.km"
+     },
+     {
+      "kind": "n3.convert"
+     }
+    ]
+   }
+  },
+  {
+   "school": "3年 C(1)ア(イ) 見当を付け、計器（まきじゃく・ものさし）を選んで測定する",
+   "activity": "まきじゃく・どうぐえらび・みとおし",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "n3.tool"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "n3.maki"
+     },
+     {
+      "kind": "n3.tool"
+     },
+     {
+      "kind": "n3.estimate"
+     }
+    ]
+   }
+  },
+  {
+   "school": "3年 C(1) 道のりときょり",
+   "activity": "ちずの みち・みちのりと きょり・1km さんぽ",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "n3.route"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "n3.map"
+     },
+     {
+      "kind": "n3.route"
+     },
+     {
+      "kind": "n3.make"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "n3.miru": "地図の上で道のりときょりの違いと、1km＝100mの10こ分を見ました",
+  "n3.maki": "まきじゃくを使いました（{kind}）",
+  "n3.map": "地図で道を選んで道のりを足しました（{len}m）",
+  "n3.km": "1m→10m→100m→1km と10倍ずつ長さを大きくしました",
+  "n3.route": [
+   {
+    "where": {
+     "detail.type": "cmp"
+    },
+    "text": "道のりが短いのはどちら：{ok}{hints}"
+   },
+   {
+    "where": {
+     "detail.type": "dist"
+    },
+    "text": "きょりを答える：{ok}{hints}"
+   },
+   {
+    "where": {},
+    "text": "道のりを答える：{ok}{hints}"
+   }
+  ],
+  "n3.route-done": "道のりときょりの問題（{level}）{n}問中{score}問正解",
+  "n3.convert": "kmとmの問題：{ok}{hints}",
+  "n3.convert-done": "kmとm（{level}）{n}問中{score}問正解",
+  "n3.tool": [
+   {
+    "where": {
+     "detail.type": "zero"
+    },
+    "text": "まきじゃくの0の位置：{ok}{hints}"
+   },
+   {
+    "where": {},
+    "text": "測る道具を選ぶ：{ok}{hints}"
+   }
+  ],
+  "n3.tool-done": "道具えらび（{level}）{n}問中{score}問正解",
+  "n3.estimate": "見当（{q}）：見当{guess}{unit} → 実際{actual}{unit}",
+  "n3.estimate-done": "長い長さの見当（{level}）{n}問中{score}問が近かった",
+  "n3.walk-step": "1km さんぽの道を1区間すすめました（{len}m）",
+  "n3.make": "地図の上で、ちょうど1kmの道を作りました",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 16.5,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 0,
+   "h": 16.6,
+   "kind": "maki",
+   "detail": {
+    "kind": "tree",
+    "cm": 94
+   },
+   "stage": "sawaru"
+  },
+  {
+   "d": 0,
+   "h": 16.65,
+   "kind": "maki",
+   "detail": {
+    "kind": "pull",
+    "cm": 100
+   }
+  },
+  {
+   "d": 0,
+   "h": 16.7,
+   "kind": "map",
+   "detail": {
+    "nodes": "HPS",
+    "len": 450
+   }
+  },
+  {
+   "d": 1,
+   "h": 17,
+   "kind": "route",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "route",
+    "L": 450,
+    "D": 340,
+    "mistake": "route",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 1,
+   "h": 17.1,
+   "kind": "route",
+   "correct": true,
+   "hints": 1,
+   "level": "normal",
+   "detail": {
+    "type": "dist",
+    "L": 400,
+    "D": 250,
+    "mistake": "route",
+    "miss": 1
+   }
+  },
+  {
+   "d": 2,
+   "h": 17,
+   "kind": "convert",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "kconv",
+    "kind": "toM",
+    "total": 1030,
+    "mistake": "L5",
+    "miss": 2
+   }
+  },
+  {
+   "d": 2,
+   "h": 17.1,
+   "kind": "convert",
+   "correct": true,
+   "hints": 1,
+   "level": "challenge",
+   "detail": {
+    "type": "kconv",
+    "kind": "sub",
+    "total": 1030,
+    "mistake": "L5",
+    "miss": 1
+   }
+  },
+  {
+   "d": 2,
+   "h": 17.2,
+   "kind": "tool",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "tool",
+    "scene": "tree",
+    "mistake": "L6",
+    "miss": 2
+   }
+  },
+  {
+   "d": 2,
+   "h": 17.3,
+   "kind": "tool",
+   "correct": true,
+   "hints": 1,
+   "level": "normal",
+   "detail": {
+    "type": "zero",
+    "mistake": "L7",
+    "miss": 1
+   }
+  },
+  {
+   "d": 3,
+   "h": 17,
+   "kind": "estimate",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "q": "プールの たての ながさは なんmくらい？",
+    "guess": 50,
+    "actual": 25,
+    "unit": "m",
+    "qty": "length"
+   }
+  },
+  {
+   "d": 3,
+   "h": 17.1,
+   "kind": "estimate",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "q": "きょうしつの よこは なんmくらい？",
+    "guess": 9,
+    "actual": 8,
+    "unit": "m",
+    "qty": "length"
+   }
+  },
+  {
+   "d": 3,
+   "h": 17.2,
+   "kind": "estimate",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "q": "1kmの みちは なんmくらい？",
+    "guess": 500,
+    "actual": 1000,
+    "unit": "m",
+    "qty": "length"
+   }
+  },
+  {
+   "d": 4,
+   "h": 18,
+   "kind": "make",
+   "correct": true,
+   "detail": {
+    "key": "0-3-5-12-13",
+    "nodes": "HMLPSE",
+    "isNew": true
+   },
+   "stage": "tsukuru"
+  },
+  {
+   "d": 4,
+   "h": 18.3,
+   "kind": "make",
+   "correct": true,
+   "detail": {
+    "key": "0-3-8-12-6",
+    "nodes": "",
+    "isNew": true
+   }
+  }
+ ],
+ "demoZukan": {
+  "walk": [
+   "0-3-5-12-13",
+   "0-3-8-12-6"
+  ]
+ }
+}

@@ -1,0 +1,651 @@
+{
+ "note": "N2m「1m を つくる」：基準物 8種を 同じ物は3つまで使って ちょうど 1000mm になる組。tools/hakaru-nagasa.mjs が計算（凍結値）",
+ "items": [
+  "desk",
+  "ruler30",
+  "notebook",
+  "tissue",
+  "pencil",
+  "hagaki-w",
+  "eraser",
+  "clip"
+ ],
+ "max": 3,
+ "total_mm": 1000,
+ "count": 57,
+ "combos": [
+  {
+   "no": 1,
+   "key": "pencil*3+hagaki-w*3+eraser*2+clip*2",
+   "cnt": {
+    "pencil": 3,
+    "hagaki-w": 3,
+    "eraser": 2,
+    "clip": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 2,
+   "key": "tissue*1+pencil*2+hagaki-w*3+eraser*2",
+   "cnt": {
+    "tissue": 1,
+    "pencil": 2,
+    "hagaki-w": 3,
+    "eraser": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 3,
+   "key": "tissue*2+pencil*1+hagaki-w*1+eraser*3+clip*3",
+   "cnt": {
+    "tissue": 2,
+    "pencil": 1,
+    "hagaki-w": 1,
+    "eraser": 3,
+    "clip": 3
+   },
+   "sum": 1000
+  },
+  {
+   "no": 4,
+   "key": "tissue*2+pencil*1+hagaki-w*2+eraser*1+clip*3",
+   "cnt": {
+    "tissue": 2,
+    "pencil": 1,
+    "hagaki-w": 2,
+    "eraser": 1,
+    "clip": 3
+   },
+   "sum": 1000
+  },
+  {
+   "no": 5,
+   "key": "tissue*2+pencil*2+eraser*2+clip*2",
+   "cnt": {
+    "tissue": 2,
+    "pencil": 2,
+    "eraser": 2,
+    "clip": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 6,
+   "key": "tissue*2+pencil*2+hagaki-w*1+clip*2",
+   "cnt": {
+    "tissue": 2,
+    "pencil": 2,
+    "hagaki-w": 1,
+    "clip": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 7,
+   "key": "tissue*3+hagaki-w*1+eraser*3+clip*1",
+   "cnt": {
+    "tissue": 3,
+    "hagaki-w": 1,
+    "eraser": 3,
+    "clip": 1
+   },
+   "sum": 1000
+  },
+  {
+   "no": 8,
+   "key": "tissue*3+hagaki-w*2+eraser*1+clip*1",
+   "cnt": {
+    "tissue": 3,
+    "hagaki-w": 2,
+    "eraser": 1,
+    "clip": 1
+   },
+   "sum": 1000
+  },
+  {
+   "no": 9,
+   "key": "tissue*3+pencil*1+eraser*2",
+   "cnt": {
+    "tissue": 3,
+    "pencil": 1,
+    "eraser": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 10,
+   "key": "tissue*3+pencil*1+hagaki-w*1",
+   "cnt": {
+    "tissue": 3,
+    "pencil": 1,
+    "hagaki-w": 1
+   },
+   "sum": 1000
+  },
+  {
+   "no": 11,
+   "key": "notebook*1+pencil*2+hagaki-w*2+eraser*2+clip*3",
+   "cnt": {
+    "notebook": 1,
+    "pencil": 2,
+    "hagaki-w": 2,
+    "eraser": 2,
+    "clip": 3
+   },
+   "sum": 1000
+  },
+  {
+   "no": 12,
+   "key": "notebook*1+pencil*2+hagaki-w*3+clip*3",
+   "cnt": {
+    "notebook": 1,
+    "pencil": 2,
+    "hagaki-w": 3,
+    "clip": 3
+   },
+   "sum": 1000
+  },
+  {
+   "no": 13,
+   "key": "notebook*1+pencil*3+eraser*3+clip*2",
+   "cnt": {
+    "notebook": 1,
+    "pencil": 3,
+    "eraser": 3,
+    "clip": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 14,
+   "key": "notebook*1+pencil*3+hagaki-w*1+eraser*1+clip*2",
+   "cnt": {
+    "notebook": 1,
+    "pencil": 3,
+    "hagaki-w": 1,
+    "eraser": 1,
+    "clip": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 15,
+   "key": "notebook*1+tissue*1+hagaki-w*3+eraser*3+clip*2",
+   "cnt": {
+    "notebook": 1,
+    "tissue": 1,
+    "hagaki-w": 3,
+    "eraser": 3,
+    "clip": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 16,
+   "key": "notebook*1+tissue*1+pencil*1+hagaki-w*2+eraser*2+clip*1",
+   "cnt": {
+    "notebook": 1,
+    "tissue": 1,
+    "pencil": 1,
+    "hagaki-w": 2,
+    "eraser": 2,
+    "clip": 1
+   },
+   "sum": 1000
+  },
+  {
+   "no": 17,
+   "key": "notebook*1+tissue*1+pencil*1+hagaki-w*3+clip*1",
+   "cnt": {
+    "notebook": 1,
+    "tissue": 1,
+    "pencil": 1,
+    "hagaki-w": 3,
+    "clip": 1
+   },
+   "sum": 1000
+  },
+  {
+   "no": 18,
+   "key": "notebook*1+tissue*1+pencil*2+eraser*3",
+   "cnt": {
+    "notebook": 1,
+    "tissue": 1,
+    "pencil": 2,
+    "eraser": 3
+   },
+   "sum": 1000
+  },
+  {
+   "no": 19,
+   "key": "notebook*1+tissue*1+pencil*2+hagaki-w*1+eraser*1",
+   "cnt": {
+    "notebook": 1,
+    "tissue": 1,
+    "pencil": 2,
+    "hagaki-w": 1,
+    "eraser": 1
+   },
+   "sum": 1000
+  },
+  {
+   "no": 20,
+   "key": "notebook*1+tissue*2+pencil*1+clip*3",
+   "cnt": {
+    "notebook": 1,
+    "tissue": 2,
+    "pencil": 1,
+    "clip": 3
+   },
+   "sum": 1000
+  },
+  {
+   "no": 21,
+   "key": "notebook*1+tissue*3+clip*1",
+   "cnt": {
+    "notebook": 1,
+    "tissue": 3,
+    "clip": 1
+   },
+   "sum": 1000
+  },
+  {
+   "no": 22,
+   "key": "notebook*2+pencil*2+eraser*1+clip*3",
+   "cnt": {
+    "notebook": 2,
+    "pencil": 2,
+    "eraser": 1,
+    "clip": 3
+   },
+   "sum": 1000
+  },
+  {
+   "no": 23,
+   "key": "notebook*2+tissue*1+hagaki-w*1+eraser*2+clip*2",
+   "cnt": {
+    "notebook": 2,
+    "tissue": 1,
+    "hagaki-w": 1,
+    "eraser": 2,
+    "clip": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 24,
+   "key": "notebook*2+tissue*1+hagaki-w*2+clip*2",
+   "cnt": {
+    "notebook": 2,
+    "tissue": 1,
+    "hagaki-w": 2,
+    "clip": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 25,
+   "key": "notebook*2+tissue*1+pencil*1+eraser*1+clip*1",
+   "cnt": {
+    "notebook": 2,
+    "tissue": 1,
+    "pencil": 1,
+    "eraser": 1,
+    "clip": 1
+   },
+   "sum": 1000
+  },
+  {
+   "no": 26,
+   "key": "notebook*3+hagaki-w*1+eraser*3",
+   "cnt": {
+    "notebook": 3,
+    "hagaki-w": 1,
+    "eraser": 3
+   },
+   "sum": 1000
+  },
+  {
+   "no": 27,
+   "key": "notebook*3+hagaki-w*2+eraser*1",
+   "cnt": {
+    "notebook": 3,
+    "hagaki-w": 2,
+    "eraser": 1
+   },
+   "sum": 1000
+  },
+  {
+   "no": 28,
+   "key": "ruler30*1+pencil*2+hagaki-w*1+eraser*3+clip*3",
+   "cnt": {
+    "ruler30": 1,
+    "pencil": 2,
+    "hagaki-w": 1,
+    "eraser": 3,
+    "clip": 3
+   },
+   "sum": 1000
+  },
+  {
+   "no": 29,
+   "key": "ruler30*1+pencil*2+hagaki-w*2+eraser*1+clip*3",
+   "cnt": {
+    "ruler30": 1,
+    "pencil": 2,
+    "hagaki-w": 2,
+    "eraser": 1,
+    "clip": 3
+   },
+   "sum": 1000
+  },
+  {
+   "no": 30,
+   "key": "ruler30*1+pencil*3+eraser*2+clip*2",
+   "cnt": {
+    "ruler30": 1,
+    "pencil": 3,
+    "eraser": 2,
+    "clip": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 31,
+   "key": "ruler30*1+pencil*3+hagaki-w*1+clip*2",
+   "cnt": {
+    "ruler30": 1,
+    "pencil": 3,
+    "hagaki-w": 1,
+    "clip": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 32,
+   "key": "ruler30*1+tissue*1+hagaki-w*3+eraser*2+clip*2",
+   "cnt": {
+    "ruler30": 1,
+    "tissue": 1,
+    "hagaki-w": 3,
+    "eraser": 2,
+    "clip": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 33,
+   "key": "ruler30*1+tissue*1+pencil*1+hagaki-w*1+eraser*3+clip*1",
+   "cnt": {
+    "ruler30": 1,
+    "tissue": 1,
+    "pencil": 1,
+    "hagaki-w": 1,
+    "eraser": 3,
+    "clip": 1
+   },
+   "sum": 1000
+  },
+  {
+   "no": 34,
+   "key": "ruler30*1+tissue*1+pencil*1+hagaki-w*2+eraser*1+clip*1",
+   "cnt": {
+    "ruler30": 1,
+    "tissue": 1,
+    "pencil": 1,
+    "hagaki-w": 2,
+    "eraser": 1,
+    "clip": 1
+   },
+   "sum": 1000
+  },
+  {
+   "no": 35,
+   "key": "ruler30*1+tissue*1+pencil*2+eraser*2",
+   "cnt": {
+    "ruler30": 1,
+    "tissue": 1,
+    "pencil": 2,
+    "eraser": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 36,
+   "key": "ruler30*1+tissue*1+pencil*2+hagaki-w*1",
+   "cnt": {
+    "ruler30": 1,
+    "tissue": 1,
+    "pencil": 2,
+    "hagaki-w": 1
+   },
+   "sum": 1000
+  },
+  {
+   "no": 37,
+   "key": "ruler30*1+notebook*1+hagaki-w*3+eraser*3",
+   "cnt": {
+    "ruler30": 1,
+    "notebook": 1,
+    "hagaki-w": 3,
+    "eraser": 3
+   },
+   "sum": 1000
+  },
+  {
+   "no": 38,
+   "key": "ruler30*1+notebook*1+pencil*2+clip*3",
+   "cnt": {
+    "ruler30": 1,
+    "notebook": 1,
+    "pencil": 2,
+    "clip": 3
+   },
+   "sum": 1000
+  },
+  {
+   "no": 39,
+   "key": "ruler30*1+notebook*1+tissue*1+eraser*3+clip*2",
+   "cnt": {
+    "ruler30": 1,
+    "notebook": 1,
+    "tissue": 1,
+    "eraser": 3,
+    "clip": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 40,
+   "key": "ruler30*1+notebook*1+tissue*1+hagaki-w*1+eraser*1+clip*2",
+   "cnt": {
+    "ruler30": 1,
+    "notebook": 1,
+    "tissue": 1,
+    "hagaki-w": 1,
+    "eraser": 1,
+    "clip": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 41,
+   "key": "ruler30*1+notebook*1+tissue*1+pencil*1+clip*1",
+   "cnt": {
+    "ruler30": 1,
+    "notebook": 1,
+    "tissue": 1,
+    "pencil": 1,
+    "clip": 1
+   },
+   "sum": 1000
+  },
+  {
+   "no": 42,
+   "key": "ruler30*1+notebook*2+hagaki-w*1+eraser*2",
+   "cnt": {
+    "ruler30": 1,
+    "notebook": 2,
+    "hagaki-w": 1,
+    "eraser": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 43,
+   "key": "ruler30*1+notebook*2+hagaki-w*2",
+   "cnt": {
+    "ruler30": 1,
+    "notebook": 2,
+    "hagaki-w": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 44,
+   "key": "ruler30*2+hagaki-w*3+eraser*2",
+   "cnt": {
+    "ruler30": 2,
+    "hagaki-w": 3,
+    "eraser": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 45,
+   "key": "ruler30*2+tissue*1+eraser*2+clip*2",
+   "cnt": {
+    "ruler30": 2,
+    "tissue": 1,
+    "eraser": 2,
+    "clip": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 46,
+   "key": "ruler30*2+tissue*1+hagaki-w*1+clip*2",
+   "cnt": {
+    "ruler30": 2,
+    "tissue": 1,
+    "hagaki-w": 1,
+    "clip": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 47,
+   "key": "ruler30*2+notebook*1+eraser*3",
+   "cnt": {
+    "ruler30": 2,
+    "notebook": 1,
+    "eraser": 3
+   },
+   "sum": 1000
+  },
+  {
+   "no": 48,
+   "key": "ruler30*2+notebook*1+hagaki-w*1+eraser*1",
+   "cnt": {
+    "ruler30": 2,
+    "notebook": 1,
+    "hagaki-w": 1,
+    "eraser": 1
+   },
+   "sum": 1000
+  },
+  {
+   "no": 49,
+   "key": "ruler30*3+eraser*2",
+   "cnt": {
+    "ruler30": 3,
+    "eraser": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 50,
+   "key": "ruler30*3+hagaki-w*1",
+   "cnt": {
+    "ruler30": 3,
+    "hagaki-w": 1
+   },
+   "sum": 1000
+  },
+  {
+   "no": 51,
+   "key": "desk*1+hagaki-w*3+eraser*2",
+   "cnt": {
+    "desk": 1,
+    "hagaki-w": 3,
+    "eraser": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 52,
+   "key": "desk*1+tissue*1+eraser*2+clip*2",
+   "cnt": {
+    "desk": 1,
+    "tissue": 1,
+    "eraser": 2,
+    "clip": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 53,
+   "key": "desk*1+tissue*1+hagaki-w*1+clip*2",
+   "cnt": {
+    "desk": 1,
+    "tissue": 1,
+    "hagaki-w": 1,
+    "clip": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 54,
+   "key": "desk*1+notebook*1+eraser*3",
+   "cnt": {
+    "desk": 1,
+    "notebook": 1,
+    "eraser": 3
+   },
+   "sum": 1000
+  },
+  {
+   "no": 55,
+   "key": "desk*1+notebook*1+hagaki-w*1+eraser*1",
+   "cnt": {
+    "desk": 1,
+    "notebook": 1,
+    "hagaki-w": 1,
+    "eraser": 1
+   },
+   "sum": 1000
+  },
+  {
+   "no": 56,
+   "key": "desk*1+ruler30*1+eraser*2",
+   "cnt": {
+    "desk": 1,
+    "ruler30": 1,
+    "eraser": 2
+   },
+   "sum": 1000
+  },
+  {
+   "no": 57,
+   "key": "desk*1+ruler30*1+hagaki-w*1",
+   "cnt": {
+    "desk": 1,
+    "ruler30": 1,
+    "hagaki-w": 1
+   },
+   "sum": 1000
+  }
+ ]
+}

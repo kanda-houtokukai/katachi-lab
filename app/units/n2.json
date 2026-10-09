@@ -1,0 +1,775 @@
+{
+ "note": "2年「長さのたんい」（cm・mm）。設計書 hakaru-design.md §3 N2。ものさしの目もりは実寸（がめんの ながさ あわせ の値）で描き、合わせていない端末では「じっすんでは ない」の札を出す。文面はすべて下書き（reviewed:false）。",
+ "school": "2年 C(1) 長さの単位（cm・mm）と測定",
+ "tabs": {
+  "miru": [
+   {
+    "part": "monosashi",
+    "label": "みる",
+    "opts": {
+     "mode": "miru"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "monosashi",
+    "label": "じっすん ものさし",
+    "opts": {
+     "mode": "ruler"
+    }
+   },
+   {
+    "part": "monosashi",
+    "label": "0から はかる",
+    "opts": {
+     "mode": "zero"
+    }
+   },
+   {
+    "part": "karada",
+    "label": "からだものさし",
+    "opts": {
+     "mode": "hand"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "nagasa-quiz",
+    "label": "めもりを よむ",
+    "opts": {
+     "type": "read"
+    }
+   },
+   {
+    "part": "nagasa-quiz",
+    "label": "どちらが ながい",
+    "opts": {
+     "type": "cmp"
+    }
+   },
+   {
+    "part": "monosashi",
+    "label": "みとおし",
+    "opts": {
+     "mode": "estimate"
+    }
+   },
+   {
+    "part": "nagasa-quiz",
+    "label": "けいさん",
+    "opts": {
+     "type": "calc"
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "monosashi",
+    "label": "ちょくせんを ひく",
+    "opts": {
+     "mode": "draw"
+    }
+   },
+   {
+    "part": "monosashi",
+    "label": "10cm さがし",
+    "opts": {
+     "mode": "find10"
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "mono",
+   "kind": "list",
+   "label": "はかった もの",
+   "title": "はかった もの（cm・mm）",
+   "items": [
+    {
+     "id": "coin1",
+     "label": "1えんだま",
+     "val": "2cm",
+     "fig": "ruler:20",
+     "hint": "じっすん ものさしで"
+    },
+    {
+     "id": "clip",
+     "label": "クリップ",
+     "val": "やく 3cm",
+     "fig": "ruler:30",
+     "hint": "じっすん ものさしで"
+    },
+    {
+     "id": "eraser",
+     "label": "けしごむ",
+     "val": "やく 5cm",
+     "fig": "ruler:50",
+     "hint": "じっすん ものさしで"
+    },
+    {
+     "id": "card",
+     "label": "カード",
+     "val": "8cm 6mm",
+     "fig": "ruler:86",
+     "hint": "じっすん ものさしで"
+    },
+    {
+     "id": "hagaki-w",
+     "label": "はがき よこ",
+     "val": "10cm",
+     "fig": "ruler:100",
+     "hint": "じっすん ものさしで"
+    },
+    {
+     "id": "hagaki",
+     "label": "はがき たて",
+     "val": "14cm 8mm",
+     "fig": "ruler:148",
+     "hint": "じっすん ものさしで"
+    },
+    {
+     "id": "pencil",
+     "label": "えんぴつ",
+     "val": "やく 18cm",
+     "fig": "ruler:180",
+     "hint": "じっすん ものさしで"
+    }
+   ],
+   "go": {
+    "mode": "sawaru",
+    "act": 0
+   },
+   "goLabel": "「じっすん ものさし」で はかろう"
+  },
+  {
+   "id": "karada",
+   "kind": "log",
+   "label": "からだものさし",
+   "title": "からだものさしの きろく",
+   "fmt": "{1}　{2}",
+   "fig": "ruler:{3}",
+   "note": "「からだものさし」で きろくすると、ここに のこるよ",
+   "go": {
+    "mode": "sawaru",
+    "act": 2
+   },
+   "goLabel": "「からだものさし」で はかる"
+  },
+  {
+   "id": "mine",
+   "kind": "log",
+   "label": "ほんものの ながさ",
+   "title": "ほんものを はかった きろく",
+   "fmt": "{1}",
+   "fig": "ruler:{2}",
+   "note": "「じっすん ものさし」の「ほんもの」や「10cm さがし」で はかると、ここに のこるよ",
+   "go": {
+    "mode": "tsukuru",
+    "act": 1
+   },
+   "goLabel": "「10cm さがし」を する"
+  }
+ ],
+ "mission": [
+  {
+   "key": "draw",
+   "label": "ものさしで ちょくせんを ひく",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  },
+  {
+   "key": "find10",
+   "label": "10cmに ちかい ものを さがす",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 1
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "n2-zero",
+   "q": "ものさしで はかる とき、ものの はしを あわせるのは？",
+   "ch": [
+    "0の めもり",
+    "1の めもり"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "ruler:40"
+  },
+  {
+   "id": "n2-1to5",
+   "q": "テープの はしが 1、もう いっぽうの はしが 5。ながさは？",
+   "ch": [
+    "4cm",
+    "5cm"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n2-mm",
+   "q": "1cmは なんmm？",
+   "ch": [
+    "10mm",
+    "100mm",
+    "1mm"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n2-cmp",
+   "q": "ながいのは どっち？",
+   "ch": [
+    "2cm",
+    "9mm"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n2-35",
+   "q": "3cm 5mmは なんmm？",
+   "ch": [
+    "35mm",
+    "8mm",
+    "305mm"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "ruler:35"
+  },
+  {
+   "id": "n2-48",
+   "q": "48mmは なんcm なんmm？",
+   "ch": [
+    "4cm 8mm",
+    "48cm",
+    "8cm 4mm"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "ruler:48"
+  },
+  {
+   "id": "n2-add",
+   "q": "6cm 4mm ＋ 3cm は？",
+   "ch": [
+    "9cm 4mm",
+    "6cm 7mm"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n2-sub",
+   "q": "5cm − 2cm 3mm は？",
+   "ch": [
+    "2cm 7mm",
+    "3cm 3mm"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n2-ten",
+   "q": "10cmに いちばん ちかいのは？",
+   "ch": [
+    "はがきの よこ",
+    "クリップ",
+    "ノートの たて"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n2-finger",
+   "q": "ゆび 1ぽんの はばは だいたい？",
+   "ch": [
+    "1cm",
+    "10cm"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n2-line",
+   "q": "8cmの ちょくせんを ひく とき、はじめに えんぴつを おくのは？",
+   "ch": [
+    "0の めもり",
+    "1の めもり"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "n2-broken",
+   "q": "はしが かけた ものさしで、3から 7まで。ながさは？",
+   "ch": [
+    "4cm",
+    "7cm"
+   ],
+   "a": 0,
+   "reviewed": false
+  }
+ ],
+ "insights": [
+  {
+   "key": "n2-zero",
+   "type": "L1",
+   "title": "ものさしの0を基準にしていない",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "n2.read",
+      "n2.draw"
+     ],
+     "detail.mistake": "L1"
+    },
+    "min": 2
+   },
+   "obs": "ものさしの問題で、端が0にないときの読み違い（右の端の目もりをそのまま読む・1から数える）が{n}回ありました。",
+   "body": "長さは「0から」測るか、「1cmのいくつ分」として数えます。目もりの数字をそのまま読む段階で、0を基準にする考えがまだ育っていません。端の欠けたものさしでも、1cmがいくつあるかを数えれば測れます。",
+   "home": "家のものさしで測るときに「0は どこ？」と一緒に確かめ、ときどき3から測って「1cmが いくつ？」と数えてみてください。",
+   "tag": "2年の内容"
+  },
+  {
+   "key": "n2-unit",
+   "type": "L4",
+   "title": "cmとmmを数字だけで比べている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "n2.compare",
+      "n2.calc"
+     ],
+     "detail.mistake": "L4"
+    },
+    "min": 2
+   },
+   "obs": "長さを比べたり計算したりする問題で、cmとmmの単位をそろえずに数字だけで扱う間違いが{n}回ありました。",
+   "body": "「2cmと9mmなら9mmが大きい」のように、単位を見ずに数字で比べる段階です。1cm＝10mmを使って、単位をそろえてから比べたり計算したりします。",
+   "home": "ものさしで「1cmの なかに 1mmが いくつ？」と数えてみると、10mmで1cmになることが実感できます。",
+   "tag": "2年の内容"
+  },
+  {
+   "key": "n2-mm",
+   "type": "mm",
+   "title": "mmの目もりを数え違えている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "n2.read",
+     "detail.mistake": "mm"
+    },
+    "min": 2
+   },
+   "obs": "目もりを読む問題で、mmの目もりを数え違える間違いが{n}回ありました。",
+   "body": "5mmのところの少し長い目もりを手がかりにすると、mmの目もりが数えやすくなります。",
+   "home": "ものさしの5mmの目もり（少し長い線）を一緒に探してみてください。",
+   "tag": "2年の内容"
+  },
+  {
+   "key": "n2-est",
+   "type": "est",
+   "title": "長さの見当が大きくずれる",
+   "reviewed": false,
+   "test": {
+    "type": "estErr",
+    "where": {
+     "kind": "n2.estimate"
+    },
+    "minN": 3,
+    "gte": 30
+   },
+   "obs": "線の長さの見当と、ものさしで測った長さのずれが、平均で{err}％ありました（{n}回）。",
+   "body": "1cm（指の幅くらい）・10cm（はがきの横くらい）のような「基準の長さ」を持つと、見当がつけやすくなります。",
+   "home": "「この スプーンは なんcmくらい？」と、見当を言ってから測る遊びをしてみてください。",
+   "tag": "2年の内容"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "n2.read"
+    },
+    "min": 3
+   },
+   "text": "ものさしの目もりを読む問題で、ヒントなしで{best}問続けて正解しました。"
+  },
+  {
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "n2.draw",
+     "correct": true
+    },
+    "min": 2
+   },
+   "text": "ものさしを使って、言われた長さの直線を{n}本ぴったりひけました。"
+  },
+  {
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "n2.body"
+    },
+    "min": 2
+   },
+   "text": "からだものさしで、自分の手の長さを{n}回測って記録しました。"
+  }
+ ],
+ "map": [
+  {
+   "school": "2年 C(1)ア(ア) 長さの単位（mm・cm）と測定の意味",
+   "activity": "じっすん ものさし・めもりを よむ",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "n2.read"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "n2.measure"
+     },
+     {
+      "kind": "n2.read"
+     },
+     {
+      "kind": "n2.zero"
+     }
+    ]
+   }
+  },
+  {
+   "school": "2年 C(1)ア(ア) ものさしの目もりのしくみ（0から測る・1mmは1cmの10等分）",
+   "activity": "0から はかる・ちょくせんを ひく",
+   "done": {
+    "type": "count",
+    "where": {
+     "kind": "n2.draw",
+     "correct": true
+    },
+    "min": 1
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "n2.zero"
+     },
+     {
+      "kind": "n2.draw"
+     }
+    ]
+   }
+  },
+  {
+   "school": "2年 C(1)ア(イ) およその見当を付け、単位を適切に選んで測定する",
+   "activity": "みとおし・10cm さがし・からだものさし",
+   "done": {
+    "type": "count",
+    "where": {
+     "kind": "n2.estimate"
+    },
+    "min": 3
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "n2.estimate"
+     },
+     {
+      "kind": "n2.find10"
+     },
+     {
+      "kind": "n2.body"
+     }
+    ]
+   }
+  },
+  {
+   "school": "2年 C(1)イ(ア) 単位を使って長さを比べる・表す",
+   "activity": "どちらが ながい（cmとmm）",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "n2.compare"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "n2.compare"
+     }
+    ]
+   }
+  },
+  {
+   "school": "2年 C(1) 長さのたし算・ひき算（単位をそろえる）",
+   "activity": "けいさん",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "n2.calc"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "n2.calc"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "n2.miru": "「だれが測っても同じ1cm」と、1mm（1cmの10等分）の成り立ちを見ました",
+  "n2.measure": "実寸のものさしで、物の端を0に合わせて測りました（{obj}・{mm}mm）",
+  "n2.real": "画面のものさしで、本物の物の長さを測りました（{mm}mm）",
+  "n2.zero": "端が1のところにあるテープを、1cmのいくつ分として数え直しました",
+  "n2.body": "からだものさし（{what}）を測りました：{mm}mm",
+  "n2.read": "ものさしの目もりを読む：{ok}{hints}",
+  "n2.read-done": "目もりを読む問題（{level}）{n}問中{score}問正解",
+  "n2.compare": [
+   {
+    "where": {
+     "detail.type": "ten"
+    },
+    "text": "10cmくらいの物を選ぶ：{ok}{hints}"
+   },
+   {
+    "where": {},
+    "text": "cmとmmの長さ比べ：{ok}{hints}"
+   }
+  ],
+  "n2.compare-done": "長さ比べの問題（{level}）{n}問中{score}問正解",
+  "n2.calc": "長さのたし算・ひき算：{ok}{hints}",
+  "n2.calc-done": "長さの計算（{level}）{n}問中{score}問正解",
+  "n2.estimate": "線の長さの見当：見当{guess}cm → 実際{actual}cm",
+  "n2.estimate-done": "長さの見当（{level}）{n}問中{score}問が近かった",
+  "n2.draw": "言われた長さの直線をひく：{ok}（{target}mm → {got}mm）",
+  "n2.find10": "10cmに近い物さがし（{mm}mm）",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 16.5,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 0,
+   "h": 16.7,
+   "kind": "measure",
+   "detail": {
+    "obj": "eraser",
+    "mm": 50,
+    "cal": true
+   },
+   "stage": "sawaru"
+  },
+  {
+   "d": 1,
+   "h": 17,
+   "kind": "read",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "read",
+    "L": 40,
+    "off": 10,
+    "mistake": "L1",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 1,
+   "h": 17.1,
+   "kind": "read",
+   "correct": true,
+   "hints": 1,
+   "level": "normal",
+   "detail": {
+    "type": "read",
+    "L": 70,
+    "off": 20,
+    "mistake": "L1",
+    "miss": 1
+   }
+  },
+  {
+   "d": 1,
+   "h": 17.2,
+   "kind": "read",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "type": "read",
+    "L": 54,
+    "off": 0
+   }
+  },
+  {
+   "d": 2,
+   "h": 17,
+   "kind": "compare",
+   "correct": false,
+   "level": "easy",
+   "detail": {
+    "type": "cmp",
+    "red": 20,
+    "blue": 9,
+    "mistake": "L4",
+    "miss": 2
+   }
+  },
+  {
+   "d": 2,
+   "h": 17.1,
+   "kind": "calc",
+   "correct": true,
+   "hints": 1,
+   "level": "normal",
+   "detail": {
+    "type": "calc",
+    "a": 64,
+    "b": 30,
+    "op": "+",
+    "mistake": "L4",
+    "miss": 1
+   }
+  },
+  {
+   "d": 3,
+   "h": 17,
+   "kind": "estimate",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "q": "せんの ながさ",
+    "guess": 12,
+    "actual": 8,
+    "unit": "cm",
+    "qty": "length"
+   }
+  },
+  {
+   "d": 3,
+   "h": 17.1,
+   "kind": "estimate",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "q": "せんの ながさ",
+    "guess": 6,
+    "actual": 6.5,
+    "unit": "cm",
+    "qty": "length"
+   }
+  },
+  {
+   "d": 3,
+   "h": 17.2,
+   "kind": "estimate",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "q": "せんの ながさ",
+    "guess": 5,
+    "actual": 9,
+    "unit": "cm",
+    "qty": "length"
+   }
+  },
+  {
+   "d": 4,
+   "h": 18,
+   "kind": "draw",
+   "correct": true,
+   "detail": {
+    "target": 80,
+    "got": 80,
+    "start": 0
+   },
+   "stage": "tsukuru"
+  },
+  {
+   "d": 4,
+   "h": 18.1,
+   "kind": "draw",
+   "correct": true,
+   "detail": {
+    "target": 50,
+    "got": 50,
+    "start": 0
+   }
+  },
+  {
+   "d": 5,
+   "h": 18,
+   "kind": "body",
+   "correct": true,
+   "detail": {
+    "what": "span",
+    "mm": 142,
+    "cal": true
+   }
+  },
+  {
+   "d": 5,
+   "h": 18.1,
+   "kind": "body",
+   "correct": true,
+   "detail": {
+    "what": "finger",
+    "mm": 14,
+    "cal": true
+   }
+  }
+ ],
+ "demoZukan": {
+  "mono": [
+   "eraser",
+   "clip",
+   "card"
+  ],
+  "karada": [
+   "1:ひとあた:14cm 2mm:142",
+   "2:ゆび 1ぽんの はば:1cm 4mm:14"
+  ],
+  "mine": [
+   "3:9cm 5mm:95"
+  ]
+ }
+}

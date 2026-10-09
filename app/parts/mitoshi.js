@@ -131,7 +131,7 @@ export function mount(ctx) {
     ctx.log('estimate-done', { level: Q.level, detail: { n, score } }); ctx.done('tamesu');
     ctx.caption(`${n}もん中 ${score}もん ちかかった`);
   }
-  const nudge = d => { if (Q.phase !== 'ask') return; sfx.tap(); setGuess(clamp(Math.round((Q.guess + d * Q.cur.step) / Q.cur.step) * Q.cur.step, 0, Q.cur.max)); };
+  const nudge = d => { if (Q.phase !== 'ask') return; const v = clamp(Math.round((Q.guess + d * Q.cur.step) / Q.cur.step) * Q.cur.step, 0, Q.cur.max); if (v === Q.guess) { sfx.off(); ctx.toast('', d < 0 ? 'これより ちいさく できないよ' : 'これより おおきく できないよ', 1.6); return; } sfx.tap(); setGuess(v); };
   on(q$('say-q'), 'click', () => ctx.say(Q.cur && Q.cur.sp, true));
   on(q$('minus'), 'click', () => nudge(-1)); on(q$('plus'), 'click', () => nudge(1));
   on(q$('guess'), 'click', guess);
