@@ -10,7 +10,7 @@
   {"id": "rj", "grade": 7, "band": "ahead", "file": "rj.json", "ready": true, "title": "<ruby>空間図形<rt>くうかんずけい</rt></ruby>", "plain": "中1 空間図形", "requires": ["r5a", "r6"], "areas": ["katachi"], "owner": "katachi"},
   {"id": "n1", "grade": 1, "band": "main", "file": "n1.json", "ready": true, "title": "ながさくらべ", "plain": "1年 ながさくらべ", "requires": [], "areas": ["nagasa"], "owner": "hakaru"},
   {"id": "k1", "grade": 1, "band": "main", "file": "k1.json", "ready": true, "title": "かさくらべ", "plain": "1年 かさくらべ", "requires": [], "areas": ["kasa"], "owner": "hakaru"},
-  {"id": "h1", "grade": 1, "band": "main", "file": "h1.json", "ready": false, "title": "ひろさくらべ", "plain": "1年 ひろさくらべ", "requires": [], "areas": ["hirosa"], "owner": "hakaru"},
+  {"id": "h1", "grade": 1, "band": "main", "file": "h1.json", "ready": true, "title": "ひろさくらべ", "plain": "1年 ひろさくらべ", "requires": [], "areas": ["hirosa"], "owner": "hakaru"},
   {"id": "t1", "grade": 1, "band": "main", "file": "t1.json", "ready": true, "title": "とけい", "plain": "1年 とけい", "requires": [], "areas": ["jikan"], "owner": "hakaru", "sub": "なんじ・なんじはん・なんじなんぷん"},
   {"id": "n2", "grade": 2, "band": "main", "file": "n2.json", "ready": true, "title": "<ruby>長<rt>なが</rt></ruby>さの たんい", "plain": "2年 長さのたんい（cm・mm）", "requires": ["n1"], "areas": ["nagasa"], "owner": "hakaru", "sub": "cm・mm"},
   {"id": "n2m", "grade": 2, "band": "main", "file": "n2m.json", "ready": true, "title": "<ruby>長<rt>なが</rt></ruby>い ものの <ruby>長<rt>なが</rt></ruby>さ", "plain": "2年 長いものの長さ（m）", "requires": ["n2"], "areas": ["nagasa"], "owner": "hakaru", "sub": "m"},

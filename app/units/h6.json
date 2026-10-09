@@ -1,0 +1,349 @@
+{
+ "note": "6年「円の面積」「およその面積」（ちょっと先）。設計書 hakaru-design.md §3 H6。円周率は 3.14。文面はすべて下書き（reviewed:false）。",
+ "school": "6年 B(2)(3) 円の面積・概形とおよその面積",
+ "tabs": {
+  "miru": [
+   {
+    "part": "masume",
+    "label": "みる",
+    "opts": {
+     "mode": "miru",
+     "script": "h6"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "masume",
+    "label": "きって ならべる",
+    "opts": {
+     "mode": "circle"
+    }
+   },
+   {
+    "part": "masume",
+    "label": "方眼で みつもる",
+    "opts": {
+     "mode": "estimate"
+    }
+   },
+   {
+    "part": "masume",
+    "label": "およその かたち",
+    "opts": {
+     "mode": "approx"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "masume-quiz",
+    "label": "めんせきを もとめる",
+    "opts": {
+     "type": "circle"
+    }
+   }
+  ]
+ },
+ "review": [
+  {
+   "id": "h6-r3",
+   "q": "<ruby>半径<rt>はんけい</rt></ruby> 3cm の <ruby>円<rt>えん</rt></ruby>の <ruby>面積<rt>めんせき</rt></ruby>は？（<ruby>円周率<rt>えんしゅうりつ</rt></ruby> 3.14）",
+   "ch": [
+    "28.26cm²",
+    "18.84cm²",
+    "113.04cm²"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h6-d10",
+   "q": "<ruby>直径<rt>ちょっけい</rt></ruby> 10cm の <ruby>円<rt>えん</rt></ruby>の <ruby>面積<rt>めんせき</rt></ruby>は？",
+   "ch": [
+    "78.5cm²",
+    "314cm²",
+    "31.4cm²"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h6-rect",
+   "q": "<ruby>円<rt>えん</rt></ruby>を こまかく きって ならべると、どんな <ruby>形<rt>かたち</rt></ruby>に ちかづく？",
+   "ch": [
+    "<ruby>長方形<rt>ちょうほうけい</rt></ruby>",
+    "<ruby>三角形<rt>さんかくけい</rt></ruby>"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h6-side",
+   "q": "ならべた <ruby>長方形<rt>ちょうほうけい</rt></ruby>の よこの <ruby>長<rt>なが</rt></ruby>さは？",
+   "ch": [
+    "<ruby>円周<rt>えんしゅう</rt></ruby>の はんぶん",
+    "<ruby>直径<rt>ちょっけい</rt></ruby>"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h6-part",
+   "q": "<ruby>方眼<rt>ほうがん</rt></ruby>で みつもる とき、かかって いる マスは？",
+   "ch": [
+    "はんぶんと みる",
+    "数えない"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h6-approx",
+   "q": "まるい いけの <ruby>面積<rt>めんせき</rt></ruby>を もとめるには？",
+   "ch": [
+    "<ruby>円<rt>えん</rt></ruby>と みて もとめる",
+    "もとめられない"
+   ],
+   "a": 0,
+   "reviewed": false
+  }
+ ],
+ "insights": [
+  {
+   "key": "h6-diam",
+   "type": "A4d",
+   "title": "直径を半径として使っている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "h6.circle"
+     ],
+     "detail.mistake": "A4d"
+    },
+    "min": 2
+   },
+   "obs": "円の面積で、直径をそのまま半径として使う間違いが{n}回ありました。",
+   "body": "円の面積は 半径×半径×3.14 です。直径が示されたときは半分にして半径にします。",
+   "home": "コップの底などで、直径と半径を指でなぞって言い分けてみてください。",
+   "tag": "6年の内容"
+  },
+  {
+   "key": "h6-circ",
+   "type": "A4c",
+   "title": "円周の式と面積の式を取り違えている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "h6.circle"
+     ],
+     "detail.mistake": "A4c"
+    },
+    "min": 2
+   },
+   "obs": "円の面積を 直径×3.14（円周）で求める間違いが{n}回ありました。",
+   "body": "円周は長さ、面積は広さです。円を切って並べると、たてが半径・よこが円周の半分の長方形になることを確かめる段階です。",
+   "home": "紙の円を8つや16に切って並べ、長方形に近づく様子を一緒に見てみてください。",
+   "tag": "6年の内容"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "h6.circle"
+    },
+    "min": 3
+   },
+   "text": "円の面積の問題で、ヒントを使わずに{best}問続けて正解しました。"
+  },
+  {
+   "test": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "h6.estimate-grid"
+     }
+    ]
+   },
+   "text": "方眼を使って、形のおよその面積を見積もりました。"
+  }
+ ],
+ "map": [
+  {
+   "school": "6年 B(3) 円の面積",
+   "activity": "きって ならべる・めんせきを もとめる",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "h6.circle",
+     "detail.k": [
+      "r",
+      "d",
+      "half",
+      "quarter"
+     ]
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "h6.circle"
+     }
+    ]
+   }
+  },
+  {
+   "school": "6年 B(2) 概形とおよその面積",
+   "activity": "方眼で みつもる・およその かたち",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "h6.circle",
+      "detail.k": "approx",
+      "correct": true
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "h6.estimate-grid"
+     },
+     {
+      "kind": "h6.approx"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "h6.miru": "円を切って並べると長方形に近づく様子と、方眼でのおよその面積を見ました",
+  "h6.circlecut": "円を{N}こに切って並べかえました",
+  "h6.circle": "円・およその面積：{ok}{hints}",
+  "h6.circle-done": "円・およその面積（{level}）{n}問中{score}問正解",
+  "h6.estimate-grid": "方眼でおよその面積を見積もりました（やく{est}cm²）",
+  "h6.approx": "身の回りの形をかんたんな図形とみて面積を求めました",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 19,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 1,
+   "h": 19,
+   "kind": "circle",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "k": "d",
+    "mistake": "A4d",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 1,
+   "h": 19.1,
+   "kind": "circle",
+   "correct": true,
+   "hints": 1,
+   "level": "normal",
+   "detail": {
+    "k": "r",
+    "mistake": "A4c",
+    "miss": 1
+   }
+  },
+  {
+   "d": 1,
+   "h": 19.2,
+   "kind": "circle",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "k": "d",
+    "mistake": "A4d",
+    "miss": 2
+   }
+  },
+  {
+   "d": 1,
+   "h": 19.3,
+   "kind": "circle",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "k": "r",
+    "mistake": "A4c",
+    "miss": 2
+   }
+  },
+  {
+   "d": 3,
+   "h": 19,
+   "kind": "circle",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "k": "r"
+   }
+  },
+  {
+   "d": 3,
+   "h": 19.1,
+   "kind": "circle",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "k": "half"
+   }
+  },
+  {
+   "d": 3,
+   "h": 19.2,
+   "kind": "circle",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "k": "d"
+   }
+  },
+  {
+   "d": 3,
+   "h": 19.3,
+   "kind": "circle",
+   "correct": true,
+   "level": "challenge",
+   "detail": {
+    "k": "approx"
+   }
+  },
+  {
+   "d": 2,
+   "h": 19,
+   "kind": "estimate-grid",
+   "detail": {
+    "shape": "leaf",
+    "gs": 1,
+    "est": 38,
+    "tru": 37.8
+   },
+   "stage": "sawaru"
+  }
+ ]
+}

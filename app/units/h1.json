@@ -1,0 +1,861 @@
+{
+ "note": "1年「ひろさくらべ」。設計書 hakaru-design.md §3 H1。文面はすべて下書き（reviewed:false）。ずかんの形の数は tools/hakaru-hirosa.mjs で数えて凍結（data/hakaru/shapes.json）。",
+ "school": "1年 C(1) 広さの比べ方（直接比較・任意単位）",
+ "tabs": {
+  "miru": [
+   {
+    "part": "masume",
+    "label": "みる",
+    "opts": {
+     "mode": "miru",
+     "script": "h1"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "kurabe",
+    "label": "かさねる",
+    "opts": {
+     "qty": "hirosa"
+    }
+   },
+   {
+    "part": "ikutsubun",
+    "label": "マスの いくつぶん",
+    "opts": {
+     "qty": "hirosa"
+    }
+   },
+   {
+    "part": "masume",
+    "label": "まわりが ながくても",
+    "opts": {
+     "mode": "perim"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "masume-quiz",
+    "label": "どちらが ひろい",
+    "opts": {
+     "type": "compare"
+    }
+   },
+   {
+    "part": "masume-quiz",
+    "label": "いくつぶん",
+    "opts": {
+     "type": "count"
+    }
+   },
+   {
+    "part": "masume-quiz",
+    "label": "みとおし",
+    "opts": {
+     "type": "mitoshi"
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "masume",
+    "label": "じんとり",
+    "opts": {
+     "mode": "jintori"
+    }
+   },
+   {
+    "part": "masume",
+    "label": "おなじ ひろさの かたち",
+    "opts": {
+     "mode": "shapes"
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "h1-shape4",
+   "kind": "list",
+   "label": "マス4つの かたち",
+   "title": "マス4つの かたち",
+   "items": [
+    {
+     "id": "p4-I",
+     "label": "ぼう",
+     "key": "0.0_0.1_0.2_0.3",
+     "fig": "cells:[[0,0],[0,1],[0,2],[0,3]]",
+     "hint": "マス4つ"
+    },
+    {
+     "id": "p4-L",
+     "label": "かぎ",
+     "key": "0.0_0.1_0.2_1.2",
+     "fig": "cells:[[0,0],[0,1],[0,2],[1,2]]",
+     "hint": "マス4つ"
+    },
+    {
+     "id": "p4-T",
+     "label": "でっぱり",
+     "key": "0.0_0.1_1.1_0.2",
+     "fig": "cells:[[0,0],[0,1],[1,1],[0,2]]",
+     "hint": "マス4つ"
+    },
+    {
+     "id": "p4-S",
+     "label": "かいだん",
+     "key": "0.0_0.1_1.1_1.2",
+     "fig": "cells:[[0,0],[0,1],[1,1],[1,2]]",
+     "hint": "マス4つ"
+    },
+    {
+     "id": "p4-O",
+     "label": "ましかく",
+     "key": "0.0_1.0_0.1_1.1",
+     "fig": "cells:[[0,0],[1,0],[0,1],[1,1]]",
+     "hint": "マス4つ"
+    }
+   ],
+   "go": {
+    "mode": "tsukuru",
+    "act": 1
+   },
+   "goLabel": "「おなじ ひろさの かたち」で さがそう"
+  },
+  {
+   "id": "h1-shape5",
+   "kind": "list",
+   "label": "マス5つの かたち",
+   "title": "マス5つの かたち",
+   "items": [
+    {
+     "id": "p5-I",
+     "label": "ながい ぼう",
+     "key": "0.0_0.1_0.2_0.3_0.4",
+     "fig": "cells:[[0,0],[0,1],[0,2],[0,3],[0,4]]",
+     "hint": "マス5つ"
+    },
+    {
+     "id": "p5-L",
+     "label": "ながい かぎ",
+     "key": "0.0_0.1_0.2_0.3_1.3",
+     "fig": "cells:[[0,0],[0,1],[0,2],[0,3],[1,3]]",
+     "hint": "マス5つ"
+    },
+    {
+     "id": "p5-Y",
+     "label": "えだ",
+     "key": "0.0_0.1_0.2_1.2_0.3",
+     "fig": "cells:[[0,0],[0,1],[0,2],[1,2],[0,3]]",
+     "hint": "マス5つ"
+    },
+    {
+     "id": "p5-N",
+     "label": "ずれた ぼう",
+     "key": "0.0_0.1_0.2_1.2_1.3",
+     "fig": "cells:[[0,0],[0,1],[0,2],[1,2],[1,3]]",
+     "hint": "マス5つ"
+    },
+    {
+     "id": "p5-V",
+     "label": "おおきな かど",
+     "key": "0.0_0.1_0.2_1.2_2.2",
+     "fig": "cells:[[0,0],[0,1],[0,2],[1,2],[2,2]]",
+     "hint": "マス5つ"
+    },
+    {
+     "id": "p5-P",
+     "label": "いす",
+     "key": "0.0_0.1_1.1_0.2_1.2",
+     "fig": "cells:[[0,0],[0,1],[1,1],[0,2],[1,2]]",
+     "hint": "マス5つ"
+    },
+    {
+     "id": "p5-W",
+     "label": "かいだん",
+     "key": "0.0_0.1_1.1_1.2_2.2",
+     "fig": "cells:[[0,0],[0,1],[1,1],[1,2],[2,2]]",
+     "hint": "マス5つ"
+    },
+    {
+     "id": "p5-T",
+     "label": "かなづち",
+     "key": "0.0_0.1_1.1_2.1_0.2",
+     "fig": "cells:[[0,0],[0,1],[1,1],[2,1],[0,2]]",
+     "hint": "マス5つ"
+    },
+    {
+     "id": "p5-F",
+     "label": "はね",
+     "key": "0.0_0.1_1.1_2.1_1.2",
+     "fig": "cells:[[0,0],[0,1],[1,1],[2,1],[1,2]]",
+     "hint": "マス5つ"
+    },
+    {
+     "id": "p5-Z",
+     "label": "いなずま",
+     "key": "0.0_0.1_1.1_2.1_2.2",
+     "fig": "cells:[[0,0],[0,1],[1,1],[2,1],[2,2]]",
+     "hint": "マス5つ"
+    },
+    {
+     "id": "p5-U",
+     "label": "うつわ",
+     "key": "0.0_1.0_0.1_0.2_1.2",
+     "fig": "cells:[[0,0],[1,0],[0,1],[0,2],[1,2]]",
+     "hint": "マス5つ"
+    },
+    {
+     "id": "p5-X",
+     "label": "じゅうじ",
+     "key": "1.0_0.1_1.1_2.1_1.2",
+     "fig": "cells:[[1,0],[0,1],[1,1],[2,1],[1,2]]",
+     "hint": "マス5つ"
+    }
+   ],
+   "go": {
+    "mode": "tsukuru",
+    "act": 1
+   },
+   "goLabel": "「おなじ ひろさの かたち」で さがそう"
+  },
+  {
+   "id": "h1-jintori",
+   "kind": "log",
+   "label": "じんとりの きろく",
+   "title": "じんとりの きろく",
+   "fmt": "あか {1}マス・あお {2}マス",
+   "fig": "bar:{1}:{3}",
+   "note": "「じんとり」を すると、ここに きろくが のこるよ",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "goLabel": "「じんとり」を する"
+  }
+ ],
+ "mission": [
+  {
+   "key": "jintori",
+   "label": "じんとりで あそぶ",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  },
+  {
+   "key": "shapes",
+   "label": "おなじ ひろさの かたちを ぜんぶ みつける",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 1
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "h1-c6",
+   "q": "この かたちは マス なんこ ぶん？",
+   "ch": [
+    "6こ",
+    "5こ",
+    "10こ"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "cells:[[0,0],[0,1],[0,2],[0,3],[1,3],[2,3]]"
+  },
+  {
+   "id": "h1-c9",
+   "q": "この かたちは マス なんこ ぶん？",
+   "ch": [
+    "9こ",
+    "12こ",
+    "6こ"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "cells:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2]]"
+  },
+  {
+   "id": "h1-c8",
+   "q": "この かたちは マス なんこ ぶん？",
+   "ch": [
+    "8こ",
+    "12こ",
+    "6こ"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "cells:[[0,0],[1,0],[2,0],[3,0],[0,1],[1,1],[2,1],[3,1]]"
+  },
+  {
+   "id": "h1-c5",
+   "q": "この かたちは マス なんこ ぶん？",
+   "ch": [
+    "5こ",
+    "4こ"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "cells:[[0,0],[1,0],[2,0],[1,1],[1,2]]"
+  },
+  {
+   "id": "h1-over",
+   "q": "かさねて、はみだした ほうは？",
+   "ch": [
+    "ひろい",
+    "せまい"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h1-both",
+   "q": "かさねても どちらも はみだす ときは？",
+   "ch": [
+    "マスで かぞえる",
+    "まわりを はかる"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h1-perim",
+   "q": "まわりが ながい ほうが いつも ひろい？",
+   "ch": [
+    "そうとは かぎらない",
+    "いつも ひろい"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h1-size",
+   "q": "マスの おおきさが ちがうと、マスの かずで くらべられる？",
+   "ch": [
+    "くらべられない",
+    "くらべられる"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h1-thin",
+   "q": "マス 8こ の ほそながい かたちと、マス 9こ の ましかく。ひろいのは？",
+   "ch": [
+    "ましかく",
+    "ほそながい かたち"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h1-jin",
+   "q": "じんとりで あか 20マス、あお 16マス。かったのは？",
+   "ch": [
+    "あか",
+    "あお"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h1-p4",
+   "q": "マス 4つで できる かたちは なんしゅるい？（まわしたり うらがえしたり して かさなる ものは おなじ）",
+   "ch": [
+    "5しゅるい",
+    "4しゅるい",
+    "7しゅるい"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h1-p5",
+   "q": "マス 5つで できる かたちは なんしゅるい？",
+   "ch": [
+    "12しゅるい",
+    "10しゅるい",
+    "5しゅるい"
+   ],
+   "a": 0,
+   "reviewed": false
+  }
+ ],
+ "insights": [
+  {
+   "key": "h1-perim",
+   "type": "A1",
+   "title": "まわりの長さで広さを決めている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "h1.compare",
+      "h1.count"
+     ],
+     "detail.mistake": "A1"
+    },
+    "min": 2
+   },
+   "obs": "広さ比べで、まわりの長いほうを広いと選ぶ間違いが{n}回ありました。",
+   "body": "まわりの長さと広さは別の量です。細長い形はまわりが長くても、マスの数（広さ）は少ないことがあります。広さを「中に入るマスの数」でとらえる段階です。",
+   "home": "紙を細長く切ったものと四角く切ったものを重ねたり、同じ大きさの付箋を並べたりして「どっちがたくさん入る？」と比べてみてください。",
+   "tag": "1年の内容"
+  },
+  {
+   "key": "h1-size",
+   "type": "A3",
+   "title": "大きさの違うマスで数えて比べている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "h1.count"
+     ],
+     "detail.mistake": "A3"
+    },
+    "min": 1
+   },
+   "obs": "大きさの違うマスで数えた数をそのまま比べる間違いが{n}回ありました。",
+   "body": "マスの数で比べるときは、マスの大きさがそろっている必要があります。単位の大きさをそろえる考え（任意単位）を身につけている段階です。",
+   "home": "大小2種類の付箋で机をおおってみて、「数が多いほうが広い？」と一緒に考えてみてください。",
+   "tag": "1年の内容"
+  },
+  {
+   "key": "h1-overlap",
+   "type": "A2",
+   "title": "重ねても決まらない形で迷っている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "h1.compare"
+     ],
+     "detail.mistake": "A2"
+    },
+    "min": 2
+   },
+   "obs": "重ねても両方がはみ出す形の比べ方で、{n}回まちがえました。",
+   "body": "どちらもはみ出すときは、重ねるだけでは決まりません。同じ大きさのマスで数える方法に切りかえられるようになる段階です。",
+   "home": "ハンカチやタオルなど形の違う布を重ねて、「はみ出したところはどうする？」と話してみてください。",
+   "tag": "1年の内容"
+  },
+  {
+   "key": "h1-sense",
+   "type": "A4",
+   "title": "広さの見当（量感）が育ち途中",
+   "reviewed": false,
+   "test": {
+    "type": "estErr",
+    "where": {
+     "kind": "h1.estimate"
+    },
+    "minN": 3,
+    "gte": 30
+   },
+   "obs": "「みとおし」で、見当とマスの数のずれが平均{err}%ありました（{n}回）。",
+   "body": "広さの見当は、たくさん数えて確かめる経験で育ちます。ずれが小さくなっていくのが成長の印です。",
+   "home": "タイルの床や方眼のノートで「何マスくらいかな？」と見当をつけてから数えてみてください。",
+   "tag": "1年の内容"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "h1.compare"
+    },
+    "min": 3
+   },
+   "text": "広さ比べで、ヒントを使わずに{best}問続けて正解しました。"
+  },
+  {
+   "test": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "h1.jintori"
+     }
+    ]
+   },
+   "text": "「じんとり」で遊び、最後にマスを数えて広さを比べました。"
+  },
+  {
+   "test": {
+    "type": "distinct",
+    "where": {
+     "kind": "h1.shape"
+    },
+    "field": "detail.id",
+    "min": 3
+   },
+   "text": "マスを並べて、同じ広さの違う形を{u}種類見つけました。"
+  }
+ ],
+ "map": [
+  {
+   "school": "1年 C(1) 広さを直接比べる（重ねる）",
+   "activity": "かさねる・どちらが ひろい",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "h1.compare"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "h1.overlay"
+     },
+     {
+      "kind": "h1.compare"
+     }
+    ]
+   }
+  },
+  {
+   "school": "1年 C(1) 他のものを用いて比べる（同じマスに置きかえる）",
+   "activity": "マスの いくつぶん・まわりが ながくても",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "h1.count"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "h1.tile"
+     },
+     {
+      "kind": "h1.perim"
+     },
+     {
+      "kind": "h1.tilecount"
+     }
+    ]
+   }
+  },
+  {
+   "school": "1年 C(1) 任意単位の幾つ分で比べる",
+   "activity": "じんとり・おなじ ひろさの かたち・みとおし",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "h1.jintori"
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "h1.shape"
+     },
+     {
+      "kind": "h1.estimate"
+     },
+     {
+      "kind": "h1.jin-roll"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "h1.miru": "重ねて比べる・マスで数える・まわりの長さの3つを見ました",
+  "h1.overlay": "2つの形を重ねて広さを比べました",
+  "h1.turn": "形を回して重ねました",
+  "h1.tilecount": "重ねた形をマスで数えました",
+  "h1.tile": [
+   {
+    "where": {
+     "detail.same": false
+    },
+    "text": "大きさの違うマスで数えて比べました"
+   },
+   {
+    "where": {},
+    "text": "同じ大きさのマスを敷き詰めて比べました"
+   }
+  ],
+  "h1.perim": "まわりの長さとマスの数を比べました",
+  "h1.compare": "どちらが広い：{ok}{hints}",
+  "h1.compare-done": "どちらが広い（{level}）{n}問中{score}問正解",
+  "h1.count": [
+   {
+    "where": {
+     "detail.kind": "size"
+    },
+    "text": "大きさの違うマス：{ok}{hints}"
+   },
+   {
+    "where": {},
+    "text": "マスのいくつ分：{ok}{hints}"
+   }
+  ],
+  "h1.count-done": "マスのいくつ分（{level}）{n}問中{score}問正解",
+  "h1.estimate": "広さの見当：{guess}マスと見当→{actual}マス",
+  "h1.estimate-done": "広さのみとおし（{level}）{n}問中{score}問が近かった",
+  "h1.jintori": "じんとり：赤{a}マス・青{b}マス",
+  "h1.jin-roll": "じんとりでさいころをふりました",
+  "h1.shape": "マス{n}つで形をつくりました",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 16.5,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 1,
+   "h": 17,
+   "kind": "overlay",
+   "detail": {
+    "pair": "inside",
+    "res": "b"
+   },
+   "stage": "sawaru"
+  },
+  {
+   "d": 1,
+   "h": 17.2,
+   "kind": "compare",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "kind": "perim",
+    "na": 7,
+    "nb": 9,
+    "mistake": "A1",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 1,
+   "h": 17.3,
+   "kind": "compare",
+   "correct": true,
+   "hints": 1,
+   "level": "normal",
+   "detail": {
+    "kind": "perim",
+    "na": 8,
+    "nb": 9,
+    "mistake": "A1",
+    "miss": 1
+   }
+  },
+  {
+   "d": 2,
+   "h": 17,
+   "kind": "count",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "kind": "size",
+    "na": 9,
+    "nb": 16,
+    "mistake": "A3",
+    "miss": 2
+   }
+  },
+  {
+   "d": 2,
+   "h": 17.1,
+   "kind": "estimate",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "q": "マス なんこ ぶん",
+    "guess": 12,
+    "actual": 18,
+    "unit": "マス",
+    "qty": "area"
+   }
+  },
+  {
+   "d": 3,
+   "h": 17.1,
+   "kind": "estimate",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "q": "マス なんこ ぶん",
+    "guess": 15,
+    "actual": 17,
+    "unit": "マス",
+    "qty": "area"
+   }
+  },
+  {
+   "d": 4,
+   "h": 17.1,
+   "kind": "estimate",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "q": "マス なんこ ぶん",
+    "guess": 20,
+    "actual": 21,
+    "unit": "マス",
+    "qty": "area"
+   }
+  },
+  {
+   "d": 4,
+   "h": 17.5,
+   "kind": "compare",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "kind": "both"
+   }
+  },
+  {
+   "d": 4,
+   "h": 17.6,
+   "kind": "compare",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "kind": "inside"
+   }
+  },
+  {
+   "d": 4,
+   "h": 17.7,
+   "kind": "compare",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "kind": "same"
+   }
+  },
+  {
+   "d": 5,
+   "h": 17,
+   "kind": "tile",
+   "detail": {
+    "same": true,
+    "a": 12,
+    "b": 16,
+    "pair": 0
+   },
+   "stage": "sawaru"
+  },
+  {
+   "d": 5,
+   "h": 17.2,
+   "kind": "count",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "kind": "count",
+    "n": 12
+   }
+  },
+  {
+   "d": 5,
+   "h": 17.3,
+   "kind": "count",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "kind": "size",
+    "na": 9,
+    "nb": 16
+   }
+  },
+  {
+   "d": 5,
+   "h": 17.4,
+   "kind": "count",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "kind": "count",
+    "n": 7
+   }
+  },
+  {
+   "d": 5,
+   "h": 18,
+   "kind": "jintori",
+   "correct": true,
+   "detail": {
+    "a": 20,
+    "b": 16,
+    "n": 6,
+    "vs": "cpu"
+   },
+   "stage": "tsukuru"
+  },
+  {
+   "d": 6,
+   "h": 18,
+   "kind": "shape",
+   "correct": true,
+   "detail": {
+    "n": 4,
+    "id": "p4-I",
+    "isNew": true,
+    "k": 0
+   }
+  },
+  {
+   "d": 6,
+   "h": 18.1,
+   "kind": "shape",
+   "correct": true,
+   "detail": {
+    "n": 4,
+    "id": "p4-O",
+    "isNew": true,
+    "k": 0
+   }
+  },
+  {
+   "d": 6,
+   "h": 18.2,
+   "kind": "shape",
+   "correct": true,
+   "detail": {
+    "n": 4,
+    "id": "p4-T",
+    "isNew": true,
+    "k": 1
+   }
+  }
+ ],
+ "demoZukan": {
+  "h1-shape4": [
+   "p4-I",
+   "p4-O",
+   "p4-T"
+  ],
+  "h1-jintori": [
+   "1:20:16:36"
+  ]
+ }
+}

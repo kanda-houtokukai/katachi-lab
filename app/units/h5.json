@@ -1,0 +1,326 @@
+{
+ "note": "5年「面積」（三角形・平行四辺形・台形・ひし形。ちょっと先）。設計書 hakaru-design.md §3 H5。文面はすべて下書き（reviewed:false）。",
+ "school": "5年 B(3) 三角形・平行四辺形・ひし形・台形の面積",
+ "tabs": {
+  "miru": [
+   {
+    "part": "masume",
+    "label": "みる",
+    "opts": {
+     "mode": "miru",
+     "script": "h5"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "masume",
+    "label": "きって うごかす",
+    "opts": {
+     "mode": "para"
+    }
+   },
+   {
+    "part": "masume",
+    "label": "2まいで ならべる",
+    "opts": {
+     "mode": "double"
+    }
+   },
+   {
+    "part": "masume",
+    "label": "ひしがた",
+    "opts": {
+     "mode": "rhom"
+    }
+   },
+   {
+    "part": "masume",
+    "label": "ちょうてんを うごかす",
+    "opts": {
+     "mode": "shear"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "masume-quiz",
+    "label": "めんせきを もとめる",
+    "opts": {
+     "type": "formula"
+    }
+   }
+  ]
+ },
+ "review": [
+  {
+   "id": "h5-para",
+   "q": "<ruby>底辺<rt>ていへん</rt></ruby> 6cm、<ruby>高<rt>たか</rt></ruby>さ 4cm の <ruby>平行四辺形<rt>へいこうしへんけい</rt></ruby>の <ruby>面積<rt>めんせき</rt></ruby>は？",
+   "ch": [
+    "24cm²",
+    "12cm²",
+    "20cm²"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h5-tri",
+   "q": "<ruby>底辺<rt>ていへん</rt></ruby> 6cm、<ruby>高<rt>たか</rt></ruby>さ 4cm の <ruby>三角形<rt>さんかくけい</rt></ruby>の <ruby>面積<rt>めんせき</rt></ruby>は？",
+   "ch": [
+    "12cm²",
+    "24cm²",
+    "10cm²"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h5-trap",
+   "q": "<ruby>上底<rt>じょうてい</rt></ruby> 3cm、<ruby>下底<rt>かてい</rt></ruby> 5cm、<ruby>高<rt>たか</rt></ruby>さ 4cm の <ruby>台形<rt>だいけい</rt></ruby>の <ruby>面積<rt>めんせき</rt></ruby>は？",
+   "ch": [
+    "16cm²",
+    "32cm²",
+    "15cm²"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h5-rhom",
+   "q": "<ruby>対角線<rt>たいかくせん</rt></ruby>が 6cm と 8cm の ひし<ruby>形<rt>がた</rt></ruby>の <ruby>面積<rt>めんせき</rt></ruby>は？",
+   "ch": [
+    "24cm²",
+    "48cm²",
+    "14cm²"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h5-out",
+   "q": "<ruby>高<rt>たか</rt></ruby>さが <ruby>三角形<rt>さんかくけい</rt></ruby>の <ruby>外<rt>そと</rt></ruby>に ある ときは？",
+   "ch": [
+    "<ruby>底辺<rt>ていへん</rt></ruby>を のばして <ruby>高<rt>たか</rt></ruby>さを はかる",
+    "<ruby>高<rt>たか</rt></ruby>さは つかえない"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h5-shear",
+   "q": "<ruby>底辺<rt>ていへん</rt></ruby>と <ruby>高<rt>たか</rt></ruby>さが おなじ <ruby>三角形<rt>さんかくけい</rt></ruby>は、<ruby>形<rt>かたち</rt></ruby>が ちがっても <ruby>面積<rt>めんせき</rt></ruby>は？",
+   "ch": [
+    "おなじ",
+    "ちがう"
+   ],
+   "a": 0,
+   "reviewed": false
+  }
+ ],
+ "insights": [
+  {
+   "key": "h5-half",
+   "type": "A4half",
+   "title": "三角形・台形で ÷2 を忘れている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "h5.formula"
+     ],
+     "detail.mistake": "A4half"
+    },
+    "min": 2
+   },
+   "obs": "三角形・台形・ひし形の面積で、÷2を忘れる間違いが{n}回ありました。",
+   "body": "三角形は同じ三角形を2つ合わせた平行四辺形の半分です。なぜ÷2なのかを、2まい並べる動きで確かめる段階です。",
+   "home": "紙で三角形を2まい切り、並べて平行四辺形をつくってみてください。",
+   "tag": "5年の内容"
+  },
+  {
+   "key": "h5-height",
+   "type": "A4h",
+   "title": "ななめの辺を高さにしている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "h5.formula"
+     ],
+     "detail.mistake": "A4h"
+    },
+    "min": 2
+   },
+   "obs": "ななめの辺の長さを高さとして使う間違いが{n}回ありました。",
+   "body": "高さは底辺に垂直な長さです。高さが図形の外に出る場合もあり、底辺をのばして測ります。",
+   "home": "三角定規の直角を底辺に当てて、高さの線を一緒に探してみてください。",
+   "tag": "5年の内容"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "h5.formula"
+    },
+    "min": 3
+   },
+   "text": "図形の面積で、ヒントを使わずに{best}問続けて正解しました。"
+  },
+  {
+   "test": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "h5.para",
+      "correct": true
+     }
+    ]
+   },
+   "text": "平行四辺形を切って動かし、長方形にして面積を求めました。"
+  }
+ ],
+ "map": [
+  {
+   "school": "5年 B(3) 三角形・四角形の面積の求め方",
+   "activity": "きって うごかす・2まいで ならべる・めんせきを もとめる",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "h5.formula"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "h5.para"
+     },
+     {
+      "kind": "h5.double"
+     },
+     {
+      "kind": "h5.formula"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "h5.miru": "切って動かす・2まいで並べる・ひし形は長方形の半分を見ました",
+  "h5.para": "平行四辺形を切って動かし、長方形にしました（底辺{b}cm×高さ{h}cm）",
+  "h5.double": "同じ図形を2まい並べて平行四辺形にしました",
+  "h5.rhom": "ひし形を囲む長方形の半分だと確かめました",
+  "h5.shear": "頂点を動かして、高さが外に出ても面積が同じことを確かめました",
+  "h5.formula": "図形の面積：{ok}{hints}",
+  "h5.formula-done": "図形の面積（{level}）{n}問中{score}問正解",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 19,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 1,
+   "h": 19,
+   "kind": "formula",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "fig": "tri",
+    "mistake": "A4half",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 1,
+   "h": 19.1,
+   "kind": "formula",
+   "correct": true,
+   "hints": 1,
+   "level": "normal",
+   "detail": {
+    "fig": "trap",
+    "mistake": "A4half",
+    "miss": 1
+   }
+  },
+  {
+   "d": 2,
+   "h": 19,
+   "kind": "para",
+   "correct": true,
+   "detail": {
+    "b": 6,
+    "h": 4
+   },
+   "stage": "sawaru"
+  },
+  {
+   "d": 3,
+   "h": 19,
+   "kind": "formula",
+   "correct": false,
+   "level": "challenge",
+   "detail": {
+    "fig": "tri",
+    "out": true,
+    "mistake": "A4h",
+    "miss": 2
+   }
+  },
+  {
+   "d": 3,
+   "h": 19.1,
+   "kind": "formula",
+   "correct": false,
+   "level": "challenge",
+   "detail": {
+    "fig": "para",
+    "out": true,
+    "mistake": "A4h",
+    "miss": 2
+   }
+  },
+  {
+   "d": 4,
+   "h": 19,
+   "kind": "formula",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "fig": "para"
+   }
+  },
+  {
+   "d": 4,
+   "h": 19.1,
+   "kind": "formula",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "fig": "rhom"
+   }
+  },
+  {
+   "d": 4,
+   "h": 19.2,
+   "kind": "formula",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "fig": "tri"
+   }
+  }
+ ]
+}

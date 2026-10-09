@@ -1,0 +1,600 @@
+{
+ "note": "4年「面積」（ちょっと先）。設計書 hakaru-design.md §3 H4。文面はすべて下書き（reviewed:false）。長方形のずかんは tools/hakaru-hirosa.mjs で数えて凍結（data/hakaru/rects.json）。",
+ "school": "4年 B(4) 面積（cm²・m²・km²、a・ha）",
+ "tabs": {
+  "miru": [
+   {
+    "part": "masume",
+    "label": "みる",
+    "opts": {
+     "mode": "miru",
+     "script": "h4"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "masume",
+    "label": "cm² の タイル",
+    "opts": {
+     "mode": "tile"
+    }
+   },
+   {
+    "part": "masume",
+    "label": "ひろい たんい",
+    "opts": {
+     "mode": "zoom"
+    }
+   },
+   {
+    "part": "masume",
+    "label": "まわりが おなじ",
+    "opts": {
+     "mode": "sameperim"
+    }
+   },
+   {
+    "part": "masume",
+    "label": "L の かたち",
+    "opts": {
+     "mode": "lshape"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "masume-quiz",
+    "label": "めんせきを もとめる",
+    "opts": {
+     "type": "area"
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "masume",
+    "label": "めんせきが きまった ながしかく",
+    "opts": {
+     "mode": "rects"
+    }
+   },
+   {
+    "part": "masume",
+    "label": "いちばん ひろい ながしかく",
+    "opts": {
+     "mode": "sameperim",
+     "goal": true
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "h4-rects",
+   "kind": "list",
+   "label": "ながしかく ずかん",
+   "title": "めんせきが きまった ながしかく",
+   "items": [
+    {
+     "id": "12:1x12",
+     "label": "たて 1cm・よこ 12cm",
+     "fig": "rect:1:12",
+     "hint": "12cm²"
+    },
+    {
+     "id": "12:2x6",
+     "label": "たて 2cm・よこ 6cm",
+     "fig": "rect:2:6",
+     "hint": "12cm²"
+    },
+    {
+     "id": "12:3x4",
+     "label": "たて 3cm・よこ 4cm",
+     "fig": "rect:3:4",
+     "hint": "12cm²"
+    },
+    {
+     "id": "24:1x24",
+     "label": "たて 1cm・よこ 24cm",
+     "fig": "rect:1:24",
+     "hint": "24cm²"
+    },
+    {
+     "id": "24:2x12",
+     "label": "たて 2cm・よこ 12cm",
+     "fig": "rect:2:12",
+     "hint": "24cm²"
+    },
+    {
+     "id": "24:3x8",
+     "label": "たて 3cm・よこ 8cm",
+     "fig": "rect:3:8",
+     "hint": "24cm²"
+    },
+    {
+     "id": "24:4x6",
+     "label": "たて 4cm・よこ 6cm",
+     "fig": "rect:4:6",
+     "hint": "24cm²"
+    },
+    {
+     "id": "36:1x36",
+     "label": "たて 1cm・よこ 36cm",
+     "fig": "rect:1:36",
+     "hint": "36cm²"
+    },
+    {
+     "id": "36:2x18",
+     "label": "たて 2cm・よこ 18cm",
+     "fig": "rect:2:18",
+     "hint": "36cm²"
+    },
+    {
+     "id": "36:3x12",
+     "label": "たて 3cm・よこ 12cm",
+     "fig": "rect:3:12",
+     "hint": "36cm²"
+    },
+    {
+     "id": "36:4x9",
+     "label": "たて 4cm・よこ 9cm",
+     "fig": "rect:4:9",
+     "hint": "36cm²"
+    },
+    {
+     "id": "36:6x6",
+     "label": "たて 6cm・よこ 6cm",
+     "fig": "rect:6:6",
+     "hint": "36cm²"
+    }
+   ],
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "goLabel": "「めんせきが きまった ながしかく」で さがそう"
+  }
+ ],
+ "mission": [
+  {
+   "key": "rects",
+   "label": "12cm² の ながしかくを ぜんぶ みつける",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "h4-rect",
+   "q": "たて 3cm、よこ 5cm の <ruby>長方形<rt>ちょうほうけい</rt></ruby>の <ruby>面積<rt>めんせき</rt></ruby>は？",
+   "ch": [
+    "15cm²",
+    "16cm²",
+    "8cm²"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "rect:3:5"
+  },
+  {
+   "id": "h4-sq",
+   "q": "1ぺん 4cm の <ruby>正方形<rt>せいほうけい</rt></ruby>の <ruby>面積<rt>めんせき</rt></ruby>は？",
+   "ch": [
+    "16cm²",
+    "8cm²",
+    "16cm"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "rect:4:4"
+  },
+  {
+   "id": "h4-m2",
+   "q": "1m² は なん cm²？",
+   "ch": [
+    "10000cm²",
+    "100cm²",
+    "1000cm²"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h4-a",
+   "q": "1a は なん m²？",
+   "ch": [
+    "100m²",
+    "10m²",
+    "1000m²"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h4-ha",
+   "q": "1ha は なん a？",
+   "ch": [
+    "100a",
+    "10a",
+    "1000a"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h4-perim",
+   "q": "まわりの <ruby>長<rt>なが</rt></ruby>さが おなじ <ruby>長方形<rt>ちょうほうけい</rt></ruby>は、<ruby>面積<rt>めんせき</rt></ruby>も おなじ？",
+   "ch": [
+    "おなじとは かぎらない",
+    "かならず おなじ"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h4-max",
+   "q": "まわりが 20cm の <ruby>長方形<rt>ちょうほうけい</rt></ruby>で いちばん 広いのは？",
+   "ch": [
+    "たて5cm よこ5cm",
+    "たて1cm よこ9cm",
+    "たて3cm よこ7cm"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "h4-12",
+   "q": "<ruby>面積<rt>めんせき</rt></ruby>が 12cm² の <ruby>長方形<rt>ちょうほうけい</rt></ruby>（たて・よこが <ruby>整数<rt>せいすう</rt></ruby>）は なんしゅるい？",
+   "ch": [
+    "3しゅるい",
+    "6しゅるい",
+    "2しゅるい"
+   ],
+   "a": 0,
+   "reviewed": false
+  }
+ ],
+ "insights": [
+  {
+   "key": "h4-perim",
+   "type": "A1",
+   "title": "まわりの長さと面積を取り違えている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "h4.area"
+     ],
+     "detail.mistake": "A1"
+    },
+    "min": 2
+   },
+   "obs": "面積の問題で、まわりの長さを求めてしまう（または周りが長いほうを広いとする）間違いが{n}回ありました。",
+   "body": "面積は「1cm²の正方形がいくつ分」、まわりの長さは「1cmがいくつ分」です。2つの量を区別する段階です。",
+   "home": "方眼紙に長方形をかき、まわりを指でなぞる長さと、中のマスの数を別々に数えてみてください。",
+   "tag": "4年の内容"
+  },
+  {
+   "key": "h4-formula",
+   "type": "A4",
+   "title": "たて＋よこ で面積を出している",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "h4.area"
+     ],
+     "detail.mistake": "A4"
+    },
+    "min": 2
+   },
+   "obs": "面積を「たて＋よこ」で求める間違いが{n}回ありました。",
+   "body": "長方形の面積は、1列に並ぶタイルの数（よこ）が何列（たて）あるか、なので かけ算になります。",
+   "home": "チョコレートの板やタイルの壁で「1列にいくつ？ 何列？」と数えてからかけ算にしてみてください。",
+   "tag": "4年の内容"
+  },
+  {
+   "key": "h4-m2",
+   "type": "m2",
+   "title": "1m²＝100cm² と考えている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "h4.area"
+     ],
+     "detail.mistake": "m2"
+    },
+    "min": 1
+   },
+   "obs": "1m²を100cm²などとする単位の間違いが{n}回ありました。",
+   "body": "1m＝100cmなので、1m²は100cm×100cm＝10000cm²です。長さの単位の関係を、2回かけることになります。",
+   "home": "新聞紙などで1m四方をつくり、1cm²がいくつ入るか想像してみてください。",
+   "tag": "4年の内容"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "h4.area"
+    },
+    "min": 3
+   },
+   "text": "面積の問題で、ヒントを使わずに{best}問続けて正解しました。"
+  },
+  {
+   "test": {
+    "type": "distinct",
+    "where": {
+     "kind": "h4.rect"
+    },
+    "field": "detail.h",
+    "min": 3
+   },
+   "text": "面積が決まった長方形を、たて・よこを変えていくつも見つけました。"
+  }
+ ],
+ "map": [
+  {
+   "school": "4年 B(4) 面積の単位 cm² と長方形・正方形の求積",
+   "activity": "cm² の タイル・めんせきを もとめる",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "h4.area"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "h4.tile"
+     },
+     {
+      "kind": "h4.area"
+     }
+    ]
+   }
+  },
+  {
+   "school": "4年 B(4) 大きな面積の単位 m²・km²（a・ha）",
+   "activity": "ひろい たんい",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "h4.area",
+      "detail.t": "unit",
+      "correct": true
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "h4.zoom"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "h4.miru": "1cm²のタイル・たて×よこ・1m²＝10000cm²を見ました",
+  "h4.tile": "長方形にタイルを敷いて面積を調べました（たて{h}cm×よこ{w}cm）",
+  "h4.zoom": "面積の単位の大きさを見比べました",
+  "h4.perim": "まわりの長さが同じ長方形の面積を比べました",
+  "h4.maxrect": "まわり{P}cmで一番広い長方形を見つけました",
+  "h4.lshape": "L字の形の面積を求めました",
+  "h4.rect": "面積{A}cm²の長方形をつくりました",
+  "h4.area": [
+   {
+    "where": {
+     "detail.t": "unit"
+    },
+    "text": "面積の単位：{ok}{hints}"
+   },
+   {
+    "where": {},
+    "text": "面積を求める：{ok}{hints}"
+   }
+  ],
+  "h4.area-done": "面積の問題（{level}）{n}問中{score}問正解",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 19,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 1,
+   "h": 19,
+   "kind": "area",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "t": "rect",
+    "h": 3,
+    "w": 5,
+    "mistake": "A1",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 1,
+   "h": 19.1,
+   "kind": "area",
+   "correct": true,
+   "hints": 1,
+   "level": "normal",
+   "detail": {
+    "t": "perim",
+    "mistake": "A1",
+    "miss": 1
+   }
+  },
+  {
+   "d": 2,
+   "h": 19,
+   "kind": "area",
+   "correct": false,
+   "level": "challenge",
+   "detail": {
+    "t": "unit",
+    "mistake": "m2",
+    "miss": 2
+   }
+  },
+  {
+   "d": 2,
+   "h": 19.2,
+   "kind": "area",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "t": "rect",
+    "h": 4,
+    "w": 6,
+    "mistake": "A4",
+    "miss": 2
+   }
+  },
+  {
+   "d": 2,
+   "h": 19.3,
+   "kind": "area",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "t": "sq",
+    "h": 5,
+    "w": 5,
+    "mistake": "A4",
+    "miss": 2
+   }
+  },
+  {
+   "d": 3,
+   "h": 18,
+   "kind": "tile",
+   "detail": {
+    "h": 3,
+    "w": 5
+   },
+   "stage": "sawaru"
+  },
+  {
+   "d": 3,
+   "h": 18.2,
+   "kind": "zoom",
+   "detail": {
+    "sc": "m",
+    "lv": 2
+   }
+  },
+  {
+   "d": 3,
+   "h": 18.5,
+   "kind": "area",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "t": "rect",
+    "h": 3,
+    "w": 6
+   }
+  },
+  {
+   "d": 3,
+   "h": 18.6,
+   "kind": "area",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "t": "sq",
+    "h": 4,
+    "w": 4
+   }
+  },
+  {
+   "d": 3,
+   "h": 18.7,
+   "kind": "area",
+   "correct": true,
+   "level": "challenge",
+   "detail": {
+    "t": "unit"
+   }
+  },
+  {
+   "d": 3,
+   "h": 18.8,
+   "kind": "area",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "t": "m",
+    "h": 4,
+    "w": 7
+   }
+  },
+  {
+   "d": 3,
+   "h": 19,
+   "kind": "rect",
+   "correct": true,
+   "detail": {
+    "A": 12,
+    "h": 3,
+    "w": 4,
+    "isNew": true
+   },
+   "stage": "tsukuru"
+  },
+  {
+   "d": 3,
+   "h": 19.1,
+   "kind": "rect",
+   "correct": true,
+   "detail": {
+    "A": 12,
+    "h": 2,
+    "w": 6,
+    "isNew": true
+   }
+  },
+  {
+   "d": 3,
+   "h": 19.2,
+   "kind": "rect",
+   "correct": true,
+   "detail": {
+    "A": 12,
+    "h": 1,
+    "w": 12,
+    "isNew": true
+   }
+  }
+ ],
+ "demoZukan": {
+  "h4-rects": [
+   "12:3x4",
+   "12:2x6"
+  ]
+ }
+}
