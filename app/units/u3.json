@@ -1,0 +1,752 @@
+{
+ "note": "3年「たんいの しくみ」。設計書 hakaru-design.md §3 U3。長さ・かさ・重さの3つの量で、k（1000倍）と m（1000分の1）を同じ動きで見せる。kL と mg は「しょうかい」。文面はすべて下書き（reviewed:false）。",
+ "school": "3年 C(1) 内容の取扱い(7) 長さ・かさ・重さの単位の関係（k・m）",
+ "tabs": {
+  "miru": [
+   {
+    "part": "tani-zoom",
+    "label": "みる",
+    "opts": {
+     "mode": "miru"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "tani-zoom",
+    "label": "k と m",
+    "opts": {
+     "mode": "zoom"
+    }
+   },
+   {
+    "part": "tani-zoom",
+    "label": "たんいの ひょう",
+    "opts": {
+     "mode": "table"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "tani-quiz",
+    "label": "おなじ しくみ",
+    "opts": {
+     "type": "match"
+    }
+   },
+   {
+    "part": "tani-quiz",
+    "label": "かんさん",
+    "opts": {
+     "type": "convert"
+    }
+   },
+   {
+    "part": "mitoshi",
+    "label": "みとおし",
+    "opts": {
+     "items": [
+      {
+       "q": "<b>きょうしつ</b>の よこの ながさは なんm？",
+       "sp": "教室の横の長さは何メートル？",
+       "qty": "length",
+       "unit": "m",
+       "bench": "classroom",
+       "field": "len_mm",
+       "div": 1000,
+       "max": 20,
+       "step": 1,
+       "major": 5,
+       "minor": 1
+      },
+      {
+       "q": "<b>バケツ</b>に はいる みずは なんL？",
+       "sp": "バケツに入る水は何リットル？",
+       "qty": "volume",
+       "unit": "L",
+       "bench": "bucket",
+       "field": "vol_ml",
+       "div": 1000,
+       "max": 20,
+       "step": 1,
+       "major": 5,
+       "minor": 1
+      },
+      {
+       "q": "<b>りんご</b> 1この おもさは なんg？",
+       "sp": "りんご1個の重さは何グラム？",
+       "qty": "mass",
+       "unit": "g",
+       "bench": "apple",
+       "field": "mass_g",
+       "max": 800,
+       "step": 10,
+       "major": 200,
+       "minor": 50
+      },
+      {
+       "q": "<b>じてんしゃ</b>の おもさは なんkg？",
+       "sp": "自転車の重さは何キログラム？",
+       "qty": "mass",
+       "unit": "kg",
+       "bench": "bicycle",
+       "field": "mass_g",
+       "div": 1000,
+       "max": 40,
+       "step": 1,
+       "major": 10,
+       "minor": 2
+      },
+      {
+       "q": "<b>ペットボトル</b> 1ぽんの みずは なんmL？",
+       "sp": "ペットボトル1本の水は何ミリリットル？",
+       "qty": "volume",
+       "unit": "mL",
+       "bench": "pet500",
+       "field": "vol_ml",
+       "max": 1500,
+       "step": 50,
+       "major": 500,
+       "minor": 100
+      }
+     ]
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "tani-zoom",
+    "label": "たんい ずかん",
+    "opts": {
+     "mode": "find",
+     "coll": "u3-tani"
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "u3-tani",
+   "kind": "list",
+   "label": "たんい ずかん",
+   "title": "たんい ずかん（みの まわりで みつけた たんい）",
+   "items": [
+    {
+     "id": "mm",
+     "label": "mm（1えんだま）",
+     "val": "20mm",
+     "fig": "mono:coin1",
+     "hint": "mm"
+    },
+    {
+     "id": "cm",
+     "label": "cm（ものさし）",
+     "val": "30cm",
+     "fig": "mono:ruler30",
+     "hint": "cm"
+    },
+    {
+     "id": "m",
+     "label": "m（きょうしつ）",
+     "val": "やく 8m",
+     "fig": "mono:classroom",
+     "hint": "m"
+    },
+    {
+     "id": "km",
+     "label": "km（みちの ひょうしき）",
+     "val": "1km",
+     "fig": "mono:road1km",
+     "hint": "km"
+    },
+    {
+     "id": "mL",
+     "label": "mL（ペットボトル）",
+     "val": "500mL",
+     "fig": "mono:cont:pet500",
+     "hint": "mL"
+    },
+    {
+     "id": "dL",
+     "label": "dL（コップ）",
+     "val": "やく 2dL",
+     "fig": "mono:cont:cup",
+     "hint": "dL"
+    },
+    {
+     "id": "L",
+     "label": "L（ぎゅうにゅうパック）",
+     "val": "1L",
+     "fig": "mono:milk1L",
+     "hint": "L"
+    },
+    {
+     "id": "kL",
+     "label": "kL（プール）",
+     "val": "やく 360kL",
+     "fig": "mono:pool",
+     "hint": "kL"
+    },
+    {
+     "id": "mg",
+     "label": "mg（くすり）",
+     "val": "やく 200mg",
+     "fig": "mono:tablet",
+     "hint": "mg"
+    },
+    {
+     "id": "g",
+     "label": "g（たまご）",
+     "val": "やく 60g",
+     "fig": "mono:egg",
+     "hint": "g"
+    },
+    {
+     "id": "kg",
+     "label": "kg（1Lの みず）",
+     "val": "やく 1kg",
+     "fig": "mono:water1L",
+     "hint": "kg"
+    },
+    {
+     "id": "t",
+     "label": "t（くるま）",
+     "val": "やく 1t",
+     "fig": "mono:keicar",
+     "hint": "t"
+    }
+   ],
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "goLabel": "「たんい ずかん」で みつけよう"
+  }
+ ],
+ "mission": [
+  {
+   "key": "tani",
+   "label": "たんいを みつける",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  },
+  {
+   "key": "table",
+   "label": "たんいの ひょうを つくる",
+   "icon": "make",
+   "go": {
+    "mode": "sawaru",
+    "act": 1
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "u3-k",
+   "q": "k（キロ）が つくと なんばい？",
+   "ch": [
+    "1000ばい",
+    "100ばい",
+    "10ばい"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "u3-m",
+   "q": "m（ミリ）が つくと？",
+   "ch": [
+    "1000ぶんの1",
+    "100ぶんの1",
+    "10ぶんの1"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "u3-km",
+   "q": "1kmは なんm？",
+   "ch": [
+    "1000m",
+    "100m",
+    "10m"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:road1km"
+  },
+  {
+   "id": "u3-kg",
+   "q": "1kgは なんg？",
+   "ch": [
+    "1000g",
+    "100g",
+    "10g"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:water1L"
+  },
+  {
+   "id": "u3-lml",
+   "q": "1Lは なんmL？",
+   "ch": [
+    "1000mL",
+    "100mL",
+    "10mL"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:milk1L"
+  },
+  {
+   "id": "u3-mmm",
+   "q": "1mは なんmm？",
+   "ch": [
+    "1000mm",
+    "100mm",
+    "10mm"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "ruler:100"
+  },
+  {
+   "id": "u3-same",
+   "q": "1kg＝1000g と おなじ しくみは？",
+   "ch": [
+    "1km＝1000m",
+    "1km＝100m",
+    "1kg＝100g"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "u3-box",
+   "q": "1L＝1000□。□は？",
+   "ch": [
+    "mL",
+    "dL",
+    "kL"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "masu:10"
+  },
+  {
+   "id": "u3-mg",
+   "q": "くすりの はこに ある 「mg」は なんの たんい？",
+   "ch": [
+    "おもさ",
+    "ながさ",
+    "かさ"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:tablet"
+  },
+  {
+   "id": "u3-kl",
+   "q": "1kLは なんL？",
+   "ch": [
+    "1000L",
+    "100L",
+    "10L"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:pool"
+  },
+  {
+   "id": "u3-conv",
+   "q": "1km 200mは なんm？",
+   "ch": [
+    "1200m",
+    "1020m",
+    "120m"
+   ],
+   "a": 0,
+   "reviewed": false
+  }
+ ],
+ "insights": [
+  {
+   "key": "u3-sep",
+   "type": "W5",
+   "title": "長さ・かさ・重さの単位を別々に覚えている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "u3.match",
+      "u3.convert"
+     ],
+     "detail.mistake": "W5"
+    },
+    "min": 2
+   },
+   "obs": "単位のしくみ・換算の問題で、k（1000倍）や m（1000分の1）の関係をとりちがえるまちがいが{n}回ありました。",
+   "body": "km・kg・kL の k はどれも1000倍、mm・mL・mg の m はどれも1000分の1です。単位を一つずつ覚えるのではなく、同じしくみとしてつなげる段階です（学習指導要領 3年 内容の取扱い(7)）。",
+   "home": "「キロ」がつく言葉（キロメートル・キログラム）を見つけたら、「1000倍だね」と声に出してみてください。",
+   "tag": "3年の内容"
+  },
+  {
+   "key": "u3-table",
+   "type": "W5",
+   "title": "単位の表の並びがまだあいまい",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "u3.table",
+     "detail.mistake": "W5"
+    },
+    "min": 2
+   },
+   "obs": "単位の表にカードを置くとき、置く場所のまちがいが{n}回ありました。",
+   "body": "表の左に行くほど10倍ずつ大きくなります。長さ・かさ・重さの3つの行で、同じ列に k・m がそろうことに気づく段階です。",
+   "home": "ものさしの cm・mm、牛乳パックの L・mL など、身の回りの表示を一緒に探してみてください。",
+   "tag": "3年の内容"
+  },
+  {
+   "key": "u3-sense",
+   "type": "W4",
+   "title": "量の見当（長さ・かさ・重さ）",
+   "reviewed": false,
+   "test": {
+    "type": "estErr",
+    "where": {
+     "kind": "u3.estimate"
+    },
+    "minN": 3,
+    "gte": 30
+   },
+   "obs": "「みとおし」で、見当と実際のずれが平均{err}%ありました（{n}回）。",
+   "body": "単位のしくみが分かると、身の回りの物の大きさを単位で言い表せるようになります。見当をつけてから確かめる経験を重ねる段階です。",
+   "home": "「この部屋の横は何mくらい？」など、量の当てっこをしてみてください。",
+   "tag": "3年の内容"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "u3.table",
+      "correct": true
+     }
+    ]
+   },
+   "text": "長さ・かさ・重さの単位の表を完成させました。"
+  },
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "u3.match"
+    },
+    "min": 3
+   },
+   "text": "単位のしくみの問題で、ヒントを使わずに{best}問続けて正解しました。"
+  },
+  {
+   "test": {
+    "type": "distinct",
+    "where": {
+     "kind": "u3.find"
+    },
+    "field": "detail.u",
+    "min": 6
+   },
+   "text": "身の回りから単位を{u}種類見つけました。"
+  }
+ ],
+ "map": [
+  {
+   "school": "3年 C(1) 取扱い(7) k（キロ）は1000倍",
+   "activity": "みる・k と m",
+   "done": {
+    "type": "count",
+    "where": {
+     "kind": "u3.zoom",
+     "detail.md": "k"
+    },
+    "min": 1
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "u3.miru"
+     },
+     {
+      "kind": "u3.zoom"
+     }
+    ]
+   }
+  },
+  {
+   "school": "3年 C(1) 取扱い(7) m（ミリ）は1000分の1",
+   "activity": "k と m",
+   "done": {
+    "type": "count",
+    "where": {
+     "kind": "u3.zoom",
+     "detail.md": "m"
+    },
+    "min": 1
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "u3.miru"
+     },
+     {
+      "kind": "u3.zoom"
+     }
+    ]
+   }
+  },
+  {
+   "school": "3年 C(1) 長さ・かさ・重さの単位を表に整理する",
+   "activity": "たんいの ひょう・たんい ずかん",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "u3.table",
+      "correct": true
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "u3.table"
+     },
+     {
+      "kind": "u3.find"
+     }
+    ]
+   }
+  },
+  {
+   "school": "3年 C(1) 単位の関係を使った換算",
+   "activity": "おなじ しくみ・かんさん",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "u3.convert"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "u3.convert"
+     },
+     {
+      "kind": "u3.match"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "u3.miru": "k（1000倍）と m（1000分の1）を、長さ・かさ・重さで同じ動きで見ました",
+  "u3.zoom": "10ずつまとめる（分ける）動きで、k・m のしくみを確かめました",
+  "u3.table": [
+   {
+    "where": {
+     "correct": true
+    },
+    "text": "長さ・かさ・重さの単位の表を完成させました"
+   },
+   {
+    "where": {},
+    "text": "単位の表：置く場所をまちがえました"
+   }
+  ],
+  "u3.find": "身の回りで単位（{u}）を見つけました",
+  "u3.match": "単位のしくみ：{ok}{hints}",
+  "u3.match-done": "単位のしくみ（{level}）{n}問中{score}問正解",
+  "u3.convert": "単位の換算：{ok}{hints}",
+  "u3.convert-done": "換算（{level}）{n}問中{score}問正解",
+  "u3.estimate": "量の見当：{guess}{unit}と見当、実際は{actual}{unit}",
+  "u3.estimate-done": "量の見当（{level}）{n}問中{score}問が近い",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 17,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 1,
+   "h": 17,
+   "kind": "match",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "match",
+    "k": "same",
+    "mistake": "W5",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 1,
+   "h": 17.1,
+   "kind": "convert",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "convert",
+    "mistake": "W5",
+    "miss": 2
+   }
+  },
+  {
+   "d": 2,
+   "h": 17,
+   "kind": "table",
+   "correct": false,
+   "detail": {
+    "card": "mg",
+    "at": "omo:5",
+    "mistake": "W5"
+   },
+   "stage": "sawaru"
+  },
+  {
+   "d": 2,
+   "h": 17.1,
+   "kind": "table",
+   "correct": false,
+   "detail": {
+    "card": "kL",
+    "at": "kasa:2",
+    "mistake": "W5"
+   }
+  },
+  {
+   "d": 2,
+   "h": 17.2,
+   "kind": "table",
+   "correct": true,
+   "detail": {
+    "n": 11
+   }
+  },
+  {
+   "d": 3,
+   "h": 17,
+   "kind": "estimate",
+   "correct": false,
+   "detail": {
+    "q": "きょうしつの よこ",
+    "guess": 15,
+    "actual": 8,
+    "unit": "m",
+    "qty": "length"
+   }
+  },
+  {
+   "d": 3,
+   "h": 17.1,
+   "kind": "estimate",
+   "correct": true,
+   "detail": {
+    "q": "バケツの みず",
+    "guess": 7,
+    "actual": 8,
+    "unit": "L",
+    "qty": "volume"
+   }
+  },
+  {
+   "d": 4,
+   "h": 17,
+   "kind": "estimate",
+   "correct": false,
+   "detail": {
+    "q": "じてんしゃ",
+    "guess": 5,
+    "actual": 15,
+    "unit": "kg",
+    "qty": "mass"
+   }
+  },
+  {
+   "d": 4,
+   "h": 17.5,
+   "kind": "find",
+   "detail": {
+    "u": "mg",
+    "id": "tablet"
+   },
+   "stage": "tsukuru"
+  },
+  {
+   "d": 4,
+   "h": 17.6,
+   "kind": "find",
+   "detail": {
+    "u": "kL",
+    "id": "pool"
+   }
+  },
+  {
+   "d": 5,
+   "h": 17,
+   "kind": "match",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "type": "match"
+   }
+  },
+  {
+   "d": 5,
+   "h": 17.1,
+   "kind": "match",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "type": "match"
+   }
+  },
+  {
+   "d": 5,
+   "h": 17.2,
+   "kind": "match",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "type": "match"
+   }
+  }
+ ],
+ "demoZukan": {
+  "u3-tani": [
+   "km",
+   "kg",
+   "mL",
+   "mg"
+  ]
+ }
+}

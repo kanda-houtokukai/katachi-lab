@@ -37,6 +37,11 @@
   /* 入口（地図の1段目）の色 */
   --area-katachi:#e9f3ee; --area-nagasa:#fdf1e2; --area-kasa:#e6f1fa; --area-omosa:#eef3e6; --area-jikan:#fff4dc; --area-hirosa:#f6eefb;
   --grid-line:#cfc6dc; --cell-a:#9a77cf; --cell-b:#f2b833; --tile:#dfe6ee;
+  /* かさ・おもさ（H4）：物の絵（形と色だけ）・はかり・てんびん。見本 v1「量をはかる」の色 */
+  --obj-apple:#d9452f; --obj-stem:#6b4a2a; --obj-egg:#f7ead0; --obj-egg-line:#d9c49b; --obj-carrot:#f08a24; --obj-banana:#f6d55c; --obj-banana-line:#c9a227;
+  --obj-orange:#f39a2b; --obj-book:#4f9bd9; --obj-clay:#8cc152; --obj-potato:#c9a06b; --obj-sponge:#f6d55c; --obj-sponge-dot:#d9b23a; --obj-pack-line:#9fb3c9;
+  --obj-block:#e5654b; --obj-child:#9fb3c9; --obj-pumpkin:#3f7a3a; --obj-cabbage:#a8d08d;
+  --scale-body:#f2b833; --scale-edge:#c48a10; --balance:#c9a06b; --balance-edge:#9c7642; --masu-wood:#e9d3a6; --masu-edge:#b08d57; --masu-mark:#2f5d8a;
   /* きょうだいの色 */
   --av-1:#e5654b; --av-2:#4f9bd9; --av-3:#8cc152; --av-4:#9a77cf;
   /* 字体 */

@@ -1,0 +1,1224 @@
+{
+ "note": "2年「水のかさのたんい」。設計書 hakaru-design.md §3 K2。文面はすべて下書き（reviewed:false）。教科書の用語は漢字＋ルビ。かさの値は data/benchmarks.json、注ぎ方の数は data/hakaru/masu.json（tools/hakaru-kasa.mjs）。",
+ "school": "2年 C(1) かさの単位と測定（L・dL・mL）",
+ "tabs": {
+  "miru": [
+   {
+    "part": "masu",
+    "label": "みる",
+    "opts": {
+     "mode": "miru",
+     "script": "k2"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "masu",
+    "label": "ますで はかる",
+    "opts": {
+     "mode": "measure",
+     "list": [
+      "pet500",
+      "milk1L",
+      "donburi",
+      "yakan"
+     ]
+    }
+   },
+   {
+    "part": "masu",
+    "label": "めもりを よむ",
+    "opts": {
+     "mode": "meter"
+    }
+   },
+   {
+    "part": "tani-zoom",
+    "label": "1L＝1000mL",
+    "opts": {
+     "mode": "zoom",
+     "only": [
+      "kasa"
+     ]
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "masu-quiz",
+    "label": "めもりを よむ",
+    "opts": {
+     "type": "read"
+    }
+   },
+   {
+    "part": "masu-quiz",
+    "label": "どちらが おおい",
+    "opts": {
+     "type": "compare"
+    }
+   },
+   {
+    "part": "masu-quiz",
+    "label": "けいさん",
+    "opts": {
+     "type": "calc"
+    }
+   },
+   {
+    "part": "masu-quiz",
+    "label": "たんい えらび",
+    "opts": {
+     "type": "unit"
+    }
+   },
+   {
+    "part": "mitoshi",
+    "label": "みとおし",
+    "opts": {
+     "items": [
+      {
+       "q": "<b>コップ</b> 1ぱいの みずは なんdL？",
+       "sp": "コップ1杯の水は何デシリットル？",
+       "qty": "volume",
+       "unit": "dL",
+       "bench": "cup",
+       "field": "vol_ml",
+       "div": 100,
+       "max": 10,
+       "step": 1,
+       "major": 2,
+       "minor": 1
+      },
+      {
+       "q": "<b>どんぶり</b>に はいる みずは なんdL？",
+       "sp": "どんぶりに入る水は何デシリットル？",
+       "qty": "volume",
+       "unit": "dL",
+       "bench": "donburi",
+       "field": "vol_ml",
+       "div": 100,
+       "max": 15,
+       "step": 1,
+       "major": 5,
+       "minor": 1
+      },
+      {
+       "q": "<b>すいとう</b>に はいる みずは なんdL？",
+       "sp": "水とうに入る水は何デシリットル？",
+       "qty": "volume",
+       "unit": "dL",
+       "bench": "suito",
+       "field": "vol_ml",
+       "div": 100,
+       "max": 15,
+       "step": 1,
+       "major": 5,
+       "minor": 1
+      },
+      {
+       "q": "<b>バケツ</b>に はいる みずは なんL？",
+       "sp": "バケツに入る水は何リットル？",
+       "qty": "volume",
+       "unit": "L",
+       "bench": "bucket",
+       "field": "vol_ml",
+       "div": 1000,
+       "max": 20,
+       "step": 1,
+       "major": 5,
+       "minor": 1
+      },
+      {
+       "q": "<b>なべ</b>に はいる みずは なんL？",
+       "sp": "なべに入る水は何リットル？",
+       "qty": "volume",
+       "unit": "L",
+       "bench": "nabe",
+       "field": "vol_ml",
+       "div": 1000,
+       "max": 10,
+       "step": 1,
+       "major": 2,
+       "minor": 1
+      },
+      {
+       "q": "<b>やかん</b>に はいる みずは なんL？",
+       "sp": "やかんに入る水は何リットル？",
+       "qty": "volume",
+       "unit": "L",
+       "bench": "yakan",
+       "field": "vol_ml",
+       "div": 1000,
+       "max": 10,
+       "step": 1,
+       "major": 2,
+       "minor": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "masu",
+    "label": "L・dLを つくる",
+    "opts": {
+     "mode": "make",
+     "coll": "k2-masu"
+    }
+   },
+   {
+    "part": "masu",
+    "label": "かさ ずかん",
+    "opts": {
+     "mode": "measure",
+     "list": [
+      "milk200",
+      "cup",
+      "pet500",
+      "suito",
+      "donburi",
+      "milk1L",
+      "pet2L",
+      "yakan",
+      "nabe",
+      "bucket"
+     ],
+     "register": "k2-kasa"
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "k2-kasa",
+   "kind": "list",
+   "label": "かさ ずかん",
+   "title": "かさ ずかん（みの まわりの いれもの）",
+   "items": [
+    {
+     "id": "milk200",
+     "label": "ちいさい パック",
+     "val": "2dL",
+     "fig": "mono:cont:milk200",
+     "hint": "ちいさい パック"
+    },
+    {
+     "id": "cup",
+     "label": "コップ",
+     "val": "やく 2dL",
+     "fig": "mono:cont:cup",
+     "hint": "コップ"
+    },
+    {
+     "id": "pet500",
+     "label": "ペットボトル",
+     "val": "5dL",
+     "fig": "mono:cont:pet500",
+     "hint": "ペットボトル"
+    },
+    {
+     "id": "suito",
+     "label": "すいとう",
+     "val": "やく 5dL",
+     "fig": "mono:cont:suito",
+     "hint": "すいとう"
+    },
+    {
+     "id": "donburi",
+     "label": "どんぶり",
+     "val": "やく 6dL",
+     "fig": "mono:cont:donburi",
+     "hint": "どんぶり"
+    },
+    {
+     "id": "milk1L",
+     "label": "ぎゅうにゅうパック",
+     "val": "1L",
+     "fig": "mono:cont:milk1L",
+     "hint": "ぎゅうにゅうパック"
+    },
+    {
+     "id": "pet2L",
+     "label": "おおきい ペットボトル",
+     "val": "2L",
+     "fig": "mono:cont:pet2L",
+     "hint": "おおきい ペットボトル"
+    },
+    {
+     "id": "yakan",
+     "label": "やかん",
+     "val": "やく 2L",
+     "fig": "mono:cont:yakan",
+     "hint": "やかん"
+    },
+    {
+     "id": "nabe",
+     "label": "なべ",
+     "val": "やく 3L",
+     "fig": "mono:cont:nabe",
+     "hint": "なべ"
+    },
+    {
+     "id": "bucket",
+     "label": "バケツ",
+     "val": "やく 8L",
+     "fig": "mono:cont:bucket",
+     "hint": "バケツ"
+    }
+   ],
+   "go": {
+    "mode": "tsukuru",
+    "act": 1
+   },
+   "goLabel": "「かさ ずかん」で はかろう"
+  },
+  {
+   "id": "k2-masu",
+   "kind": "list",
+   "label": "そそぎかた ずかん",
+   "title": "そそぎかた ずかん（1Lます・1dLますで つくる）",
+   "items": [
+    {
+     "id": "11:1:1",
+     "label": "1Lます 1かい＋1dLます 1かい",
+     "val": "1L 1dL",
+     "fig": "pour:1:1",
+     "hint": "1L 1dL"
+    },
+    {
+     "id": "11:0:11",
+     "label": "1dLます 11かい",
+     "val": "1L 1dL",
+     "fig": "pour:0:11",
+     "hint": "1L 1dL"
+    },
+    {
+     "id": "12:1:2",
+     "label": "1Lます 1かい＋1dLます 2かい",
+     "val": "1L 2dL",
+     "fig": "pour:1:2",
+     "hint": "1L 2dL"
+    },
+    {
+     "id": "12:0:12",
+     "label": "1dLます 12かい",
+     "val": "1L 2dL",
+     "fig": "pour:0:12",
+     "hint": "1L 2dL"
+    },
+    {
+     "id": "13:1:3",
+     "label": "1Lます 1かい＋1dLます 3かい",
+     "val": "1L 3dL",
+     "fig": "pour:1:3",
+     "hint": "1L 3dL"
+    },
+    {
+     "id": "13:0:13",
+     "label": "1dLます 13かい",
+     "val": "1L 3dL",
+     "fig": "pour:0:13",
+     "hint": "1L 3dL"
+    },
+    {
+     "id": "14:1:4",
+     "label": "1Lます 1かい＋1dLます 4かい",
+     "val": "1L 4dL",
+     "fig": "pour:1:4",
+     "hint": "1L 4dL"
+    },
+    {
+     "id": "14:0:14",
+     "label": "1dLます 14かい",
+     "val": "1L 4dL",
+     "fig": "pour:0:14",
+     "hint": "1L 4dL"
+    },
+    {
+     "id": "15:1:5",
+     "label": "1Lます 1かい＋1dLます 5かい",
+     "val": "1L 5dL",
+     "fig": "pour:1:5",
+     "hint": "1L 5dL"
+    },
+    {
+     "id": "15:0:15",
+     "label": "1dLます 15かい",
+     "val": "1L 5dL",
+     "fig": "pour:0:15",
+     "hint": "1L 5dL"
+    },
+    {
+     "id": "16:1:6",
+     "label": "1Lます 1かい＋1dLます 6かい",
+     "val": "1L 6dL",
+     "fig": "pour:1:6",
+     "hint": "1L 6dL"
+    },
+    {
+     "id": "16:0:16",
+     "label": "1dLます 16かい",
+     "val": "1L 6dL",
+     "fig": "pour:0:16",
+     "hint": "1L 6dL"
+    },
+    {
+     "id": "17:1:7",
+     "label": "1Lます 1かい＋1dLます 7かい",
+     "val": "1L 7dL",
+     "fig": "pour:1:7",
+     "hint": "1L 7dL"
+    },
+    {
+     "id": "17:0:17",
+     "label": "1dLます 17かい",
+     "val": "1L 7dL",
+     "fig": "pour:0:17",
+     "hint": "1L 7dL"
+    },
+    {
+     "id": "18:1:8",
+     "label": "1Lます 1かい＋1dLます 8かい",
+     "val": "1L 8dL",
+     "fig": "pour:1:8",
+     "hint": "1L 8dL"
+    },
+    {
+     "id": "18:0:18",
+     "label": "1dLます 18かい",
+     "val": "1L 8dL",
+     "fig": "pour:0:18",
+     "hint": "1L 8dL"
+    },
+    {
+     "id": "19:1:9",
+     "label": "1Lます 1かい＋1dLます 9かい",
+     "val": "1L 9dL",
+     "fig": "pour:1:9",
+     "hint": "1L 9dL"
+    },
+    {
+     "id": "19:0:19",
+     "label": "1dLます 19かい",
+     "val": "1L 9dL",
+     "fig": "pour:0:19",
+     "hint": "1L 9dL"
+    },
+    {
+     "id": "21:2:1",
+     "label": "1Lます 2かい＋1dLます 1かい",
+     "val": "2L 1dL",
+     "fig": "pour:2:1",
+     "hint": "2L 1dL"
+    },
+    {
+     "id": "21:1:11",
+     "label": "1Lます 1かい＋1dLます 11かい",
+     "val": "2L 1dL",
+     "fig": "pour:1:11",
+     "hint": "2L 1dL"
+    },
+    {
+     "id": "21:0:21",
+     "label": "1dLます 21かい",
+     "val": "2L 1dL",
+     "fig": "pour:0:21",
+     "hint": "2L 1dL"
+    },
+    {
+     "id": "22:2:2",
+     "label": "1Lます 2かい＋1dLます 2かい",
+     "val": "2L 2dL",
+     "fig": "pour:2:2",
+     "hint": "2L 2dL"
+    },
+    {
+     "id": "22:1:12",
+     "label": "1Lます 1かい＋1dLます 12かい",
+     "val": "2L 2dL",
+     "fig": "pour:1:12",
+     "hint": "2L 2dL"
+    },
+    {
+     "id": "22:0:22",
+     "label": "1dLます 22かい",
+     "val": "2L 2dL",
+     "fig": "pour:0:22",
+     "hint": "2L 2dL"
+    },
+    {
+     "id": "23:2:3",
+     "label": "1Lます 2かい＋1dLます 3かい",
+     "val": "2L 3dL",
+     "fig": "pour:2:3",
+     "hint": "2L 3dL"
+    },
+    {
+     "id": "23:1:13",
+     "label": "1Lます 1かい＋1dLます 13かい",
+     "val": "2L 3dL",
+     "fig": "pour:1:13",
+     "hint": "2L 3dL"
+    },
+    {
+     "id": "23:0:23",
+     "label": "1dLます 23かい",
+     "val": "2L 3dL",
+     "fig": "pour:0:23",
+     "hint": "2L 3dL"
+    },
+    {
+     "id": "24:2:4",
+     "label": "1Lます 2かい＋1dLます 4かい",
+     "val": "2L 4dL",
+     "fig": "pour:2:4",
+     "hint": "2L 4dL"
+    },
+    {
+     "id": "24:1:14",
+     "label": "1Lます 1かい＋1dLます 14かい",
+     "val": "2L 4dL",
+     "fig": "pour:1:14",
+     "hint": "2L 4dL"
+    },
+    {
+     "id": "24:0:24",
+     "label": "1dLます 24かい",
+     "val": "2L 4dL",
+     "fig": "pour:0:24",
+     "hint": "2L 4dL"
+    },
+    {
+     "id": "25:2:5",
+     "label": "1Lます 2かい＋1dLます 5かい",
+     "val": "2L 5dL",
+     "fig": "pour:2:5",
+     "hint": "2L 5dL"
+    },
+    {
+     "id": "25:1:15",
+     "label": "1Lます 1かい＋1dLます 15かい",
+     "val": "2L 5dL",
+     "fig": "pour:1:15",
+     "hint": "2L 5dL"
+    },
+    {
+     "id": "25:0:25",
+     "label": "1dLます 25かい",
+     "val": "2L 5dL",
+     "fig": "pour:0:25",
+     "hint": "2L 5dL"
+    },
+    {
+     "id": "26:2:6",
+     "label": "1Lます 2かい＋1dLます 6かい",
+     "val": "2L 6dL",
+     "fig": "pour:2:6",
+     "hint": "2L 6dL"
+    },
+    {
+     "id": "26:1:16",
+     "label": "1Lます 1かい＋1dLます 16かい",
+     "val": "2L 6dL",
+     "fig": "pour:1:16",
+     "hint": "2L 6dL"
+    },
+    {
+     "id": "26:0:26",
+     "label": "1dLます 26かい",
+     "val": "2L 6dL",
+     "fig": "pour:0:26",
+     "hint": "2L 6dL"
+    },
+    {
+     "id": "27:2:7",
+     "label": "1Lます 2かい＋1dLます 7かい",
+     "val": "2L 7dL",
+     "fig": "pour:2:7",
+     "hint": "2L 7dL"
+    },
+    {
+     "id": "27:1:17",
+     "label": "1Lます 1かい＋1dLます 17かい",
+     "val": "2L 7dL",
+     "fig": "pour:1:17",
+     "hint": "2L 7dL"
+    },
+    {
+     "id": "27:0:27",
+     "label": "1dLます 27かい",
+     "val": "2L 7dL",
+     "fig": "pour:0:27",
+     "hint": "2L 7dL"
+    },
+    {
+     "id": "28:2:8",
+     "label": "1Lます 2かい＋1dLます 8かい",
+     "val": "2L 8dL",
+     "fig": "pour:2:8",
+     "hint": "2L 8dL"
+    },
+    {
+     "id": "28:1:18",
+     "label": "1Lます 1かい＋1dLます 18かい",
+     "val": "2L 8dL",
+     "fig": "pour:1:18",
+     "hint": "2L 8dL"
+    },
+    {
+     "id": "28:0:28",
+     "label": "1dLます 28かい",
+     "val": "2L 8dL",
+     "fig": "pour:0:28",
+     "hint": "2L 8dL"
+    },
+    {
+     "id": "29:2:9",
+     "label": "1Lます 2かい＋1dLます 9かい",
+     "val": "2L 9dL",
+     "fig": "pour:2:9",
+     "hint": "2L 9dL"
+    },
+    {
+     "id": "29:1:19",
+     "label": "1Lます 1かい＋1dLます 19かい",
+     "val": "2L 9dL",
+     "fig": "pour:1:19",
+     "hint": "2L 9dL"
+    },
+    {
+     "id": "29:0:29",
+     "label": "1dLます 29かい",
+     "val": "2L 9dL",
+     "fig": "pour:0:29",
+     "hint": "2L 9dL"
+    }
+   ],
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "goLabel": "「L・dLを つくる」で あつめよう"
+  }
+ ],
+ "mission": [
+  {
+   "key": "make",
+   "label": "○L○dL を つくる",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  },
+  {
+   "key": "kasa",
+   "label": "かさ ずかんに 1つ のせる",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 1
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "k2-ldl",
+   "q": "1Lは なんdL？",
+   "ch": [
+    "10dL",
+    "100dL",
+    "1dL"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "masu:10"
+  },
+  {
+   "id": "k2-lml",
+   "q": "1Lは なんmL？",
+   "ch": [
+    "1000mL",
+    "100mL",
+    "10mL"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "masu:10"
+  },
+  {
+   "id": "k2-dlml",
+   "q": "1dLは なんmL？",
+   "ch": [
+    "100mL",
+    "10mL"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "masu:1"
+  },
+  {
+   "id": "k2-read",
+   "q": "みずは どれだけ？",
+   "ch": [
+    "1L 3dL",
+    "13L",
+    "1L 7dL"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "masu:13"
+  },
+  {
+   "id": "k2-read2",
+   "q": "みずは どれだけ？",
+   "ch": [
+    "6dL",
+    "4dL",
+    "6L"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "masu:6"
+  },
+  {
+   "id": "k2-cmp",
+   "q": "600mLと 1L、おおいのは？",
+   "ch": [
+    "1L",
+    "600mL"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "k2-cmp2",
+   "q": "15dLと 1L 2dL、おおいのは？",
+   "ch": [
+    "15dL",
+    "1L 2dL"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "k2-add",
+   "q": "1L 5dL ＋ 5dL は？",
+   "ch": [
+    "2L",
+    "1L 10dL",
+    "6dL"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "k2-sub",
+   "q": "2L − 4dL は？",
+   "ch": [
+    "1L 6dL",
+    "2L 4dL",
+    "6dL"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "k2-bucket",
+   "q": "バケツに はいる みずは やく どれだけ？",
+   "ch": [
+    "8L",
+    "8dL",
+    "8mL"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:cont:bucket"
+  },
+  {
+   "id": "k2-cupu",
+   "q": "コップ 1ぱいの みずは やく どれだけ？",
+   "ch": [
+    "2dL",
+    "2L"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:cont:cup"
+  },
+  {
+   "id": "k2-mark",
+   "q": "1Lますの めもり 1つは？",
+   "ch": [
+    "1dL",
+    "1L",
+    "10dL"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "masu:1"
+  }
+ ],
+ "insights": [
+  {
+   "key": "k2-unit",
+   "type": "V3",
+   "title": "L・dL・mL の量感（どれくらいの かさか）が育ち途中",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "k2.choose",
+     "detail.mistake": "V3"
+    },
+    "min": 2
+   },
+   "obs": "入れ物に合う単位を選ぶ問題で、{n}回まちがえました（例：バケツを 8dL と答える）。",
+   "body": "1L は牛乳パック1本、1dL はコップ半分くらい、という身の回りの「基準」と単位が結びついていない段階です。全国の調査でも、かさの単位を選ぶ問題の正答率は高くありません。",
+   "home": "牛乳パックやペットボトルの表示（1L・500mL）を一緒に読んで、「1Lってこれくらいだね」と手に持ってみてください。",
+   "tag": "2年の内容"
+  },
+  {
+   "key": "k2-sense",
+   "type": "V3",
+   "title": "かさの見当のずれが大きい",
+   "reviewed": false,
+   "test": {
+    "type": "estErr",
+    "where": {
+     "kind": "k2.estimate"
+    },
+    "minN": 3,
+    "gte": 30
+   },
+   "obs": "「みとおし」で、見当と実際のかさのずれが平均{err}%ありました（{n}回）。",
+   "body": "コップやバケツに入るかさを見当づけてから確かめる経験を重ねると、ずれは小さくなっていきます。",
+   "home": "お風呂や料理のときに「この鍋には何L入るかな？」と見当をつけてから、計量カップで確かめてみてください。",
+   "tag": "2年の内容"
+  },
+  {
+   "key": "k2-number",
+   "type": "V4",
+   "title": "数字の大きさだけで比べる・10dL＝1L の くり上がり",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "k2.compare",
+      "k2.calc",
+      "k2.make"
+     ],
+     "detail.mistake": "V4"
+    },
+    "min": 2
+   },
+   "obs": "単位を見ずに数字だけで比べたり（600mL のほうが 1L より多い）、10dL を 1L にくり上げないまちがいが{n}回ありました。",
+   "body": "「1L＝10dL＝1000mL」と単位をそろえてから比べたり計算したりする段階です。数が大きいほど多いとは限らないことに気づくことが大切です。",
+   "home": "500mL のペットボトル2本で 1L になることを、実際に注いで確かめてみてください。",
+   "tag": "2年の内容"
+  },
+  {
+   "key": "k2-mark",
+   "type": "V5",
+   "title": "1Lますの目もりの読み方",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "k2.read",
+     "detail.mistake": "V5"
+    },
+    "min": 2
+   },
+   "obs": "ますの目もりを数えまちがえる・上から数えるまちがいが{n}回ありました。",
+   "body": "1Lますの目もりは、1Lを10に等しく分けた1つ分（1dL）です。目もりが「1dLのいくつ分」かを、下から数える段階です。",
+   "home": "計量カップの目もりを一緒に見て、「ここまで入れると何dL？」と下から数えてみてください。",
+   "tag": "2年の内容"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "k2.read"
+    },
+    "min": 3
+   },
+   "text": "ますの目もりを、ヒントを使わずに{best}問続けて読めました。"
+  },
+  {
+   "test": {
+    "type": "distinct",
+    "where": {
+     "kind": "k2.make",
+     "correct": true
+    },
+    "field": "detail.T",
+    "min": 2
+   },
+   "text": "1Lますと1dLますで、{u}とおりのかさを作りました。"
+  },
+  {
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "k2.measure"
+    },
+    "min": 2
+   },
+   "text": "身の回りの入れ物を、ますで{n}回はかりました。"
+  }
+ ],
+ "map": [
+  {
+   "school": "2年 C(1) 普遍単位の必要（dL・L）",
+   "activity": "みる・ますで はかる",
+   "done": {
+    "type": "count",
+    "where": {
+     "kind": "k2.measure"
+    },
+    "min": 2
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "k2.miru"
+     },
+     {
+      "kind": "k2.measure"
+     }
+    ]
+   }
+  },
+  {
+   "school": "2年 C(1) 1L＝10dL、1L＝1000mL",
+   "activity": "L・dLを つくる・1L＝1000mL",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "k2.make",
+      "correct": true
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "k2.make"
+     },
+     {
+      "kind": "k2.zoom"
+     }
+    ]
+   }
+  },
+  {
+   "school": "2年 C(1) ますの目もりのしくみ",
+   "activity": "めもりを よむ",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "k2.read"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "k2.read"
+     },
+     {
+      "kind": "k2.meter"
+     }
+    ]
+   }
+  },
+  {
+   "school": "2年 C(1) 見当をつけ、単位を選んで測る",
+   "activity": "みとおし・たんい えらび",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "k2.choose"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "k2.estimate"
+     },
+     {
+      "kind": "k2.choose"
+     }
+    ]
+   }
+  },
+  {
+   "school": "2年 C(1) かさのたし算・ひき算",
+   "activity": "けいさん・どちらが おおい",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "k2.calc"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "k2.calc"
+     },
+     {
+      "kind": "k2.compare"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "k2.miru": "1dLますで1Lますに注ぐと10杯でいっぱいになること、1L＝1000mLを見ました",
+  "k2.measure": "{id}のかさを、ますではかりました（{ml}mL）",
+  "k2.meter": "1Lますに入れた水の目もりを数えました（{dl}dL）",
+  "k2.read": "ますの目もりを読む：{ok}{hints}",
+  "k2.read-done": "目もりを読む（{level}）{n}問中{score}問正解",
+  "k2.compare": "どちらが多い（単位をそろえる）：{ok}{hints}",
+  "k2.compare-done": "どちらが多い（{level}）{n}問中{score}問正解",
+  "k2.calc": "かさの計算：{ok}{hints}",
+  "k2.calc-done": "かさの計算（{level}）{n}問中{score}問正解",
+  "k2.choose": "単位えらび：{ok}{hints}",
+  "k2.choose-done": "単位えらび（{level}）{n}問中{score}問正解",
+  "k2.estimate": "かさの見当：{guess}{unit}と見当、実際は{actual}{unit}",
+  "k2.estimate-done": "かさの見当（{level}）{n}問中{score}問が近い",
+  "k2.make": [
+   {
+    "where": {
+     "correct": true
+    },
+    "text": "1Lます{x}回・1dLます{y}回で、かさを作りました"
+   },
+   {
+    "where": {},
+    "text": "かさを作る：まだ合っていませんでした"
+   }
+  ],
+  "k2.zoom": "1L＝1000mL の しくみ（10ずつ分ける）を確かめました",
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 16.5,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 1,
+   "h": 17,
+   "kind": "read",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "read",
+    "dl": 13,
+    "mistake": "V5",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 1,
+   "h": 17.1,
+   "kind": "read",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "read",
+    "dl": 16,
+    "mistake": "V5",
+    "miss": 2
+   }
+  },
+  {
+   "d": 2,
+   "h": 17,
+   "kind": "compare",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "compare",
+    "a": 600,
+    "b": 1000,
+    "mistake": "V4",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 2,
+   "h": 17.1,
+   "kind": "calc",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "calc",
+    "a": 15,
+    "b": 5,
+    "op": "+",
+    "mistake": "V4",
+    "miss": 2
+   }
+  },
+  {
+   "d": 3,
+   "h": 17,
+   "kind": "choose",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "unit",
+    "id": "bucket",
+    "mistake": "V3",
+    "miss": 2
+   }
+  },
+  {
+   "d": 3,
+   "h": 17.1,
+   "kind": "choose",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "unit",
+    "id": "nabe",
+    "mistake": "V3",
+    "miss": 2
+   }
+  },
+  {
+   "d": 4,
+   "h": 17,
+   "kind": "estimate",
+   "correct": false,
+   "detail": {
+    "q": "バケツに はいる みず",
+    "guess": 3,
+    "actual": 8,
+    "unit": "L",
+    "qty": "volume"
+   }
+  },
+  {
+   "d": 4,
+   "h": 17.1,
+   "kind": "estimate",
+   "correct": false,
+   "detail": {
+    "q": "コップ 1ぱいの みず",
+    "guess": 5,
+    "actual": 2,
+    "unit": "dL",
+    "qty": "volume"
+   }
+  },
+  {
+   "d": 5,
+   "h": 17,
+   "kind": "estimate",
+   "correct": true,
+   "detail": {
+    "q": "どんぶりに はいる みず",
+    "guess": 5,
+    "actual": 6,
+    "unit": "dL",
+    "qty": "volume"
+   }
+  },
+  {
+   "d": 5,
+   "h": 17.5,
+   "kind": "measure",
+   "correct": true,
+   "detail": {
+    "id": "pet500",
+    "ml": 500,
+    "L": 0,
+    "dL": 5
+   },
+   "stage": "sawaru"
+  },
+  {
+   "d": 6,
+   "h": 18,
+   "kind": "make",
+   "correct": true,
+   "detail": {
+    "T": 13,
+    "x": 1,
+    "y": 3
+   },
+   "stage": "tsukuru"
+  },
+  {
+   "d": 6,
+   "h": 18.1,
+   "kind": "make",
+   "correct": true,
+   "detail": {
+    "T": 13,
+    "x": 0,
+    "y": 13
+   }
+  },
+  {
+   "d": 6,
+   "h": 18.2,
+   "kind": "make",
+   "correct": true,
+   "detail": {
+    "T": 21,
+    "x": 2,
+    "y": 1
+   }
+  },
+  {
+   "d": 6,
+   "h": 18.3,
+   "kind": "measure",
+   "correct": true,
+   "detail": {
+    "id": "bucket",
+    "ml": 8000,
+    "L": 8,
+    "dL": 0
+   }
+  }
+ ],
+ "demoZukan": {
+  "k2-kasa": [
+   "pet500",
+   "milk1L",
+   "bucket"
+  ],
+  "k2-masu": [
+   "13:1:3",
+   "13:0:13",
+   "21:2:1"
+  ]
+ }
+}

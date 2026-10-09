@@ -1,0 +1,754 @@
+{
+ "note": "1年「かさくらべ」。設計書 hakaru-design.md §3 K1。文面はすべて下書き（reviewed:false）。子ども向けはひらがなの分かち書き。かさの値は data/benchmarks.json。",
+ "school": "1年 C(1) かさの比べ方（直接比較・間接比較・任意単位）",
+ "tabs": {
+  "miru": [
+   {
+    "part": "masu",
+    "label": "みる",
+    "opts": {
+     "mode": "miru",
+     "script": "k1"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "kurabe",
+    "label": "うつしかえる",
+    "opts": {
+     "qty": "kasa",
+     "mode": "pour"
+    }
+   },
+   {
+    "part": "kurabe",
+    "label": "おなじ コップで",
+    "opts": {
+     "qty": "kasa",
+     "mode": "cups"
+    }
+   },
+   {
+    "part": "ikutsubun",
+    "label": "なんばいぶん",
+    "opts": {
+     "qty": "kasa"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "masu-quiz",
+    "label": "どちらが おおい",
+    "opts": {
+     "type": "more"
+    }
+   },
+   {
+    "part": "masu-quiz",
+    "label": "なんばいぶん",
+    "opts": {
+     "type": "cups"
+    }
+   },
+   {
+    "part": "mitoshi",
+    "label": "みとおし",
+    "opts": {
+     "items": [
+      {
+       "q": "<b>すいとう</b>の みずは、ちいさい コップ なんこぶん？",
+       "sp": "水とうの水は、小さいコップ何個分？",
+       "qty": "volume",
+       "unit": "こぶん",
+       "bench": "suito",
+       "field": "vol_ml",
+       "div": 100,
+       "max": 12,
+       "step": 1,
+       "major": 2,
+       "minor": 1
+      },
+      {
+       "q": "<b>どんぶり</b>の みずは、ちいさい コップ なんこぶん？",
+       "sp": "どんぶりの水は、小さいコップ何個分？",
+       "qty": "volume",
+       "unit": "こぶん",
+       "bench": "donburi",
+       "field": "vol_ml",
+       "div": 100,
+       "max": 12,
+       "step": 1,
+       "major": 2,
+       "minor": 1
+      },
+      {
+       "q": "<b>ぎゅうにゅうパック</b>の みずは、ちいさい コップ なんこぶん？",
+       "sp": "牛乳パックの水は、小さいコップ何個分？",
+       "qty": "volume",
+       "unit": "こぶん",
+       "bench": "milk1L",
+       "field": "vol_ml",
+       "div": 100,
+       "max": 16,
+       "step": 1,
+       "major": 4,
+       "minor": 1
+      },
+      {
+       "q": "<b>ペットボトル</b>の みずは、ちいさい コップ なんこぶん？",
+       "sp": "ペットボトルの水は、小さいコップ何個分？",
+       "qty": "volume",
+       "unit": "こぶん",
+       "bench": "pet500",
+       "field": "vol_ml",
+       "div": 100,
+       "max": 12,
+       "step": 1,
+       "major": 2,
+       "minor": 1
+      },
+      {
+       "q": "<b>コップ</b>の みずは、ちいさい コップ なんこぶん？",
+       "sp": "コップの水は、小さいコップ何個分？",
+       "qty": "volume",
+       "unit": "こぶん",
+       "bench": "cup",
+       "field": "vol_ml",
+       "div": 100,
+       "max": 6,
+       "step": 1,
+       "major": 1,
+       "minor": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "masu",
+    "label": "おなじ かさを つくる",
+    "opts": {
+     "mode": "same"
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "k1-cups",
+   "kind": "list",
+   "label": "いれもの ずかん",
+   "title": "いれもの ずかん（コップ なんばいぶん）",
+   "items": [
+    {
+     "id": "suito:s",
+     "label": "すいとう（ちいさい コップ）",
+     "val": "5はい",
+     "fig": "mono:cont:suito",
+     "hint": "ちいさい コップ"
+    },
+    {
+     "id": "suito:b",
+     "label": "すいとう（おおきい コップ）",
+     "val": "2はいと すこし",
+     "fig": "mono:cont:suito",
+     "hint": "おおきい コップ"
+    },
+    {
+     "id": "donburi:s",
+     "label": "どんぶり（ちいさい コップ）",
+     "val": "6ぱい",
+     "fig": "mono:cont:donburi",
+     "hint": "ちいさい コップ"
+    },
+    {
+     "id": "donburi:b",
+     "label": "どんぶり（おおきい コップ）",
+     "val": "3ばい",
+     "fig": "mono:cont:donburi",
+     "hint": "おおきい コップ"
+    },
+    {
+     "id": "pet500:s",
+     "label": "ペットボトル（ちいさい コップ）",
+     "val": "5はい",
+     "fig": "mono:cont:pet500",
+     "hint": "ちいさい コップ"
+    },
+    {
+     "id": "pet500:b",
+     "label": "ペットボトル（おおきい コップ）",
+     "val": "2はいと すこし",
+     "fig": "mono:cont:pet500",
+     "hint": "おおきい コップ"
+    },
+    {
+     "id": "milk1L:s",
+     "label": "ぎゅうにゅうパック（ちいさい コップ）",
+     "val": "10ぱい",
+     "fig": "mono:cont:milk1L",
+     "hint": "ちいさい コップ"
+    },
+    {
+     "id": "milk1L:b",
+     "label": "ぎゅうにゅうパック（おおきい コップ）",
+     "val": "5はい",
+     "fig": "mono:cont:milk1L",
+     "hint": "おおきい コップ"
+    },
+    {
+     "id": "milk200:s",
+     "label": "ちいさい パック（ちいさい コップ）",
+     "val": "2はい",
+     "fig": "mono:cont:milk200",
+     "hint": "ちいさい コップ"
+    },
+    {
+     "id": "milk200:b",
+     "label": "ちいさい パック（おおきい コップ）",
+     "val": "1ぱい",
+     "fig": "mono:cont:milk200",
+     "hint": "おおきい コップ"
+    },
+    {
+     "id": "cup:s",
+     "label": "コップ（ちいさい コップ）",
+     "val": "2はい",
+     "fig": "mono:cont:cup",
+     "hint": "ちいさい コップ"
+    },
+    {
+     "id": "cup:b",
+     "label": "コップ（おおきい コップ）",
+     "val": "1ぱい",
+     "fig": "mono:cont:cup",
+     "hint": "おおきい コップ"
+    }
+   ],
+   "go": {
+    "mode": "sawaru",
+    "act": 2
+   },
+   "goLabel": "「なんばいぶん」で あつめよう"
+  }
+ ],
+ "mission": [
+  {
+   "key": "same",
+   "label": "おなじ かさを つくる",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "k1-tall",
+   "q": "みずの たかさが たかい ほうが、かならず おおい？",
+   "ch": [
+    "そうとは かぎらない",
+    "かならず おおい"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:cont:pet500"
+  },
+  {
+   "id": "k1-same",
+   "q": "かさを くらべる ときは どう する？",
+   "ch": [
+    "おなじ いれものに うつす",
+    "いれものの たかさを みる"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:cont:cup"
+  },
+  {
+   "id": "k1-over",
+   "q": "あかの みずを あおに うつしたら あふれた。おおいのは？",
+   "ch": [
+    "あか",
+    "あお"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "k1-notfull",
+   "q": "あかの みずを あおに うつしたら、あおは まだ はいる。たくさん はいるのは？",
+   "ch": [
+    "あお",
+    "あか"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "k1-cup",
+   "q": "すいとうは コップ 5はい、どんぶりは コップ 6ぱい（おなじ コップ）。おおいのは？",
+   "ch": [
+    "どんぶり",
+    "すいとう"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:cont:donburi"
+  },
+  {
+   "id": "k1-cupsize",
+   "q": "ちいさい コップで 4はいと、おおきい コップで 3ばい。どちらが おおいか きめられる？",
+   "ch": [
+    "コップが ちがうと すぐには きめられない",
+    "かずが おおい 4はいの ほう"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:cont:cup"
+  },
+  {
+   "id": "k1-wide",
+   "q": "ひくくて ふとい いれものと、たかくて ほそい いれもの。みずの たかさが おなじなら？",
+   "ch": [
+    "ふとい ほうが おおい",
+    "おなじ"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:cont:nabe"
+  },
+  {
+   "id": "k1-count",
+   "q": "コップ 1ぱい、2はい、3ばい…。7この つぎは？",
+   "ch": [
+    "8はい",
+    "7はい"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "k1-unit",
+   "q": "くらべる ときの コップは どう する？",
+   "ch": [
+    "おなじ コップを つかう",
+    "ちがう コップでも よい"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "k1-shape",
+   "q": "かたちの ちがう いれものに おなじ かさを いれた。みずの たかさは？",
+   "ch": [
+    "ちがって いても よい",
+    "かならず おなじ"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:cont:suito"
+  },
+  {
+   "id": "k1-bucket",
+   "q": "バケツと コップ、たくさん はいるのは？",
+   "ch": [
+    "バケツ",
+    "コップ"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:cont:bucket"
+  }
+ ],
+ "insights": [
+  {
+   "key": "k1-height",
+   "type": "V1",
+   "title": "入れ物の高さ（水面の高さ）だけで多い少ないを決めている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "k1.more",
+      "k1.make"
+     ],
+     "detail.mistake": "V1"
+    },
+    "min": 2
+   },
+   "obs": "「どちらが多い」の問題で、水面が高いほうを選ぶまちがいが{n}回ありました。",
+   "body": "細長い入れ物は、水が少なくても水面が高く見えます。高さだけでなく太さもあることに気づき、同じ入れ物に移して比べる段階です。",
+   "home": "おやつの時間に、細いコップと太いコップに同じ量のジュースを注いで、「どっちが多いかな？」と聞き、同じコップに移して確かめてみてください。",
+   "tag": "1年の内容"
+  },
+  {
+   "key": "k1-cupsize",
+   "type": "V2",
+   "title": "大きさの違うコップの杯数で比べている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "k1.cups",
+     "detail.mistake": "V2"
+    },
+    "min": 2
+   },
+   "obs": "コップの大きさが違うのに、杯数が多いほうを「多い」と答えるまちがいが{n}回ありました。",
+   "body": "「いくつ分」で比べるときは、もとにする大きさ（コップ）がそろっていないと比べられません。普遍単位（dL・L）が必要になる理由につながる大切な気づきです。",
+   "home": "大きいコップと小さいコップで、同じペットボトルの水が何杯になるか一緒に数えて、「コップが違うと数も違うね」と話してみてください。",
+   "tag": "1年の内容"
+  },
+  {
+   "key": "k1-sense",
+   "type": "V3",
+   "title": "かさの見当（量感）が育ち途中",
+   "reviewed": false,
+   "test": {
+    "type": "estErr",
+    "where": {
+     "kind": "k1.estimate"
+    },
+    "minN": 3,
+    "gte": 30
+   },
+   "obs": "「みとおし」で、見当と実際の杯数のずれが平均{err}%ありました（{n}回）。",
+   "body": "水とうや牛乳パックにコップ何杯分入るか、見当をつけてから確かめる経験を重ねている段階です。",
+   "home": "飲み物を注ぐ前に「このコップで何杯分かな？」と見当をつけてから注いでみてください。",
+   "tag": "1年の内容"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "k1.more"
+    },
+    "min": 3
+   },
+   "text": "「どちらが多い」の問題で、ヒントを使わずに{best}問続けて正解しました。"
+  },
+  {
+   "test": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "k1.make",
+      "correct": true
+     }
+    ]
+   },
+   "text": "形の違う入れ物に、見本と同じかさの水を入れられました。"
+  },
+  {
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "k1.cups",
+     "correct": true
+    },
+    "min": 3
+   },
+   "text": "コップ何杯分で、かさを{n}回数えました。"
+  }
+ ],
+ "map": [
+  {
+   "school": "1年 C(1) 直接比較（注ぎ移す）",
+   "activity": "うつしかえる",
+   "done": {
+    "type": "count",
+    "where": {
+     "kind": "k1.pour"
+    },
+    "min": 2
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "k1.pour"
+     },
+     {
+      "kind": "k1.miru"
+     }
+    ]
+   }
+  },
+  {
+   "school": "1年 C(1) 間接比較（同じ入れ物に移す）",
+   "activity": "おなじ コップで・どちらが おおい",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "k1.more"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "k1.same-cup"
+     },
+     {
+      "kind": "k1.more"
+     }
+    ]
+   }
+  },
+  {
+   "school": "1年 C(1) 任意単位による測定（コップ何杯分）",
+   "activity": "なんばいぶん・いれもの ずかん",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "k1.cups"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "k1.cups"
+     },
+     {
+      "kind": "k1.cupsize"
+     }
+    ]
+   }
+  },
+  {
+   "school": "1年 C(1) かさの保存（形が違っても同じかさ）",
+   "activity": "おなじ かさを つくる",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "k1.make",
+      "correct": true
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "k1.make"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "k1.miru": "高さと太さの違う入れ物のかさを、同じコップに移して比べる様子を見ました",
+  "k1.pour": "一方の水をもう一方へ移して、かさを直接比べました",
+  "k1.same-cup": "2つの水を同じコップに移して、水面の高さで比べました",
+  "k1.cups": [
+   {
+    "where": {
+     "detail.type": "count"
+    },
+    "text": "コップ何杯分を数える：{ok}{hints}"
+   },
+   {
+    "where": {
+     "detail.type": "cupsize"
+    },
+    "text": "大きさの違うコップの杯数くらべ：{ok}{hints}"
+   },
+   {
+    "where": {},
+    "text": "{cont}を、コップで何杯分か数えました（{n}杯）"
+   }
+  ],
+  "k1.cups-done": "コップ何杯分の問題（{level}）{n}問中{score}問正解",
+  "k1.cupsize": "同じ入れ物を、大きさの違うコップで数えくらべました",
+  "k1.more": "どちらが多い：{ok}{hints}",
+  "k1.more-done": "どちらが多い（{level}）{n}問中{score}問正解",
+  "k1.estimate": "かさの見当：{guess}{unit}と見当、実際は{actual}{unit}",
+  "k1.estimate-done": "かさの見当（{level}）{n}問中{score}問が近い",
+  "k1.make": [
+   {
+    "where": {
+     "correct": true
+    },
+    "text": "形の違う入れ物に、見本と同じかさを作りました"
+   },
+   {
+    "where": {},
+    "text": "同じかさを作る：見本と違いました"
+   }
+  ],
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 16.5,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 1,
+   "h": 17,
+   "kind": "more",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "more",
+    "tall": 300,
+    "wide": 400,
+    "mistake": "V1",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 1,
+   "h": 17.1,
+   "kind": "more",
+   "correct": true,
+   "hints": 1,
+   "level": "normal",
+   "detail": {
+    "type": "more",
+    "tall": 250,
+    "wide": 350,
+    "mistake": "V1",
+    "miss": 1
+   }
+  },
+  {
+   "d": 2,
+   "h": 17,
+   "kind": "cups",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "cupsize",
+    "nS": 5,
+    "nB": 3,
+    "mistake": "V2",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 2,
+   "h": 17.1,
+   "kind": "cups",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "cupsize",
+    "nS": 4,
+    "nB": 3,
+    "mistake": "V2",
+    "miss": 2
+   }
+  },
+  {
+   "d": 3,
+   "h": 17,
+   "kind": "estimate",
+   "correct": false,
+   "detail": {
+    "q": "すいとうの みず",
+    "guess": 2,
+    "actual": 5,
+    "unit": "こぶん",
+    "qty": "volume"
+   }
+  },
+  {
+   "d": 3,
+   "h": 17.1,
+   "kind": "estimate",
+   "correct": true,
+   "detail": {
+    "q": "どんぶりの みず",
+    "guess": 4,
+    "actual": 6,
+    "unit": "こぶん",
+    "qty": "volume"
+   }
+  },
+  {
+   "d": 4,
+   "h": 17,
+   "kind": "estimate",
+   "correct": true,
+   "detail": {
+    "q": "ペットボトルの みず",
+    "guess": 5,
+    "actual": 5,
+    "unit": "こぶん",
+    "qty": "volume"
+   }
+  },
+  {
+   "d": 4,
+   "h": 17.5,
+   "kind": "cups",
+   "correct": true,
+   "detail": {
+    "cont": "suito",
+    "cup": "s",
+    "n": 5
+   },
+   "stage": "sawaru"
+  },
+  {
+   "d": 4,
+   "h": 17.6,
+   "kind": "cups",
+   "correct": true,
+   "detail": {
+    "cont": "donburi",
+    "cup": "s",
+    "n": 6
+   }
+  },
+  {
+   "d": 4,
+   "h": 17.7,
+   "kind": "cups",
+   "correct": true,
+   "level": "normal",
+   "detail": {
+    "type": "count",
+    "n": 7
+   }
+  },
+  {
+   "d": 5,
+   "h": 18,
+   "kind": "make",
+   "correct": true,
+   "detail": {
+    "want": 300,
+    "got": 300,
+    "pair": "tall-wide"
+   },
+   "stage": "tsukuru"
+  }
+ ],
+ "demoZukan": {
+  "k1-cups": [
+   "suito:s",
+   "donburi:s",
+   "suito:b"
+  ]
+ }
+}

@@ -1,0 +1,1209 @@
+{
+ "note": "3年「重さ」。設計書 hakaru-design.md §3 O3。文面はすべて下書き（reviewed:false）。教科書の用語は漢字＋ルビ。物の重さは data/benchmarks.json、1kg の組の数は data/hakaru/kg.json（tools/hakaru-omosa.mjs）。はかりの目量（1kg＝5g・2kg＝10g・4kg＝20g）は既定値。",
+ "school": "3年 C(1) 重さの単位と測定（g・kg・t）",
+ "tabs": {
+  "miru": [
+   {
+    "part": "hakari",
+    "label": "みる",
+    "opts": {
+     "mode": "miru"
+    }
+   }
+  ],
+  "sawaru": [
+   {
+    "part": "kurabe",
+    "label": "てんびん",
+    "opts": {
+     "qty": "omosa"
+    }
+   },
+   {
+    "part": "ikutsubun",
+    "label": "1えんだまで",
+    "opts": {
+     "qty": "omosa"
+    }
+   },
+   {
+    "part": "hakari",
+    "label": "はかり",
+    "opts": {
+     "mode": "scale"
+    }
+   },
+   {
+    "part": "hakari",
+    "label": "いれものごと",
+    "opts": {
+     "mode": "net"
+    }
+   },
+   {
+    "part": "hakari",
+    "label": "1t",
+    "opts": {
+     "mode": "ton"
+    }
+   }
+  ],
+  "tamesu": [
+   {
+    "part": "hakari-quiz",
+    "label": "めもりを よむ",
+    "opts": {
+     "type": "read"
+    }
+   },
+   {
+    "part": "hakari-quiz",
+    "label": "えらぶ",
+    "opts": {
+     "type": "choose",
+     "n": 6
+    }
+   },
+   {
+    "part": "hakari-quiz",
+    "label": "g・kg・t",
+    "opts": {
+     "type": "convert"
+    }
+   },
+   {
+    "part": "hakari-quiz",
+    "label": "かんがえよう",
+    "opts": {
+     "type": "think"
+    }
+   },
+   {
+    "part": "mitoshi",
+    "label": "みとおし",
+    "opts": {
+     "items": [
+      {
+       "q": "<b>りんご</b> 1この おもさは なんg？",
+       "sp": "りんご1個の重さは何グラム？",
+       "qty": "mass",
+       "unit": "g",
+       "bench": "apple",
+       "field": "mass_g",
+       "max": 800,
+       "step": 10,
+       "major": 200,
+       "minor": 50
+      },
+      {
+       "q": "<b>たまご</b> 1この おもさは なんg？",
+       "sp": "たまご1個の重さは何グラム？",
+       "qty": "mass",
+       "unit": "g",
+       "bench": "egg",
+       "field": "mass_g",
+       "max": 200,
+       "step": 5,
+       "major": 50,
+       "minor": 10
+      },
+      {
+       "q": "<b>きょうかしょ</b> 1さつの おもさは なんg？",
+       "sp": "教科書1冊の重さは何グラム？",
+       "qty": "mass",
+       "unit": "g",
+       "bench": "textbook",
+       "field": "mass_g",
+       "max": 800,
+       "step": 10,
+       "major": 200,
+       "minor": 50
+      },
+      {
+       "q": "<b>1Lの みず</b>の おもさは なんg？",
+       "sp": "1リットルの水の重さは何グラム？",
+       "qty": "mass",
+       "unit": "g",
+       "bench": "water1L",
+       "field": "mass_g",
+       "max": 2000,
+       "step": 50,
+       "major": 500,
+       "minor": 100
+      },
+      {
+       "q": "<b>キャベツ</b> 1この おもさは なんg？",
+       "sp": "キャベツ1個の重さは何グラム？",
+       "qty": "mass",
+       "unit": "g",
+       "bench": "cabbage",
+       "field": "mass_g",
+       "max": 3000,
+       "step": 50,
+       "major": 500,
+       "minor": 100
+      },
+      {
+       "q": "<b>じてんしゃ</b>の おもさは なんkg？",
+       "sp": "自転車の重さは何キログラム？",
+       "qty": "mass",
+       "unit": "kg",
+       "bench": "bicycle",
+       "field": "mass_g",
+       "div": 1000,
+       "max": 40,
+       "step": 1,
+       "major": 10,
+       "minor": 2
+      }
+     ]
+    }
+   }
+  ],
+  "tsukuru": [
+   {
+    "part": "hakari",
+    "label": "1kgを つくろう",
+    "opts": {
+     "mode": "kg",
+     "coll": "o3-kg"
+    }
+   }
+  ]
+ },
+ "zukan": [
+  {
+   "id": "o3-kg",
+   "kind": "list",
+   "label": "1kg ずかん",
+   "title": "1kg ずかん（ちょうど 1000g の くみあわせ）",
+   "items": [
+    {
+     "id": "carrot*1+clay*2+banana*2+orange*1",
+     "label": "にんじん・ねんど×2・バナナ×2・みかん",
+     "fig": "mono:carrot*1+clay*2+banana*2+orange*1",
+     "hint": "4しゅるい"
+    },
+    {
+     "id": "carrot*2+clay*1+banana*2+orange*1",
+     "label": "にんじん×2・ねんど・バナナ×2・みかん",
+     "fig": "mono:carrot*2+clay*1+banana*2+orange*1",
+     "hint": "4しゅるい"
+    },
+    {
+     "id": "carrot*2+clay*2+orange*2",
+     "label": "にんじん×2・ねんど×2・みかん×2",
+     "fig": "mono:carrot*2+clay*2+orange*2",
+     "hint": "3しゅるい"
+    },
+    {
+     "id": "textbook*1+clay*2+banana*1+orange*2",
+     "label": "きょうかしょ・ねんど×2・バナナ・みかん×2",
+     "fig": "mono:textbook*1+clay*2+banana*1+orange*2",
+     "hint": "4しゅるい"
+    },
+    {
+     "id": "textbook*1+carrot*1+clay*1+banana*1+orange*2",
+     "label": "きょうかしょ・にんじん・ねんど・バナナ・みかん×2",
+     "fig": "mono:textbook*1+carrot*1+clay*1+banana*1+orange*2",
+     "hint": "5しゅるい"
+    },
+    {
+     "id": "textbook*1+carrot*1+clay*2+banana*1",
+     "label": "きょうかしょ・にんじん・ねんど×2・バナナ",
+     "fig": "mono:textbook*1+carrot*1+clay*2+banana*1",
+     "hint": "4しゅるい"
+    },
+    {
+     "id": "textbook*1+carrot*2+banana*1+orange*2",
+     "label": "きょうかしょ・にんじん×2・バナナ・みかん×2",
+     "fig": "mono:textbook*1+carrot*2+banana*1+orange*2",
+     "hint": "4しゅるい"
+    },
+    {
+     "id": "textbook*1+carrot*2+clay*1+banana*1",
+     "label": "きょうかしょ・にんじん×2・ねんど・バナナ",
+     "fig": "mono:textbook*1+carrot*2+clay*1+banana*1",
+     "hint": "4しゅるい"
+    },
+    {
+     "id": "textbook*2+banana*2+orange*2",
+     "label": "きょうかしょ×2・バナナ×2・みかん×2",
+     "fig": "mono:textbook*2+banana*2+orange*2",
+     "hint": "3しゅるい"
+    },
+    {
+     "id": "textbook*2+clay*1+banana*2",
+     "label": "きょうかしょ×2・ねんど・バナナ×2",
+     "fig": "mono:textbook*2+clay*1+banana*2",
+     "hint": "3しゅるい"
+    },
+    {
+     "id": "textbook*2+clay*2+orange*1",
+     "label": "きょうかしょ×2・ねんど×2・みかん",
+     "fig": "mono:textbook*2+clay*2+orange*1",
+     "hint": "3しゅるい"
+    },
+    {
+     "id": "textbook*2+carrot*1+banana*2",
+     "label": "きょうかしょ×2・にんじん・バナナ×2",
+     "fig": "mono:textbook*2+carrot*1+banana*2",
+     "hint": "3しゅるい"
+    },
+    {
+     "id": "textbook*2+carrot*1+clay*1+orange*1",
+     "label": "きょうかしょ×2・にんじん・ねんど・みかん",
+     "fig": "mono:textbook*2+carrot*1+clay*1+orange*1",
+     "hint": "4しゅるい"
+    },
+    {
+     "id": "textbook*2+carrot*2+orange*1",
+     "label": "きょうかしょ×2・にんじん×2・みかん",
+     "fig": "mono:textbook*2+carrot*2+orange*1",
+     "hint": "3しゅるい"
+    },
+    {
+     "id": "apple*1+clay*1+banana*2+orange*2",
+     "label": "りんご・ねんど・バナナ×2・みかん×2",
+     "fig": "mono:apple*1+clay*1+banana*2+orange*2",
+     "hint": "4しゅるい"
+    },
+    {
+     "id": "apple*1+clay*2+banana*2",
+     "label": "りんご・ねんど×2・バナナ×2",
+     "fig": "mono:apple*1+clay*2+banana*2",
+     "hint": "3しゅるい"
+    },
+    {
+     "id": "apple*1+carrot*1+banana*2+orange*2",
+     "label": "りんご・にんじん・バナナ×2・みかん×2",
+     "fig": "mono:apple*1+carrot*1+banana*2+orange*2",
+     "hint": "4しゅるい"
+    },
+    {
+     "id": "apple*1+carrot*1+clay*1+banana*2",
+     "label": "りんご・にんじん・ねんど・バナナ×2",
+     "fig": "mono:apple*1+carrot*1+clay*1+banana*2",
+     "hint": "4しゅるい"
+    },
+    {
+     "id": "apple*1+carrot*1+clay*2+orange*1",
+     "label": "りんご・にんじん・ねんど×2・みかん",
+     "fig": "mono:apple*1+carrot*1+clay*2+orange*1",
+     "hint": "4しゅるい"
+    },
+    {
+     "id": "apple*1+carrot*2+banana*2",
+     "label": "りんご・にんじん×2・バナナ×2",
+     "fig": "mono:apple*1+carrot*2+banana*2",
+     "hint": "3しゅるい"
+    },
+    {
+     "id": "apple*1+carrot*2+clay*1+orange*1",
+     "label": "りんご・にんじん×2・ねんど・みかん",
+     "fig": "mono:apple*1+carrot*2+clay*1+orange*1",
+     "hint": "4しゅるい"
+    },
+    {
+     "id": "apple*1+textbook*1+clay*1+banana*1+orange*1",
+     "label": "りんご・きょうかしょ・ねんど・バナナ・みかん",
+     "fig": "mono:apple*1+textbook*1+clay*1+banana*1+orange*1",
+     "hint": "5しゅるい"
+    },
+    {
+     "id": "apple*1+textbook*1+carrot*1+banana*1+orange*1",
+     "label": "りんご・きょうかしょ・にんじん・バナナ・みかん",
+     "fig": "mono:apple*1+textbook*1+carrot*1+banana*1+orange*1",
+     "hint": "5しゅるい"
+    },
+    {
+     "id": "apple*1+textbook*2+orange*2",
+     "label": "りんご・きょうかしょ×2・みかん×2",
+     "fig": "mono:apple*1+textbook*2+orange*2",
+     "hint": "3しゅるい"
+    },
+    {
+     "id": "apple*1+textbook*2+clay*1",
+     "label": "りんご・きょうかしょ×2・ねんど",
+     "fig": "mono:apple*1+textbook*2+clay*1",
+     "hint": "3しゅるい"
+    },
+    {
+     "id": "apple*1+textbook*2+carrot*1",
+     "label": "りんご・きょうかしょ×2・にんじん",
+     "fig": "mono:apple*1+textbook*2+carrot*1",
+     "hint": "3しゅるい"
+    },
+    {
+     "id": "apple*2+banana*2+orange*1",
+     "label": "りんご×2・バナナ×2・みかん",
+     "fig": "mono:apple*2+banana*2+orange*1",
+     "hint": "3しゅるい"
+    },
+    {
+     "id": "apple*2+clay*1+orange*2",
+     "label": "りんご×2・ねんど・みかん×2",
+     "fig": "mono:apple*2+clay*1+orange*2",
+     "hint": "3しゅるい"
+    },
+    {
+     "id": "apple*2+clay*2",
+     "label": "りんご×2・ねんど×2",
+     "fig": "mono:apple*2+clay*2",
+     "hint": "2しゅるい"
+    },
+    {
+     "id": "apple*2+carrot*1+orange*2",
+     "label": "りんご×2・にんじん・みかん×2",
+     "fig": "mono:apple*2+carrot*1+orange*2",
+     "hint": "3しゅるい"
+    },
+    {
+     "id": "apple*2+carrot*1+clay*1",
+     "label": "りんご×2・にんじん・ねんど",
+     "fig": "mono:apple*2+carrot*1+clay*1",
+     "hint": "3しゅるい"
+    },
+    {
+     "id": "apple*2+carrot*2",
+     "label": "りんご×2・にんじん×2",
+     "fig": "mono:apple*2+carrot*2",
+     "hint": "2しゅるい"
+    },
+    {
+     "id": "apple*2+textbook*1+banana*1",
+     "label": "りんご×2・きょうかしょ・バナナ",
+     "fig": "mono:apple*2+textbook*1+banana*1",
+     "hint": "3しゅるい"
+    },
+    {
+     "id": "water1L*1",
+     "label": "1Lの みず",
+     "fig": "mono:water1L*1",
+     "hint": "1しゅるい"
+    }
+   ],
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   },
+   "goLabel": "「1kgを つくろう」で あつめよう"
+  },
+  {
+   "id": "o3-mass",
+   "kind": "list",
+   "label": "おもさ ずかん",
+   "title": "おもさ ずかん（はかった もの）",
+   "items": [
+    {
+     "id": "apple",
+     "label": "りんご",
+     "val": "やく 300g",
+     "fig": "mono:apple",
+     "hint": "りんご"
+    },
+    {
+     "id": "egg",
+     "label": "たまご",
+     "val": "やく 60g",
+     "fig": "mono:egg",
+     "hint": "たまご"
+    },
+    {
+     "id": "carrot",
+     "label": "にんじん",
+     "val": "やく 200g",
+     "fig": "mono:carrot",
+     "hint": "にんじん"
+    },
+    {
+     "id": "banana",
+     "label": "バナナ",
+     "val": "やく 150g",
+     "fig": "mono:banana",
+     "hint": "バナナ"
+    },
+    {
+     "id": "orange",
+     "label": "みかん",
+     "val": "やく 100g",
+     "fig": "mono:orange",
+     "hint": "みかん"
+    },
+    {
+     "id": "potato",
+     "label": "じゃがいも",
+     "val": "やく 150g",
+     "fig": "mono:potato",
+     "hint": "じゃがいも"
+    },
+    {
+     "id": "textbook",
+     "label": "きょうかしょ",
+     "val": "やく 250g",
+     "fig": "mono:textbook",
+     "hint": "きょうかしょ"
+    },
+    {
+     "id": "clay",
+     "label": "ねんど",
+     "val": "やく 200g",
+     "fig": "mono:clay",
+     "hint": "ねんど"
+    },
+    {
+     "id": "water1L",
+     "label": "1Lの みず",
+     "val": "やく 1kg",
+     "fig": "mono:water1L",
+     "hint": "1Lの みず"
+    },
+    {
+     "id": "pumpkin",
+     "label": "かぼちゃ",
+     "val": "やく 1kg 500g",
+     "fig": "mono:pumpkin",
+     "hint": "かぼちゃ"
+    },
+    {
+     "id": "cabbage",
+     "label": "キャベツ",
+     "val": "やく 1kg 200g",
+     "fig": "mono:cabbage",
+     "hint": "キャベツ"
+    }
+   ],
+   "go": {
+    "mode": "sawaru",
+    "act": 2
+   },
+   "goLabel": "「はかり」で はかろう"
+  }
+ ],
+ "mission": [
+  {
+   "key": "kg",
+   "label": "1kgを つくろう",
+   "icon": "make",
+   "go": {
+    "mode": "tsukuru",
+    "act": 0
+   }
+  }
+ ],
+ "review": [
+  {
+   "id": "o3-kgg",
+   "q": "1kgは なんg？",
+   "ch": [
+    "1000g",
+    "100g",
+    "10g"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "scale:1000:2000"
+  },
+  {
+   "id": "o3-tkg",
+   "q": "1tは なんkg？",
+   "ch": [
+    "1000kg",
+    "100kg",
+    "10kg"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:keicar"
+  },
+  {
+   "id": "o3-2300",
+   "q": "2kg 300gは なんg？",
+   "ch": [
+    "2300g",
+    "2003g",
+    "230g"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "o3-1500",
+   "q": "1500gは？",
+   "ch": [
+    "1kg 500g",
+    "15kg",
+    "1kg 50g"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "o3-coin",
+   "q": "1えんだま 1まいの おもさは？",
+   "ch": [
+    "1g",
+    "10g",
+    "1kg"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:coin1"
+  },
+  {
+   "id": "o3-clay",
+   "q": "ねんどを ほそく のばすと おもさは？",
+   "ch": [
+    "かわらない",
+    "おもく なる",
+    "かるく なる"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:clay"
+  },
+  {
+   "id": "o3-big",
+   "q": "おおきい ものの ほうが かならず おもい？",
+   "ch": [
+    "そうとは かぎらない",
+    "かならず おもい"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:sponge"
+  },
+  {
+   "id": "o3-tick",
+   "q": "1kgまで はかれる はかりの めもり 1つは？",
+   "ch": [
+    "5g",
+    "10g",
+    "1g"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "scale:500:1000"
+  },
+  {
+   "id": "o3-cap",
+   "q": "3kgの ものを はかる はかりは？",
+   "ch": [
+    "4kgの はかり",
+    "1kgの はかり",
+    "2kgの はかり"
+   ],
+   "a": 0,
+   "reviewed": false
+  },
+  {
+   "id": "o3-net",
+   "q": "ボウルごと はかったら 500g。ボウルは 200g。なかみは？",
+   "ch": [
+    "300g",
+    "700g",
+    "500g"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:bowl"
+  },
+  {
+   "id": "o3-water",
+   "q": "1Lの みずの おもさは やく？",
+   "ch": [
+    "1kg",
+    "1g",
+    "1t"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:water1L"
+  },
+  {
+   "id": "o3-unit",
+   "q": "じてんしゃの おもさは やく 15 なに？",
+   "ch": [
+    "kg",
+    "g",
+    "t"
+   ],
+   "a": 0,
+   "reviewed": false,
+   "fig": "mono:bicycle"
+  }
+ ],
+ "insights": [
+  {
+   "key": "o3-size",
+   "type": "W1",
+   "title": "大きいほうが重いと考えている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "o3.think",
+     "detail.mistake": "W1"
+    },
+    "min": 2
+   },
+   "obs": "大きさの違う物の重さくらべで、大きいほうを重いと答えるまちがいが{n}回ありました。",
+   "body": "重さは見た目の大きさでは決まりません（大きなスポンジより小さな鉄の玉が重い）。てんびんで確かめて、大きさと重さを分けて考える段階です。",
+   "home": "台所でスポンジとりんごを両手に持ち比べ、「大きいほうが重いかな？」と話してみてください。",
+   "tag": "3年の内容"
+  },
+  {
+   "key": "o3-shape",
+   "type": "W2",
+   "title": "形を変えると重さが変わると考えている",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "o3.think",
+     "detail.mistake": "W2"
+    },
+    "min": 1
+   },
+   "obs": "ねんどの形を変えたときの重さの問題で{n}回まちがえました。",
+   "body": "形を変えても、ちぎって全部集めても、重さは同じです（重さの保存）。小学校高学年でもつまずく子が多い内容で、はかりで何度も確かめるのが近道です。",
+   "home": "粘土や丸めたアルミホイルを、形を変えながら台所のはかりにのせてみてください。",
+   "tag": "3年の内容"
+  },
+  {
+   "key": "o3-scale",
+   "type": "W3",
+   "title": "はかりの目もり・はかれる重さ（秤量）",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "o3.read",
+      "o3.choose"
+     ],
+     "detail.mistake": "W3"
+    },
+    "min": 2
+   },
+   "obs": "はかりの1目もりの大きさや、はかれる重さの読みちがいが{n}回ありました。",
+   "body": "はかりによって1目もりが 5g・10g・20g と違います。数字の目もりから小さい目もりをいくつ分数える段階です。重すぎる物をのせると針が振り切れることも知っておくとよいです。",
+   "home": "家のはかりの一番大きな数（何kgまではかれるか）と、1目もりが何gかを一緒に見てください。",
+   "tag": "3年の内容"
+  },
+  {
+   "key": "o3-sense",
+   "type": "W4",
+   "title": "重さの見当（量感）が育ち途中",
+   "reviewed": false,
+   "test": {
+    "type": "estErr",
+    "where": {
+     "kind": "o3.estimate"
+    },
+    "minN": 3,
+    "gte": 30
+   },
+   "obs": "「みとおし」で、見当と実際の重さのずれが平均{err}%ありました（{n}回）。",
+   "body": "全国の調査でも「約1kgの物」を選ぶ問題の正答率は高くありません。手で持って見当をつけてから、はかりで確かめる経験を重ねる段階です。",
+   "home": "買い物のときに野菜や果物を持って「何gくらい？」と当てっこをしてから、袋の表示やはかりで確かめてみてください。",
+   "tag": "3年の内容"
+  },
+  {
+   "key": "o3-sense2",
+   "type": "W4",
+   "title": "身の回りの物と g・kg・t が結びついていない",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": [
+      "o3.choose",
+      "o3.make"
+     ],
+     "detail.mistake": "W4"
+    },
+    "min": 2
+   },
+   "obs": "1kgに近い物や、重さに合う単位を選ぶ問題で{n}回まちがえました。",
+   "body": "1g は1円玉1枚、1kg は1Lの水、1t は車1台くらい、という基準と単位を結びつけている段階です。",
+   "home": "1Lの牛乳パックを持って「これが約1kg」と体で覚えるのがおすすめです。",
+   "tag": "3年の内容"
+  },
+  {
+   "key": "o3-unit",
+   "type": "W5",
+   "title": "g・kg・t の関係（単位のしくみ）",
+   "reviewed": false,
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "o3.convert",
+     "detail.mistake": "W5"
+    },
+    "min": 2
+   },
+   "obs": "g と kg の換算（2kg300g→2300g など）で{n}回まちがえました。",
+   "body": "g・kg・t を別々の単位として覚えていると、2kg300g を 2003g や 230g と考えてしまいます。1kg＝1000g、1t＝1000kg の「1000ずつ」のしくみでつなげる段階です。",
+   "home": "お米や小麦粉の袋の表示（例：2kg）を見て「何gかな？」と言いかえてみてください。",
+   "tag": "3年の内容"
+  }
+ ],
+ "praises": [
+  {
+   "test": {
+    "type": "streak",
+    "where": {
+     "kind": "o3.read"
+    },
+    "min": 3
+   },
+   "text": "はかりの目もりを、ヒントを使わずに{best}問続けて読めました。"
+  },
+  {
+   "test": {
+    "type": "distinct",
+    "where": {
+     "kind": "o3.make",
+     "correct": true
+    },
+    "field": "detail.id",
+    "min": 2
+   },
+   "text": "「1kgを つくろう」で、ちょうど1kgの組み合わせを{u}とおり見つけました。"
+  },
+  {
+   "test": {
+    "type": "count",
+    "where": {
+     "kind": "o3.coins"
+    },
+    "min": 1
+   },
+   "text": "1円玉やつみきの「いくつ分」で、物の重さをくらべました。"
+  }
+ ],
+ "map": [
+  {
+   "school": "3年 C(1) 重さの比べ方（直接比較・任意単位）",
+   "activity": "てんびん・1えんだまで",
+   "done": {
+    "type": "count",
+    "where": {
+     "kind": "o3.coins"
+    },
+    "min": 1
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "o3.balance"
+     },
+     {
+      "kind": "o3.miru"
+     }
+    ]
+   }
+  },
+  {
+   "school": "3年 C(1) g・kg、はかりの目もり（秤量・感量）",
+   "activity": "はかり・めもりを よむ",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "o3.read"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "o3.read"
+     },
+     {
+      "kind": "o3.weigh"
+     }
+    ]
+   }
+  },
+  {
+   "school": "3年 C(1) 見当をつけ、はかりを選んで測る",
+   "activity": "みとおし・えらぶ",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "o3.choose"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "o3.estimate"
+     },
+     {
+      "kind": "o3.choose"
+     }
+    ]
+   }
+  },
+  {
+   "school": "3年 C(1) 正味（全体−入れ物）",
+   "activity": "いれものごと",
+   "done": {
+    "type": "count",
+    "where": {
+     "kind": "o3.net"
+    },
+    "min": 1
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "o3.net"
+     }
+    ]
+   }
+  },
+  {
+   "school": "3年 C(1) 取扱い(7) t（トン）に触れる",
+   "activity": "1t",
+   "done": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "o3.ton"
+     }
+    ]
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "o3.miru"
+     }
+    ]
+   }
+  },
+  {
+   "school": "3年 C(1) 単位の関係（1kg＝1000g）・重さの計算",
+   "activity": "g・kg・t・1kgを つくろう",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "o3.convert"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "o3.convert"
+     },
+     {
+      "kind": "o3.make"
+     }
+    ]
+   }
+  },
+  {
+   "school": "3年 C(1) 重さの保存（形を変えても同じ）",
+   "activity": "かんがえよう・ねんど",
+   "done": {
+    "type": "rate",
+    "where": {
+     "kind": "o3.think"
+    },
+    "minN": 3,
+    "min": 0.7
+   },
+   "mid": {
+    "type": "any",
+    "of": [
+     {
+      "kind": "o3.think"
+     },
+     {
+      "kind": "o3.conserve"
+     }
+    ]
+   }
+  }
+ ],
+ "labels": {
+  "o3.miru": "手→てんびん→1円玉→はかり（g）の順に、重さの比べ方を見ました",
+  "o3.balance": "てんびんで2つの物の重さをくらべました",
+  "o3.coins": "{obj}と1円玉（つみき）でつりあわせました（{n}個分）",
+  "o3.weigh": "はかりで物の重さをはかりました",
+  "o3.conserve": "ねんどの形を変えて、はかりの針を確かめました",
+  "o3.net": "入れ物ごとはかって、正味の重さ（{net}g）を出しました",
+  "o3.ton": "1t（1000kg）の大きさを確かめました",
+  "o3.read": "はかりの目もりを読む：{ok}{hints}",
+  "o3.read-done": "はかりの目もり（{level}）{n}問中{score}問正解",
+  "o3.choose": [
+   {
+    "where": {
+     "detail.type": "cap"
+    },
+    "text": "はかり選び：{ok}{hints}"
+   },
+   {
+    "where": {
+     "detail.type": "unit"
+    },
+    "text": "重さの単位選び：{ok}{hints}"
+   },
+   {
+    "where": {},
+    "text": "1kgに近い物：{ok}{hints}"
+   }
+  ],
+  "o3.choose-done": "えらぶ問題（{level}）{n}問中{score}問正解",
+  "o3.convert": "g・kg・t の換算：{ok}{hints}",
+  "o3.convert-done": "換算（{level}）{n}問中{score}問正解",
+  "o3.think": "大きさと重さ・形と重さ：{ok}{hints}",
+  "o3.think-done": "かんがえよう（{level}）{n}問中{score}問正解",
+  "o3.estimate": "重さの見当：{guess}{unit}と見当、実際は{actual}{unit}",
+  "o3.estimate-done": "重さの見当（{level}）{n}問中{score}問が近い",
+  "o3.make": [
+   {
+    "where": {
+     "correct": true
+    },
+    "text": "物を組み合わせて、ちょうど1kgを作りました"
+   },
+   {
+    "where": {},
+    "text": "1kgを作る：{g}gでした"
+   }
+  ],
+  "review": "思い出し問題：{ok}"
+ },
+ "demo": [
+  {
+   "d": 0,
+   "h": 16.5,
+   "kind": "miru",
+   "stage": "miru"
+  },
+  {
+   "d": 1,
+   "h": 17,
+   "kind": "think",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "think",
+    "id": "big",
+    "mistake": "W1",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 1,
+   "h": 17.1,
+   "kind": "think",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "think",
+    "id": "book",
+    "mistake": "W1",
+    "miss": 2
+   }
+  },
+  {
+   "d": 1,
+   "h": 17.2,
+   "kind": "think",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "think",
+    "id": "long",
+    "mistake": "W2",
+    "miss": 2
+   }
+  },
+  {
+   "d": 2,
+   "h": 17,
+   "kind": "read",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "read",
+    "g": 365,
+    "cap": 1000,
+    "mistake": "W3",
+    "miss": 2
+   },
+   "stage": "tamesu"
+  },
+  {
+   "d": 2,
+   "h": 17.1,
+   "kind": "choose",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "cap",
+    "g": 1500,
+    "mistake": "W3",
+    "miss": 2
+   }
+  },
+  {
+   "d": 3,
+   "h": 17,
+   "kind": "convert",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "convert",
+    "k": "kg2g",
+    "mistake": "W5",
+    "miss": 2
+   }
+  },
+  {
+   "d": 3,
+   "h": 17.1,
+   "kind": "convert",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "convert",
+    "k": "g2kg",
+    "mistake": "W5",
+    "miss": 2
+   }
+  },
+  {
+   "d": 4,
+   "h": 17,
+   "kind": "estimate",
+   "correct": false,
+   "detail": {
+    "q": "りんご 1この おもさ",
+    "guess": 100,
+    "actual": 300,
+    "unit": "g",
+    "qty": "mass"
+   }
+  },
+  {
+   "d": 4,
+   "h": 17.1,
+   "kind": "estimate",
+   "correct": false,
+   "detail": {
+    "q": "きょうかしょの おもさ",
+    "guess": 600,
+    "actual": 250,
+    "unit": "g",
+    "qty": "mass"
+   }
+  },
+  {
+   "d": 5,
+   "h": 17,
+   "kind": "estimate",
+   "correct": true,
+   "detail": {
+    "q": "1Lの みずの おもさ",
+    "guess": 900,
+    "actual": 1000,
+    "unit": "g",
+    "qty": "mass"
+   }
+  },
+  {
+   "d": 5,
+   "h": 17.2,
+   "kind": "choose",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "near",
+    "mistake": "W4",
+    "miss": 2
+   }
+  },
+  {
+   "d": 5,
+   "h": 17.3,
+   "kind": "choose",
+   "correct": false,
+   "level": "normal",
+   "detail": {
+    "type": "unit",
+    "mistake": "W4",
+    "miss": 2
+   }
+  },
+  {
+   "d": 5,
+   "h": 17.5,
+   "kind": "net",
+   "detail": {
+    "total": 500,
+    "bowl": 200,
+    "net": 300,
+    "tare": 0
+   },
+   "stage": "sawaru"
+  },
+  {
+   "d": 6,
+   "h": 17,
+   "kind": "coins",
+   "correct": true,
+   "detail": {
+    "obj": "たまご",
+    "unit": "coin",
+    "n": 60
+   },
+   "stage": "sawaru"
+  },
+  {
+   "d": 6,
+   "h": 18,
+   "kind": "make",
+   "correct": true,
+   "detail": {
+    "id": "apple*2+carrot*2"
+   },
+   "stage": "tsukuru"
+  },
+  {
+   "d": 6,
+   "h": 18.1,
+   "kind": "make",
+   "correct": true,
+   "detail": {
+    "id": "water1L*1"
+   }
+  }
+ ],
+ "demoZukan": {
+  "o3-kg": [
+   "apple*2+carrot*2",
+   "water1L*1"
+  ],
+  "o3-mass": [
+   "apple",
+   "egg",
+   "water1L"
+  ]
+ }
+}

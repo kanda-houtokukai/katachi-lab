@@ -1,0 +1,77 @@
+{
+ "note": "O3「1kg を つくろう」の組み合わせ（tools/hakaru-omosa.mjs で計算して凍結）。重さは data/benchmarks.json。",
+ "rule": "つかう物 8しゅ（1Lの みず・りんご・きょうかしょ・にんじん・ねんど・バナナ・みかん・たまご）、同じ物は 2こまで、ちょうど 1000g、じゅんばんは くべつしない",
+ "items": [
+  {
+   "id": "water1L",
+   "g": 1000
+  },
+  {
+   "id": "apple",
+   "g": 300
+  },
+  {
+   "id": "textbook",
+   "g": 250
+  },
+  {
+   "id": "carrot",
+   "g": 200
+  },
+  {
+   "id": "clay",
+   "g": 200
+  },
+  {
+   "id": "banana",
+   "g": 150
+  },
+  {
+   "id": "orange",
+   "g": 100
+  },
+  {
+   "id": "egg",
+   "g": 60
+  }
+ ],
+ "max": 2,
+ "target": 1000,
+ "total": 34,
+ "combos": [
+  "carrot*1+clay*2+banana*2+orange*1",
+  "carrot*2+clay*1+banana*2+orange*1",
+  "carrot*2+clay*2+orange*2",
+  "textbook*1+clay*2+banana*1+orange*2",
+  "textbook*1+carrot*1+clay*1+banana*1+orange*2",
+  "textbook*1+carrot*1+clay*2+banana*1",
+  "textbook*1+carrot*2+banana*1+orange*2",
+  "textbook*1+carrot*2+clay*1+banana*1",
+  "textbook*2+banana*2+orange*2",
+  "textbook*2+clay*1+banana*2",
+  "textbook*2+clay*2+orange*1",
+  "textbook*2+carrot*1+banana*2",
+  "textbook*2+carrot*1+clay*1+orange*1",
+  "textbook*2+carrot*2+orange*1",
+  "apple*1+clay*1+banana*2+orange*2",
+  "apple*1+clay*2+banana*2",
+  "apple*1+carrot*1+banana*2+orange*2",
+  "apple*1+carrot*1+clay*1+banana*2",
+  "apple*1+carrot*1+clay*2+orange*1",
+  "apple*1+carrot*2+banana*2",
+  "apple*1+carrot*2+clay*1+orange*1",
+  "apple*1+textbook*1+clay*1+banana*1+orange*1",
+  "apple*1+textbook*1+carrot*1+banana*1+orange*1",
+  "apple*1+textbook*2+orange*2",
+  "apple*1+textbook*2+clay*1",
+  "apple*1+textbook*2+carrot*1",
+  "apple*2+banana*2+orange*1",
+  "apple*2+clay*1+orange*2",
+  "apple*2+clay*2",
+  "apple*2+carrot*1+orange*2",
+  "apple*2+carrot*1+clay*1",
+  "apple*2+carrot*2",
+  "apple*2+textbook*1+banana*1",
+  "water1L*1"
+ ]
+}

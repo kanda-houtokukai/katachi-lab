@@ -381,6 +381,62 @@
    "approx": false,
    "verified": true,
    "src": "1km＝1000m（定義）"
+  },
+  {
+   "id": "cup-s",
+   "name": "ちいさい コップ",
+   "vol_ml": 100,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（コップ なんばいぶん。およその値）"
+  },
+  {
+   "id": "bowl",
+   "name": "ボウル",
+   "mass_g": 200,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（入れ物ごと はかって 正味を出す。およその値）"
+  },
+  {
+   "id": "sponge",
+   "name": "スポンジ",
+   "mass_g": 20,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（大きいのに軽い物。およその値）"
+  },
+  {
+   "id": "ironball",
+   "name": "てつの たま",
+   "mass_g": 110,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（小さいのに重い物。およその値）"
+  },
+  {
+   "id": "child3",
+   "name": "3年生 ひとり",
+   "mass_g": 27000,
+   "approx": true,
+   "verified": false,
+   "src": "学校保健統計調査（文部科学省）8〜9歳の平均体重（およその値・要確認）"
+  },
+  {
+   "id": "tsumiki",
+   "name": "つみき",
+   "mass_g": 20,
+   "approx": true,
+   "verified": false,
+   "src": "教科書の例（任意単位：つみき いくつ分。およその値）"
+  },
+  {
+   "id": "tablet",
+   "name": "くすり 1つぶ",
+   "mass_g": 0.2,
+   "approx": true,
+   "verified": false,
+   "src": "学習指導要領解説の例（薬の箱に書いてある mg）。およその値"
   }
  ]
 }
