@@ -32,6 +32,20 @@ test('一度開いたあと、ネットを切って再読み込みしても、�
       assert.ok(st.ok && st.n > 0, `${u} ${m} の 3D`);
       await h.shot(`offline-${u}`);
     }
+    // 量の単元（2D の舞台・基準物・ずかん）もネットなしで動く
+    const hk = JSON.parse(readFileSync(new URL('../../app/units/index.json', import.meta.url))).units.filter(u => u.owner === 'hakaru' && u.ready).map(u => u.id);
+    for (const u of hk) {
+      await h.page.evaluate(u => window.__katachi.openUnit(u, 'sawaru', { act: 0 }), u);
+      await h.page.waitForTimeout(1500);
+      const st = await h.page.evaluate(() => ({ flat: document.getElementById('flat').childElementCount, mode: window.__katachi.A.mode }));
+      assert.ok(st.flat > 0, `${u} の 2D の舞台`);
+      await h.page.evaluate(() => window.__katachi.setMode('zukan'));
+      await h.page.waitForTimeout(500);
+      assert.ok(await h.page.evaluate(() => !document.getElementById('zukanSheet').hidden && document.getElementById('zBody').textContent.length > 0), `${u} のずかん`);
+      await h.page.evaluate(() => document.getElementById('zClose').click());
+    }
+    const bn = await h.page.evaluate(async () => (await (await fetch('data/benchmarks.json')).json()).items.length);
+    assert.ok(bn >= 30, '基準物がネットなしで読める');
     // 字体（Google Fonts）は外から読むので、オフラインでは読めない（端末の丸ゴシックに落ちる）。それ以外のエラーがないこと
     const errs = h.errors.filter(e => !/fonts\.(googleapis|gstatic)\.com|ERR_INTERNET_DISCONNECTED|Failed to load resource/.test(e));
     assert.deepEqual(errs, []);

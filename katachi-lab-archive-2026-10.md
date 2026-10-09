@@ -70,3 +70,9 @@
 - オフライン（`tests/e2e/offline.test.mjs`）と、単元を足す方法（`tests/e2e/extend.test.mjs`。試しの単元は確かめたあと消した）を追加。
 - 休けいの合図は、テスト用ののぞき口（`addUsage`）で利用時間を進めて確認。
 - SHA：fb07e3b（push なし）
+
+### 記録 2026-10-09 公開済みの反映・D17・Playwright を自前に（Code）
+- 公開：ユーザーが push と Pages を実行。本番で地図・noindex・robots.txt・service worker・図鑑の総数（4年94・5年610・中1 73）を Chat で確認済み。Code からも robots.txt・noindex・sw.js（200）を取得して一致を確認。
+- [DECISION] D17 読み上げは端末の音声のまま。Gemini TTS（Google Cloud TTS の Gemini TTS を含む）は使わない（`docs/decisions.md`）。
+- Playwright 1.63.0 を devDependencies に（node_modules は .gitignore 済み）。`tools/pw.mjs` はこのリポジトリの node_modules を使うことを確認。npm test 20件・E2E r2 4件 PASS。
+- SHA：b62a178（push 済み）
